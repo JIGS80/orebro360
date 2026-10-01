@@ -456,6 +456,8 @@ const OMAT=[
 ];
 const omFmt=(m,v)=>v==null?'–':fmt(v,m.d)+m.u;
 function pathBox(d){let x=0,y=0,x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;d.replace(/([Ml])(-?\d+) (-?\d+)/g,(_,c,a,b)=>{a=+a;b=+b;if(c==='M'){x=a;y=b}else{x+=a;y+=b}x0=Math.min(x0,x);y0=Math.min(y0,y);x1=Math.max(x1,x);y1=Math.max(y1,y)});return [x0,y0,x1,y1]}
+/* Rubriktext utan ⓘ, med årtalet som " · 2025" (årtalet står på egen rad i rutan) */
+function etikett(l){if(!l)return '';const c=l.cloneNode(true);c.querySelectorAll('.info-knapp').forEach(x=>x.remove());c.querySelectorAll('.ar').forEach(x=>{x.textContent=' · '+x.textContent});return c.textContent.replace(/\s+/g,' ').trim()}
 const omAr=k=>OM&&OM.matt&&OM.matt[k]?OM.matt[k].ar:'';
 /* ⓘ-knapp: visar vad som mäts, för vilka, när och källan. Texterna kommer från OM.matt (bygg_data.py, OMR_MATT). */
 function infoKnapp(k,namn){return OM&&OM.matt&&OM.matt[k]?`<button type="button" class="info-knapp" data-info="${k}" aria-expanded="false" aria-label="Vad betyder ${esc(namn)}?" title="Vad betyder siffran?"></button>`:''}
@@ -471,7 +473,7 @@ document.addEventListener('click',e=>{
     rad.querySelectorAll('.info-knapp[aria-expanded="true"]').forEach(x=>x.setAttribute('aria-expanded','false'));
     if(oppen){if(p)p.remove();return}
     if(!p){p=document.createElement('div');p.className='info-panel';rad.after(p)}
-    p.id='info-'+k;p.innerHTML=`<div class="info-panel-h"><b>${esc((stat.querySelector('.label')?.textContent||'').trim())}</b><button type="button" class="info-stang" aria-label="Stäng förklaringen"><span aria-hidden="true">×</span></button></div>`+infoRuta(k);
+    p.id='info-'+k;p.innerHTML=`<div class="info-panel-h"><b>${esc(etikett(stat.querySelector('.label')))}</b><button type="button" class="info-stang" aria-label="Stäng förklaringen"><span aria-hidden="true">×</span></button></div>`+infoRuta(k);
     b.setAttribute('aria-controls',p.id);b.setAttribute('aria-expanded','true');
     const r=p.getBoundingClientRect();if(r.bottom>innerHeight)p.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});return}
   const host=b.closest('.strip')||b.parentElement;let r=host.querySelector(':scope > .info-ruta'); // listor: förklaringen under raden
@@ -1114,7 +1116,7 @@ function renderMitt(){
   $('#mi-lead').textContent=`Ett av Örebros 36 områden, med ${fmt(m.inv)} invånare. Här har vi samlat det viktigaste nära dig. Allt annat på sidan finns kvar som vanligt.`;
   // nyckeltal
   const M=kk=>OMAT.find(x=>x.k===kk);
-  const tile=(l,v,s,k)=>`<div class="stat"><span class="label">${esc(l)}${k&&omAr(k)?'\u00a0·\u00a0'+omAr(k):''}${k?infoKnapp(k,l):''}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
+  const tile=(l,v,s,k)=>`<div class="stat"><span class="label"><span class="lt">${esc(l)}${k&&omAr(k)?`<span class="ar">${omAr(k)}</span>`:''}</span>${k?infoKnapp(k,l):''}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
   const d=m.inv_forra!=null?m.inv-m.inv_forra:null;
   const t=[tile('Invånare',fmt(m.inv),d!=null?`${d>0?'+':d<0?'−':'±'}${fmt(Math.abs(d))} jämfört med ${m.inv_ar-1}`:'','inv')];
   [['inkomst','Ekonomisk standard'],['barnfam','Barnfamiljer'],['aldre','65 år och äldre'],['hyres','Hyresrätter']].forEach(([kk,l])=>{const d=M(kk);if(o[kk]!=null)t.push(tile(l,omFmt(d,o[kk]),`${kk==='inkomst'?'median per person och år · ':''}hela kommunen ${omFmt(d,K[kk])}`,kk))});
@@ -1370,7 +1372,7 @@ function initDela(){
   document.addEventListener('click',e=>{const b=e.target.closest('[data-dela-url]');if(b){e.preventDefault();delaLank(b)}});
   document.addEventListener('click',e=>{const b=e.target.closest('.dela-knapp');if(!b)return;e.preventDefault();const s=b.closest('.stat');
     const tx=q=>(s.querySelector(q)?.textContent||'').trim();const sida=document.querySelector('h1.sida-h')?.textContent.trim()||'';
-    const et=tx('.label'),tema=(document.querySelector('.sec-head .label')?.textContent||'').trim();
+    const et=etikett(s.querySelector('.label')),tema=(document.querySelector('.sec-head .label')?.textContent||'').trim();
     delaOppna({etikett:SIDA==='mitt'&&miVisad?(OM.omraden.find(o=>o.kod===miVisad)?.namn+' · '+et):tema&&tema.toLowerCase()!==et.toLowerCase()?tema+' · '+et:et,varde:tx('.v'),text:tx('.s')||sida,kalla:DELA_KALLA[SIDA]||'',lank:SIDA==='mitt'&&miVisad?'mitt.html#'+miVisad:''})});
   delaKnappar();
   try{new MutationObserver(m=>{if(m.some(r=>r.addedNodes.length)){delaKnappar();m.forEach(r=>r.addedNodes.forEach(n=>hopEnheter(n)))}}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true})}catch(e){}
