@@ -442,20 +442,29 @@ function initSkolor(){
 /* ===== Områden ===== */
 let OM,omSel,omMat='inkomst',omZoom='stad',omBox={};
 const OMAT=[
-  {k:'inkomst',l:'Medianinkomst',u:' tkr',d:0,s:'ekonomisk standard per person och år, 2024'},
-  {k:'lag_ek',l:'Låg ekonomisk standard',u:' %',d:0,s:'andel av invånarna, 2024'},
-  {k:'hogskola',l:'Eftergymnasial utbildning',u:' %',d:0,s:'andel av 25–65-åringarna, 2025'},
-  {k:'syss',l:'Sysselsatta',u:' %',d:0,s:'andel av 20–64-åringarna som har jobb, 2024'},
-  {k:'utl',l:'Utländsk bakgrund',u:' %',d:0,s:'utrikes födda eller båda föräldrarna utrikes födda, 2025'},
-  {k:'barnfam',l:'Barnfamiljer',u:' %',d:0,s:'andel av hushållen, 2025'},
-  {k:'barn',l:'Barn och unga, 0–19 år',u:' %',d:0,s:'andel av invånarna, 2025'},
-  {k:'aldre',l:'65 år och äldre',u:' %',d:0,s:'andel av invånarna, 2025'},
-  {k:'hyres',l:'Hyresrätter',u:' %',d:0,s:'andel av lägenheterna, 2025'},
-  {k:'bilar',l:'Bilar per 1 000 invånare',u:'',d:0,s:'personbilar i trafik, 2025'},
-  {k:'tathet',l:'Invånare per km²',u:'',d:0,s:'landareal, 2025'},
+  {k:'inkomst',l:'Medianinkomst',u:' tkr',d:0,s:'ekonomisk standard per person och år'},
+  {k:'lag_ek',l:'Låg ekonomisk standard',u:' %',d:0,s:'andel av invånarna'},
+  {k:'hogskola',l:'Eftergymnasial utbildning',u:' %',d:0,s:'andel av 25–65-åringarna'},
+  {k:'syss',l:'Sysselsatta',u:' %',d:0,s:'andel av 20–64-åringarna som har jobb'},
+  {k:'utl',l:'Utländsk bakgrund',u:' %',d:0,s:'utrikes födda eller båda föräldrarna utrikes födda'},
+  {k:'barnfam',l:'Barnfamiljer',u:' %',d:0,s:'andel av hushållen'},
+  {k:'barn',l:'Barn och unga, 0–19 år',u:' %',d:0,s:'andel av invånarna'},
+  {k:'aldre',l:'65 år och äldre',u:' %',d:0,s:'andel av invånarna'},
+  {k:'hyres',l:'Hyresrätter',u:' %',d:0,s:'andel av lägenheterna'},
+  {k:'bilar',l:'Bilar per 1 000 invånare',u:'',d:0,s:'personbilar i trafik'},
+  {k:'tathet',l:'Invånare per km²',u:'',d:0,s:'landareal'},
 ];
 const omFmt=(m,v)=>v==null?'–':fmt(v,m.d)+m.u;
 function pathBox(d){let x=0,y=0,x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;d.replace(/([Ml])(-?\d+) (-?\d+)/g,(_,c,a,b)=>{a=+a;b=+b;if(c==='M'){x=a;y=b}else{x+=a;y+=b}x0=Math.min(x0,x);y0=Math.min(y0,y);x1=Math.max(x1,x);y1=Math.max(y1,y)});return [x0,y0,x1,y1]}
+const omAr=k=>OM&&OM.matt&&OM.matt[k]?OM.matt[k].ar:'';
+/* ⓘ-knapp: visar vad som mäts, för vilka, när och källan. Texterna kommer från OM.matt (bygg_data.py, OMR_MATT). */
+function infoKnapp(k,namn){return OM&&OM.matt&&OM.matt[k]?`<button type="button" class="info-knapp" data-info="${k}" aria-expanded="false" aria-label="Vad betyder ${esc(namn)}?" title="Vad betyder siffran?"></button>`:''}
+function infoRuta(k){const d=OM.matt[k];return `<div class="info-ruta" role="note"><dl><dt>Vad mäts</dt><dd>${esc(d.vad)}</dd><dt>För vilka</dt><dd>${esc(d.vem)}</dd><dt>När</dt><dd>${esc(d.nar)}</dd><dt>Källa</dt><dd><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.kalla)}</a></dd></dl></div>`}
+document.addEventListener('click',e=>{const b=e.target.closest('.info-knapp');if(!b)return;e.preventDefault();
+  const host=b.closest('.strip,.stat')||b.parentElement;let r=host.querySelector(':scope > .info-ruta');
+  if(r){r.remove();b.setAttribute('aria-expanded','false');return}
+  const tmp=document.createElement('div');tmp.innerHTML=infoRuta(b.dataset.info);r=tmp.firstChild;
+  const s=host.querySelector(':scope > .s, :scope > .sub');(s||host.lastElementChild).after(r);b.setAttribute('aria-expanded','true')});
 function omMatDef(){const m=OMAT.find(m=>m.k===omMat);return {...m,get:o=>o[m.k]}}
 function quantBreaks(vals){const v=vals.filter(x=>x!=null).sort((a,b)=>a-b);if(!v.length)return [];return [.2,.4,.6,.8].map(q=>v[Math.min(v.length-1,Math.floor(q*v.length))])}
 function renderOmMap(){
@@ -477,7 +486,7 @@ function renderOmMap(){
   if(s){el('path',{d:s.svg,class:'seloutline','fill-rule':'evenodd'},svg);
     OM.skolpos.filter(p=>s.skolor.includes(p[0])).forEach(p=>el('circle',{cx:p[1],cy:p[2],r:5*scale,class:'sk'},svg));
     const t=el('text',{x:s.lx,y:s.ly-9*scale,'text-anchor':'middle',class:'lbl',style:`font-size:${14*scale}px;stroke-width:${4*scale}px`},svg);t.textContent=s.namn}
-  $('#om-map-title').textContent=M.l;
+  $('#om-map-title').textContent=M.l+(omAr(M.k)?' '+omAr(M.k):'');
   const lo=Math.min(...items.map(M.get).filter(v=>v!=null)),hi=Math.max(...items.map(M.get).filter(v=>v!=null));
   const edges=[lo,...br,hi];
   $('#om-legend').innerHTML=[1,2,3,4,5].map(i=>`<span><i class="sw" style="background:var(--q${i})"></i>${fmt(edges[i-1],M.d)}–${fmt(edges[i],M.d)}${M.u}</span>`).join('')+`<span><i class="sw" style="background:var(--surface);border:2px solid var(--ink)"></i>valt område</span>`+(s&&s.skolor.length?`<span><i class="sw" style="border-radius:50%;background:var(--surface);border:1.5px solid var(--ink);width:10px;height:10px"></i>skola</span>`:'');
@@ -487,7 +496,7 @@ function strip(m,o){
   const vals=OM.omraden.map(x=>x[m.k]).filter(v=>v!=null);const lo=Math.min(...vals,OM.kommun[m.k]??Infinity),hi=Math.max(...vals,OM.kommun[m.k]??-Infinity);
   const x=v=>((v-lo)/((hi-lo)||1)*100).toFixed(2)+'%';const v=o[m.k],k=OM.kommun[m.k],r=OM.riket[m.k];
   const rank=v==null?null:OM.omraden.filter(z=>z[m.k]!=null&&z[m.k]>v).length+1;
-  return `<div class="strip"><div class="top"><span>${m.l}</span><b>${omFmt(m,v)}</b></div>
+  return `<div class="strip"><div class="top"><span>${m.l}${omAr(m.k)?` <span class="ar">· ${omAr(m.k)}</span>`:''}${infoKnapp(m.k,m.l)}</span><b>${omFmt(m,v)}</b></div>
     <div class="sc" title="Lägst ${omFmt(m,Math.min(...vals))}, högst ${omFmt(m,Math.max(...vals))}"><span class="base"></span>${vals.map(z=>`<span class="t" style="left:${x(z)}"></span>`).join('')}${k!=null?`<span class="k" style="left:${x(k)}"></span>`:''}${v!=null?`<span class="me" style="left:${x(v)}"></span>`:''}</div>
     <span class="sub">${esc(m.s)} · Örebro ${omFmt(m,k)}${r!=null?' · Sverige '+omFmt(m,r):''}${rank?` · plats ${rank} av ${vals.length}`:''}</span></div>`;
 }
@@ -500,7 +509,7 @@ function renderOm(){
   const inv=o.bef[o.bef.length-1][1];
   $('#om-namn').textContent=o.namn;
   $('#om-mitt').innerHTML=(miHamta()===o.kod?`${miTag('Ditt område')} <a href="mitt.html">Se Mitt Örebro</a>`:`<button type="button" class="knapp-l liten" data-spara>Spara som mitt område</button>`)+delaLankKnapp('dela/o/'+o.kod+'.html',o.namn+' i siffror','Dela området');
-  $('#om-sum').textContent=`${fmt(inv)} invånare (${fmt(inv/K.bef[K.bef.length-1][1]*100,1)} % av kommunen) · ${o.hushall?fmt(o.hushall)+' hushåll · ':''}${o.km2!=null?fmt(o.km2,o.km2<10?1:0)+' km²':''}`;
+  $('#om-sum').textContent=`${fmt(inv)} invånare ${omAr('inv')} (${fmt(inv/K.bef[K.bef.length-1][1]*100,1)} % av kommunen) · ${o.hushall?fmt(o.hushall)+' hushåll · ':''}${o.km2!=null?fmt(o.km2,o.km2<10?1:0)+' km²':''}`;
   $('#om-strips').innerHTML=OMAT.map(m=>strip(m,o)).join('');
   // val
   const v=o.val;const order=['S','M','SD','V','C','KD','L','MP','ÖrP'];
@@ -1092,11 +1101,11 @@ function renderMitt(){
   $('#mi-lead').textContent=`Ett av Örebros 36 områden, med ${fmt(m.inv)} invånare. Här har vi samlat det viktigaste nära dig. Allt annat på sidan finns kvar som vanligt.`;
   // nyckeltal
   const M=kk=>OMAT.find(x=>x.k===kk);
-  const tile=(l,v,s)=>`<div class="stat"><span class="label">${esc(l)}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
+  const tile=(l,v,s,k)=>`<div class="stat"><span class="label">${esc(l)}${k&&omAr(k)?' · '+omAr(k):''}${k?infoKnapp(k,l):''}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
   const d=m.inv_forra!=null?m.inv-m.inv_forra:null;
-  const t=[tile('Invånare',fmt(m.inv),`${m.inv_ar}${d!=null?`, ${d>0?'+':d<0?'−':'±'}${fmt(Math.abs(d))} på ett år`:''}`)];
-  [['inkomst','Medianinkomst'],['barnfam','Barnfamiljer'],['aldre','65 år och äldre'],['hyres','Hyresrätter']].forEach(([kk,l])=>{const d=M(kk);if(o[kk]!=null)t.push(tile(l,omFmt(d,o[kk]),`hela kommunen ${omFmt(d,K[kk])}`))});
-  if(o.val)t.push(tile('Röstade i valet',fmt(o.val.deltagande,1)+' %',`hela kommunen ${VAL?fmt(VAL.deltagande,1)+' %':'–'}`));
+  const t=[tile('Invånare',fmt(m.inv),d!=null?`${d>0?'+':d<0?'−':'±'}${fmt(Math.abs(d))} jämfört med ${m.inv_ar-1}`:'','inv')];
+  [['inkomst','Medianinkomst'],['barnfam','Barnfamiljer'],['aldre','65 år och äldre'],['hyres','Hyresrätter']].forEach(([kk,l])=>{const d=M(kk);if(o[kk]!=null)t.push(tile(l,omFmt(d,o[kk]),`hela kommunen ${omFmt(d,K[kk])}`,kk))});
+  if(o.val)t.push(tile('Röstade i valet',fmt(o.val.deltagande,1)+' %',`hela kommunen ${VAL?fmt(VAL.deltagande,1)+' %':'–'}`,'val'));
   $('#mi-kpis').innerHTML=t.join('');
   // restauranger
   $('#mi-rk-s').textContent='i ditt område';
@@ -1219,7 +1228,7 @@ function giBonus(){ // en extra fråga om besökarens eget område, om hon har v
   const [y,m]=GI.utgava.split('-').map(Number);const val=M.filter(x=>o[x[0]]!=null);if(!val.length)return null;const x=val[(y*12+m)%val.length];
   const d=OMAT.find(z=>z.k===x[0]);
   return {id:'bonus_'+x[0],bonus:true,fraga:x[1].replace('{n}',o.namn),enhet:x[2],min:x[3],max:x[4],steg:x[5],dec:x[6],svar:o[x[0]],
-    text:`${o.namn}: ${omFmt(d,o[x[0]])}. Hela kommunen: ${omFmt(d,OM.kommun[x[0]])}. ${d.s.charAt(0).toUpperCase()+d.s.slice(1)}.`,lank:'mitt.html',kalla:'SCB'}
+    text:`${o.namn}: ${omFmt(d,o[x[0]])}. Hela kommunen: ${omFmt(d,OM.kommun[x[0]])}. ${d.s.charAt(0).toUpperCase()+d.s.slice(1)}${omAr(x[0])?', '+omAr(x[0]):''}.`,lank:'mitt.html',kalla:'SCB'}
 }
 function giProg(){$('#gi-prog').innerHTML=giLista.map((q,i)=>{const s=giSvar[q.id];const p=s!=null?giPoang(q,s):null;
   return `<span class="gi-dot${i===giI?' nu':''}${p!=null?' klar':''}" title="Fråga ${i+1}${q.bonus?' (bonus)':''}${p!=null?': '+p+' poäng':''}">${p!=null?p:i+1}</span>`}).join('')}

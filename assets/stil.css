@@ -900,3 +900,23 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .till-toppen:hover{border-color:var(--accent);color:var(--accent-text)}
 .till-toppen svg{width:20px;height:20px}
 @media (prefers-reduced-motion:reduce){.till-toppen{transition:none}}
+
+/* ===== ⓘ-knappen: vad som mäts, för vilka, när och källan ===== */
+.info-knapp{position:relative;display:inline-grid;place-items:center;width:19px;height:19px;margin-left:6px;vertical-align:-3px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--accent) 60%,var(--line));background:var(--surface);color:var(--accent-text);cursor:pointer;padding:0;flex:none}
+.info-knapp::before{content:"i";font:700 .74rem/1 Georgia,serif;font-style:italic}
+.info-knapp::after{content:"";position:absolute;inset:-9px}
+.info-knapp:hover,.info-knapp[aria-expanded="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.stat .label .info-knapp{margin-left:5px;vertical-align:-4px}
+.strip .top .ar,.mi-kpis .ar{color:var(--muted);font-weight:400}
+.info-ruta{margin-top:6px;padding:10px 12px;border-radius:8px;background:var(--accent-soft);font-size:.86rem;line-height:1.45;color:var(--ink);text-transform:none;letter-spacing:normal;font-weight:400}
+.info-ruta dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.info-ruta dt{font-weight:650;color:var(--ink2)}
+.info-ruta dd{margin:0}
+.info-ruta a{color:var(--accent-text)}
+.stat .info-ruta dl{grid-template-columns:1fr;gap:1px}
+.stat .info-ruta dd{margin-bottom:5px}
+@media (max-width:600px){.info-ruta dl{grid-template-columns:1fr;gap:1px}.info-ruta dd{margin-bottom:5px}}
+.stats>.stat:has(> .info-ruta){grid-column:1/-1}
+.stats>.stat:has(> .info-ruta) .info-ruta dl{grid-template-columns:auto 1fr;gap:4px 12px}
+.stats>.stat:has(> .info-ruta) .info-ruta dd{margin-bottom:0}
+@media (max-width:600px){.stats>.stat:has(> .info-ruta) .info-ruta dl{grid-template-columns:1fr;gap:1px}.stats>.stat:has(> .info-ruta) .info-ruta dd{margin-bottom:5px}}
