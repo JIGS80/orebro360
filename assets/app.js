@@ -1411,6 +1411,16 @@ function initVatten(){
 }
 
 
+/* ===== Status på Om-sidan: hur gamla är uppgifterna? ===== */
+const STATUS_SIDA={restauranger:'restauranger.html',pengar:'pengar.html',befolkning:'befolkning.html',vader:'vader.html',vatten:'vatten.html',vard:'vard.html',handel:'handel.html',skolor:'skolor.html',omrade:'omrade.html',jamfor:'jamfor.html',manaden:'manaden.html',gissa:'gissa.html',valet:'valet.html'};
+function renderStatus(S){
+  const idag=new Date();idag.setHours(0,0,0,0);
+  $('#st-tab tbody').innerHTML=S.rader.map(r=>{const d=r.hamtad?new Date(r.hamtad+'T00:00:00'):null;const dagar=d?Math.round((idag-d)/864e5):null;
+    const sen=r.max_dagar!=null&&(dagar==null||dagar>r.max_dagar);
+    const st=r.max_dagar==null?['inget','Klar']:sen?['ej','Försenad']:['ok','Aktuell'];
+    return `<tr${sen?' class="st-sen"':''}><td><a href="${STATUS_SIDA[r.tema]||'#'}">${esc(r.namn)}</a></td><td class="hide-sm">${esc(r.kalla)}</td><td>${r.hamtad?vtDag(r.hamtad):'–'}${dagar!=null&&dagar>1?`<span class="sub">${dagar} dagar sedan</span>`:''}</td><td class="hide-sm">${esc(r.period||'')}</td><td><span class="vt-st vt-st-${st[0]}">${st[1]}</span></td></tr>`}).join('');
+}
+
 /* ===== Sidladdning: varje sida hämtar bara sin egen data (body data-sida) ===== */
 let BEF,VAL,rt;
 const SIDA=document.body.dataset.sida;
@@ -1447,6 +1457,9 @@ function renderStart(S){
   switch(SIDA){
   case 'vatten':
     try{[VT,OM]=await Promise.all([load('vatten'),load('omraden').catch(()=>null)]);initVatten()}catch(e){console.error(e);felText('#vt-lead','Kunde inte läsa in vattendatan.')}
+    break;
+  case 'om':
+    try{renderStatus(await load('status'))}catch(e){console.error(e);felText('#st-tab tbody','Kunde inte läsa in statusen.')}
     break;
   case 'gissa':
     try{[GI,OM]=await Promise.all([load('gissa'),miHamta()?load('omraden').catch(()=>null):null]);initGissa()}catch(e){console.error(e);felText('#gi-kort','Kunde inte läsa in frågorna. Ladda om sidan.')}
