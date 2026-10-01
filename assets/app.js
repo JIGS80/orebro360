@@ -509,7 +509,7 @@ function strip(m,o){
   const vals=OM.omraden.map(x=>x[m.k]).filter(v=>v!=null);const lo=Math.min(...vals,OM.kommun[m.k]??Infinity),hi=Math.max(...vals,OM.kommun[m.k]??-Infinity);
   const x=v=>((v-lo)/((hi-lo)||1)*100).toFixed(2)+'%';const v=o[m.k],k=OM.kommun[m.k],r=OM.riket[m.k];
   const rank=v==null?null:OM.omraden.filter(z=>z[m.k]!=null&&z[m.k]>v).length+1;
-  return `<div class="strip"><div class="top"><span>${m.l}${omAr(m.k)?` <span class="ar">· ${omAr(m.k)}</span>`:''}${infoKnapp(m.k,m.l)}</span><b>${omFmt(m,v)}</b></div>
+  return `<div class="strip"><div class="top"><span>${m.l}${omAr(m.k)?`<span class="ar">\u00a0·\u00a0${omAr(m.k)}</span>`:''}${infoKnapp(m.k,m.l)}</span><b>${omFmt(m,v)}</b></div>
     <div class="sc" title="Lägst ${omFmt(m,Math.min(...vals))}, högst ${omFmt(m,Math.max(...vals))}"><span class="base"></span>${vals.map(z=>`<span class="t" style="left:${x(z)}"></span>`).join('')}${k!=null?`<span class="k" style="left:${x(k)}"></span>`:''}${v!=null?`<span class="me" style="left:${x(v)}"></span>`:''}</div>
     <span class="sub">${esc(m.s)} · Örebro ${omFmt(m,k)}${r!=null?' · Sverige '+omFmt(m,r):''}${rank?` · plats ${rank} av ${vals.length}`:''}</span></div>`;
 }
@@ -1109,22 +1109,22 @@ function renderMitt(){
   miKarta();
   $('#mi-kpis').hidden=!o;$('#mi-innehall').hidden=!o;
   if(!o){$('#mi-h').textContent='Ditt Örebro, samlat på ett ställe';
-    $('#mi-lead').textContent='Välj området där du bor, så samlar vi det viktigaste nära dig: hur området ser ut, de senaste restaurangkontrollerna och skolorna och vårdcentralerna närmast. Resten av sidan ser ut som vanligt.';return}
+    $('#mi-lead').textContent='Välj området där du bor, så samlar vi det viktigaste nära dig: hur området ser ut, de senaste livsmedelskontrollerna och skolorna och vårdcentralerna närmast. Resten av sidan ser ut som vanligt.';return}
   $('#mi-h').innerHTML=`${esc(o.namn)} ${delaLankKnapp('dela/o/'+o.kod+'.html',o.namn+' i siffror','Dela')}`;
   $('#mi-lead').textContent=`Ett av Örebros 36 områden, med ${fmt(m.inv)} invånare. Här har vi samlat det viktigaste nära dig. Allt annat på sidan finns kvar som vanligt.`;
   // nyckeltal
   const M=kk=>OMAT.find(x=>x.k===kk);
-  const tile=(l,v,s,k)=>`<div class="stat"><span class="label">${esc(l)}${k&&omAr(k)?' · '+omAr(k):''}${k?infoKnapp(k,l):''}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
+  const tile=(l,v,s,k)=>`<div class="stat"><span class="label">${esc(l)}${k&&omAr(k)?'\u00a0·\u00a0'+omAr(k):''}${k?infoKnapp(k,l):''}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
   const d=m.inv_forra!=null?m.inv-m.inv_forra:null;
   const t=[tile('Invånare',fmt(m.inv),d!=null?`${d>0?'+':d<0?'−':'±'}${fmt(Math.abs(d))} jämfört med ${m.inv_ar-1}`:'','inv')];
   [['inkomst','Ekonomisk standard'],['barnfam','Barnfamiljer'],['aldre','65 år och äldre'],['hyres','Hyresrätter']].forEach(([kk,l])=>{const d=M(kk);if(o[kk]!=null)t.push(tile(l,omFmt(d,o[kk]),`${kk==='inkomst'?'median per person och år · ':''}hela kommunen ${omFmt(d,K[kk])}`,kk))});
   if(o.val)t.push(tile('Röstade i valet',fmt(o.val.deltagande,1)+' %',`hela kommunen ${VAL?fmt(VAL.deltagande,1)+' %':'–'}`,'val'));
   $('#mi-kpis').innerHTML=t.join('');{const ip=$('#mi-kpis').nextElementSibling;if(ip&&ip.classList.contains('info-panel'))ip.remove()}
   // restauranger
-  $('#mi-rk-s').textContent='i ditt område';
+  $('#mi-rk-s').textContent='restauranger, butiker, skolkök med mera';
   $('#mi-rk-sum').textContent=m.rk90?`Kommunen har gjort ${fmt(m.rk30)} ${m.rk30===1?'kontroll':'kontroller'} i området de senaste 30 dagarna och ${fmt(m.rk90)} de senaste 90 dagarna.`:'Kommunen har inte gjort några kontroller i området de senaste 90 dagarna.';
   $('#mi-rk').innerHTML=m.rk.map(r=>{const [c,txt]=miStatus(r);return `<li><a href="restauranger.html#v=${esc(r.id)}"><b>${esc(r.n)}</b><span class="sub">${esc(r.a||'')}${r.a?' · ':''}${esc(r.r)}, ${rkDatum(r.d)}</span></a><span class="mi-st mi-st-${c}">${txt}</span></li>`}).join('');
-  $('#mi-rk-not').innerHTML=`Den senaste kontrollen för varje verksamhet, med kommunens egna ord. <a href="restauranger.html#omr=${k}">Alla verksamheter i området</a> · uppgifterna hämtades ${rkDatum(MI.rk_uppdaterad)}.`;
+  $('#mi-rk-not').innerHTML=`Den senaste kontrollen för varje verksamhet i området, med kommunens egna ord. Kommunen kontrollerar alla som hanterar livsmedel, även skolor, förskolor och butiker. <a href="restauranger.html#omr=${k}">Alla verksamheter i området</a> · uppgifterna hämtades ${rkDatum(MI.rk_uppdaterad)}.`;
   // skolor
   $('#mi-sk').innerHTML=m.skolor.map(s=>`<li><a href="skolor.html#s${s.c}"><b>${esc(s.n)}</b><span class="sub">${[s.ak?'åk '+s.ak:'',HM[s.hm]||s.hm,s.merit!=null?'meritvärde '+fmt(s.merit,1):''].filter(Boolean).map(esc).join(' · ')}</span></a><span class="mi-avst">${esc(miAvst(s))}</span></li>`).join('');
   const gy=m.gymn;$('#mi-gy').innerHTML=gy.length?`Gymnasieskolor i området: ${gy.slice(0,4).map(s=>`<a href="skolor.html#s${s.c}">${esc(s.n)}</a>`).join(', ')}${gy.length>4?` och ${gy.length-4} till`:''}.`:'';
@@ -1166,7 +1166,7 @@ async function miRemsa(S){
   if(k){try{await miData();m=MI.omraden[k]}catch(e){}}
   if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').textContent='Var bor du? Välj ditt område, så samlar vi det viktigaste nära dig.';return}
   if(sel)sel.value=k;$('#hitta-lbl').textContent='Ditt område';
-  const vc=m.vc[0];const fakta=[`${fmt(m.inv)} invånare`,`${fmt(m.rk30)} ${m.rk30===1?'restaurangkontroll':'restaurangkontroller'} senaste 30 dagarna`,vc?`närmaste vårdcentral ${vc.n.replace(/ ?vårdcentral ?/i,' ').trim()} (${miAvst(vc)})`:''].filter(Boolean);
+  const vc=m.vc[0];const fakta=[`${fmt(m.inv)} invånare`,`${fmt(m.rk30)} ${m.rk30===1?'livsmedelskontroll':'livsmedelskontroller'} senaste 30 dagarna`,vc?`närmaste vårdcentral ${vc.n.replace(/ ?vårdcentral ?/i,' ').trim()} (${miAvst(vc)})`:''].filter(Boolean);
   host.innerHTML=`<div class="wrap mi-remsa-in"><a class="mi-remsa-txt" href="mitt.html"><span class="label">Ditt område</span><b>${esc(m.namn)}</b><span class="mi-remsa-fakta">${fakta.map(esc).join(' · ')}</span></a>
     <span class="mi-remsa-knappar"><a class="mi-remsa-ga" href="mitt.html">Mitt Örebro →</a><button type="button" data-g="byt">Byt</button><button type="button" data-g="glom">Glöm</button></span></div>`;
   host.hidden=false;
