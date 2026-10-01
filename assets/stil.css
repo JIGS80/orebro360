@@ -832,4 +832,8 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .vt-sw-band{background:color-mix(in srgb,var(--accent) 22%,transparent)}
 .vt-fakta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media (max-width:560px){.vt-fakta{grid-template-columns:minmax(0,1fr)}}
-.stat[data-dela] .label{padding-right:26px}
+/* Dela-knappen: alltid synlig, med ordet Dela, längst ned i rutan (krockar inte med rubriken på smala skärmar) */
+.dela-knapp{position:static;justify-self:start;width:auto;height:auto;display:inline-flex;align-items:center;gap:5px;margin-top:6px;padding:4px 10px 4px 8px;border-radius:999px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));background:var(--accent-soft);color:var(--accent-text);font:600 .82rem var(--f-body);opacity:1}
+.dela-knapp svg{width:15px;height:15px}
+.dela-knapp:hover,.dela-knapp:focus-visible{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (hover:none){.dela-knapp{opacity:1}}

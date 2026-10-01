@@ -1270,7 +1270,7 @@ async function delaOppna(d){
 }
 // en dela-knapp i varje nyckeltalsruta (.stat), även de som ritas senare
 function delaKnappar(rot){(rot||document).querySelectorAll('.stat:not([data-dela])').forEach(s=>{if(!s.querySelector('.v'))return;s.dataset.dela='1';
-  s.insertAdjacentHTML('beforeend','<button type="button" class="dela-knapp" aria-label="Dela den här siffran" title="Dela den här siffran"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 13V3M6 7l4-4 4 4M4 11v5h12v-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>')})}
+  s.insertAdjacentHTML('beforeend','<button type="button" class="dela-knapp" aria-label="Dela den här siffran" title="Dela den här siffran"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 13V3M6 7l4-4 4 4M4 11v5h12v-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dela</span></button>')})}
 const DELA_IKON='<svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true"><path d="M10 13V3M6 7l4-4 4 4M4 11v5h12v-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const delaLankKnapp=(url,titel,txt='Dela')=>`<button type="button" class="dela-lank" data-dela-url="${esc(url)}" data-dela-titel="${esc(titel)}">${DELA_IKON}${esc(txt)}</button>`;
 async function delaLank(b){const url=delaUrl(b.dataset.delaUrl),titel=b.dataset.delaTitel||'Örebro360';
