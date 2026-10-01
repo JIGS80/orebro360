@@ -963,6 +963,19 @@ async function renderLadda(){
     lista.innerHTML=teman.map(t=>`<div class="panel dl-tema" id="d-${t}"><div class="panel-head"><h2 class="sk-h">${esc(TEMA_NAMN[t]||t)}</h2><a class="small" href="${t==='hundra'?'hundra':t}.html">Till sidan →</a></div><ul class="dl-lista">${N.filer.filter(f=>f.tema===t).map(f=>filRad(f,true)).join('')}</ul></div>`).join('')}
 }
 
+/* ===== Menyn: pilar när alla ämnen inte får plats ===== */
+(function(){
+  const nav=document.querySelector('.meny');if(!nav)return;
+  const v=document.querySelector('.meny-pil.vanster'),h=document.querySelector('.meny-pil.hoger');
+  const upd=()=>{const max=nav.scrollWidth-nav.clientWidth;v.hidden=nav.scrollLeft<=4;h.hidden=nav.scrollLeft>=max-4};
+  v.addEventListener('click',()=>nav.scrollBy({left:-nav.clientWidth*.7}));
+  h.addEventListener('click',()=>nav.scrollBy({left:nav.clientWidth*.7}));
+  nav.addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);
+  const akt=nav.querySelector('[aria-current="page"]');
+  if(akt){const l=akt.offsetLeft-nav.offsetLeft;if(l+akt.offsetWidth>nav.clientWidth-40)nav.scrollLeft=l-nav.clientWidth/2+akt.offsetWidth/2}
+  upd();if(document.fonts)document.fonts.ready.then(upd);
+})();
+
 /* ===== Sidladdning: varje sida hämtar bara sin egen data (body data-sida) ===== */
 let BEF,VAL,rt;
 const SIDA=document.body.dataset.sida;

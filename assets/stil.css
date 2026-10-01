@@ -430,13 +430,14 @@ header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;backgrou
 .ikon-o{fill:var(--accent)}
 .brand-ord{font-family:var(--f-display);font-weight:700;font-size:1.3rem;letter-spacing:-.02em;line-height:1}
 .brand-ord b{font-family:var(--f-data);font-weight:500;color:var(--accent-text);letter-spacing:-.04em;margin-left:1px}
-.meny{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1;mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+.meny-ram{position:relative;flex:1;min-width:0;display:flex}
+.meny{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1;scroll-behavior:smooth}
 .meny::-webkit-scrollbar{display:none}
 .meny a{flex:none;text-decoration:none;color:var(--ink2);font-weight:600;font-size:.93rem;padding:6px 11px;border-radius:999px}
 .meny a:hover{color:var(--ink);background:var(--accent-soft)}
 .meny a[aria-current="page"]{background:var(--ink);color:var(--bg)}
-.meny a:last-child{margin-right:24px}
-@media (max-width:760px){.site-rad{flex-wrap:wrap;gap:6px 12px;padding-block:8px 6px}.meny{flex-basis:100%;margin-inline:-6px}}
+.meny a:last-child{margin-right:8px}
+@media (max-width:760px){.site-rad{flex-wrap:wrap;gap:6px 12px;padding-block:8px 6px}.meny-ram{flex-basis:100%;margin-inline:-6px}}
 main{display:block}
 section.theme:first-child{padding-top:36px}
 h1.sida-h{font-size:clamp(1.8rem,4.4vw,2.6rem);letter-spacing:-.015em}
@@ -602,3 +603,11 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 @media (max-width:520px){.data-zip{grid-template-columns:minmax(0,1fr)}}
 #dt-lista{display:grid;gap:18px}
 .dl-tema{scroll-margin-top:80px}
+
+/* pilar som visar att menyn går att skrolla */
+.meny-pil{position:absolute;top:0;bottom:0;z-index:2;display:flex;align-items:center;border:0;padding:0;cursor:pointer;color:var(--ink);font:700 1.5rem/1 var(--f-body);width:52px}
+.meny-pil span{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--surface);border:1px solid var(--line);box-shadow:0 1px 4px rgba(0,0,0,.12);padding-bottom:3px}
+.meny-pil:hover span{border-color:var(--accent);color:var(--accent-text)}
+.meny-pil.hoger{right:0;justify-content:flex-end;background:linear-gradient(90deg,transparent,var(--bg) 45%)}
+.meny-pil.vanster{left:0;justify-content:flex-start;background:linear-gradient(270deg,transparent,var(--bg) 45%)}
+@media (prefers-reduced-motion:no-preference){.meny-pil.hoger:not([hidden]) span{animation:knuff 1.6s ease-in-out 1s 2}@keyframes knuff{50%{transform:translateX(4px)}}}

@@ -25,7 +25,9 @@
 <header class="site">
   <div class="wrap site-rad">
     <a class="brand" href="index.html" aria-label="Örebro360, till förstasidan"><svg class="ikon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M16 1.5v6M16 24.5v6M1.5 16h6" stroke="currentColor" stroke-width="3"/><circle cx="27" cy="16" r="4.5" class="ikon-o"/></svg><span class="brand-ord">Örebro<b>360</b></span></a>
-    <nav class="meny" aria-label="Ämnen">
+    <div class="meny-ram">
+      <button type="button" class="meny-pil vanster" aria-label="Visa fler ämnen till vänster" hidden><span aria-hidden="true">‹</span></button>
+      <nav class="meny" aria-label="Ämnen">
       <a href="omrade.html">Mitt område</a>
       <a href="restauranger.html" aria-current="page">Restaurangkollen</a>
       <a href="skatt.html">Din skatt</a>
@@ -41,7 +43,9 @@
       <a href="manaden.html">Månaden</a>
       <a href="data.html">Ladda ner data</a>
       <a href="om.html">Om sidan</a>
-    </nav>
+      </nav>
+      <button type="button" class="meny-pil hoger" aria-label="Visa fler ämnen till höger" hidden><span aria-hidden="true">›</span></button>
+    </div>
   </div>
 </header>
 <main id="innehall">
