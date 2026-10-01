@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Örebro360</title>
-<meta name="description" content="Örebro i siffror: öppen data om Örebro kommun, samlad och förklarad. Mitt område, restauranger, skolor, vård, vädret och mycket mer.">
+<meta name="description" content="Örebro i siffror: öppen data om Örebro kommun, samlad och förklarad. Ditt område, restauranger, skolor, vård, vädret och mycket mer.">
 <link rel="canonical" href="https://orebro360.se/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sv_SE">
 <meta property="og:site_name" content="Örebro360">
 <meta property="og:title" content="Örebro360">
-<meta property="og:description" content="Örebro i siffror: öppen data om Örebro kommun, samlad och förklarad. Mitt område, restauranger, skolor, vård, vädret och mycket mer.">
+<meta property="og:description" content="Örebro i siffror: öppen data om Örebro kommun, samlad och förklarad. Ditt område, restauranger, skolor, vård, vädret och mycket mer.">
 <meta property="og:url" content="https://orebro360.se/">
 <meta property="og:image" content="https://orebro360.se/assets/dela.png">
 <meta property="og:image:width" content="1200">
@@ -28,7 +28,8 @@
     <div class="meny-ram">
       <button type="button" class="meny-pil vanster" aria-label="Visa fler ämnen till vänster" hidden><span aria-hidden="true">‹</span></button>
       <nav class="meny" aria-label="Ämnen">
-      <a href="omrade.html">Mitt område</a>
+      <a href="mitt.html" class="mitt-lank">Mitt Örebro</a>
+      <a href="omrade.html">Områden</a>
       <a href="restauranger.html">Restaurangkollen</a>
       <a href="skatt.html">Din skatt</a>
       <a href="skolor.html">Skolor</a>
@@ -49,6 +50,8 @@
   </div>
 </header>
 <main id="innehall">
+<div class="mi-remsa" id="mi-remsa" hidden></div>
+
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-text">
@@ -57,10 +60,10 @@
       <p class="tagline">Örebro i siffror</p>
       <p class="lead">Här ser du hur det ser ut där du bor, när restaurangen senast kontrollerades, hur det går i skolorna och vart kommunens pengar går. Allt kommer från öppna källor och uppdateras varje månad.</p>
       <form class="hitta" id="hitta">
-        <label for="hitta-omr">Var bor du?</label>
+        <label for="hitta-omr" id="hitta-lbl">Var bor du?</label>
         <div class="hitta-rad">
           <select id="hitta-omr"><option value="">Välj ditt område</option></select>
-          <button type="submit">Visa mitt område</button>
+          <button type="submit">Visa mitt Örebro</button>
         </div>
       </form>
     </div>
@@ -99,10 +102,10 @@
     <h2 id="teman-rubrik" class="teman-h">Välj ett ämne</h2>
     <div class="tema-grid">
       <a class="tema" href="omrade.html" data-tema="omrade">
-        <span class="tema-namn">Mitt område</span>
+        <span class="tema-namn">Områden</span>
         <span class="v num">&nbsp;</span>
         <span class="s">&nbsp;</span>
-        <span class="tema-text">Inkomster, ålder, boende, skolor och valresultat där du bor.</span>
+        <span class="tema-text">Inkomster, ålder, boende, skolor och valresultat i Örebros 36 områden.</span>
       </a>
       <a class="tema" href="restauranger.html" data-tema="restauranger">
         <span class="tema-namn">Restaurangkollen</span>

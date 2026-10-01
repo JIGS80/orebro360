@@ -298,7 +298,8 @@ function renderSkolor(){
   $('#sk-cmp-chips').innerHTML=ks.map(k=>`<button class="chip" data-id="${k.id}" aria-pressed="${k.id===skCmp[skF]}">${esc(k.titel)}</button>`).join('');
   renderSkCmp();
   renderSkCharts();
-  $('#sk-hm').hidden=!F.hm;if(!F.hm)skHm='';
+  $('#sk-hm').hidden=!F.hm;if(!F.hm||(skF!=='gr'&&skHm==='nara'))skHm='';
+  const nb=$('#sk-hm .chip[data-h="nara"]');if(nb)nb.hidden=skF!=='gr';
   document.querySelectorAll('#sk-hm .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.h===skHm));
   $('#sk-list-title').textContent='Alla '+F.namn;
   skOpen=null;skAll=false;renderSkTable();
@@ -368,14 +369,14 @@ function renderProg(){
 }
 function renderSkTable(){
   const F=FORM[skF];const q=$('#sk-q').value.trim().toLowerCase();
-  const all=F.lista();let L=all.filter(s=>(!skHm||s.hm===skHm)&&(!q||s.n.toLowerCase().includes(q)||(s.org||'').toLowerCase().includes(q)||(s.adr||'').toLowerCase().includes(q)));
+  const all=F.lista();let L=all.filter(s=>(!skHm||(skHm==='nara'?!!miNara&&miNara.skolor.has(s.c):s.hm===skHm))&&(!q||s.n.toLowerCase().includes(q)||(s.org||'').toLowerCase().includes(q)||(s.adr||'').toLowerCase().includes(q)));
   const st=skSort[skF]||(skSort[skF]={k:skF==='fo'?'n':F.cols[1].k,dir:skF==='fo'?1:-1});
   const col=F.cols.find(c=>c.k===st.k);
   L=L.map(s=>({s,v:F.get(s,st.k)})).sort((a,b)=>{if(col.txt)return st.dir*a.v.localeCompare(b.v,'sv');if(a.v==null&&b.v==null)return a.s.n.localeCompare(b.s.n,'sv');if(a.v==null)return 1;if(b.v==null)return -1;return st.dir*(a.v-b.v)}).map(x=>x.s);
   $('#sk-table thead').innerHTML='<tr>'+F.cols.map(c=>{const y=c.yr?modeYear(all,c.yr):null;
     return `<th class="${c.txt?'':'r'} ${c.cls||''}"><button data-k="${c.k}" ${st.k===c.k?`aria-sort="${st.dir>0?'ascending':'descending'}"`:''}>${c.l}<span class="ar">${st.k===c.k?(st.dir>0?'▲':'▼'):''}</span></button>${y?`<span class="yr">${y}</span>`:''}</th>`}).join('')+'</tr>';
   const cell=(s,c)=>{if(c.txt){const sub=skF==='fo'?'':[HM[s.hm]||s.hm,arskurser(s),lv(s.gr?.elever??s.gy?.elever??s.fsk?.elever)?'ca '+fmt(lv(s.gr?.elever??s.gy?.elever??s.fsk?.elever))+' elever':''].filter(Boolean).join(' · ');
-      return `<td>${esc(s.n)}${sub?`<span class="sub">${esc(sub)}</span>`:''}</td>`}
+      return `<td>${esc(s.n)}${miNara&&miNara.skolor.has(s.c)?miTag('Nära dig'):''}${sub?`<span class="sub">${esc(sub)}</span>`:''}</td>`}
     const v=F.get(s,c.k);if(v==null)return `<td class="r na ${c.cls||''}">–</td>`;
     const t=c.sign?sgn(v):fmt(v,c.d)+(c.u?' '+c.u:'');return `<td class="r ${c.cls||''} ${c.sign?(v>0?'sign-pos':v<0?'sign-neg':''):''}">${t}</td>`};
   const exp=skF!=='fo';const tot=L.length;if(!q&&!skAll&&L.length>25)L=L.slice(0,25);
@@ -425,6 +426,7 @@ function meritChart(host,s){
 function initSkolor(){
   $('#sk-form').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b&&b.dataset.f!==skF){skF=b.dataset.f;renderSkolor()}});
   $('#sk-cmp-chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){skCmp[skF]=b.dataset.id;renderSkCmp()}});
+  if(miNara)$('#sk-hm').insertAdjacentHTML('beforeend','<button class="chip" data-h="nara" aria-pressed="false">Nära dig</button>');
   $('#sk-hm').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){skHm=b.dataset.h;document.querySelectorAll('#sk-hm .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderSkTable()}});
   $('#sk-q').addEventListener('input',renderSkTable);
   $('#sk-more').addEventListener('click',()=>{skAll=true;renderSkTable()});
@@ -437,7 +439,7 @@ function initSkolor(){
 }
 
 
-/* ===== Mitt område ===== */
+/* ===== Områden ===== */
 let OM,omSel,omMat='inkomst',omZoom='stad',omBox={};
 const OMAT=[
   {k:'inkomst',l:'Medianinkomst',u:' tkr',d:0,s:'ekonomisk standard per person och år, 2024'},
@@ -497,6 +499,7 @@ function renderOm(){
   renderOmMap();
   const inv=o.bef[o.bef.length-1][1];
   $('#om-namn').textContent=o.namn;
+  $('#om-mitt').innerHTML=miHamta()===o.kod?`${miTag('Ditt område')} <a href="mitt.html">Se Mitt Örebro</a>`:`<button type="button" class="knapp-l liten" data-spara>Spara som mitt område</button>`;
   $('#om-sum').textContent=`${fmt(inv)} invånare (${fmt(inv/K.bef[K.bef.length-1][1]*100,1)} % av kommunen) · ${o.hushall?fmt(o.hushall)+' hushåll · ':''}${o.km2!=null?fmt(o.km2,o.km2<10?1:0)+' km²':''}`;
   $('#om-strips').innerHTML=OMAT.map(m=>strip(m,o)).join('');
   // val
@@ -548,7 +551,8 @@ function initOm(){
   omStad();
   $('#om-sel').innerHTML=OM.omraden.slice().sort((a,b)=>a.namn.localeCompare(b.namn,'sv')).map(o=>`<option value="${o.kod}">${esc(o.namn)}</option>`).join('');
   $('#om-mat').innerHTML=`${OMAT.map(m=>`<option value="${m.k}">${m.l}</option>`).join('')}`;
-  omSel=(OM.omraden.find(o=>o.namn==='Örebro city')||OM.omraden[0]).kod;
+  const mk=miHamta();omSel=OM.omraden.some(o=>o.kod===mk)?mk:(OM.omraden.find(o=>o.namn==='Örebro city')||OM.omraden[0]).kod;
+  $('#om-mitt').addEventListener('click',e=>{if(e.target.closest('button[data-spara]')){miSpara(omSel);renderOm()}});
   $('#om-sel').addEventListener('change',e=>{omSel=e.target.value;renderOm()});
   $('#om-mat').addEventListener('change',e=>{omMat=e.target.value;renderOmMap()});
   $('#om-zoom').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;omZoom=b.dataset.z;document.querySelectorAll('#om-zoom .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderOmMap()});
@@ -614,7 +618,7 @@ function initVa(){
   $('#va-lead').textContent=`Det finns ${ob.length} vårdcentraler i Örebro kommun och ${VA.vc.length} i hela länet. `+(bO?`${fmt(bO.v,0)} procent av patienterna i regionens primärvård fick en medicinsk bedömning inom tre dagar ${bO.y}, jämfört med ${fmt(bR.v,0)} procent i hela Sverige. `:'')+`Här finns också väntetider, förtroendet för vården, folkhälsan och vad de äldre tycker om hemtjänsten och äldreboendena.`;
   $('#va-tel-per').textContent=vaPer(VA.tel_period);$('#va-npe-ar').textContent=VA.npe_ar;
   $('#va-scope').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){vaScope=b.dataset.s;renderVaVC()}});
-  $('#va-vc tbody').innerHTML=VA.vc.slice().sort((a,b)=>(b.orebro-a.orebro)||a.n.localeCompare(b.n,'sv')).map(v=>`<tr><td><a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.n)}</a><span class="sub">${esc(v.adr||'')}${v.omr_namn?' · område '+esc(v.omr_namn):''}</span></td><td class="r">${v.tel!=null?fmt(v.tel)+' %':'–'}</td><td class="r">${v.npe!=null?fmt(v.npe)+' %':'–'}</td></tr>`).join('');
+  $('#va-vc tbody').innerHTML=VA.vc.slice().sort((a,b)=>(b.orebro-a.orebro)||a.n.localeCompare(b.n,'sv')).map(v=>`<tr><td><a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.n)}</a>${miNara&&miNara.vc.has(v.n)?miTag('Nära dig'):''}<span class="sub">${esc(v.adr||'')}${v.omr_namn?' · område '+esc(v.omr_namn):''}</span></td><td class="r">${v.tel!=null?fmt(v.tel)+' %':'–'}</td><td class="r">${v.npe!=null?fmt(v.npe)+' %':'–'}</td></tr>`).join('');
   // jämförelser
   vaR=R[0].id;vaK=K[0].id;
   $('#va-rchips').innerHTML=R.map(k=>`<button class="chip" data-id="${k.id}" aria-pressed="false">${esc(k.titel)}</button>`).join('');
@@ -774,7 +778,7 @@ function initHd(){
 }
 
 /* ===== Restaurangkollen ===== */
-let RK,rkTyp=()=>{},rkGrp='Restaurang och café',rkSel=null,rkZoom='stad',rkQ='';
+let RK,rkTyp=()=>{},rkGrp='Restaurang och café',rkSel=null,rkZoom='stad',rkQ='',rkOmr=null;
 const RK_TYP={Restaurang:'Restaurang',Café:'Café',Pizzeria:'Pizzeria',Butik:'Butik',Tillagning:'Kök i skola, vård eller omsorg',Buffert:'Producent, distributör eller annat'};
 const RK_ORD=['A','K','Å','S','U'];
 const rkDatum=d=>{const [y,m,dd]=d.split('-');return `${+dd} ${MON[+m-1]} ${y}`};
@@ -782,7 +786,7 @@ const rkNorm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-̧̃]/g,'').normal
 function rkRes(k){return k.res?k.res.split(',').filter(Boolean).map(s=>({nr:s.slice(0,3),c:s.slice(3)})):[]}
 function rkFilter(){
   const q=rkNorm(rkQ.trim());
-  return RK.verksamheter.filter(v=>(rkGrp==='Alla'||RK.grupper[v.t]===rkGrp)&&(!q||v._s.includes(q)));
+  return RK.verksamheter.filter(v=>(rkGrp==='Alla'||RK.grupper[v.t]===rkGrp)&&(!rkOmr||v.o===rkOmr)&&(!q||v._s.includes(q)));
 }
 function rkPills(res){
   const n={};res.forEach(r=>n[r.c]=(n[r.c]||0)+1);
@@ -849,6 +853,10 @@ function initRk(){
   const grp=['Restaurang och café','Butik','Skola, vård och omsorg','Producenter, distributörer och övrigt','Alla'];
   $('#rk-grp').innerHTML=grp.map(g=>`<button class="chip" data-g="${g}" aria-pressed="${g===rkGrp}">${esc(g)}</button>`).join('');
   $('#rk-grp').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;rkGrp=b.dataset.g;document.querySelectorAll('#rk-grp .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderRkList();rkTyp()});
+  const mk=rkOmr||miHamta();
+  if(mk&&RK.omraden[mk]){const c=$('#rk-omr');c.hidden=false;
+    c.innerHTML=`<button class="chip" data-o="" aria-pressed="${!rkOmr}">Hela kommunen</button><button class="chip" data-o="${mk}" aria-pressed="${rkOmr===mk}">${mk===miHamta()?'Mitt område: ':''}${esc(RK.omraden[mk])}</button>`;
+    c.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;rkOmr=b.dataset.o||null;c.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderRkList()})}
   let tmo;$('#rk-q').addEventListener('input',e=>{clearTimeout(tmo);tmo=setTimeout(()=>{rkQ=e.target.value;renderRkList()},120)});
   $('#rk-list').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)rkVal(b.dataset.id,true)});
   $('#rk-zoom').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;rkZoom=b.dataset.z;document.querySelectorAll('#rk-zoom .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderRkMap()});
@@ -950,7 +958,7 @@ function initManaden(){
 }
 
 /* ===== Ladda ner datan ===== */
-const TEMA_NAMN={pengar:'Kommunens pengar',befolkning:'Befolkning',omrade:'Mitt område',jamfor:'Jämför städer',skolor:'Skolor',vard:'Vård och omsorg',handel:'Handeln',restauranger:'Restaurangkollen',vader:'Vädret',valet:'Valet 2026',skatt:'Vart går din skatt?',hundra:'Örebro som 100 personer'};
+const TEMA_NAMN={pengar:'Kommunens pengar',befolkning:'Befolkning',omrade:'Områden',jamfor:'Jämför städer',skolor:'Skolor',vard:'Vård och omsorg',handel:'Handeln',restauranger:'Restaurangkollen',vader:'Vädret',valet:'Valet 2026',skatt:'Vart går din skatt?',hundra:'Örebro som 100 personer'};
 const kbText=kb=>kb>=1024?fmt(kb/1024,1)+' MB':fmt(Math.max(1,kb))+' kB';
 const filRad=(f,kol)=>`<li class="dl-fil"><div><b>${esc(f.titel)}</b><span class="small">${esc(f.beskr)}</span><span class="src">Källa: ${esc(f.kalla)} · ${fmt(f.rader)} rader · ${kbText(f.kb)}</span>${kol?`<details><summary>Kolumner</summary><p class="num small">${f.kolumner.map(esc).join(' · ')}</p></details>`:''}</div><a class="dl-knapp" href="data/csv/${esc(f.fil)}" download>Ladda ner CSV</a></li>`;
 async function renderLadda(){
@@ -976,6 +984,116 @@ async function renderLadda(){
   upd();if(document.fonts)document.fonts.ready.then(upd);
 })();
 
+/* ===== Mitt Örebro: besökarens eget område. Valet sparas bara i webbläsaren (localStorage), aldrig hos oss. ===== */
+const MI_NYCKEL='orebro360.omrade';let miMinne=null,MI=null,miVisad=null;
+function miHamta(){try{const v=localStorage.getItem(MI_NYCKEL);if(v)return v}catch(e){}return miMinne}
+function miSpara(k){miMinne=k;try{localStorage.setItem(MI_NYCKEL,k)}catch(e){}miMeny()}
+function miGlom(){miMinne=null;try{localStorage.removeItem(MI_NYCKEL)}catch(e){}miMeny()}
+function miMeny(){const a=document.querySelector('.meny a.mitt-lank');if(a)a.classList.toggle('har-val',!!miHamta())}
+async function miData(){if(!MI)MI=await load('mitt');return MI}
+const miGiltig=k=>!!(k&&MI&&MI.omraden[k]);
+const miAvst=x=>x.i?'i ditt område':x.km<1?'under 1 km':'ca '+fmt(x.km,x.km<10?1:0)+' km';
+const miStatus=r=>r.p?['vant','Handläggning pågår']:r.avv?['avv',r.avv===1?'1 avvikelse':r.avv+' avvikelser']:['ok','Utan anmärkning'];
+const miTag=t=>`<span class="mi-tag">${esc(t)}</span>`;
+let miNara=null;   // koder/namn som får märket "Nära dig" på ämnessidorna
+async function miNaraLadda(){const k=miHamta();if(!k)return null;try{await miData();const m=MI.omraden[k];if(!m)return null;
+  miNara={kod:k,namn:m.namn,skolor:new Set(m.skolor.map(s=>s.c)),vc:new Set(m.vc.map(v=>v.n))};return miNara}catch(e){return null}}
+
+function miKarta(){
+  const host=$('#mi-karta');host.innerHTML='';const tp=tip(host);
+  const o=OM.omraden.find(x=>x.kod===miVisad),m=o&&MI.omraden[o.kod];
+  let vb;
+  if(o){const b=o._box,w=b[2]-b[0],h=b[3]-b[1];let pad=Math.max(w,h)*.3+60;let x0=b[0]-pad,y0=b[1]-pad,W=w+2*pad,H=h+2*pad;
+    if(W/H<1.25){const nw=H*1.25;x0-=(nw-W)/2;W=nw}else{const nh=W/1.25;y0-=(nh-H)/2;H=nh}vb=[x0,y0,W,H]}
+  else vb=omBox.stad;
+  const svg=el('svg',{viewBox:vb.map(Math.round).join(' '),role:'img','aria-label':o?'Karta över '+o.namn+' med skolor, vårdcentraler och kontrollerade restauranger':'Karta över Örebros områden. Klicka på ditt område.'},host);
+  const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||480);
+  const show=(e,t)=>{const bb=host.getBoundingClientRect();tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
+  OM.omraden.forEach(a=>{const p=el('path',{d:a.svg,class:'mi-a'+(o&&a.kod===o.kod?' mi-a-sel':''),'fill-rule':'evenodd'},svg);
+    p.addEventListener('mousemove',e=>show(e,`<b>${esc(a.namn)}</b>${o&&a.kod===o.kod?'':'<br>Klicka för att välja'}`));p.addEventListener('mouseleave',()=>tp.hidden=true);
+    p.addEventListener('click',()=>{tp.hidden=true;miValj(a.kod)})});
+  if(!o){$('#mi-legend').hidden=true;$('#mi-karta-h').textContent='Klicka på ditt område';$('#mi-karta-s').textContent='eller välj det i listan';return}
+  $('#mi-legend').hidden=false;$('#mi-karta-h').textContent=o.namn;$('#mi-karta-s').textContent='och närmaste omgivning';
+  const pt=(x,y,cls,r,t)=>{const c=el('circle',{cx:x,cy:y,r:r*sc,class:'mi-pt-'+cls},svg);
+    c.addEventListener('mousemove',e=>show(e,t));c.addEventListener('mouseleave',()=>tp.hidden=true)};
+  const sp=Object.fromEntries(OM.skolpos.map(p=>[p[0],p]));
+  m.rk.filter(r=>r.x!=null).forEach(r=>pt(r.x,r.y,'rk',4.5,`<b>${esc(r.n)}</b><br>kontrollerad ${rkDatum(r.d)}`));
+  m.skolor.forEach(s=>{const p=sp[s.c];if(p)pt(p[1],p[2],'sk',5,`<b>${esc(s.n)}</b><br>${esc(miAvst(s))}`)});
+  m.vc.forEach(v=>pt(v.x,v.y,'vc',6,`<b>${esc(v.n)}</b><br>${esc(miAvst(v))}`));
+  const t=el('text',{x:o.lx,y:o.ly,'text-anchor':'middle',class:'mi-lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=o.namn;
+}
+function miValj(k){miVisad=k;miSpara(k);try{history.replaceState(null,'','#'+k)}catch(e){}renderMitt();
+  if(matchMedia('(max-width:900px)').matches)$('#mi-h').scrollIntoView({behavior:'smooth',block:'start'})}
+function renderMitt(){
+  const k=miVisad,o=k&&OM.omraden.find(x=>x.kod===k),m=o&&MI.omraden[k],K=OM.kommun,sparad=miHamta();
+  $('#mi-sel').value=o?k:'';
+  $('#mi-spara').hidden=!o||k===sparad;$('#mi-glom').hidden=!sparad;
+  $('#mi-not').textContent=o&&k!==sparad?`Du tittar på ${o.namn}. Spara det som ditt område så visas det här och på startsidan nästa gång.`:
+    sparad?'Ditt val sparas bara i den här webbläsaren. Vi får aldrig veta vilket område du har valt.':'Valet sparas bara i den här webbläsaren. Vi får aldrig veta vilket område du har valt.';
+  miKarta();
+  $('#mi-kpis').hidden=!o;$('#mi-innehall').hidden=!o;
+  if(!o){$('#mi-h').textContent='Ditt Örebro, samlat på ett ställe';
+    $('#mi-lead').textContent='Välj området där du bor, så samlar vi det viktigaste nära dig: hur området ser ut, de senaste restaurangkontrollerna och skolorna och vårdcentralerna närmast. Resten av sidan ser ut som vanligt.';return}
+  $('#mi-h').textContent=o.namn;
+  $('#mi-lead').textContent=`Ett av Örebros 36 områden, med ${fmt(m.inv)} invånare. Här har vi samlat det viktigaste nära dig. Allt annat på sidan finns kvar som vanligt.`;
+  // nyckeltal
+  const M=kk=>OMAT.find(x=>x.k===kk);
+  const tile=(l,v,s)=>`<div class="stat"><span class="label">${esc(l)}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
+  const d=m.inv_forra!=null?m.inv-m.inv_forra:null;
+  const t=[tile('Invånare',fmt(m.inv),`${m.inv_ar}${d!=null?`, ${d>0?'+':d<0?'−':'±'}${fmt(Math.abs(d))} på ett år`:''}`)];
+  [['inkomst','Medianinkomst'],['barnfam','Barnfamiljer'],['aldre','65 år och äldre'],['hyres','Hyresrätter']].forEach(([kk,l])=>{const d=M(kk);if(o[kk]!=null)t.push(tile(l,omFmt(d,o[kk]),`hela kommunen ${omFmt(d,K[kk])}`))});
+  if(o.val)t.push(tile('Röstade i valet',fmt(o.val.deltagande,1)+' %',`hela kommunen ${VAL?fmt(VAL.deltagande,1)+' %':'–'}`));
+  $('#mi-kpis').innerHTML=t.join('');
+  // restauranger
+  $('#mi-rk-s').textContent='i ditt område';
+  $('#mi-rk-sum').textContent=m.rk90?`Kommunen har gjort ${fmt(m.rk30)} ${m.rk30===1?'kontroll':'kontroller'} i området de senaste 30 dagarna och ${fmt(m.rk90)} de senaste 90 dagarna.`:'Kommunen har inte gjort några kontroller i området de senaste 90 dagarna.';
+  $('#mi-rk').innerHTML=m.rk.map(r=>{const [c,txt]=miStatus(r);return `<li><a href="restauranger.html#v=${esc(r.id)}"><b>${esc(r.n)}</b><span class="sub">${esc(r.a||'')}${r.a?' · ':''}${esc(r.r)}, ${rkDatum(r.d)}</span></a><span class="mi-st mi-st-${c}">${txt}</span></li>`}).join('');
+  $('#mi-rk-not').innerHTML=`Den senaste kontrollen för varje verksamhet, med kommunens egna ord. <a href="restauranger.html#omr=${k}">Alla verksamheter i området</a> · uppgifterna hämtades ${rkDatum(MI.rk_uppdaterad)}.`;
+  // skolor
+  $('#mi-sk').innerHTML=m.skolor.map(s=>`<li><a href="skolor.html#s${s.c}"><b>${esc(s.n)}</b><span class="sub">${[s.ak?'åk '+s.ak:'',HM[s.hm]||s.hm,s.merit!=null?'meritvärde '+fmt(s.merit,1):''].filter(Boolean).map(esc).join(' · ')}</span></a><span class="mi-avst">${esc(miAvst(s))}</span></li>`).join('');
+  const gy=m.gymn;$('#mi-gy').innerHTML=gy.length?`Gymnasieskolor i området: ${gy.slice(0,4).map(s=>`<a href="skolor.html#s${s.c}">${esc(s.n)}</a>`).join(', ')}${gy.length>4?` och ${gy.length-4} till`:''}.`:'';
+  // vård
+  $('#mi-vc-s').textContent=MI.tel_period?`telefonen ${vaPer(MI.tel_period)}`:'';
+  $('#mi-vc').innerHTML=m.vc.map(v=>`<li><a href="${esc(v.url)}" target="_blank" rel="noopener"><b>${esc(v.n)}</b><span class="sub">${esc(v.adr||'')}${v.ort&&!(v.adr||'').includes(v.ort)?', '+esc(v.ort):''}${v.tel!=null?` · telefonen besvarad samma dag ${fmt(v.tel)} %`:''}${v.npe!=null?` · helhetsintryck ${fmt(v.npe)} %`:''}</span></a><span class="mi-avst">${esc(miAvst(v))}</span></li>`).join('')
+    +(MI.tel_snitt!=null?`<li class="mi-ref small">Snitt för länets vårdcentraler: telefonen besvarad samma dag ${fmt(MI.tel_snitt)} %${MI.npe_snitt!=null?`, helhetsintryck ${fmt(MI.npe_snitt)} %`:''}.</li>`:'');
+  // valet
+  const v=o.val;const order=['S','M','SD','V','C','KD','L','MP','ÖrP'];
+  const KORT={S:'Socialdemokraterna',M:'Moderaterna',SD:'Sverigedemokraterna',V:'Vänsterpartiet',C:'Centerpartiet',KD:'Kristdemokraterna',L:'Liberalerna',MP:'Miljöpartiet','ÖrP':'Örebropartiet'};
+  const kAnd=kk=>{const p=(VAL?.partier||[]).find(p=>p.k===kk);return p?p.a:null};
+  if(v){const rows=order.filter(kk=>v.andel[kk]!=null).map(kk=>({k:kk,n:KORT[kk],v:v.andel[kk],kk:kAnd(kk),f:OM.partier[kk]?.f})).sort((a,b)=>b.v-a.v);
+    const mx=Math.max(...rows.map(r=>Math.max(r.v,r.kk||0)));
+    $('#mi-val-sum').textContent=`Största parti: ${rows[0].n}, ${fmt(rows[0].v,1)} %. Baserat på ${v.distrikt} valdistrikt.`;
+    $('#mi-val').innerHTML=`<div class="pbar small" style="color:var(--muted)"><span></span><span></span><span class="v">Område</span><span class="v d">Kommun</span></div>`+rows.map(r=>`<div class="pbar" title="${esc(r.n)}: ${fmt(r.v,1)} % i området, ${r.kk!=null?fmt(r.kk,1):'–'} % i hela kommunen"><span><span class="lng">${esc(r.n)}</span><span class="krt">${esc(r.k)}</span></span><span class="tr"><span class="f" style="width:${r.v/mx*100}%;background:${r.f}"></span>${r.kk!=null?`<span class="k" style="left:${r.kk/mx*100}%"></span>`:''}</span><span class="v">${fmt(r.v,1)}</span><span class="v d">${r.kk!=null?fmt(r.kk,1):'–'}</span></div>`).join('');
+  }else{$('#mi-val-sum').textContent='Inget valdistrikt ligger huvudsakligen i det här området, så vi kan inte visa hur det röstade.';$('#mi-val').innerHTML=''}
+  // vidare
+  const L=[[`omrade.html#${k}`,'Allt om '+o.namn,'Inkomster, ålder, boende och hushåll jämfört med resten av Örebro.'],[`restauranger.html#omr=${k}`,'Restaurangerna i området','Alla livsmedelsverksamheter och deras kontroller.'],
+    ['skatt.html','Vart går din skatt?','Skriv in din lön och se vad kommunalskatten går till.'],['manaden.html','Månadens Örebro','Det senaste i siffror, varje månad.']];
+  $('#mi-vidare').innerHTML=L.map(([h,n,s])=>`<a class="mi-v" href="${h}"><b>${esc(n)}</b><span>${esc(s)}</span></a>`).join('');
+}
+function initMitt(){
+  OM.omraden.forEach(o=>o._box=pathBox(o.svg));omStad();
+  $('#mi-sel').innerHTML='<option value="">Välj ditt område</option>'+OM.omraden.slice().sort((a,b)=>a.namn.localeCompare(b.namn,'sv')).map(o=>`<option value="${o.kod}">${esc(o.namn)}</option>`).join('');
+  const h=hashKod(),s=miHamta();miVisad=miGiltig(h)?h:miGiltig(s)?s:null;
+  $('#mi-sel').addEventListener('change',e=>{if(e.target.value)miValj(e.target.value)});
+  $('#mi-form').addEventListener('submit',e=>e.preventDefault());
+  $('#mi-spara').addEventListener('click',()=>{miSpara(miVisad);renderMitt()});
+  $('#mi-glom').addEventListener('click',()=>{miGlom();miVisad=null;try{history.replaceState(null,'',location.pathname)}catch(e){}renderMitt()});
+  addEventListener('hashchange',()=>{const h=hashKod();if(miGiltig(h)){miVisad=h;renderMitt()}});
+  renderMitt();
+}
+async function miRemsa(S){
+  const host=$('#mi-remsa'),sel=$('#hitta-omr');if(!host)return;
+  const k=miHamta();let m=null;
+  if(k){try{await miData();m=MI.omraden[k]}catch(e){}}
+  if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').textContent='Var bor du?';return}
+  if(sel)sel.value=k;$('#hitta-lbl').textContent='Ditt område';
+  const vc=m.vc[0];const fakta=[`${fmt(m.inv)} invånare`,`${fmt(m.rk30)} ${m.rk30===1?'restaurangkontroll':'restaurangkontroller'} senaste 30 dagarna`,vc?`närmaste vårdcentral ${vc.n.replace(/ ?vårdcentral ?/i,' ').trim()} (${miAvst(vc)})`:''].filter(Boolean);
+  host.innerHTML=`<div class="wrap mi-remsa-in"><a class="mi-remsa-txt" href="mitt.html"><span class="label">Ditt område</span><b>${esc(m.namn)}</b><span class="mi-remsa-fakta">${fakta.map(esc).join(' · ')}</span></a>
+    <span class="mi-remsa-knappar"><a class="mi-remsa-ga" href="mitt.html">Mitt Örebro →</a><button type="button" data-g="byt">Byt</button><button type="button" data-g="glom">Glöm</button></span></div>`;
+  host.hidden=false;
+}
+
+
 /* ===== Sidladdning: varje sida hämtar bara sin egen data (body data-sida) ===== */
 let BEF,VAL,rt;
 const SIDA=document.body.dataset.sida;
@@ -987,7 +1105,7 @@ const RITA={
   vader:()=>{if(VE){renderVeStripes();renderVeCharts()}},
   vard:()=>{if(VA){renderVaVC();vaCmp('va-r',VA.region,vaR,VA.regioner,'0018');vaCmp('va-k',VA.kommun,vaK,VA.kommuner,'1880')}},
   skolor:()=>{if(SK){renderSkCmp();if(skF!=='fo')renderSkCharts();renderSkTable()}},
-  restauranger:()=>RK&&renderRkMap()
+  restauranger:()=>RK&&renderRkMap(), mitt:()=>OM&&MI&&miKarta()
 };
 addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{(RITA[SIDA]||(()=>{}))()},200)});
 const felText=(sel,t)=>{const e=$(sel);if(e)e.textContent=t};
@@ -999,14 +1117,20 @@ function renderStart(S){
   document.querySelectorAll('[data-utf]').forEach(a=>{const t=(S.utforska||{})[a.dataset.utf];if(t)a.querySelector('.utf-v').textContent=t});
   const sel=$('#hitta-omr');if(!sel)return;
   sel.innerHTML='<option value="">Välj ditt område</option>'+S.omraden.map(([k,n])=>`<option value="${k}">${esc(n)}</option>`).join('');
-  $('#hitta').addEventListener('submit',e=>{e.preventDefault();location.href='omrade.html'+(sel.value?'#'+sel.value:'')});
-  sel.addEventListener('change',()=>{if(sel.value)location.href='omrade.html#'+sel.value});
+  $('#hitta').addEventListener('submit',e=>{e.preventDefault();if(sel.value)miSpara(sel.value);location.href='mitt.html'+(sel.value?'#'+sel.value:'')});
+  $('#mi-remsa').addEventListener('click',e=>{const b=e.target.closest('button[data-g]');if(!b)return;
+    if(b.dataset.g==='glom'){miGlom();miRemsa(S)}else{$('#hitta').scrollIntoView({behavior:'smooth',block:'center'});sel.focus({preventScroll:true})}});
+  miRemsa(S);
 }
 
 (async()=>{
+  miMeny();
   try{const S=await load('start');['#fot-datum','#fot-datum2'].forEach(id=>{const f=$(id);if(f)f.textContent=datumText(S.uppdaterad)});if(SIDA==='start')renderStart(S)}catch(e){console.error(e)}
   renderLadda();
   switch(SIDA){
+  case 'mitt':
+    try{[OM,MI,VAL]=await Promise.all([load('omraden'),load('mitt'),load('val').catch(()=>null)]);initMitt()}catch(e){console.error(e);felText('#mi-karta','Kunde inte läsa in datan för Mitt Örebro. Ladda om sidan.')}
+    break;
   case 'pengar':
     try{P=await load('pengar');per='12m';
       $('#per-chips').innerHTML=P.perioder.map(p=>`<button class="chip" data-id="${p.id}" aria-pressed="false">${esc(p.label)}</button>`).join('');
@@ -1029,14 +1153,14 @@ function renderStart(S){
     }catch(e){console.error(e);felText('#kpi-desc','Kunde inte läsa in jämförelsedatan.')}
     break;
   case 'skolor':
-    try{SK=await load('skolor');initSkolor();
+    try{[SK]=await Promise.all([load('skolor'),miNaraLadda()]);initSkolor();
       const m=/^s(\d+)$/.exec(hashKod());const s=m&&SK.skolor.find(x=>x.c===m[1]);
       if(s){skF=s.former.some(x=>['gy','gyan'].includes(x.k))?'gy':'gr';renderSkolor();$('#sk-q').value=s.n;skOpen=s.c;renderSkTable();
         requestAnimationFrame(()=>$('#sk-table').scrollIntoView({block:'start'}))}
     }catch(e){console.error(e);felText('#sk-lead','Kunde inte läsa in skoldatan.')}
     break;
   case 'vard':
-    try{VA=await load('vard');initVa()}catch(e){console.error(e);felText('#va-lead','Kunde inte läsa in vårddatan.')}
+    try{[VA]=await Promise.all([load('vard'),miNaraLadda()]);initVa()}catch(e){console.error(e);felText('#va-lead','Kunde inte läsa in vårddatan.')}
     break;
   case 'omrade':
     try{[VAL,SK,VA,OM]=await Promise.all([load('val'),load('skolor').catch(()=>null),load('vard').catch(()=>null),load('omraden')]);
@@ -1049,7 +1173,9 @@ function renderStart(S){
     try{[HD,OM]=await Promise.all([load('handel'),load('omraden').catch(()=>null)]);initHd()}catch(e){console.error(e);felText('#hd-lead','Kunde inte läsa in handelsdatan.')}
     break;
   case 'restauranger':
-    try{[RK,OM]=await Promise.all([load('restauranger'),load('omraden').catch(()=>null)]);if(OM)omStad();initRk()}catch(e){console.error(e);felText('#rk-lead','Kunde inte läsa in kontrollresultaten.')}
+    try{[RK,OM]=await Promise.all([load('restauranger'),load('omraden').catch(()=>null)]);if(OM)omStad();
+      const h=hashKod();if(h.startsWith('omr=')&&RK.omraden[h.slice(4)]){rkOmr=h.slice(4);rkGrp='Alla'}
+      initRk();if(h.startsWith('v=')&&RK.verksamheter.some(v=>v.id===h.slice(2)))rkVal(h.slice(2),true)}catch(e){console.error(e);felText('#rk-lead','Kunde inte läsa in kontrollresultaten.')}
     break;
   case 'vader':
     try{VE=await load('vader');renderVe()}catch(e){console.error(e);felText('#ve-lead','Kunde inte läsa in väderdatan.')}

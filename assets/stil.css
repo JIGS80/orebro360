@@ -611,3 +611,66 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .meny-pil.hoger{right:0;justify-content:flex-end;background:linear-gradient(90deg,transparent,var(--bg) 45%)}
 .meny-pil.vanster{left:0;justify-content:flex-start;background:linear-gradient(270deg,transparent,var(--bg) 45%)}
 @media (prefers-reduced-motion:no-preference){.meny-pil.hoger:not([hidden]) span{animation:knuff 1.6s ease-in-out 1s 2}@keyframes knuff{50%{transform:translateX(4px)}}}
+
+/* ===== Mitt Örebro ===== */
+/* Layout: överst valet och nyckeltalen till vänster, kartan till höger; under det fyra paneler i två kolumner och genvägar.
+   Startsidan får en smal remsa under sidhuvudet när man har valt område. Ämnessidorna får små märken "Nära dig". */
+.meny a.mitt-lank{color:var(--accent-text)}
+.meny a.mitt-lank[aria-current="page"]{color:var(--bg)}
+.meny a.mitt-lank.har-val::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-left:6px;vertical-align:2px}
+.knapp-l{font:inherit;font-weight:600;padding:11px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;white-space:nowrap}
+.knapp-l:hover,.hitta .knapp-l:hover{border-color:var(--accent);filter:none}
+.hitta .knapp-l{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.knapp-l.liten{padding:6px 11px;font-size:.88rem}
+.mi-tag{display:inline-block;font-size:.74rem;font-weight:600;line-height:1.5;padding:0 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent-text);margin-left:6px;vertical-align:1px;white-space:nowrap}
+.mi-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px 32px;align-items:start}
+@media (max-width:900px){.mi-top{grid-template-columns:minmax(0,1fr)}}
+.mi-intro{display:grid;gap:18px;min-width:0}
+.mi-val{margin-top:0}
+.mi-kpis{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:0}
+@media (max-width:520px){.mi-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mi-kpis .stat .v{font-size:clamp(1.3rem,2.6vw,1.7rem)}
+.mi-karta svg{overflow:hidden;touch-action:manipulation}
+.mi-karta path.mi-a{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
+.mi-karta path.mi-a:hover{fill:var(--accent-soft)}
+.mi-karta path.mi-a-sel,.mi-karta path.mi-a-sel:hover{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2.5;cursor:default}
+.mi-karta circle{stroke:var(--surface);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.mi-pt-rk{fill:var(--c2)}.mi-pt-sk{fill:var(--c3)}.mi-pt-vc{fill:var(--c4)}
+.mi-karta text.mi-lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round;pointer-events:none}
+.mi-sw-omr{background:var(--accent-soft);border:2px solid var(--accent)}
+.legend .mi-pt{width:10px;height:10px;border-radius:50%;display:inline-block}
+.legend .mi-pt-rk{background:var(--c2)}.legend .mi-pt-sk{background:var(--c3)}.legend .mi-pt-vc{background:var(--c4)}
+#mi-innehall{display:grid;gap:18px;margin-top:28px}
+#mi-innehall[hidden]{display:none}
+.mi-lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.mi-lista li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.mi-lista a{display:grid;gap:1px;text-decoration:none;color:var(--ink);min-width:0}
+.mi-lista a:hover b{color:var(--accent-text);text-decoration:underline}
+.mi-lista .sub{font-size:.85rem;color:var(--muted)}
+.mi-lista .mi-ref{display:block;color:var(--muted);border-bottom:0}
+.mi-avst{font-size:.85rem;color:var(--ink2);white-space:nowrap;text-align:right}
+.mi-st{font-size:.8rem;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.mi-st-ok{background:color-mix(in srgb,var(--up) 14%,transparent);color:var(--up)}
+.mi-st-avv{background:color-mix(in srgb,var(--down) 14%,transparent);color:var(--down)}
+.mi-st-vant{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+@media (max-width:420px){.mi-lista li{grid-template-columns:minmax(0,1fr)}.mi-avst{text-align:left}.mi-st{justify-self:start}}
+.mi-vidare{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.mi-v{display:grid;gap:4px;padding:16px 18px;border-radius:var(--r);background:var(--accent-soft);border:1px solid transparent;text-decoration:none;color:var(--ink)}
+.mi-v:hover{border-color:var(--accent)}
+.mi-v b{font-family:var(--f-display);font-size:1.1rem}
+.mi-v b::after{content:" →";color:var(--accent-text)}
+.mi-v span{font-size:.9rem;color:var(--ink2)}
+/* remsan på startsidan */
+.mi-remsa{background:var(--accent-soft);border-bottom:1px solid var(--line)}
+.mi-remsa-in{display:flex;align-items:center;justify-content:space-between;gap:8px 18px;flex-wrap:wrap;padding-block:10px}
+.mi-remsa-txt{display:flex;align-items:baseline;gap:2px 10px;flex-wrap:wrap;text-decoration:none;color:var(--ink);min-width:0;flex:1 1 auto}
+@media (min-width:761px){.mi-remsa-in{flex-wrap:nowrap}}
+.mi-remsa-txt b{font-family:var(--f-display);font-size:1.1rem}
+.mi-remsa-fakta{font-size:.9rem;color:var(--ink2)}
+.mi-remsa-knappar{display:flex;align-items:center;gap:6px;flex:none}
+.mi-remsa-ga{font-weight:600;color:var(--accent-text);text-decoration:none;margin-right:6px}
+.mi-remsa-ga:hover{text-decoration:underline}
+.mi-remsa button{font:inherit;font-size:.85rem;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink2);cursor:pointer}
+.mi-remsa button:hover{border-color:var(--accent);color:var(--ink)}
+.om-mitt{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px;font-size:.9rem}
+.om-mitt .mi-tag{margin-left:0}

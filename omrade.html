@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mitt område · Örebro360</title>
-<meta name="description" content="Jämför inkomster, ålder, boende, skolor och valresultat i Örebros områden.">
+<title>Områden · Örebro360</title>
+<meta name="description" content="Jämför inkomster, ålder, boende, skolor och valresultat i Örebros 36 områden.">
 <link rel="canonical" href="https://orebro360.se/omrade">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sv_SE">
 <meta property="og:site_name" content="Örebro360">
-<meta property="og:title" content="Mitt område · Örebro360">
-<meta property="og:description" content="Jämför inkomster, ålder, boende, skolor och valresultat i Örebros områden.">
+<meta property="og:title" content="Områden · Örebro360">
+<meta property="og:description" content="Jämför inkomster, ålder, boende, skolor och valresultat i Örebros 36 områden.">
 <meta property="og:url" content="https://orebro360.se/omrade">
 <meta property="og:image" content="https://orebro360.se/assets/dela.png">
 <meta property="og:image:width" content="1200">
@@ -28,7 +28,8 @@
     <div class="meny-ram">
       <button type="button" class="meny-pil vanster" aria-label="Visa fler ämnen till vänster" hidden><span aria-hidden="true">‹</span></button>
       <nav class="meny" aria-label="Ämnen">
-      <a href="omrade.html" aria-current="page">Mitt område</a>
+      <a href="mitt.html" class="mitt-lank">Mitt Örebro</a>
+      <a href="omrade.html" aria-current="page">Områden</a>
       <a href="restauranger.html">Restaurangkollen</a>
       <a href="skatt.html">Din skatt</a>
       <a href="skolor.html">Skolor</a>
@@ -52,7 +53,7 @@
 <section class="theme" id="omrade">
   <div class="wrap">
     <div class="sec-head">
-      <span class="label">Mitt område</span>
+      <span class="label">Områden</span>
       <h1 class="sida-h">Hur ser det ut där du bor?</h1>
       <p class="lead" id="om-lead">SCB delar in Örebro i 36 områden. Välj ett område på kartan eller i listan och jämför det med resten av kommunen.</p>
     </div>
@@ -69,7 +70,7 @@
         <p class="src" id="om-map-note"></p>
       </div>
       <div class="panel">
-        <div class="om-head"><span class="label">Valt område</span><span class="big" id="om-namn">&nbsp;</span><span class="small" id="om-sum"></span></div>
+        <div class="om-head"><span class="label">Valt område</span><span class="big" id="om-namn">&nbsp;</span><span class="small" id="om-sum"></span><span class="om-mitt" id="om-mitt"></span></div>
         <div class="om-key"><span><i class="sw" style="background:var(--accent);border-radius:50%"></i>Området</span><span><i style="width:2px;height:12px;background:var(--ink2)"></i>Örebro kommun</span><span><i style="width:2px;height:10px;background:var(--mark-gray)"></i>Övriga 35 områden</span></div>
         <div class="strips" id="om-strips"></div>
       </div>
