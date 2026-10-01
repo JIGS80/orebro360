@@ -442,7 +442,7 @@ function initSkolor(){
 /* ===== Områden ===== */
 let OM,omSel,omMat='inkomst',omZoom='stad',omBox={};
 const OMAT=[
-  {k:'inkomst',l:'Medianinkomst',u:' tkr',d:0,s:'ekonomisk standard per person och år'},
+  {k:'inkomst',l:'Ekonomisk standard',u:' tkr',d:0,s:'median, tusen kronor per person och år'},
   {k:'lag_ek',l:'Låg ekonomisk standard',u:' %',d:0,s:'andel av invånarna'},
   {k:'hogskola',l:'Eftergymnasial utbildning',u:' %',d:0,s:'andel av 25–65-åringarna'},
   {k:'syss',l:'Sysselsatta',u:' %',d:0,s:'andel av 20–64-åringarna som har jobb'},
@@ -460,11 +460,24 @@ const omAr=k=>OM&&OM.matt&&OM.matt[k]?OM.matt[k].ar:'';
 /* ⓘ-knapp: visar vad som mäts, för vilka, när och källan. Texterna kommer från OM.matt (bygg_data.py, OMR_MATT). */
 function infoKnapp(k,namn){return OM&&OM.matt&&OM.matt[k]?`<button type="button" class="info-knapp" data-info="${k}" aria-expanded="false" aria-label="Vad betyder ${esc(namn)}?" title="Vad betyder siffran?"></button>`:''}
 function infoRuta(k){const d=OM.matt[k];return `<div class="info-ruta" role="note"><dl><dt>Vad mäts</dt><dd>${esc(d.vad)}</dd><dt>För vilka</dt><dd>${esc(d.vem)}</dd><dt>När</dt><dd>${esc(d.nar)}</dd><dt>Källa</dt><dd><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.kalla)}</a></dd></dl></div>`}
-document.addEventListener('click',e=>{const b=e.target.closest('.info-knapp');if(!b)return;e.preventDefault();
-  const host=b.closest('.strip,.stat')||b.parentElement;let r=host.querySelector(':scope > .info-ruta');
+document.addEventListener('click',e=>{
+  const st=e.target.closest('.info-stang');
+  if(st){const p=st.closest('.info-panel'),rad=p.previousElementSibling;const k=rad&&rad.querySelector('.info-knapp[aria-expanded="true"]');
+    if(k){k.setAttribute('aria-expanded','false');k.focus()}p.remove();return}
+  const b=e.target.closest('.info-knapp');if(!b)return;e.preventDefault();
+  const k=b.dataset.info,stat=b.closest('.stat'),rad=stat&&stat.parentElement.classList.contains('stats')?stat.parentElement:null;
+  if(rad){ // nyckeltalsrutor: förklaringen visas i en panel under hela raden, så att rutorna inte flyttar sig
+    const oppen=b.getAttribute('aria-expanded')==='true';let p=rad.nextElementSibling;if(p&&!p.classList.contains('info-panel'))p=null;
+    rad.querySelectorAll('.info-knapp[aria-expanded="true"]').forEach(x=>x.setAttribute('aria-expanded','false'));
+    if(oppen){if(p)p.remove();return}
+    if(!p){p=document.createElement('div');p.className='info-panel';rad.after(p)}
+    p.id='info-'+k;p.innerHTML=`<div class="info-panel-h"><b>${esc((stat.querySelector('.label')?.textContent||'').trim())}</b><button type="button" class="info-stang" aria-label="Stäng förklaringen"><span aria-hidden="true">×</span></button></div>`+infoRuta(k);
+    b.setAttribute('aria-controls',p.id);b.setAttribute('aria-expanded','true');
+    const r=p.getBoundingClientRect();if(r.bottom>innerHeight)p.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});return}
+  const host=b.closest('.strip')||b.parentElement;let r=host.querySelector(':scope > .info-ruta'); // listor: förklaringen under raden
   if(r){r.remove();b.setAttribute('aria-expanded','false');return}
-  const tmp=document.createElement('div');tmp.innerHTML=infoRuta(b.dataset.info);r=tmp.firstChild;
-  const s=host.querySelector(':scope > .s, :scope > .sub');(s||host.lastElementChild).after(r);b.setAttribute('aria-expanded','true')});
+  const tmp=document.createElement('div');tmp.innerHTML=infoRuta(k);r=tmp.firstChild;
+  const sub=host.querySelector(':scope > .s, :scope > .sub');(sub||host.lastElementChild).after(r);b.setAttribute('aria-expanded','true')});
 function omMatDef(){const m=OMAT.find(m=>m.k===omMat);return {...m,get:o=>o[m.k]}}
 function quantBreaks(vals){const v=vals.filter(x=>x!=null).sort((a,b)=>a-b);if(!v.length)return [];return [.2,.4,.6,.8].map(q=>v[Math.min(v.length-1,Math.floor(q*v.length))])}
 function renderOmMap(){
@@ -1104,9 +1117,9 @@ function renderMitt(){
   const tile=(l,v,s,k)=>`<div class="stat"><span class="label">${esc(l)}${k&&omAr(k)?' · '+omAr(k):''}${k?infoKnapp(k,l):''}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
   const d=m.inv_forra!=null?m.inv-m.inv_forra:null;
   const t=[tile('Invånare',fmt(m.inv),d!=null?`${d>0?'+':d<0?'−':'±'}${fmt(Math.abs(d))} jämfört med ${m.inv_ar-1}`:'','inv')];
-  [['inkomst','Medianinkomst'],['barnfam','Barnfamiljer'],['aldre','65 år och äldre'],['hyres','Hyresrätter']].forEach(([kk,l])=>{const d=M(kk);if(o[kk]!=null)t.push(tile(l,omFmt(d,o[kk]),`hela kommunen ${omFmt(d,K[kk])}`,kk))});
+  [['inkomst','Ekonomisk standard'],['barnfam','Barnfamiljer'],['aldre','65 år och äldre'],['hyres','Hyresrätter']].forEach(([kk,l])=>{const d=M(kk);if(o[kk]!=null)t.push(tile(l,omFmt(d,o[kk]),`${kk==='inkomst'?'median per person och år · ':''}hela kommunen ${omFmt(d,K[kk])}`,kk))});
   if(o.val)t.push(tile('Röstade i valet',fmt(o.val.deltagande,1)+' %',`hela kommunen ${VAL?fmt(VAL.deltagande,1)+' %':'–'}`,'val'));
-  $('#mi-kpis').innerHTML=t.join('');
+  $('#mi-kpis').innerHTML=t.join('');{const ip=$('#mi-kpis').nextElementSibling;if(ip&&ip.classList.contains('info-panel'))ip.remove()}
   // restauranger
   $('#mi-rk-s').textContent='i ditt område';
   $('#mi-rk-sum').textContent=m.rk90?`Kommunen har gjort ${fmt(m.rk30)} ${m.rk30===1?'kontroll':'kontroller'} i området de senaste 30 dagarna och ${fmt(m.rk90)} de senaste 90 dagarna.`:'Kommunen har inte gjort några kontroller i området de senaste 90 dagarna.';
@@ -1223,8 +1236,8 @@ function giSkillnad(q,g){const d=Math.abs(g-q.svar);if(d<q.steg/2)return 'Du gis
 function giBonus(){ // en extra fråga om besökarens eget område, om hon har valt ett
   const k=miHamta();if(!k||!OM)return null;const o=OM.omraden.find(x=>x.kod===k);if(!o)return null;
   const M=[['hyres','Hur stor andel av lägenheterna i {n} är hyresrätter?','%',0,100,1,0],['barnfam','Hur stor andel av hushållen i {n} är barnfamiljer?','%',0,100,1,0],
-    ['aldre','Hur stor andel av invånarna i {n} är 65 år eller äldre?','%',0,60,1,0],['inkomst','Vilken medianinkomst har invånarna i {n}?','tkr',100,500,5,0],
-    ['hogskola','Hur stor andel av 25–64-åringarna i {n} har läst vidare efter gymnasiet?','%',0,100,1,0],['bilar','Hur många bilar finns det per 1 000 invånare i {n}?','st',100,800,10,0]];
+    ['aldre','Hur stor andel av invånarna i {n} är 65 år eller äldre?','%',0,60,1,0],['inkomst','Vilken ekonomisk standard har invånarna i {n} i median, i tusen kronor per person och år?','tkr',100,500,5,0],
+    ['hogskola','Hur stor andel av 25–65-åringarna i {n} har läst vidare efter gymnasiet?','%',0,100,1,0],['bilar','Hur många bilar finns det per 1 000 invånare i {n}?','st',100,800,10,0]];
   const [y,m]=GI.utgava.split('-').map(Number);const val=M.filter(x=>o[x[0]]!=null);if(!val.length)return null;const x=val[(y*12+m)%val.length];
   const d=OMAT.find(z=>z.k===x[0]);
   return {id:'bonus_'+x[0],bonus:true,fraga:x[1].replace('{n}',o.namn),enhet:x[2],min:x[3],max:x[4],steg:x[5],dec:x[6],svar:o[x[0]],

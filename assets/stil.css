@@ -916,7 +916,11 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .stat .info-ruta dl{grid-template-columns:1fr;gap:1px}
 .stat .info-ruta dd{margin-bottom:5px}
 @media (max-width:600px){.info-ruta dl{grid-template-columns:1fr;gap:1px}.info-ruta dd{margin-bottom:5px}}
-.stats>.stat:has(> .info-ruta){grid-column:1/-1}
-.stats>.stat:has(> .info-ruta) .info-ruta dl{grid-template-columns:auto 1fr;gap:4px 12px}
-.stats>.stat:has(> .info-ruta) .info-ruta dd{margin-bottom:0}
-@media (max-width:600px){.stats>.stat:has(> .info-ruta) .info-ruta dl{grid-template-columns:1fr;gap:1px}.stats>.stat:has(> .info-ruta) .info-ruta dd{margin-bottom:5px}}
+/* nyckeltalsrutor: förklaringen i en panel under hela raden, så att rutorna står still */
+.info-panel{margin:10px 0 4px;padding:12px 14px 14px;border-radius:var(--r);background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line))}
+.info-panel-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:2px}
+.info-panel-h b{font-size:.95rem}
+.info-stang{border:0;background:transparent;color:var(--ink2);font:600 1.4rem/1 var(--f-body);width:34px;height:34px;border-radius:50%;cursor:pointer;margin:-6px -6px -6px 0}
+.info-stang:hover{background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--ink)}
+.info-panel .info-ruta{margin:0;padding:0;background:none}
+.stat:has(.info-knapp[aria-expanded="true"]){border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
