@@ -761,3 +761,12 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .utf-v{font-weight:500;color:var(--ink2)}
 /* menyn i grupper: där du bor, kommunen, utforska, övrigt */
 .meny-skilj{flex:none;width:1px;align-self:stretch;margin:6px 6px;background:var(--line)}
+
+/* ===== Örebro slott, linjeteckning (sidfot, Om sidan, 404) ===== */
+/* Tornen och huset är fyllda med bakgrundsfärgen (--slott-bg) så att linjerna bakom döljs. */
+.slott{display:block;width:100%;height:auto;--slott-bg:var(--bg)}
+.fot-slott{max-width:300px;color:var(--accent);opacity:.75;margin-bottom:6px}
+.om-slott{max-width:560px;color:var(--accent);margin:4px 0 6px}
+.fel-slott{max-width:640px;color:var(--accent);margin-top:28px;opacity:.85}
+@media (max-width:520px){.fot-slott{max-width:220px}}
+[data-sida="fel"] .fot-slott,[data-sida="om"] .fot-slott{display:none}
