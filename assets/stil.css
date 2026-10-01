@@ -837,3 +837,4 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .dela-knapp svg{width:15px;height:15px}
 .dela-knapp:hover,.dela-knapp:focus-visible{background:var(--accent);border-color:var(--accent);color:#fff}
 @media (hover:none){.dela-knapp{opacity:1}}
+.gi-forut{color:var(--muted);font-style:italic;margin-top:-6px}

@@ -1146,6 +1146,11 @@ let GI=null,giLista=[],giSvar={},giI=0,giLage='manad';
 const giNyckel=()=>'orebro360.gissa.'+GI.utgava;
 function giLas(){try{return JSON.parse(localStorage.getItem(giNyckel())||'{}')}catch(e){return {}}}
 function giSkriv(){try{localStorage.setItem(giNyckel(),JSON.stringify(giSvar))}catch(e){}}
+// Vilka frågor besökaren redan har gissat på, med datum. Sparas bara i hennes egen webbläsare, så att "Fem frågor till"
+// kan välja frågor hon inte har sett. Ingenting skickas till oss.
+const GI_SEDDA='orebro360.gissa.sedda';let giSeddaMinne={};
+function giSedda(){try{return JSON.parse(localStorage.getItem(GI_SEDDA)||'{}')}catch(e){return giSeddaMinne}}
+function giMarkera(id){const s=giSedda();if(!s[id])s[id]=new Date().toISOString().slice(0,10);giSeddaMinne=s;try{localStorage.setItem(GI_SEDDA,JSON.stringify(s))}catch(e){}}
 function giFmt(q,v){const d=q.enhet==='st'||q.enhet==='kr'?0:q.dec;const t=fmt(v,d);
   return q.enhet==='st'?t:q.enhet==='p'?t+' poäng':q.enhet==='%'?t+' %':t+' '+q.enhet}
 function giPoang(q,g){const span=q.max-q.min;return Math.max(0,Math.round(100*(1-Math.abs(g-q.svar)/(span*.5))))}
@@ -1167,7 +1172,8 @@ function giProg(){$('#gi-prog').innerHTML=giLista.map((q,i)=>{const s=giSvar[q.i
 function giVisa(){
   giProg();const kort=$('#gi-kort');
   if(giI>=giLista.length)return giSumma();
-  const q=giLista[giI],g=giSvar[q.id];const rubrik=`<span class="label">${q.bonus?'Bonusfråga om ditt område':`Fråga ${giI+1} av ${giLista.filter(x=>!x.bonus).length}`}</span><h2 class="gi-fraga">${esc(q.fraga)}</h2>`;
+  const q=giLista[giI],g=giSvar[q.id];const forut=g==null&&giSedda()[q.id];
+  const rubrik=`<span class="label">${q.bonus?'Bonusfråga om ditt område':`Fråga ${giI+1} av ${giLista.filter(x=>!x.bonus).length}`}${q.amne?' · '+esc(q.amne):''}</span><h2 class="gi-fraga">${esc(q.fraga)}</h2>${forut?`<p class="small gi-forut">Den här frågan har du gissat på förut, ${vtDag(forut)}. Svaret kan ha ändrats sedan dess.</p>`:''}`;
   if(g==null){
     const start=q.min+Math.round((q.max-q.min)/2/q.steg)*q.steg;
     kort.innerHTML=`${rubrik}<output class="gi-varde num" id="gi-v" for="gi-r">${giFmt(q,start)}</output>
@@ -1176,7 +1182,7 @@ function giVisa(){
       <div class="gi-knappar"><button type="button" class="knapp" id="gi-gissa">Gissa</button><span class="small">Dra i reglaget eller använd piltangenterna.</span></div>`;
     const r=$('#gi-r');const upd=()=>{$('#gi-v').textContent=giFmt(q,+r.value);r.style.setProperty('--p',((r.value-q.min)/(q.max-q.min)*100)+'%')};upd();
     r.addEventListener('input',upd);
-    $('#gi-gissa').addEventListener('click',()=>{giSvar[q.id]=+r.value;giSkriv();giVisa();$('#gi-kort').focus({preventScroll:true})});
+    $('#gi-gissa').addEventListener('click',()=>{giSvar[q.id]=+r.value;giSkriv();giMarkera(q.id);giVisa();$('#gi-kort').focus({preventScroll:true})});
     return;
   }
   const p=giPoang(q,g);const pos=v=>Math.max(0,Math.min(100,(v-q.min)/(q.max-q.min)*100));
@@ -1199,11 +1205,12 @@ function giSumma(){
     <div class="gi-total"><span class="gi-p num">${tot}<small> av ${max} poäng</small></span><span class="gi-omdome">${esc(omd)}</span></div>
     <ul class="gi-sum">${lista.map(q=>{const p=giPoang(q,giSvar[q.id]);return `<li><span>${esc(q.fraga)}<span class="sub">Du: ${giFmt(q,giSvar[q.id])} · Svar: ${giFmt(q,q.svar)}</span></span><b class="num">${p}</b></li>`}).join('')}</ul>
     <div class="gi-knappar"><button type="button" class="knapp" id="gi-dela">Dela ditt resultat</button>${GI.extra.length?`<button type="button" class="knapp-l" id="gi-fler">Fem frågor till</button>`:''}<button type="button" class="knapp-l" id="gi-om">Börja om</button></div>
-    <p class="src">${giLage==='manad'?`Nya frågor kommer i början av nästa månad.`:'Extrafrågorna är frågor från tidigare och kommande månader.'}</p>`;
+    <p class="src">${(()=>{const sed=giSedda(),alla=[...GI.fragor,...GI.extra],n=alla.filter(q=>sed[q.id]).length;return `Du har gissat på ${n} av ${alla.length} frågor. `+(n>=alla.length?'Du har klarat alla! Siffrorna uppdateras, så svaren kan ha ändrats när du spelar dem igen. ':'')})()}${giLage==='manad'?'Nya frågor kommer i början av nästa månad.':'Extrafrågorna är frågor från tidigare och kommande månader.'}</p>`;
   $('#gi-dela').addEventListener('click',()=>delaOppna({etikett:'Gissa siffran · '+GI.namn,varde:`${tot} av ${max}`,text:`Så många poäng fick jag på frågor om Örebro i siffror. Hur bra känner du Örebro?`,kalla:'',lank:'gissa.html'}));
-  const fl=$('#gi-fler');if(fl)fl.addEventListener('click',()=>{giLage='extra';const ej=GI.extra.filter(q=>giSvar[q.id]==null);
-    const pool=(ej.length>=5?ej:GI.extra).slice();for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
-    giLista=pool.slice(0,5);giLista.forEach(q=>delete giSvar[q.id]);giI=0;giVisa()});
+  const fl=$('#gi-fler');if(fl)fl.addEventListener('click',()=>{giLage='extra';
+    // först frågor besökaren aldrig har sett (i den ordning datan anger), sedan de hon såg för längst sedan
+    const sed=giSedda();const nya=GI.extra.filter(q=>!sed[q.id]);const gamla=GI.extra.filter(q=>sed[q.id]).sort((a,b)=>sed[a.id].localeCompare(sed[b.id]));
+    giLista=[...nya,...gamla].slice(0,5);giLista.forEach(q=>delete giSvar[q.id]);giI=0;giVisa();$('#gi-kort').scrollIntoView({behavior:'smooth',block:'nearest'})});
   $('#gi-om').addEventListener('click',()=>{giLage='manad';giSvar={};giSkriv();giStart()});
 }
 function giStart(){
@@ -1212,7 +1219,7 @@ function giStart(){
 }
 function initGissa(){
   const ORD=['Noll','En','Två','Tre','Fyra','Fem','Sex','Sju'];
-  $('#gi-lead').textContent=`${ORD[GI.fragor.length]||GI.fragor.length} frågor om Örebro i siffror för ${GI.namn}. Dra i reglaget, gissa och se hur nära du kom. Nya frågor kommer varje månad.`;
+  $('#gi-lead').textContent=`${ORD[GI.fragor.length]||GI.fragor.length} av ${[...GI.fragor,...GI.extra].length} frågor om Örebro i siffror för ${GI.namn}. Dra i reglaget, gissa och se hur nära du kom. Nya frågor kommer varje månad.`;
   giSvar=giLas();giStart();
 }
 
