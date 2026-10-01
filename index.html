@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Örebro360</title>
+<meta name="description" content="Örebro i siffror: öppen data om Örebro kommun, samlad och förklarad. Mitt område, restauranger, skolor, vård, vädret och mycket mer.">
+<link rel="canonical" href="https://orebro360.se/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:site_name" content="Örebro360">
+<meta property="og:title" content="Örebro360">
+<meta property="og:description" content="Örebro i siffror: öppen data om Örebro kommun, samlad och förklarad. Mitt område, restauranger, skolor, vård, vädret och mycket mer.">
+<meta property="og:url" content="https://orebro360.se/">
+<meta property="og:image" content="https://orebro360.se/assets/dela.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#008572">
+<link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/stil.css">
+</head>
+<body data-sida="start">
+<a class="hoppa" href="#innehall">Hoppa till innehållet</a>
+<header class="site">
+  <div class="wrap site-rad">
+    <a class="brand" href="index.html" aria-label="Örebro360, till förstasidan"><svg class="ikon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M16 1.5v6M16 24.5v6M1.5 16h6" stroke="currentColor" stroke-width="3"/><circle cx="27" cy="16" r="4.5" class="ikon-o"/></svg><span class="brand-ord">Örebro<b>360</b></span></a>
+    <nav class="meny" aria-label="Ämnen">
+      <a href="omrade.html">Mitt område</a>
+      <a href="restauranger.html">Restaurangkollen</a>
+      <a href="skatt.html">Din skatt</a>
+      <a href="skolor.html">Skolor</a>
+      <a href="vard.html">Vård</a>
+      <a href="vader.html">Vädret</a>
+      <a href="valet.html">Valet 2026</a>
+      <a href="befolkning.html">Befolkning</a>
+      <a href="pengar.html">Pengar</a>
+      <a href="handel.html">Handeln</a>
+      <a href="jamfor.html">Jämför städer</a>
+      <a href="hundra.html">100 personer</a>
+      <a href="manaden.html">Månaden</a>
+      <a href="data.html">Ladda ner data</a>
+      <a href="om.html">Om sidan</a>
+    </nav>
+  </div>
+</header>
+<main id="innehall">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <div class="kicker"><span class="label">Öppen data om Örebro kommun</span><span class="coords">59°16′N 15°13′E · kommunkod 1880</span></div>
+      <h1 class="wordmark">Örebro<span>360</span></h1>
+      <p class="tagline">Örebro i siffror</p>
+      <p class="lead">Här ser du hur det ser ut där du bor, när restaurangen senast kontrollerades, hur det går i skolorna och vart kommunens pengar går. Allt kommer från öppna källor och uppdateras varje månad.</p>
+      <form class="hitta" id="hitta">
+        <label for="hitta-omr">Var bor du?</label>
+        <div class="hitta-rad">
+          <select id="hitta-omr"><option value="">Välj ditt område</option></select>
+          <button type="submit">Visa mitt område</button>
+        </div>
+      </form>
+    </div>
+    <div class="hero-dial" aria-hidden="true"><svg class="dial" viewBox="0 0 400 400" role="img" aria-label="Kompassros med Ö för öster"><circle cx="200.0" cy="200.0" r="186.0" class="ring"/><line x1="200.0" y1="14.0" x2="200.0" y2="36.0" class="lang"/><line x1="232.3" y1="16.8" x2="230.6" y2="26.7" class="kort"/><line x1="263.6" y1="25.2" x2="260.2" y2="34.6" class="kort"/><line x1="293.0" y1="38.9" x2="288.0" y2="47.6" class="kort"/><line x1="319.6" y1="57.5" x2="313.1" y2="65.2" class="kort"/><line x1="342.5" y1="80.4" x2="334.8" y2="86.9" class="kort"/><line x1="361.1" y1="107.0" x2="352.4" y2="112.0" class="kort"/><line x1="374.8" y1="136.4" x2="365.4" y2="139.8" class="kort"/><line x1="383.2" y1="167.7" x2="373.3" y2="169.4" class="kort"/><line x1="386.0" y1="200.0" x2="364.0" y2="200.0" class="lang"/><line x1="383.2" y1="232.3" x2="373.3" y2="230.6" class="kort"/><line x1="374.8" y1="263.6" x2="365.4" y2="260.2" class="kort"/><line x1="361.1" y1="293.0" x2="352.4" y2="288.0" class="kort"/><line x1="342.5" y1="319.6" x2="334.8" y2="313.1" class="kort"/><line x1="319.6" y1="342.5" x2="313.1" y2="334.8" class="kort"/><line x1="293.0" y1="361.1" x2="288.0" y2="352.4" class="kort"/><line x1="263.6" y1="374.8" x2="260.2" y2="365.4" class="kort"/><line x1="232.3" y1="383.2" x2="230.6" y2="373.3" class="kort"/><line x1="200.0" y1="386.0" x2="200.0" y2="364.0" class="lang"/><line x1="167.7" y1="383.2" x2="169.4" y2="373.3" class="kort"/><line x1="136.4" y1="374.8" x2="139.8" y2="365.4" class="kort"/><line x1="107.0" y1="361.1" x2="112.0" y2="352.4" class="kort"/><line x1="80.4" y1="342.5" x2="86.9" y2="334.8" class="kort"/><line x1="57.5" y1="319.6" x2="65.2" y2="313.1" class="kort"/><line x1="38.9" y1="293.0" x2="47.6" y2="288.0" class="kort"/><line x1="25.2" y1="263.6" x2="34.6" y2="260.2" class="kort"/><line x1="16.8" y1="232.3" x2="26.7" y2="230.6" class="kort"/><line x1="14.0" y1="200.0" x2="36.0" y2="200.0" class="lang"/><line x1="16.8" y1="167.7" x2="26.7" y2="169.4" class="kort"/><line x1="25.2" y1="136.4" x2="34.6" y2="139.8" class="kort"/><line x1="38.9" y1="107.0" x2="47.6" y2="112.0" class="kort"/><line x1="57.5" y1="80.4" x2="65.2" y2="86.9" class="kort"/><line x1="80.4" y1="57.5" x2="86.9" y2="65.2" class="kort"/><line x1="107.0" y1="38.9" x2="112.0" y2="47.6" class="kort"/><line x1="136.4" y1="25.2" x2="139.8" y2="34.6" class="kort"/><line x1="167.7" y1="16.8" x2="169.4" y2="26.7" class="kort"/><text x="200.0" y="71.0" class="bok" text-anchor="middle">N</text><text x="338.0" y="209.0" class="oj" text-anchor="middle">Ö</text><text x="200.0" y="347.0" class="bok" text-anchor="middle">S</text><text x="62.0" y="209.0" class="bok" text-anchor="middle">V</text><text x="200.0" y="194.0" text-anchor="middle" class="mitt">59°16′N</text><text x="200.0" y="218.0" text-anchor="middle" class="mitt">15°13′E</text></svg></div>
+  </div>
+</section>
+
+<section class="utforska" aria-labelledby="utf-rubrik">
+  <div class="wrap">
+    <h2 id="utf-rubrik" class="teman-h">Utforska</h2>
+    <div class="utf-grid">
+      <a class="utf" href="skatt.html" data-utf="skatt">
+        <span class="utf-namn">Vart går din skatt?</span>
+        <span class="utf-v">&nbsp;</span>
+        <span class="utf-text">Skriv in din lön och se vad din kommunalskatt går till.</span>
+        <span class="utf-pil">Utforska →</span>
+      </a>
+      <a class="utf" href="hundra.html" data-utf="hundra">
+        <span class="utf-namn">Örebro som 100 personer</span>
+        <span class="utf-v">&nbsp;</span>
+        <span class="utf-text">Hur gamla vi är, hur vi bor och hur vi röstade, som 100 personer.</span>
+        <span class="utf-pil">Utforska →</span>
+      </a>
+      <a class="utf" href="manaden.html" data-utf="manaden">
+        <span class="utf-namn">Månadens Örebro</span>
+        <span class="utf-v">&nbsp;</span>
+        <span class="utf-text">Det senaste i siffror, sammanfattat varje månad.</span>
+        <span class="utf-pil">Utforska →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="teman" aria-labelledby="teman-rubrik">
+  <div class="wrap">
+    <h2 id="teman-rubrik" class="teman-h">Välj ett ämne</h2>
+    <div class="tema-grid">
+      <a class="tema" href="omrade.html" data-tema="omrade">
+        <span class="tema-namn">Mitt område</span>
+        <span class="v num">&nbsp;</span>
+        <span class="s">&nbsp;</span>
+        <span class="tema-text">Inkomster, ålder, boende, skolor och valresultat där du bor.</span>
+      </a>
+      <a class="tema" href="restauranger.html" data-tema="restauranger">
+        <span class="tema-namn">Restaurangkollen</span>
+        <span class="v num">&nbsp;</span>
+        <span class="s">&nbsp;</span>
+        <span class="tema-text">När restaurangen senast kontrollerades och vad kommunen noterade.</span>
+      </a>
+      <a class="tema" href="skolor.html" data-tema="skolor">
+        <span class="tema-namn">Skolor</span>
+        <span class="v num">&nbsp;</span>
+        <span class="s">&nbsp;</span>
+        <span class="tema-text">Resultat och vad eleverna tycker, skola för skola.</span>
+      </a>
+      <a class="tema" href="vard.html" data-tema="vard">
+        <span class="tema-namn">Vård och omsorg</span>
+        <span class="v num">&nbsp;</span>
+        <span class="s">&nbsp;</span>
+        <span class="tema-text">Vårdcentralernas telefontider, patienternas omdömen och äldreomsorgen.</span>
+      </a>
+      <a class="tema" href="vader.html" data-tema="vader">
+        <span class="tema-namn">Vädret</span>
+        <span class="v num">&nbsp;</span>
+        <span class="s">&nbsp;</span>
+        <span class="tema-text">Temperatur, nederbörd och snö i Örebro sedan 1858.</span>
+      </a>
+      <a class="tema" href="valet.html" data-tema="valet">
+        <span class="tema-namn">Valet 2026</span>
+        <span class="v num">&nbsp;</span>
+        <span class="s">&nbsp;</span>
+        <span class="tema-text">Resultatet i kommunvalet, valdistrikt för valdistrikt.</span>
+      </a>
+      <a class="tema" href="befolkning.html" data-tema="befolkning">
+        <span class="tema-namn">Befolkning</span>
+        <span class="v num">&nbsp;</span>
+        <span class="s">&nbsp;</span>
+        <span class="tema-text">Hur många vi är, hur gamla vi är och hur det har förändrats.</span>
+      </a>
+      <a class="tema" href="pengar.html" data-tema="pengar">
+        <span class="tema-namn">Kommunens pengar</span>
+        <span class="v num">&nbsp;</span>
+        <span class="s">&nbsp;</span>
+        <span class="tema-text">Vad kommunen köper och från vilka leverantörer.</span>
+      </a>
+      <a class="tema" href="handel.html" data-tema="handel">
+        <span class="tema-namn">Handeln</span>
+        <span class="v num">&nbsp;</span>
+        <span class="s">&nbsp;</span>
+        <span class="tema-text">Försäljningen i butikerna, handelsområdena och de nya bilarna.</span>
+      </a>
+      <a class="tema" href="jamfor.html" data-tema="jamfor">
+        <span class="tema-namn">Jämför städer</span>
+        <span class="v num">&nbsp;</span>
+        <span class="s">&nbsp;</span>
+        <span class="tema-text">Skatt, kostnader och resultat jämfört med andra stora kommuner.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="om-kort">
+  <div class="wrap">
+    <div class="om-kort-in">
+      <div>
+        <h2>Varifrån kommer siffrorna?</h2>
+        <p>Från Örebro kommun, SCB, Kolada, Skolverket, 1177, SMHI, Valmyndigheten och Handelsrådet. Vi hämtar uppgifterna varje månad, räknar om dem och stämmer av dem mot källorna. Vi lägger inte till några egna betyg.</p>
+      </div>
+      <a class="knapp" href="om.html">Om sidan och källorna</a>
+    </div>
+  </div>
+</section>
+
+
+</main>
+<footer class="site">
+  <div class="wrap fot">
+    <div class="fot-brand"><span class="brand-ord">Örebro<b>360</b></span><span class="small">Örebro i siffror</span></div>
+    <p class="small">En fristående sida med öppen data om Örebro kommun. Den är inte en tjänst från Örebro kommun. Uppgifterna uppdaterades senast <span id="fot-datum">–</span>.</p>
+    <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

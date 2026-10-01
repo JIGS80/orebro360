@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vård och omsorg · Örebro360</title>
+<meta name="description" content="Vårdcentralernas telefontider, patienternas omdömen och äldreomsorgen i Örebro.">
+<link rel="canonical" href="https://orebro360.se/vard">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:site_name" content="Örebro360">
+<meta property="og:title" content="Vård och omsorg · Örebro360">
+<meta property="og:description" content="Vårdcentralernas telefontider, patienternas omdömen och äldreomsorgen i Örebro.">
+<meta property="og:url" content="https://orebro360.se/vard">
+<meta property="og:image" content="https://orebro360.se/assets/dela.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#008572">
+<link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/stil.css">
+</head>
+<body data-sida="vard">
+<a class="hoppa" href="#innehall">Hoppa till innehållet</a>
+<header class="site">
+  <div class="wrap site-rad">
+    <a class="brand" href="index.html" aria-label="Örebro360, till förstasidan"><svg class="ikon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M16 1.5v6M16 24.5v6M1.5 16h6" stroke="currentColor" stroke-width="3"/><circle cx="27" cy="16" r="4.5" class="ikon-o"/></svg><span class="brand-ord">Örebro<b>360</b></span></a>
+    <nav class="meny" aria-label="Ämnen">
+      <a href="omrade.html">Mitt område</a>
+      <a href="restauranger.html">Restaurangkollen</a>
+      <a href="skatt.html">Din skatt</a>
+      <a href="skolor.html">Skolor</a>
+      <a href="vard.html" aria-current="page">Vård</a>
+      <a href="vader.html">Vädret</a>
+      <a href="valet.html">Valet 2026</a>
+      <a href="befolkning.html">Befolkning</a>
+      <a href="pengar.html">Pengar</a>
+      <a href="handel.html">Handeln</a>
+      <a href="jamfor.html">Jämför städer</a>
+      <a href="hundra.html">100 personer</a>
+      <a href="manaden.html">Månaden</a>
+      <a href="data.html">Ladda ner data</a>
+      <a href="om.html">Om sidan</a>
+    </nav>
+  </div>
+</header>
+<main id="innehall">
+<section class="theme" id="vard">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Vård och omsorg</span>
+      <h1 class="sida-h">Hur fungerar vården för Örebroarna?</h1>
+      <p class="lead" id="va-lead">&nbsp;</p>
+    </div>
+    <div class="stats" id="va-kpis"><span class="loading">Laddar data …</span></div>
+
+    <div class="sec-head" style="margin-top:10px"><h3 class="va-sub">Vårdcentralerna</h3>
+      <p class="small">Region Örebro län mäter varje månad hur många samtal till vårdcentralerna som besvaras samma dag. Patientenkäten görs vartannat år.</p></div>
+    <div class="chips" role="group" aria-label="Vilka vårdcentraler" id="va-scope">
+      <button class="chip" data-s="kommun" aria-pressed="true">Örebro kommun</button>
+      <button class="chip" data-s="lan" aria-pressed="false">Hela länet</button>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <div class="panel-head"><h3>Telefonen besvarad samma dag</h3><span class="small" id="va-tel-per"></span></div>
+        <div class="legend" id="va-leg1"></div>
+        <div class="hbars" id="va-tel"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Patienternas helhetsintryck</h3><span class="small" id="va-npe-ar"></span></div>
+        <div class="legend" id="va-leg2"></div>
+        <div class="hbars" id="va-npe"></div>
+        <p class="src">Andel patienter som är nöjda eller mycket nöjda med vårdcentralen som helhet (Nationell patientenkät).</p>
+      </div>
+    </div>
+    <details class="note">
+      <summary>Alla vårdcentraler med adress</summary>
+      <div class="tablewrap" style="margin-top:10px"><table class="mini" id="va-vc"><thead><tr><th>Vårdcentral</th><th class="r">Telefon</th><th class="r">Patientenkät</th></tr></thead><tbody></tbody></table></div>
+    </details>
+
+    <div class="sec-head" style="margin-top:10px"><h3 class="va-sub">Regionen jämfört med andra regioner</h3>
+      <p class="small">Region Örebro län ansvarar för vårdcentraler, sjukhus och specialistvård. Här jämförs regionen med åtta andra regioner och hela Sverige.</p></div>
+    <div class="chips" role="group" aria-label="Välj mått för regionen" id="va-rchips"></div>
+    <div class="grid2">
+      <div class="panel">
+        <div class="panel-head"><h3 id="va-r-title">&nbsp;</h3><span class="small" id="va-r-year"></span></div>
+        <p class="small" id="va-r-desc"></p>
+        <div class="hbars" id="va-r"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Utveckling över tid</h3>
+          <div class="legend"><span><i class="sw" style="background:var(--accent)"></i>Region Örebro län</span><span><i class="sw" style="background:var(--ink2)"></i>Hela Sverige</span></div></div>
+        <div class="chart" id="va-rline"></div>
+      </div>
+    </div>
+
+    <div class="sec-head" style="margin-top:10px"><h3 class="va-sub">Hälsa och äldreomsorg i kommunen</h3>
+      <p class="small">Kommunen ansvarar för hemtjänst och äldreboenden. Örebro jämförs med samma sju städer som i avsnittet Jämför städer.</p></div>
+    <div class="chips" role="group" aria-label="Välj mått för kommunen" id="va-kchips"></div>
+    <div class="grid2">
+      <div class="panel">
+        <div class="panel-head"><h3 id="va-k-title">&nbsp;</h3><span class="small" id="va-k-year"></span></div>
+        <p class="small" id="va-k-desc"></p>
+        <div class="hbars" id="va-k"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Utveckling över tid</h3>
+          <div class="legend"><span><i class="sw" style="background:var(--accent)"></i>Örebro</span><span><i class="sw" style="background:var(--ink2)"></i>Hela Sverige</span></div></div>
+        <div class="chart" id="va-kline"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>Äldreboenden och hemtjänst i Örebro</h3><span class="small" id="va-a-n"></span></div>
+      <div class="chips" role="group" aria-label="Typ av omsorg" id="va-atyp">
+        <button class="chip" data-t="sabo" aria-pressed="true">Äldreboenden</button>
+        <button class="chip" data-t="hemtjanst" aria-pressed="false">Hemtjänst</button>
+      </div>
+      <p class="small" id="va-a-desc"></p>
+      <div class="tablewrap"><table id="va-atab" class="mini"><thead></thead><tbody></tbody></table></div>
+      <p class="src">Socialstyrelsens undersökning Vad tycker de äldre om äldreomsorgen? 2025. Andel av de svarande. Klicka på en kolumnrubrik för att sortera.</p>
+    </div>
+
+    <details class="note">
+      <summary>Så ska siffrorna läsas</summary>
+      <ul>
+        <li><b>Telefonen besvarad samma dag</b> och <b>patientenkätens helhetsintryck</b> kommer från Region Örebro läns sidor på 1177.se. Telefonsiffran gäller en enda månad och kan variera mycket, till exempel under semestrar.</li>
+        <li>Region Örebro län ansvarar för vården i hela länet. Därför visas även vårdcentraler utanför Örebro kommun. Man kan lista sig på vilken vårdcentral som helst i länet.</li>
+        <li><b>Bedömning inom tre dagar</b> och väntetiderna kommer från SKR:s väntetidsdatabas via Kolada. Flera regioner byter journalsystem från 2024, vilket påverkar rapporteringen. Region Örebro läns väntetider till specialistvård och operation saknas därför efter 2023, och siffrorna för 2025 bör läsas med viss försiktighet.</li>
+        <li><b>Förtroende</b> och <b>rimlig väntetid</b> kommer från Vårdbarometern, en intervjuundersökning bland invånarna.</li>
+        <li>Folkhälsosiffrorna för Örebro kommer från regionens egen enkät Liv &amp; hälsa (18–84 år, ett år). För de andra städerna kommer de från Folkhälsomyndighetens enkät (16–84 år, medelvärde över fyra år). Enligt Kolada är resultaten jämförbara.</li>
+        <li>Äldreomsorgens siffror bygger på enkätsvar från de äldre själva eller med hjälp av anhöriga. På små enheter kan några få svar ändra andelen mycket. Enheter med för få svar visas inte.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<div class="wrap"><section class="ladda" id="ladda" data-tema="vard" aria-label="Ladda ner datan"></section></div>
+</main>
+<footer class="site">
+  <div class="wrap fot">
+    <div class="fot-brand"><span class="brand-ord">Örebro<b>360</b></span><span class="small">Örebro i siffror</span></div>
+    <p class="small">En fristående sida med öppen data om Örebro kommun. Den är inte en tjänst från Örebro kommun. Uppgifterna uppdaterades senast <span id="fot-datum">–</span>.</p>
+    <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

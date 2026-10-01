@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vart går din skatt? · Örebro360</title>
+<meta name="description" content="Räkna ut hur mycket kommunalskatt du betalar och vad den går till: skola, äldreomsorg, gator och mycket mer.">
+<link rel="canonical" href="https://orebro360.se/skatt">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:site_name" content="Örebro360">
+<meta property="og:title" content="Vart går din skatt? · Örebro360">
+<meta property="og:description" content="Räkna ut hur mycket kommunalskatt du betalar och vad den går till: skola, äldreomsorg, gator och mycket mer.">
+<meta property="og:url" content="https://orebro360.se/skatt">
+<meta property="og:image" content="https://orebro360.se/assets/dela.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#008572">
+<link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/stil.css">
+</head>
+<body data-sida="skatt">
+<a class="hoppa" href="#innehall">Hoppa till innehållet</a>
+<header class="site">
+  <div class="wrap site-rad">
+    <a class="brand" href="index.html" aria-label="Örebro360, till förstasidan"><svg class="ikon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M16 1.5v6M16 24.5v6M1.5 16h6" stroke="currentColor" stroke-width="3"/><circle cx="27" cy="16" r="4.5" class="ikon-o"/></svg><span class="brand-ord">Örebro<b>360</b></span></a>
+    <nav class="meny" aria-label="Ämnen">
+      <a href="omrade.html">Mitt område</a>
+      <a href="restauranger.html">Restaurangkollen</a>
+      <a href="skatt.html" aria-current="page">Din skatt</a>
+      <a href="skolor.html">Skolor</a>
+      <a href="vard.html">Vård</a>
+      <a href="vader.html">Vädret</a>
+      <a href="valet.html">Valet 2026</a>
+      <a href="befolkning.html">Befolkning</a>
+      <a href="pengar.html">Pengar</a>
+      <a href="handel.html">Handeln</a>
+      <a href="jamfor.html">Jämför städer</a>
+      <a href="hundra.html">100 personer</a>
+      <a href="manaden.html">Månaden</a>
+      <a href="data.html">Ladda ner data</a>
+      <a href="om.html">Om sidan</a>
+    </nav>
+  </div>
+</header>
+<main id="innehall">
+<section class="theme" id="skatt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Din skatt</span>
+      <h1 class="sida-h">Vart går din skatt?</h1>
+      <p class="lead">Skriv in din lön så räknar vi ut hur mycket kommunalskatt du betalar till Örebro kommun och vad pengarna går till.</p>
+    </div>
+
+    <div class="sk-kalk panel">
+      <div class="sk-in">
+        <label for="sk-lon">Din lön före skatt, kronor i månaden</label>
+        <div class="sk-lonrad"><input id="sk-lon" type="number" inputmode="numeric" min="0" step="500" value="35000"><span>kr/mån</span></div>
+        <input id="sk-reglage" type="range" min="0" max="100000" step="500" value="35000" aria-label="Lön, reglage">
+        <p class="small" id="sk-exempel">35 000 kr är ett exempel. Ändra till din egen lön.</p>
+      </div>
+      <div class="sk-ut" aria-live="polite">
+        <div class="sk-summa"><span class="label">Till Örebro kommun</span><span class="v num" id="sk-kom">–</span><span class="s" id="sk-kom-s"></span></div>
+        <div class="sk-summa reg"><span class="label">Till Region Örebro län</span><span class="v num" id="sk-reg">–</span><span class="s">vården, tandvården och kollektivtrafiken</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h2 class="sk-h">Så används din kommunalskatt</h2>
+        <div class="chips" role="group" aria-label="Visa som" id="sk-visa">
+          <button class="chip" data-v="kr" aria-pressed="true">Kronor i månaden</button>
+          <button class="chip" data-v="hundra" aria-pressed="false">Av varje hundralapp</button>
+        </div>
+      </div>
+      <div class="sk-lista" id="sk-lista"></div>
+      <p class="src" id="sk-src"></p>
+    </div>
+
+    <details class="note">
+      <summary>Så räknar vi</summary>
+      <ul id="sk-not">
+        <li>Kommunalskatten räknas på din lön minus grundavdraget, med skattesatsen för Örebro kommun och Region Örebro län. Grundavdraget gäller dig som är under 66 år och har lön som enda inkomst. Har du andra inkomster, är 66 år eller äldre blir det annorlunda.</li>
+        <li>Begravningsavgift och eventuell kyrkoavgift ingår inte.</li>
+        <li>Beloppen är före jobbskatteavdraget. Jobbskatteavdraget minskar det du själv betalar, men det är staten som står för det. Kommunen får skatten ändå.</li>
+        <li>Fördelningen bygger på kommunens nettokostnader per verksamhet enligt Kolada (räkenskapssammandraget). Kommunen har också andra intäkter, till exempel statsbidrag och avgifter, och vi fördelar din skatt i samma proportioner som kommunens nettokostnader.</li>
+        <li>Statlig inkomstskatt (på lön över brytpunkten) går till staten och är inte med.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<div class="wrap"><section class="ladda" id="ladda" data-tema="skatt" aria-label="Ladda ner datan"></section></div>
+</main>
+<footer class="site">
+  <div class="wrap fot">
+    <div class="fot-brand"><span class="brand-ord">Örebro<b>360</b></span><span class="small">Örebro i siffror</span></div>
+    <p class="small">En fristående sida med öppen data om Örebro kommun. Den är inte en tjänst från Örebro kommun. Uppgifterna uppdaterades senast <span id="fot-datum">–</span>.</p>
+    <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

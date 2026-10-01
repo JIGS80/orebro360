@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jämför städer · Örebro360</title>
+<meta name="description" content="Skatt, kostnader och resultat i Örebro jämfört med andra stora kommuner.">
+<link rel="canonical" href="https://orebro360.se/jamfor">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:site_name" content="Örebro360">
+<meta property="og:title" content="Jämför städer · Örebro360">
+<meta property="og:description" content="Skatt, kostnader och resultat i Örebro jämfört med andra stora kommuner.">
+<meta property="og:url" content="https://orebro360.se/jamfor">
+<meta property="og:image" content="https://orebro360.se/assets/dela.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#008572">
+<link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/stil.css">
+</head>
+<body data-sida="jamfor">
+<a class="hoppa" href="#innehall">Hoppa till innehållet</a>
+<header class="site">
+  <div class="wrap site-rad">
+    <a class="brand" href="index.html" aria-label="Örebro360, till förstasidan"><svg class="ikon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M16 1.5v6M16 24.5v6M1.5 16h6" stroke="currentColor" stroke-width="3"/><circle cx="27" cy="16" r="4.5" class="ikon-o"/></svg><span class="brand-ord">Örebro<b>360</b></span></a>
+    <nav class="meny" aria-label="Ämnen">
+      <a href="omrade.html">Mitt område</a>
+      <a href="restauranger.html">Restaurangkollen</a>
+      <a href="skatt.html">Din skatt</a>
+      <a href="skolor.html">Skolor</a>
+      <a href="vard.html">Vård</a>
+      <a href="vader.html">Vädret</a>
+      <a href="valet.html">Valet 2026</a>
+      <a href="befolkning.html">Befolkning</a>
+      <a href="pengar.html">Pengar</a>
+      <a href="handel.html">Handeln</a>
+      <a href="jamfor.html" aria-current="page">Jämför städer</a>
+      <a href="hundra.html">100 personer</a>
+      <a href="manaden.html">Månaden</a>
+      <a href="data.html">Ladda ner data</a>
+      <a href="om.html">Om sidan</a>
+    </nav>
+  </div>
+</header>
+<main id="innehall">
+<section class="theme" id="jamfor">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Jämför städer</span>
+      <h1 class="sida-h">Hur står sig Örebro?</h1>
+      <p class="lead">Örebro jämfört med sju andra universitetsstäder av liknande storlek och med hela Sverige. Välj ett mått.</p>
+    </div>
+    <div class="chips" role="group" aria-label="Välj mått" id="kpi-chips"></div>
+    <div class="grid2">
+      <div class="panel">
+        <div class="panel-head"><h3 id="kpi-title">&nbsp;</h3><span class="small" id="kpi-year"></span></div>
+        <p class="small" id="kpi-desc"></p>
+        <div class="hbars" id="hb-kpi"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Utveckling över tid</h3>
+          <div class="legend"><span><i class="sw" style="background:var(--accent)"></i>Örebro</span><span><i class="sw" style="background:var(--ink2)"></i>Hela Sverige</span></div></div>
+        <div class="chart" id="ch-kpi"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><section class="ladda" id="ladda" data-tema="jamfor" aria-label="Ladda ner datan"></section></div>
+</main>
+<footer class="site">
+  <div class="wrap fot">
+    <div class="fot-brand"><span class="brand-ord">Örebro<b>360</b></span><span class="small">Örebro i siffror</span></div>
+    <p class="small">En fristående sida med öppen data om Örebro kommun. Den är inte en tjänst från Örebro kommun. Uppgifterna uppdaterades senast <span id="fot-datum">–</span>.</p>
+    <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

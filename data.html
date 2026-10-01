@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ladda ner datan · Örebro360</title>
+<meta name="description" content="All data på Örebro360 som CSV-filer för Excel: kommunens köp, restaurangkontroller, skolor, vården, vädret sedan 1858, valet och mer.">
+<link rel="canonical" href="https://orebro360.se/data">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:site_name" content="Örebro360">
+<meta property="og:title" content="Ladda ner datan · Örebro360">
+<meta property="og:description" content="All data på Örebro360 som CSV-filer för Excel: kommunens köp, restaurangkontroller, skolor, vården, vädret sedan 1858, valet och mer.">
+<meta property="og:url" content="https://orebro360.se/data">
+<meta property="og:image" content="https://orebro360.se/assets/dela.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#008572">
+<link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/stil.css">
+</head>
+<body data-sida="data">
+<a class="hoppa" href="#innehall">Hoppa till innehållet</a>
+<header class="site">
+  <div class="wrap site-rad">
+    <a class="brand" href="index.html" aria-label="Örebro360, till förstasidan"><svg class="ikon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M16 1.5v6M16 24.5v6M1.5 16h6" stroke="currentColor" stroke-width="3"/><circle cx="27" cy="16" r="4.5" class="ikon-o"/></svg><span class="brand-ord">Örebro<b>360</b></span></a>
+    <nav class="meny" aria-label="Ämnen">
+      <a href="omrade.html">Mitt område</a>
+      <a href="restauranger.html">Restaurangkollen</a>
+      <a href="skatt.html">Din skatt</a>
+      <a href="skolor.html">Skolor</a>
+      <a href="vard.html">Vård</a>
+      <a href="vader.html">Vädret</a>
+      <a href="valet.html">Valet 2026</a>
+      <a href="befolkning.html">Befolkning</a>
+      <a href="pengar.html">Pengar</a>
+      <a href="handel.html">Handeln</a>
+      <a href="jamfor.html">Jämför städer</a>
+      <a href="hundra.html">100 personer</a>
+      <a href="manaden.html">Månaden</a>
+      <a href="data.html" aria-current="page">Ladda ner data</a>
+      <a href="om.html">Om sidan</a>
+    </nav>
+  </div>
+</header>
+<main id="innehall">
+<section class="theme" id="data">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Ladda ner datan</span>
+      <h1 class="sida-h">All data på Örebro360</h1>
+      <p class="lead">Här finns allt som visas på sidan som filer du kan öppna i Excel, Numbers eller Google Kalkylark. Använd dem i skolarbetet, i en artikel, i föreningen eller för att räkna själv.</p>
+    </div>
+    <div class="panel data-zip">
+      <div>
+        <h2 class="sk-h">Alla filer på en gång</h2>
+        <p class="small" id="dt-zip-s">En zip-fil med alla tabeller.</p>
+      </div>
+      <a class="knapp" href="data/csv/orebro360_alla_filer.zip" download>Ladda ner alla (zip)</a>
+    </div>
+    <div id="dt-lista"><span class="loading">Laddar listan …</span></div>
+    <details class="note" open>
+      <summary>Bra att veta</summary>
+      <ul>
+        <li>Filerna är CSV med semikolon mellan kolumnerna och decimalkomma, så att de öppnas rätt i svenska Excel. Teckenkodningen är UTF-8.</li>
+        <li>Filerna uppdateras varje månad, samtidigt som sidan. Datumet står överst på varje ämne här.</li>
+        <li>Du får använda sammanställningarna fritt. Ange Örebro360 och originalkällan, som står vid varje fil. Originalkällornas egna villkor gäller, se <a href="om.html#kallor">källorna</a>.</li>
+        <li>Restaurangkollens filer innehåller samma uppgifter som Örebro kommun publicerar, och verksamheter i hemlik miljö har ingen adress.</li>
+        <li>Vill du ha datan i JSON-format, som sidan själv använder, finns den i mappen <span class="num">data/</span>, till exempel <span class="num">data/restauranger.json</span>.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+
+</main>
+<footer class="site">
+  <div class="wrap fot">
+    <div class="fot-brand"><span class="brand-ord">Örebro<b>360</b></span><span class="small">Örebro i siffror</span></div>
+    <p class="small">En fristående sida med öppen data om Örebro kommun. Den är inte en tjänst från Örebro kommun. Uppgifterna uppdaterades senast <span id="fot-datum">–</span>.</p>
+    <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

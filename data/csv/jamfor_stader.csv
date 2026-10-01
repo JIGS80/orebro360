@@ -1,0 +1,927 @@
+﻿nyckeltal_id;nyckeltal;enhet;kod;namn;ar;varde
+N00901;Kommunalskatt;%;1880;Örebro;2015;20,85
+N00901;Kommunalskatt;%;1880;Örebro;2016;21,35
+N00901;Kommunalskatt;%;1880;Örebro;2017;21,35
+N00901;Kommunalskatt;%;1880;Örebro;2018;21,35
+N00901;Kommunalskatt;%;1880;Örebro;2019;21,35
+N00901;Kommunalskatt;%;1880;Örebro;2020;21,35
+N00901;Kommunalskatt;%;1880;Örebro;2021;21,35
+N00901;Kommunalskatt;%;1880;Örebro;2022;21,35
+N00901;Kommunalskatt;%;1880;Örebro;2023;21,35
+N00901;Kommunalskatt;%;1880;Örebro;2024;21,35
+N00901;Kommunalskatt;%;1880;Örebro;2025;21,35
+N00901;Kommunalskatt;%;1880;Örebro;2026;21,35
+N00901;Kommunalskatt;%;0380;Uppsala;2015;20,84
+N00901;Kommunalskatt;%;0380;Uppsala;2016;21,14
+N00901;Kommunalskatt;%;0380;Uppsala;2017;21,14
+N00901;Kommunalskatt;%;0380;Uppsala;2018;21,14
+N00901;Kommunalskatt;%;0380;Uppsala;2019;21,14
+N00901;Kommunalskatt;%;0380;Uppsala;2020;21,14
+N00901;Kommunalskatt;%;0380;Uppsala;2021;21,14
+N00901;Kommunalskatt;%;0380;Uppsala;2022;21,14
+N00901;Kommunalskatt;%;0380;Uppsala;2023;21,14
+N00901;Kommunalskatt;%;0380;Uppsala;2024;21,14
+N00901;Kommunalskatt;%;0380;Uppsala;2025;21,14
+N00901;Kommunalskatt;%;0380;Uppsala;2026;21,14
+N00901;Kommunalskatt;%;0580;Linköping;2015;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2016;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2017;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2018;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2019;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2020;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2021;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2022;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2023;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2024;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2025;20,2
+N00901;Kommunalskatt;%;0580;Linköping;2026;20,2
+N00901;Kommunalskatt;%;1980;Västerås;2015;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2016;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2017;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2018;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2019;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2020;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2021;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2022;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2023;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2024;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2025;20,36
+N00901;Kommunalskatt;%;1980;Västerås;2026;20,36
+N00901;Kommunalskatt;%;0581;Norrköping;2015;21,25
+N00901;Kommunalskatt;%;0581;Norrköping;2016;21,75
+N00901;Kommunalskatt;%;0581;Norrköping;2017;21,75
+N00901;Kommunalskatt;%;0581;Norrköping;2018;21,75
+N00901;Kommunalskatt;%;0581;Norrköping;2019;21,75
+N00901;Kommunalskatt;%;0581;Norrköping;2020;21,75
+N00901;Kommunalskatt;%;0581;Norrköping;2021;21,75
+N00901;Kommunalskatt;%;0581;Norrköping;2022;21,75
+N00901;Kommunalskatt;%;0581;Norrköping;2023;21,75
+N00901;Kommunalskatt;%;0581;Norrköping;2024;21,75
+N00901;Kommunalskatt;%;0581;Norrköping;2025;21,75
+N00901;Kommunalskatt;%;0581;Norrköping;2026;21,75
+N00901;Kommunalskatt;%;0680;Jönköping;2015;21,34
+N00901;Kommunalskatt;%;0680;Jönköping;2016;21,34
+N00901;Kommunalskatt;%;0680;Jönköping;2017;21,34
+N00901;Kommunalskatt;%;0680;Jönköping;2018;21,34
+N00901;Kommunalskatt;%;0680;Jönköping;2019;21,64
+N00901;Kommunalskatt;%;0680;Jönköping;2020;21,64
+N00901;Kommunalskatt;%;0680;Jönköping;2021;21,64
+N00901;Kommunalskatt;%;0680;Jönköping;2022;21,64
+N00901;Kommunalskatt;%;0680;Jönköping;2023;21,64
+N00901;Kommunalskatt;%;0680;Jönköping;2024;21,64
+N00901;Kommunalskatt;%;0680;Jönköping;2025;21,64
+N00901;Kommunalskatt;%;0680;Jönköping;2026;21,64
+N00901;Kommunalskatt;%;1283;Helsingborg;2015;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2016;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2017;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2018;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2019;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2020;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2021;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2022;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2023;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2024;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2025;20,21
+N00901;Kommunalskatt;%;1283;Helsingborg;2026;20,21
+N00901;Kommunalskatt;%;2480;Umeå;2015;22,8
+N00901;Kommunalskatt;%;2480;Umeå;2016;22,85
+N00901;Kommunalskatt;%;2480;Umeå;2017;22,85
+N00901;Kommunalskatt;%;2480;Umeå;2018;22,85
+N00901;Kommunalskatt;%;2480;Umeå;2019;22,85
+N00901;Kommunalskatt;%;2480;Umeå;2020;22,8
+N00901;Kommunalskatt;%;2480;Umeå;2021;22,8
+N00901;Kommunalskatt;%;2480;Umeå;2022;22,8
+N00901;Kommunalskatt;%;2480;Umeå;2023;22,8
+N00901;Kommunalskatt;%;2480;Umeå;2024;22,8
+N00901;Kommunalskatt;%;2480;Umeå;2025;22,8
+N00901;Kommunalskatt;%;2480;Umeå;2026;22,8
+N00901;Kommunalskatt;%;0000;Hela Sverige;2016;20,75
+N00901;Kommunalskatt;%;0000;Hela Sverige;2017;20,75
+N00901;Kommunalskatt;%;0000;Hela Sverige;2018;20,74
+N00901;Kommunalskatt;%;0000;Hela Sverige;2019;20,7
+N00901;Kommunalskatt;%;0000;Hela Sverige;2020;20,72
+N00901;Kommunalskatt;%;0000;Hela Sverige;2021;20,71
+N00901;Kommunalskatt;%;0000;Hela Sverige;2022;20,67
+N00901;Kommunalskatt;%;0000;Hela Sverige;2023;20,67
+N00901;Kommunalskatt;%;0000;Hela Sverige;2024;20,7
+N00901;Kommunalskatt;%;0000;Hela Sverige;2025;20,71
+N00901;Kommunalskatt;%;0000;Hela Sverige;2026;20,69
+N03941;Arbetslöshet;%;1880;Örebro;2023;7,25
+N03941;Arbetslöshet;%;1880;Örebro;2024;7,72
+N03941;Arbetslöshet;%;1880;Örebro;2025;7,71
+N03941;Arbetslöshet;%;0380;Uppsala;2023;6,06
+N03941;Arbetslöshet;%;0380;Uppsala;2024;6,15
+N03941;Arbetslöshet;%;0380;Uppsala;2025;6,38
+N03941;Arbetslöshet;%;0580;Linköping;2023;5,69
+N03941;Arbetslöshet;%;0580;Linköping;2024;5,98
+N03941;Arbetslöshet;%;0580;Linköping;2025;6,16
+N03941;Arbetslöshet;%;1980;Västerås;2023;7,98
+N03941;Arbetslöshet;%;1980;Västerås;2024;8,57
+N03941;Arbetslöshet;%;1980;Västerås;2025;9,13
+N03941;Arbetslöshet;%;0581;Norrköping;2023;8,88
+N03941;Arbetslöshet;%;0581;Norrköping;2024;9,17
+N03941;Arbetslöshet;%;0581;Norrköping;2025;9,47
+N03941;Arbetslöshet;%;0680;Jönköping;2023;5,02
+N03941;Arbetslöshet;%;0680;Jönköping;2024;5,67
+N03941;Arbetslöshet;%;0680;Jönköping;2025;5,87
+N03941;Arbetslöshet;%;1283;Helsingborg;2023;10,19
+N03941;Arbetslöshet;%;1283;Helsingborg;2024;11,23
+N03941;Arbetslöshet;%;1283;Helsingborg;2025;11,42
+N03941;Arbetslöshet;%;2480;Umeå;2023;3,76
+N03941;Arbetslöshet;%;2480;Umeå;2024;3,97
+N03941;Arbetslöshet;%;2480;Umeå;2025;4,2
+N03941;Arbetslöshet;%;0000;Hela Sverige;2023;6,42
+N03941;Arbetslöshet;%;0000;Hela Sverige;2024;6,84
+N03941;Arbetslöshet;%;0000;Hela Sverige;2025;7,01
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2015;83,56
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2016;85,78
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2017;84,57
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2018;80,73
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2019;81,09
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2020;81,24
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2021;81,79
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2022;80,63
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2023;81,64
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2024;78,82
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2025;80,69
+N15428;Behöriga till gymnasiet;%;1880;Örebro;2026;81,01
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2015;89,16
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2016;92,01
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2017;87,49
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2018;88,71
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2019;87,91
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2020;88,43
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2021;88,49
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2022;86,84
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2023;87,38
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2024;86,55
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2025;86,15
+N15428;Behöriga till gymnasiet;%;0380;Uppsala;2026;85,79
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2015;86,6
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2016;86,94
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2017;85,54
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2018;85,24
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2019;83,51
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2020;84,26
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2021;85,02
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2022;84,7
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2023;86,29
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2024;81,82
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2025;84,86
+N15428;Behöriga till gymnasiet;%;0580;Linköping;2026;82,62
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2015;84,79
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2016;85
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2017;82,57
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2018;83,01
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2019;83,57
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2020;83,23
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2021;86,31
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2022;84,46
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2023;84,7
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2024;83,96
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2025;83,14
+N15428;Behöriga till gymnasiet;%;1980;Västerås;2026;81,49
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2015;81,45
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2016;82,91
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2017;80,18
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2018;82,78
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2019;81,09
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2020;83,42
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2021;86,57
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2022;83,4
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2023;85,92
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2024;81,58
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2025;82,63
+N15428;Behöriga till gymnasiet;%;0581;Norrköping;2026;78,26
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2015;88,79
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2016;90,39
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2017;85,61
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2018;88,37
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2019;88,45
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2020;87,75
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2021;88,07
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2022;86,42
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2023;88,07
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2024;86,25
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2025;85,68
+N15428;Behöriga till gymnasiet;%;0680;Jönköping;2026;82
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2015;84,22
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2016;88,81
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2017;86,83
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2018;84,82
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2019;83,27
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2020;86,19
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2021;86,26
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2022;86,21
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2023;86,19
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2024;85,3
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2025;82,07
+N15428;Behöriga till gymnasiet;%;1283;Helsingborg;2026;82,83
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2015;89,77
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2016;91,02
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2017;90,63
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2018;89,13
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2019;88,84
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2020;91,87
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2021;90,57
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2022;89,26
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2023;89,75
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2024;87,96
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2025;87,77
+N15428;Behöriga till gymnasiet;%;2480;Umeå;2026;88,28
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2015;85,6
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2016;87,3
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2017;82,5
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2018;84,4
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2019;84,7
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2020;85,95
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2021;86,5
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2022;85,31
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2023;85,6
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2024;84,11
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2025;84,24
+N15428;Behöriga till gymnasiet;%;0000;Hela Sverige;2026;83,63
+N07540;Anmälda brott;st;1880;Örebro;2015;14338,4
+N07540;Anmälda brott;st;1880;Örebro;2016;14362,6
+N07540;Anmälda brott;st;1880;Örebro;2017;13587
+N07540;Anmälda brott;st;1880;Örebro;2018;12545,7
+N07540;Anmälda brott;st;1880;Örebro;2019;13333,7
+N07540;Anmälda brott;st;1880;Örebro;2020;14577,2
+N07540;Anmälda brott;st;1880;Örebro;2021;14717,5
+N07540;Anmälda brott;st;1880;Örebro;2022;14204,4
+N07540;Anmälda brott;st;1880;Örebro;2023;13687,9
+N07540;Anmälda brott;st;1880;Örebro;2024;13884,1
+N07540;Anmälda brott;st;1880;Örebro;2025;13914,7
+N07540;Anmälda brott;st;0380;Uppsala;2015;10626,5
+N07540;Anmälda brott;st;0380;Uppsala;2016;10708,5
+N07540;Anmälda brott;st;0380;Uppsala;2017;10974,3
+N07540;Anmälda brott;st;0380;Uppsala;2018;10307,6
+N07540;Anmälda brott;st;0380;Uppsala;2019;10982,1
+N07540;Anmälda brott;st;0380;Uppsala;2020;10669,7
+N07540;Anmälda brott;st;0380;Uppsala;2021;10419,3
+N07540;Anmälda brott;st;0380;Uppsala;2022;10060,5
+N07540;Anmälda brott;st;0380;Uppsala;2023;10842,1
+N07540;Anmälda brott;st;0380;Uppsala;2024;11148,8
+N07540;Anmälda brott;st;0380;Uppsala;2025;11137,5
+N07540;Anmälda brott;st;0580;Linköping;2015;10465,7
+N07540;Anmälda brott;st;0580;Linköping;2016;10720,3
+N07540;Anmälda brott;st;0580;Linköping;2017;11231,4
+N07540;Anmälda brott;st;0580;Linköping;2018;10802,1
+N07540;Anmälda brott;st;0580;Linköping;2019;10778,8
+N07540;Anmälda brott;st;0580;Linköping;2020;11196,7
+N07540;Anmälda brott;st;0580;Linköping;2021;9691,6
+N07540;Anmälda brott;st;0580;Linköping;2022;9765,8
+N07540;Anmälda brott;st;0580;Linköping;2023;11046,6
+N07540;Anmälda brott;st;0580;Linköping;2024;11017,2
+N07540;Anmälda brott;st;0580;Linköping;2025;10321,6
+N07540;Anmälda brott;st;1980;Västerås;2015;13116,8
+N07540;Anmälda brott;st;1980;Västerås;2016;12471,2
+N07540;Anmälda brott;st;1980;Västerås;2017;14183,3
+N07540;Anmälda brott;st;1980;Västerås;2018;13963,9
+N07540;Anmälda brott;st;1980;Västerås;2019;13585,9
+N07540;Anmälda brott;st;1980;Västerås;2020;14175,7
+N07540;Anmälda brott;st;1980;Västerås;2021;15040,2
+N07540;Anmälda brott;st;1980;Västerås;2022;12868,8
+N07540;Anmälda brott;st;1980;Västerås;2023;13802,7
+N07540;Anmälda brott;st;1980;Västerås;2024;13357,6
+N07540;Anmälda brott;st;1980;Västerås;2025;14152,7
+N07540;Anmälda brott;st;0581;Norrköping;2015;12713,5
+N07540;Anmälda brott;st;0581;Norrköping;2016;12720,7
+N07540;Anmälda brott;st;0581;Norrköping;2017;12702,3
+N07540;Anmälda brott;st;0581;Norrköping;2018;11726,1
+N07540;Anmälda brott;st;0581;Norrköping;2019;10928,9
+N07540;Anmälda brott;st;0581;Norrköping;2020;11745,4
+N07540;Anmälda brott;st;0581;Norrköping;2021;11325,4
+N07540;Anmälda brott;st;0581;Norrköping;2022;13254,5
+N07540;Anmälda brott;st;0581;Norrköping;2023;13926,4
+N07540;Anmälda brott;st;0581;Norrköping;2024;13509,9
+N07540;Anmälda brott;st;0581;Norrköping;2025;12832
+N07540;Anmälda brott;st;0680;Jönköping;2015;11193,5
+N07540;Anmälda brott;st;0680;Jönköping;2016;11307
+N07540;Anmälda brott;st;0680;Jönköping;2017;10515,6
+N07540;Anmälda brott;st;0680;Jönköping;2018;9493,5
+N07540;Anmälda brott;st;0680;Jönköping;2019;9012,6
+N07540;Anmälda brott;st;0680;Jönköping;2020;9568,7
+N07540;Anmälda brott;st;0680;Jönköping;2021;8632,7
+N07540;Anmälda brott;st;0680;Jönköping;2022;9149,5
+N07540;Anmälda brott;st;0680;Jönköping;2023;10555
+N07540;Anmälda brott;st;0680;Jönköping;2024;10389,5
+N07540;Anmälda brott;st;0680;Jönköping;2025;9782,1
+N07540;Anmälda brott;st;1283;Helsingborg;2015;16544,2
+N07540;Anmälda brott;st;1283;Helsingborg;2016;15541,4
+N07540;Anmälda brott;st;1283;Helsingborg;2017;15174,7
+N07540;Anmälda brott;st;1283;Helsingborg;2018;15360,9
+N07540;Anmälda brott;st;1283;Helsingborg;2019;14025,2
+N07540;Anmälda brott;st;1283;Helsingborg;2020;14700,3
+N07540;Anmälda brott;st;1283;Helsingborg;2021;14502,9
+N07540;Anmälda brott;st;1283;Helsingborg;2022;14770
+N07540;Anmälda brott;st;1283;Helsingborg;2023;15144,2
+N07540;Anmälda brott;st;1283;Helsingborg;2024;15548,6
+N07540;Anmälda brott;st;1283;Helsingborg;2025;15582,5
+N07540;Anmälda brott;st;2480;Umeå;2015;8750
+N07540;Anmälda brott;st;2480;Umeå;2016;9613,3
+N07540;Anmälda brott;st;2480;Umeå;2017;10602,8
+N07540;Anmälda brott;st;2480;Umeå;2018;9828,6
+N07540;Anmälda brott;st;2480;Umeå;2019;9383,2
+N07540;Anmälda brott;st;2480;Umeå;2020;9349,9
+N07540;Anmälda brott;st;2480;Umeå;2021;8329,3
+N07540;Anmälda brott;st;2480;Umeå;2022;8481,5
+N07540;Anmälda brott;st;2480;Umeå;2023;9016,1
+N07540;Anmälda brott;st;2480;Umeå;2024;8965,4
+N07540;Anmälda brott;st;2480;Umeå;2025;9209,6
+N07540;Anmälda brott;st;0000;Hela Sverige;2015;15342,1
+N07540;Anmälda brott;st;0000;Hela Sverige;2016;15219
+N07540;Anmälda brott;st;0000;Hela Sverige;2017;15062,1
+N07540;Anmälda brott;st;0000;Hela Sverige;2018;15239,2
+N07540;Anmälda brott;st;0000;Hela Sverige;2019;15063,9
+N07540;Anmälda brott;st;0000;Hela Sverige;2020;15133,8
+N07540;Anmälda brott;st;0000;Hela Sverige;2021;14214,5
+N07540;Anmälda brott;st;0000;Hela Sverige;2022;13802,6
+N07540;Anmälda brott;st;0000;Hela Sverige;2023;14348,8
+N07540;Anmälda brott;st;0000;Hela Sverige;2024;14090,4
+N07540;Anmälda brott;st;0000;Hela Sverige;2025;13581,3
+N07917;Nya bostäder;st;1880;Örebro;2015;5,9
+N07917;Nya bostäder;st;1880;Örebro;2016;14,36
+N07917;Nya bostäder;st;1880;Örebro;2017;13,59
+N07917;Nya bostäder;st;1880;Örebro;2018;11,5
+N07917;Nya bostäder;st;1880;Örebro;2019;6,71
+N07917;Nya bostäder;st;1880;Örebro;2020;4,57
+N07917;Nya bostäder;st;1880;Örebro;2021;6,06
+N07917;Nya bostäder;st;1880;Örebro;2022;9,95
+N07917;Nya bostäder;st;1880;Örebro;2023;4,41
+N07917;Nya bostäder;st;1880;Örebro;2024;3,39
+N07917;Nya bostäder;st;1880;Örebro;2025;4,65
+N07917;Nya bostäder;st;0380;Uppsala;2015;4,91
+N07917;Nya bostäder;st;0380;Uppsala;2016;7,82
+N07917;Nya bostäder;st;0380;Uppsala;2017;7,67
+N07917;Nya bostäder;st;0380;Uppsala;2018;9,99
+N07917;Nya bostäder;st;0380;Uppsala;2019;13,38
+N07917;Nya bostäder;st;0380;Uppsala;2020;9,52
+N07917;Nya bostäder;st;0380;Uppsala;2021;5,19
+N07917;Nya bostäder;st;0380;Uppsala;2022;8,73
+N07917;Nya bostäder;st;0380;Uppsala;2023;13,16
+N07917;Nya bostäder;st;0380;Uppsala;2024;13,92
+N07917;Nya bostäder;st;0380;Uppsala;2025;3,79
+N07917;Nya bostäder;st;0580;Linköping;2015;5,88
+N07917;Nya bostäder;st;0580;Linköping;2016;7,32
+N07917;Nya bostäder;st;0580;Linköping;2017;11,44
+N07917;Nya bostäder;st;0580;Linköping;2018;8,46
+N07917;Nya bostäder;st;0580;Linköping;2019;5,5
+N07917;Nya bostäder;st;0580;Linköping;2020;9,2
+N07917;Nya bostäder;st;0580;Linköping;2021;5,78
+N07917;Nya bostäder;st;0580;Linköping;2022;7,87
+N07917;Nya bostäder;st;0580;Linköping;2023;5,69
+N07917;Nya bostäder;st;0580;Linköping;2024;1,61
+N07917;Nya bostäder;st;0580;Linköping;2025;6,11
+N07917;Nya bostäder;st;1980;Västerås;2015;3,65
+N07917;Nya bostäder;st;1980;Västerås;2016;4,8
+N07917;Nya bostäder;st;1980;Västerås;2017;5,94
+N07917;Nya bostäder;st;1980;Västerås;2018;7,41
+N07917;Nya bostäder;st;1980;Västerås;2019;6,44
+N07917;Nya bostäder;st;1980;Västerås;2020;6,43
+N07917;Nya bostäder;st;1980;Västerås;2021;6,11
+N07917;Nya bostäder;st;1980;Västerås;2022;7,86
+N07917;Nya bostäder;st;1980;Västerås;2023;11,14
+N07917;Nya bostäder;st;1980;Västerås;2024;4,18
+N07917;Nya bostäder;st;1980;Västerås;2025;2,51
+N07917;Nya bostäder;st;0581;Norrköping;2015;7,28
+N07917;Nya bostäder;st;0581;Norrköping;2016;6,61
+N07917;Nya bostäder;st;0581;Norrköping;2017;3,13
+N07917;Nya bostäder;st;0581;Norrköping;2018;6,03
+N07917;Nya bostäder;st;0581;Norrköping;2019;6,3
+N07917;Nya bostäder;st;0581;Norrköping;2020;1,79
+N07917;Nya bostäder;st;0581;Norrköping;2021;5,27
+N07917;Nya bostäder;st;0581;Norrköping;2022;4,96
+N07917;Nya bostäder;st;0581;Norrköping;2023;7,56
+N07917;Nya bostäder;st;0581;Norrköping;2024;3,72
+N07917;Nya bostäder;st;0581;Norrköping;2025;1,32
+N07917;Nya bostäder;st;0680;Jönköping;2015;1,84
+N07917;Nya bostäder;st;0680;Jönköping;2016;5,09
+N07917;Nya bostäder;st;0680;Jönköping;2017;7,64
+N07917;Nya bostäder;st;0680;Jönköping;2018;3,5
+N07917;Nya bostäder;st;0680;Jönköping;2019;4,97
+N07917;Nya bostäder;st;0680;Jönköping;2020;5,1
+N07917;Nya bostäder;st;0680;Jönköping;2021;5,76
+N07917;Nya bostäder;st;0680;Jönköping;2022;7,04
+N07917;Nya bostäder;st;0680;Jönköping;2023;5,4
+N07917;Nya bostäder;st;0680;Jönköping;2024;4,99
+N07917;Nya bostäder;st;0680;Jönköping;2025;1,41
+N07917;Nya bostäder;st;1283;Helsingborg;2015;3,62
+N07917;Nya bostäder;st;1283;Helsingborg;2016;6,21
+N07917;Nya bostäder;st;1283;Helsingborg;2017;8,49
+N07917;Nya bostäder;st;1283;Helsingborg;2018;10,91
+N07917;Nya bostäder;st;1283;Helsingborg;2019;8,16
+N07917;Nya bostäder;st;1283;Helsingborg;2020;6
+N07917;Nya bostäder;st;1283;Helsingborg;2021;4,26
+N07917;Nya bostäder;st;1283;Helsingborg;2022;2,61
+N07917;Nya bostäder;st;1283;Helsingborg;2023;7,16
+N07917;Nya bostäder;st;1283;Helsingborg;2024;2,33
+N07917;Nya bostäder;st;1283;Helsingborg;2025;0,76
+N07917;Nya bostäder;st;2480;Umeå;2015;9,54
+N07917;Nya bostäder;st;2480;Umeå;2016;10,6
+N07917;Nya bostäder;st;2480;Umeå;2017;7,62
+N07917;Nya bostäder;st;2480;Umeå;2018;11,29
+N07917;Nya bostäder;st;2480;Umeå;2019;7,8
+N07917;Nya bostäder;st;2480;Umeå;2020;3,18
+N07917;Nya bostäder;st;2480;Umeå;2021;4,69
+N07917;Nya bostäder;st;2480;Umeå;2022;6,93
+N07917;Nya bostäder;st;2480;Umeå;2023;6,71
+N07917;Nya bostäder;st;2480;Umeå;2024;7,15
+N07917;Nya bostäder;st;2480;Umeå;2025;5,61
+N07917;Nya bostäder;st;0000;Hela Sverige;2015;3,51
+N07917;Nya bostäder;st;0000;Hela Sverige;2016;4,25
+N07917;Nya bostäder;st;0000;Hela Sverige;2017;4,77
+N07917;Nya bostäder;st;0000;Hela Sverige;2018;5,36
+N07917;Nya bostäder;st;0000;Hela Sverige;2019;5,39
+N07917;Nya bostäder;st;0000;Hela Sverige;2020;4,86
+N07917;Nya bostäder;st;0000;Hela Sverige;2021;4,79
+N07917;Nya bostäder;st;0000;Hela Sverige;2022;5,13
+N07917;Nya bostäder;st;0000;Hela Sverige;2023;6,22
+N07917;Nya bostäder;st;0000;Hela Sverige;2024;4,3
+N07917;Nya bostäder;st;0000;Hela Sverige;2025;2,96
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2015;50344,6
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2016;50766,9
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2017;52711,8
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2018;55259,9
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2019;57431,4
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2020;57153,5
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2021;58812,1
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2022;60807,5
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2023;65840,1
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2024;68215,5
+N03067;Kommunens kostnad per invånare;kr;1880;Örebro;2025;69097,6
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2015;46469,4
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2016;47062,4
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2017;47826,5
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2018;49981,7
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2019;51620,5
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2020;53157,1
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2021;54788,4
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2022;56934,8
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2023;59803,9
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2024;63487,6
+N03067;Kommunens kostnad per invånare;kr;0380;Uppsala;2025;63994,1
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2015;47584,8
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2016;49163,9
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2017;50082,8
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2018;52167,6
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2019;54237,3
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2020;55250,7
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2021;58161,1
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2022;59708
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2023;63499,1
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2024;64226,2
+N03067;Kommunens kostnad per invånare;kr;0580;Linköping;2025;65956,4
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2015;50417
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2016;49628
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2017;50145,3
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2018;52261,6
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2019;54111,6
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2020;55244
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2021;56398,7
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2022;58219,8
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2023;61264,5
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2024;66677,9
+N03067;Kommunens kostnad per invånare;kr;1980;Västerås;2025;67511,9
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2015;50040,1
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2016;51454,4
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2017;53929,3
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2018;56265,4
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2019;57742,9
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2020;57696,6
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2021;59581,8
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2022;62037,2
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2023;67312,4
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2024;72433,7
+N03067;Kommunens kostnad per invånare;kr;0581;Norrköping;2025;72941,8
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2015;50180,1
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2016;50455,6
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2017;52031,6
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2018;54029,7
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2019;56569,4
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2020;57446,2
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2021;57495,2
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2022;59392,8
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2023;64565,2
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2024;66438,5
+N03067;Kommunens kostnad per invånare;kr;0680;Jönköping;2025;68657,2
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2015;46738,1
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2016;47447
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2017;49110,6
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2018;51241,8
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2019;52233
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2020;53183,7
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2021;55562,5
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2022;56582,5
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2023;59445,5
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2024;64457,5
+N03067;Kommunens kostnad per invånare;kr;1283;Helsingborg;2025;65596,8
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2015;51922,4
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2016;51814
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2017;53011,1
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2018;54603,1
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2019;56064,9
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2020;56660
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2021;57957,7
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2022;59094
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2023;66103,2
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2024;68705
+N03067;Kommunens kostnad per invånare;kr;2480;Umeå;2025;69266,3
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2015;49415,1
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2016;50625,8
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2017;52333,2
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2018;54281,1
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2019;55746,6
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2020;56603,2
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2021;58553,2
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2022;61062,8
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2023;65200,2
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2024;68852,7
+N03067;Kommunens kostnad per invånare;kr;0000;Hela Sverige;2025;69555,8
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2015;5,01
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2016;4,7
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2017;4,74
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2018;4,52
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2019;4,43
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2020;4,39
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2021;3,98
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2022;3,43
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2023;3,07
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2024;3,08
+N31807;Ekonomiskt bistånd;%;1880;Örebro;2025;3,02
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2015;4,17
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2016;4,33
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2017;4,77
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2018;4,96
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2019;4,96
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2020;4,73
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2021;4,3
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2022;3,68
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2023;3,14
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2024;2,94
+N31807;Ekonomiskt bistånd;%;0380;Uppsala;2025;2,82
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2015;5,54
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2016;5,39
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2017;5
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2018;4,87
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2019;4,88
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2020;4,84
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2021;4,69
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2022;4,44
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2023;3,88
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2024;3,59
+N31807;Ekonomiskt bistånd;%;0580;Linköping;2025;3,33
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2015;5,17
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2016;5,28
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2017;5,35
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2018;5
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2019;4,86
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2020;4,45
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2021;4,07
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2022;3,5
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2023;3,02
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2024;2,81
+N31807;Ekonomiskt bistånd;%;1980;Västerås;2025;2,82
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2015;7,9
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2016;7,86
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2017;7,32
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2018;6,58
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2019;6,12
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2020;5,31
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2021;4,51
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2022;3,89
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2023;3,47
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2024;3,3
+N31807;Ekonomiskt bistånd;%;0581;Norrköping;2025;3,53
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2015;4,53
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2016;4,09
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2017;3,63
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2018;3,45
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2019;3,32
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2020;3,02
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2021;2,45
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2022;2,11
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2023;1,86
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2024;1,81
+N31807;Ekonomiskt bistånd;%;0680;Jönköping;2025;2,08
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2015;5,67
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2016;5,82
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2017;5,76
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2018;5,48
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2019;5,47
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2020;5,82
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2021;5,41
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2022;4,7
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2023;4,19
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2024;3,95
+N31807;Ekonomiskt bistånd;%;1283;Helsingborg;2025;3,82
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2015;2,89
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2016;2,7
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2017;2,8
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2018;2,65
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2019;2,53
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2020;2,42
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2021;2,2
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2022;1,9
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2023;1,66
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2024;1,57
+N31807;Ekonomiskt bistånd;%;2480;Umeå;2025;1,75
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2015;4,22
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2016;4,1
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2017;4,04
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2018;3,85
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2019;3,69
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2020;3,61
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2021;3,26
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2022;2,85
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2023;2,49
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2024;2,37
+N31807;Ekonomiskt bistånd;%;0000;Hela Sverige;2025;2,33
+U21468;Nöjd med hemtjänsten;%;1880;Örebro;2015;90
+U21468;Nöjd med hemtjänsten;%;1880;Örebro;2016;90
+U21468;Nöjd med hemtjänsten;%;1880;Örebro;2017;89
+U21468;Nöjd med hemtjänsten;%;1880;Örebro;2018;89
+U21468;Nöjd med hemtjänsten;%;1880;Örebro;2019;90
+U21468;Nöjd med hemtjänsten;%;1880;Örebro;2020;91
+U21468;Nöjd med hemtjänsten;%;1880;Örebro;2022;88
+U21468;Nöjd med hemtjänsten;%;1880;Örebro;2023;87
+U21468;Nöjd med hemtjänsten;%;1880;Örebro;2024;83,4
+U21468;Nöjd med hemtjänsten;%;1880;Örebro;2025;82,5
+U21468;Nöjd med hemtjänsten;%;0380;Uppsala;2015;86
+U21468;Nöjd med hemtjänsten;%;0380;Uppsala;2016;88
+U21468;Nöjd med hemtjänsten;%;0380;Uppsala;2017;86
+U21468;Nöjd med hemtjänsten;%;0380;Uppsala;2018;86
+U21468;Nöjd med hemtjänsten;%;0380;Uppsala;2019;86
+U21468;Nöjd med hemtjänsten;%;0380;Uppsala;2020;85
+U21468;Nöjd med hemtjänsten;%;0380;Uppsala;2022;81
+U21468;Nöjd med hemtjänsten;%;0380;Uppsala;2023;82
+U21468;Nöjd med hemtjänsten;%;0380;Uppsala;2024;80,5
+U21468;Nöjd med hemtjänsten;%;0380;Uppsala;2025;83,7
+U21468;Nöjd med hemtjänsten;%;0580;Linköping;2015;91
+U21468;Nöjd med hemtjänsten;%;0580;Linköping;2016;91
+U21468;Nöjd med hemtjänsten;%;0580;Linköping;2017;90
+U21468;Nöjd med hemtjänsten;%;0580;Linköping;2018;88
+U21468;Nöjd med hemtjänsten;%;0580;Linköping;2019;88
+U21468;Nöjd med hemtjänsten;%;0580;Linköping;2020;87
+U21468;Nöjd med hemtjänsten;%;0580;Linköping;2022;87
+U21468;Nöjd med hemtjänsten;%;0580;Linköping;2023;86
+U21468;Nöjd med hemtjänsten;%;0580;Linköping;2024;80,7
+U21468;Nöjd med hemtjänsten;%;0580;Linköping;2025;83,3
+U21468;Nöjd med hemtjänsten;%;1980;Västerås;2015;89
+U21468;Nöjd med hemtjänsten;%;1980;Västerås;2016;91
+U21468;Nöjd med hemtjänsten;%;1980;Västerås;2017;91
+U21468;Nöjd med hemtjänsten;%;1980;Västerås;2018;88
+U21468;Nöjd med hemtjänsten;%;1980;Västerås;2019;89
+U21468;Nöjd med hemtjänsten;%;1980;Västerås;2020;88
+U21468;Nöjd med hemtjänsten;%;1980;Västerås;2022;85
+U21468;Nöjd med hemtjänsten;%;1980;Västerås;2023;81
+U21468;Nöjd med hemtjänsten;%;1980;Västerås;2024;81,7
+U21468;Nöjd med hemtjänsten;%;1980;Västerås;2025;84
+U21468;Nöjd med hemtjänsten;%;0581;Norrköping;2015;88
+U21468;Nöjd med hemtjänsten;%;0581;Norrköping;2016;87
+U21468;Nöjd med hemtjänsten;%;0581;Norrköping;2017;87
+U21468;Nöjd med hemtjänsten;%;0581;Norrköping;2018;84
+U21468;Nöjd med hemtjänsten;%;0581;Norrköping;2019;85
+U21468;Nöjd med hemtjänsten;%;0581;Norrköping;2020;85
+U21468;Nöjd med hemtjänsten;%;0581;Norrköping;2022;83
+U21468;Nöjd med hemtjänsten;%;0581;Norrköping;2023;83
+U21468;Nöjd med hemtjänsten;%;0581;Norrköping;2024;82,1
+U21468;Nöjd med hemtjänsten;%;0581;Norrköping;2025;79,4
+U21468;Nöjd med hemtjänsten;%;0680;Jönköping;2015;95
+U21468;Nöjd med hemtjänsten;%;0680;Jönköping;2016;94
+U21468;Nöjd med hemtjänsten;%;0680;Jönköping;2017;93
+U21468;Nöjd med hemtjänsten;%;0680;Jönköping;2018;91
+U21468;Nöjd med hemtjänsten;%;0680;Jönköping;2019;93
+U21468;Nöjd med hemtjänsten;%;0680;Jönköping;2020;93
+U21468;Nöjd med hemtjänsten;%;0680;Jönköping;2022;90
+U21468;Nöjd med hemtjänsten;%;0680;Jönköping;2023;89
+U21468;Nöjd med hemtjänsten;%;0680;Jönköping;2024;88,9
+U21468;Nöjd med hemtjänsten;%;0680;Jönköping;2025;88,9
+U21468;Nöjd med hemtjänsten;%;1283;Helsingborg;2015;89
+U21468;Nöjd med hemtjänsten;%;1283;Helsingborg;2016;88
+U21468;Nöjd med hemtjänsten;%;1283;Helsingborg;2017;90
+U21468;Nöjd med hemtjänsten;%;1283;Helsingborg;2018;88
+U21468;Nöjd med hemtjänsten;%;1283;Helsingborg;2019;88
+U21468;Nöjd med hemtjänsten;%;1283;Helsingborg;2020;88
+U21468;Nöjd med hemtjänsten;%;1283;Helsingborg;2022;80
+U21468;Nöjd med hemtjänsten;%;1283;Helsingborg;2023;81
+U21468;Nöjd med hemtjänsten;%;1283;Helsingborg;2024;80,4
+U21468;Nöjd med hemtjänsten;%;1283;Helsingborg;2025;81,5
+U21468;Nöjd med hemtjänsten;%;2480;Umeå;2015;93
+U21468;Nöjd med hemtjänsten;%;2480;Umeå;2016;94
+U21468;Nöjd med hemtjänsten;%;2480;Umeå;2017;94
+U21468;Nöjd med hemtjänsten;%;2480;Umeå;2018;94
+U21468;Nöjd med hemtjänsten;%;2480;Umeå;2019;92
+U21468;Nöjd med hemtjänsten;%;2480;Umeå;2020;93
+U21468;Nöjd med hemtjänsten;%;2480;Umeå;2022;89
+U21468;Nöjd med hemtjänsten;%;2480;Umeå;2023;90
+U21468;Nöjd med hemtjänsten;%;2480;Umeå;2024;86,5
+U21468;Nöjd med hemtjänsten;%;2480;Umeå;2025;84,8
+U21468;Nöjd med hemtjänsten;%;0000;Hela Sverige;2015;89
+U21468;Nöjd med hemtjänsten;%;0000;Hela Sverige;2016;89
+U21468;Nöjd med hemtjänsten;%;0000;Hela Sverige;2017;89
+U21468;Nöjd med hemtjänsten;%;0000;Hela Sverige;2018;88
+U21468;Nöjd med hemtjänsten;%;0000;Hela Sverige;2019;88
+U21468;Nöjd med hemtjänsten;%;0000;Hela Sverige;2020;88
+U21468;Nöjd med hemtjänsten;%;0000;Hela Sverige;2022;86
+U21468;Nöjd med hemtjänsten;%;0000;Hela Sverige;2023;86
+U21468;Nöjd med hemtjänsten;%;0000;Hela Sverige;2024;84,7
+U21468;Nöjd med hemtjänsten;%;0000;Hela Sverige;2025;84,9
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2015;84,18
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2016;84,24
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2017;84,45
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2018;84,65
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2019;84,85
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2020;84,79
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2021;85,11
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2022;85,14
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2023;85,15
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2024;85,27
+N00925;Medellivslängd kvinnor;år;1880;Örebro;2025;85,36
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2015;84,5
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2016;84,82
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2017;84,95
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2018;85,16
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2019;85,37
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2020;85,4
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2021;85,32
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2022;85,48
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2023;85,69
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2024;85,77
+N00925;Medellivslängd kvinnor;år;0380;Uppsala;2025;86,06
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2015;84,48
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2016;84,62
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2017;84,88
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2018;85,1
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2019;85,24
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2020;85,24
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2021;85,17
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2022;85,22
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2023;85,3
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2024;85,45
+N00925;Medellivslängd kvinnor;år;0580;Linköping;2025;85,71
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2015;84,11
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2016;84,15
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2017;84,23
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2018;84,31
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2019;84,43
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2020;84,45
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2021;84,57
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2022;84,69
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2023;84,96
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2024;85,1
+N00925;Medellivslängd kvinnor;år;1980;Västerås;2025;85,33
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2015;83,37
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2016;83,51
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2017;83,56
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2018;83,81
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2019;83,87
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2020;83,68
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2021;83,68
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2022;83,74
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2023;84,05
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2024;84,2
+N00925;Medellivslängd kvinnor;år;0581;Norrköping;2025;84,34
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2015;84,38
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2016;84,61
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2017;84,74
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2018;84,82
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2019;84,85
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2020;84,88
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2021;84,96
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2022;85,25
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2023;85,53
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2024;85,72
+N00925;Medellivslängd kvinnor;år;0680;Jönköping;2025;86,16
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2015;83,78
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2016;83,7
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2017;84,01
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2018;84,05
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2019;84,1
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2020;84,02
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2021;84,09
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2022;84,12
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2023;84,24
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2024;84,46
+N00925;Medellivslängd kvinnor;år;1283;Helsingborg;2025;84,61
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2015;83,82
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2016;84,13
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2017;84,35
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2018;84,32
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2019;84,56
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2020;84,69
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2021;84,62
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2022;84,77
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2023;85,02
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2024;85,16
+N00925;Medellivslängd kvinnor;år;2480;Umeå;2025;85,3
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2015;83,79
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2016;83,88
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2017;83,99
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2018;84,1
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2019;84,24
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2020;84,29
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2021;84,43
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2022;84,56
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2023;84,69
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2024;84,81
+N00925;Medellivslängd kvinnor;år;0000;Hela Sverige;2025;85,07
+N00923;Medellivslängd män;år;1880;Örebro;2015;79,95
+N00923;Medellivslängd män;år;1880;Örebro;2016;80,02
+N00923;Medellivslängd män;år;1880;Örebro;2017;80,15
+N00923;Medellivslängd män;år;1880;Örebro;2018;80,48
+N00923;Medellivslängd män;år;1880;Örebro;2019;80,48
+N00923;Medellivslängd män;år;1880;Örebro;2020;80,64
+N00923;Medellivslängd män;år;1880;Örebro;2021;80,95
+N00923;Medellivslängd män;år;1880;Örebro;2022;81
+N00923;Medellivslängd män;år;1880;Örebro;2023;81,18
+N00923;Medellivslängd män;år;1880;Örebro;2024;81,43
+N00923;Medellivslängd män;år;1880;Örebro;2025;81,7
+N00923;Medellivslängd män;år;0380;Uppsala;2015;81,5
+N00923;Medellivslängd män;år;0380;Uppsala;2016;81,57
+N00923;Medellivslängd män;år;0380;Uppsala;2017;81,66
+N00923;Medellivslängd män;år;0380;Uppsala;2018;81,84
+N00923;Medellivslängd män;år;0380;Uppsala;2019;81,95
+N00923;Medellivslängd män;år;0380;Uppsala;2020;81,93
+N00923;Medellivslängd män;år;0380;Uppsala;2021;82,11
+N00923;Medellivslängd män;år;0380;Uppsala;2022;82,24
+N00923;Medellivslängd män;år;0380;Uppsala;2023;82,49
+N00923;Medellivslängd män;år;0380;Uppsala;2024;82,58
+N00923;Medellivslängd män;år;0380;Uppsala;2025;83,05
+N00923;Medellivslängd män;år;0580;Linköping;2015;81,42
+N00923;Medellivslängd män;år;0580;Linköping;2016;81,54
+N00923;Medellivslängd män;år;0580;Linköping;2017;81,7
+N00923;Medellivslängd män;år;0580;Linköping;2018;81,89
+N00923;Medellivslängd män;år;0580;Linköping;2019;82,25
+N00923;Medellivslängd män;år;0580;Linköping;2020;82,17
+N00923;Medellivslängd män;år;0580;Linköping;2021;82,21
+N00923;Medellivslängd män;år;0580;Linköping;2022;82,44
+N00923;Medellivslängd män;år;0580;Linköping;2023;82,35
+N00923;Medellivslängd män;år;0580;Linköping;2024;82,44
+N00923;Medellivslängd män;år;0580;Linköping;2025;82,75
+N00923;Medellivslängd män;år;1980;Västerås;2015;80,95
+N00923;Medellivslängd män;år;1980;Västerås;2016;80,92
+N00923;Medellivslängd män;år;1980;Västerås;2017;81,05
+N00923;Medellivslängd män;år;1980;Västerås;2018;81,03
+N00923;Medellivslängd män;år;1980;Västerås;2019;80,96
+N00923;Medellivslängd män;år;1980;Västerås;2020;80,78
+N00923;Medellivslängd män;år;1980;Västerås;2021;80,87
+N00923;Medellivslängd män;år;1980;Västerås;2022;80,88
+N00923;Medellivslängd män;år;1980;Västerås;2023;80,94
+N00923;Medellivslängd män;år;1980;Västerås;2024;81,33
+N00923;Medellivslängd män;år;1980;Västerås;2025;81,7
+N00923;Medellivslängd män;år;0581;Norrköping;2015;79,34
+N00923;Medellivslängd män;år;0581;Norrköping;2016;79,64
+N00923;Medellivslängd män;år;0581;Norrköping;2017;79,65
+N00923;Medellivslängd män;år;0581;Norrköping;2018;79,93
+N00923;Medellivslängd män;år;0581;Norrköping;2019;80,32
+N00923;Medellivslängd män;år;0581;Norrköping;2020;80,34
+N00923;Medellivslängd män;år;0581;Norrköping;2021;80,27
+N00923;Medellivslängd män;år;0581;Norrköping;2022;80,38
+N00923;Medellivslängd män;år;0581;Norrköping;2023;80,44
+N00923;Medellivslängd män;år;0581;Norrköping;2024;80,29
+N00923;Medellivslängd män;år;0581;Norrköping;2025;80,68
+N00923;Medellivslängd män;år;0680;Jönköping;2015;80,55
+N00923;Medellivslängd män;år;0680;Jönköping;2016;80,89
+N00923;Medellivslängd män;år;0680;Jönköping;2017;81,08
+N00923;Medellivslängd män;år;0680;Jönköping;2018;81,07
+N00923;Medellivslängd män;år;0680;Jönköping;2019;81,6
+N00923;Medellivslängd män;år;0680;Jönköping;2020;81,8
+N00923;Medellivslängd män;år;0680;Jönköping;2021;81,95
+N00923;Medellivslängd män;år;0680;Jönköping;2022;82,14
+N00923;Medellivslängd män;år;0680;Jönköping;2023;82,42
+N00923;Medellivslängd män;år;0680;Jönköping;2024;82,54
+N00923;Medellivslängd män;år;0680;Jönköping;2025;82,85
+N00923;Medellivslängd män;år;1283;Helsingborg;2015;79,49
+N00923;Medellivslängd män;år;1283;Helsingborg;2016;79,47
+N00923;Medellivslängd män;år;1283;Helsingborg;2017;79,75
+N00923;Medellivslängd män;år;1283;Helsingborg;2018;79,9
+N00923;Medellivslängd män;år;1283;Helsingborg;2019;80,24
+N00923;Medellivslängd män;år;1283;Helsingborg;2020;80,25
+N00923;Medellivslängd män;år;1283;Helsingborg;2021;80,37
+N00923;Medellivslängd män;år;1283;Helsingborg;2022;80,44
+N00923;Medellivslängd män;år;1283;Helsingborg;2023;80,74
+N00923;Medellivslängd män;år;1283;Helsingborg;2024;80,98
+N00923;Medellivslängd män;år;1283;Helsingborg;2025;81,43
+N00923;Medellivslängd män;år;2480;Umeå;2015;80,6
+N00923;Medellivslängd män;år;2480;Umeå;2016;80,68
+N00923;Medellivslängd män;år;2480;Umeå;2017;81,08
+N00923;Medellivslängd män;år;2480;Umeå;2018;81,2
+N00923;Medellivslängd män;år;2480;Umeå;2019;81,12
+N00923;Medellivslängd män;år;2480;Umeå;2020;81,41
+N00923;Medellivslängd män;år;2480;Umeå;2021;81,44
+N00923;Medellivslängd män;år;2480;Umeå;2022;81,52
+N00923;Medellivslängd män;år;2480;Umeå;2023;81,86
+N00923;Medellivslängd män;år;2480;Umeå;2024;82,29
+N00923;Medellivslängd män;år;2480;Umeå;2025;82,57
+N00923;Medellivslängd män;år;0000;Hela Sverige;2015;80,08
+N00923;Medellivslängd män;år;0000;Hela Sverige;2016;80,24
+N00923;Medellivslängd män;år;0000;Hela Sverige;2017;80,41
+N00923;Medellivslängd män;år;0000;Hela Sverige;2018;80,55
+N00923;Medellivslängd män;år;0000;Hela Sverige;2019;80,75
+N00923;Medellivslängd män;år;0000;Hela Sverige;2020;80,8
+N00923;Medellivslängd män;år;0000;Hela Sverige;2021;80,93
+N00923;Medellivslängd män;år;0000;Hela Sverige;2022;81,05
+N00923;Medellivslängd män;år;0000;Hela Sverige;2023;81,21
+N00923;Medellivslängd män;år;0000;Hela Sverige;2024;81,4
+N00923;Medellivslängd män;år;0000;Hela Sverige;2025;81,79
