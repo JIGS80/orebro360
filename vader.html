@@ -52,6 +52,15 @@
       </nav>
       <button type="button" class="meny-pil hoger" aria-label="Visa fler ämnen till höger" hidden><span aria-hidden="true">›</span></button>
     </div>
+    <button type="button" class="aa-knapp" aria-expanded="false" aria-controls="alla-amnen"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Alla ämnen</span></button>
+  </div>
+  <div class="alla-amnen" id="alla-amnen" hidden>
+    <div class="wrap aa-rad">
+<div class="aa-grupp"><h2>Där du bor</h2><ul><li><a href="mitt.html"><b>Mitt Örebro</b><span>Ditt område samlat på ett ställe.</span></a></li><li><a href="omrade.html"><b>Områden</b><span>Inkomster, ålder, boende, skolor och valresultat i Örebros 36 områden.</span></a></li><li><a href="restauranger.html"><b>Restaurangkollen</b><span>När restaurangen senast kontrollerades och vad kommunen noterade.</span></a></li><li><a href="skolor.html"><b>Skolor</b><span>Resultat och vad eleverna tycker, skola för skola.</span></a></li><li><a href="vard.html"><b>Vård och omsorg</b><span>Vårdcentralernas telefontider, patienternas omdömen och äldreomsorgen.</span></a></li><li><a href="vatten.html"><b>Vattnet</b><span>Badvattnet, ditt dricksvatten, Svartån just nu och vad vattnet kostar.</span></a></li></ul></div>
+<div class="aa-grupp"><h2>Kommunen</h2><ul><li><a href="befolkning.html"><b>Befolkning</b><span>Hur många vi är, hur gamla vi är och hur det har förändrats.</span></a></li><li><a href="valet.html"><b>Valet 2026</b><span>Resultatet i kommunvalet, valdistrikt för valdistrikt.</span></a></li><li><a href="pengar.html"><b>Kommunens pengar</b><span>Vad kommunen köper och från vilka leverantörer.</span></a></li><li><a href="skatt.html"><b>Vart går din skatt?</b><span>Skriv in din lön och se vad din kommunalskatt går till.</span></a></li><li><a href="handel.html"><b>Handeln</b><span>Försäljningen i butikerna, handelsområdena och de nya bilarna.</span></a></li><li><a href="jamfor.html"><b>Jämför städer</b><span>Skatt, kostnader och resultat jämfört med andra stora kommuner.</span></a></li><li><a href="vader.html" aria-current="page"><b>Vädret</b><span>Temperatur, nederbörd och snö i Örebro sedan 1858.</span></a></li></ul></div>
+<div class="aa-grupp"><h2>Utforska</h2><ul><li><a href="gissa.html"><b>Gissa siffran</b><span>Dra i reglaget och se hur nära du kommer.</span></a></li><li><a href="hundra.html"><b>Örebro som 100 personer</b><span>Hur gamla vi är, hur vi bor och hur vi röstade, som 100 personer.</span></a></li><li><a href="manaden.html"><b>Månadens Örebro</b><span>Det senaste i siffror, sammanfattat varje månad.</span></a></li></ul></div>
+<div class="aa-grupp"><h2>Om Örebro360</h2><ul><li><a href="data.html"><b>Ladda ner data</b><span>Alla siffror som CSV-filer för Excel.</span></a></li><li><a href="om.html"><b>Om sidan</b><span>Källor, hur vi räknar, integritet och kontakt.</span></a></li></ul></div>
+    </div>
   </div>
 </header>
 <main id="innehall">
@@ -64,7 +73,7 @@
     </div>
     <div class="stats" id="ve-kpis"><span class="loading">Laddar data …</span></div>
 
-    <div class="panel">
+    <div class="panel" id="g-alla" data-genvag="Alla år sedan 1858">
       <div class="panel-head"><h3>Varje streck är ett år</h3><span class="small" id="ve-str-span"></span></div>
       <div class="chart" id="ve-stripes"></div>
       <div class="ve-scale"><span>kallare</span><i></i><span>varmare än medel 1961–1990</span></div>
@@ -83,7 +92,7 @@
       </div>
     </div>
 
-    <div class="grid2">
+    <div class="grid2" id="g-senast" data-genvag="Senaste månaderna">
       <div class="panel">
         <div class="panel-head"><h3>Varmare eller kallare än normalt?</h3><span class="small">de senaste 13 månaderna</span></div>
         <p class="small">Månadens medeltemperatur jämfört med samma månad 1991–2020.</p>
@@ -98,7 +107,7 @@
       </div>
     </div>
 
-    <div class="grid2">
+    <div class="grid2" id="g-dag" data-genvag="Ett visst år eller en dag">
       <div class="panel">
         <div class="panel-head"><h3>Hur var vädret ett visst år?</h3></div>
         <div class="om-tools"><label>År<select id="ve-ar-sel"></select></label></div>
