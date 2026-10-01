@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Örebro360</title>
 <meta name="description" content="Örebro i siffror: öppen data om Örebro kommun, samlad och förklarad. Ditt område, restauranger, skolor, vård, vädret och mycket mer.">
-<link rel="canonical" href="https://orebro360.se/">
+<link rel="canonical" href="https://jigs80.github.io/orebro360/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sv_SE">
 <meta property="og:site_name" content="Örebro360">
 <meta property="og:title" content="Örebro360">
 <meta property="og:description" content="Örebro i siffror: öppen data om Örebro kommun, samlad och förklarad. Ditt område, restauranger, skolor, vård, vädret och mycket mer.">
-<meta property="og:url" content="https://orebro360.se/">
-<meta property="og:image" content="https://orebro360.se/assets/dela.png">
+<meta property="og:url" content="https://jigs80.github.io/orebro360/">
+<meta property="og:image" content="https://jigs80.github.io/orebro360/assets/dela.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -32,6 +32,7 @@
       <a href="omrade.html">Områden</a>
       <a href="restauranger.html">Restaurangkollen</a>
       <a href="skatt.html">Din skatt</a>
+      <a href="gissa.html">Gissa siffran</a>
       <a href="skolor.html">Skolor</a>
       <a href="vard.html">Vård</a>
       <a href="vader.html">Vädret</a>
@@ -59,6 +60,14 @@
       <h1 class="wordmark">Örebro<span>360</span></h1>
       <p class="tagline">Örebro i siffror</p>
       <p class="lead">Här ser du hur det ser ut där du bor, när restaurangen senast kontrollerades, hur det går i skolorna och vart kommunens pengar går. Allt kommer från öppna källor och uppdateras varje månad.</p>
+      <form class="sok" id="sok-form" role="search">
+        <label for="sok-q">Sök på allt</label>
+        <div class="sok-ruta">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 13l4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="sok-q" type="search" placeholder="Restaurang, skola, område, leverantör …" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="sok-lista" aria-autocomplete="list">
+        </div>
+        <ul id="sok-lista" class="sok-lista" role="listbox" aria-label="Sökträffar" hidden></ul>
+      </form>
       <form class="hitta" id="hitta">
         <label for="hitta-omr" id="hitta-lbl">Var bor du?</label>
         <div class="hitta-rad">
@@ -75,6 +84,12 @@
   <div class="wrap">
     <h2 id="utf-rubrik" class="teman-h">Utforska</h2>
     <div class="utf-grid">
+      <a class="utf" href="gissa.html" data-utf="gissa">
+        <span class="utf-namn">Gissa siffran</span>
+        <span class="utf-v">&nbsp;</span>
+        <span class="utf-text">Fem nya frågor varje månad. Hur nära kommer du?</span>
+        <span class="utf-pil">Utforska →</span>
+      </a>
       <a class="utf" href="skatt.html" data-utf="skatt">
         <span class="utf-namn">Vart går din skatt?</span>
         <span class="utf-v">&nbsp;</span>
