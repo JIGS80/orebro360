@@ -1085,7 +1085,7 @@ async function miRemsa(S){
   const host=$('#mi-remsa'),sel=$('#hitta-omr');if(!host)return;
   const k=miHamta();let m=null;
   if(k){try{await miData();m=MI.omraden[k]}catch(e){}}
-  if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').textContent='Var bor du?';return}
+  if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').textContent='Var bor du? Välj ditt område, så samlar vi det viktigaste nära dig.';return}
   if(sel)sel.value=k;$('#hitta-lbl').textContent='Ditt område';
   const vc=m.vc[0];const fakta=[`${fmt(m.inv)} invånare`,`${fmt(m.rk30)} ${m.rk30===1?'restaurangkontroll':'restaurangkontroller'} senaste 30 dagarna`,vc?`närmaste vårdcentral ${vc.n.replace(/ ?vårdcentral ?/i,' ').trim()} (${miAvst(vc)})`:''].filter(Boolean);
   host.innerHTML=`<div class="wrap mi-remsa-in"><a class="mi-remsa-txt" href="mitt.html"><span class="label">Ditt område</span><b>${esc(m.namn)}</b><span class="mi-remsa-fakta">${fakta.map(esc).join(' · ')}</span></a>

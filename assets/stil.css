@@ -752,3 +752,12 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .dela-lank:hover{border-color:var(--accent)}
 #mi-h .dela-lank{vertical-align:middle;margin-left:6px;font-family:var(--f-body)}
 .rk-det .dela-lank,#rk-det .dela-lank{padding:3px 9px;font-size:.84rem;vertical-align:baseline}
+/* "Var bor du?" är en mindre rad under sökrutan, så att sökningen är det man ser först */
+.hitta.liten{margin-top:2px;gap:5px}
+.hitta.liten label{font-weight:400;font-size:.92rem;color:var(--ink2)}
+.hitta.liten select{padding:8px 10px;font-size:.95rem}
+.hitta.liten button{padding:8px 14px;background:var(--surface);color:var(--accent-text);border-color:var(--accent)}
+.hitta.liten button:hover{background:var(--accent-soft);filter:none}
+.utf-v{font-weight:500;color:var(--ink2)}
+/* menyn i grupper: där du bor, kommunen, utforska, övrigt */
+.meny-skilj{flex:none;width:1px;align-self:stretch;margin:6px 6px;background:var(--line)}
