@@ -958,7 +958,7 @@ function initManaden(){
 }
 
 /* ===== Ladda ner datan ===== */
-const TEMA_NAMN={pengar:'Kommunens pengar',befolkning:'Befolkning',omrade:'Områden',jamfor:'Jämför städer',skolor:'Skolor',vard:'Vård och omsorg',handel:'Handeln',restauranger:'Restaurangkollen',vader:'Vädret',valet:'Valet 2026',skatt:'Vart går din skatt?',hundra:'Örebro som 100 personer'};
+const TEMA_NAMN={vatten:'Vattnet',pengar:'Kommunens pengar',befolkning:'Befolkning',omrade:'Områden',jamfor:'Jämför städer',skolor:'Skolor',vard:'Vård och omsorg',handel:'Handeln',restauranger:'Restaurangkollen',vader:'Vädret',valet:'Valet 2026',skatt:'Vart går din skatt?',hundra:'Örebro som 100 personer'};
 const kbText=kb=>kb>=1024?fmt(kb/1024,1)+' MB':fmt(Math.max(1,kb))+' kB';
 const filRad=(f,kol)=>`<li class="dl-fil"><div><b>${esc(f.titel)}</b><span class="small">${esc(f.beskr)}</span><span class="src">Källa: ${esc(f.kalla)} · ${fmt(f.rader)} rader · ${kbText(f.kb)}</span>${kol?`<details><summary>Kolumner</summary><p class="num small">${f.kolumner.map(esc).join(' · ')}</p></details>`:''}</div><a class="dl-knapp" href="data/csv/${esc(f.fil)}" download>Ladda ner CSV</a></li>`;
 async function renderLadda(){
@@ -1065,6 +1065,9 @@ function renderMitt(){
     $('#mi-val-sum').textContent=`Största parti: ${rows[0].n}, ${fmt(rows[0].v,1)} %. Baserat på ${v.distrikt} valdistrikt.`;
     $('#mi-val').innerHTML=`<div class="pbar small" style="color:var(--muted)"><span></span><span></span><span class="v">Område</span><span class="v d">Kommun</span></div>`+rows.map(r=>`<div class="pbar" title="${esc(r.n)}: ${fmt(r.v,1)} % i området, ${r.kk!=null?fmt(r.kk,1):'–'} % i hela kommunen"><span><span class="lng">${esc(r.n)}</span><span class="krt">${esc(r.k)}</span></span><span class="tr"><span class="f" style="width:${r.v/mx*100}%;background:${r.f}"></span>${r.kk!=null?`<span class="k" style="left:${r.kk/mx*100}%"></span>`:''}</span><span class="v">${fmt(r.v,1)}</span><span class="v d">${r.kk!=null?fmt(r.kk,1):'–'}</span></div>`).join('');
   }else{$('#mi-val-sum').textContent='Inget valdistrikt ligger huvudsakligen i det här området, så vi kan inte visa hur det röstade.';$('#mi-val').innerHTML=''}
+  // badplatser
+  const bad=m.bad||[];$('#mi-bad-p').hidden=!bad.length;
+  $('#mi-bad').innerHTML=bad.map(b=>{const [c,t]=vtBed(b.prov?.[1]);return `<li><a href="vatten.html#bad=${esc(b.id)}"><b>${esc(b.n)}</b><span class="sub">${b.prov?`Senaste prov ${vtDag(b.prov[0])}: ${esc(t.toLowerCase())}`:'Inga prov'}${b.klass?` · ${esc(b.klass[1].toLowerCase())} ${b.klass[0]}`:''}${b.varning?' · varning för algblomning':''}</span></a><span class="mi-avst">${esc(miAvst(b))}</span></li>`}).join('');
   // vidare
   const L=[[`omrade.html#${k}`,'Allt om '+o.namn,'Inkomster, ålder, boende och hushåll jämfört med resten av Örebro.'],[`restauranger.html#omr=${k}`,'Restaurangerna i området','Alla livsmedelsverksamheter och deras kontroller.'],
     ['skatt.html','Vart går din skatt?','Skriv in din lön och se vad kommunalskatten går till.'],['manaden.html','Månadens Örebro','Det senaste i siffror, varje månad.']];
@@ -1096,16 +1099,16 @@ async function miRemsa(S){
 
 /* ===== Sök på allt (startsidan). Indexet sok.json laddas först när man börjar skriva. ===== */
 let SOK=null,sokLaddar=null,sokAktiv=-1,sokTraffar=[];
-const SOK_TYP={t:'Ämne',o:'Område',r:'Livsmedel',s:'Skola',f:'Förskola',v:'Vårdcentral',a:'Äldreboende',h:'Hemtjänst',l:'Leverantör',d:'Valdistrikt'};
-const SOK_PRIO={t:0,o:1,s:2,v:3,r:4,f:5,a:6,h:7,d:8,l:9};
-const SOK_LANK={t:r=>r[3],o:r=>'omrade.html#'+r[3],r:r=>'restauranger.html#v='+r[3],s:r=>'skolor.html#s'+r[3],f:r=>'skolor.html#f'+r[3],
+const SOK_TYP={b:'Badplats',w:'Dricksvatten',t:'Ämne',o:'Område',r:'Livsmedel',s:'Skola',f:'Förskola',v:'Vårdcentral',a:'Äldreboende',h:'Hemtjänst',l:'Leverantör',d:'Valdistrikt'};
+const SOK_PRIO={t:0,o:1,b:2,s:2,v:3,r:4,f:5,w:5,a:6,h:7,d:8,l:9};
+const SOK_LANK={b:r=>'vatten.html#bad='+r[3],w:r=>'vatten.html#ort='+encodeURIComponent(r[3]),t:r=>r[3],o:r=>'omrade.html#'+r[3],r:r=>'restauranger.html#v='+r[3],s:r=>'skolor.html#s'+r[3],f:r=>'skolor.html#f'+r[3],
   v:r=>'vard.html#vc='+encodeURIComponent(r[1]),a:r=>'vard.html#sabo='+r[3],h:r=>'vard.html#hemtjanst='+r[3],d:r=>'valet.html#vd='+r[3],l:r=>'pengar.html#lev='+encodeURIComponent(r[1])};
 function sokLadda(){if(!sokLaddar)sokLaddar=load('sok').then(d=>{SOK=d.rader.map(r=>({r,n:rkNorm(r[1]),s:rkNorm(r[2])}));return SOK}).catch(e=>{sokLaddar=null;throw e});return sokLaddar}
 function sokSok(q){
   const qn=rkNorm(q.trim()).replace(/\s+/g,' ');if(qn.length<2)return [];const tok=qn.split(' ');
   const ut=[];
   for(const x of SOK){const hay=x.n+' '+x.s;if(!tok.every(t=>hay.includes(t)))continue;
-    const p=x.n.startsWith(qn)?0:x.n.split(/[\s\-–/(]+/).some(w=>w.startsWith(tok[0]))?1:x.n.includes(tok[0])?2:3;
+    const p=x.n.startsWith(qn)?0:x.n.split(/[\s\-–/(]+/).some(w=>w.startsWith(tok[0]))?1:x.r[0]==='t'&&x.s.split(/[\s,]+/).some(w=>w.startsWith(tok[0]))?1:x.n.includes(tok[0])?2:3;  // ämnen matchar också sina sökord
     ut.push({x,p})}
   // ord som börjar med det man skrev går först, sedan ämnen och områden före skolor, vård, restauranger och leverantörer
   return ut.sort((a,b)=>(a.p>1)-(b.p>1)||SOK_PRIO[a.x.r[0]]-SOK_PRIO[b.x.r[0]]||a.p-b.p||a.x.r[1].length-b.x.r[1].length).slice(0,8).map(t=>t.x.r);
@@ -1214,7 +1217,7 @@ function initGissa(){
 }
 
 /* ===== Delbara bildkort: en bild (1080 × 1080) med siffran, Örebro360 och länken, ritad i webbläsaren ===== */
-const DELA_KALLA={befolkning:'SCB',restauranger:'Örebro kommun',skolor:'Skolverket och Kolada',vard:'1177 och Kolada',vader:'SMHI',valet:'Valmyndigheten',pengar:'Örebro kommun',
+const DELA_KALLA={vatten:'Havs- och vattenmyndigheten, Örebro kommun och SMHI',befolkning:'SCB',restauranger:'Örebro kommun',skolor:'Skolverket och Kolada',vard:'1177 och Kolada',vader:'SMHI',valet:'Valmyndigheten',pengar:'Örebro kommun',
   handel:'Kolada och SCB',jamfor:'Kolada',omrade:'SCB och Valmyndigheten',mitt:'SCB, Örebro kommun, Skolverket och 1177',skatt:'Kolada',hundra:'SCB och Valmyndigheten',manaden:'SCB, SMHI, Örebro kommun och 1177'};
 const DELA_DOMAN=location.hostname.endsWith('github.io')?location.hostname+'/orebro360':'orebro360.se';
 function delaUrl(lank){try{return new URL(lank||location.pathname.split('/').pop()||'index.html',location.href).href}catch(e){return lank}}
@@ -1285,6 +1288,129 @@ function initDela(){
 }
 
 
+/* ===== Vattnet: badplatser, dricksvatten, Svartån, vad vattnet kostar ===== */
+let VT=null,vtSel=null;
+const VT_MAN_START=[0,31,60,91,121,152,182,213,244,274,305,335];
+const vtDag=d=>{if(!d)return '–';const [y,m,dd]=d.split('-');return `${+dd} ${MON[+m-1]} ${y}`};
+const vtBed=t=>!t?['inget','Inget prov']:/otjänligt/i.test(t)?['ej','Otjänligt']:/anm/i.test(t)?['anm','Tjänligt med anmärkning']:['ok','Tjänligt'];
+const vtKlass=t=>!t?'':/utmärkt/i.test(t)?'ok':/bra/i.test(t)?'ok2':/tillfreds/i.test(t)?'anm':/dålig/i.test(t)?'ej':'';
+function vtKarta(){
+  const host=$('#vt-karta');host.innerHTML='';if(!OM){host.innerHTML='<p class="small">Kartan kräver områdesdatan.</p>';return}
+  const P=VT.bad.platser.filter(b=>b.x!=null);
+  const xs=P.map(b=>b.x),ys=P.map(b=>b.y);let x0=Math.min(...xs)-350,x1=Math.max(...xs)+350,y0=Math.min(...ys)-350,y1=Math.max(...ys)+350;
+  const W=x1-x0,H=y1-y0;const svg=el('svg',{viewBox:`${x0} ${y0} ${W} ${H}`,role:'img','aria-label':'Karta över badplatserna i Örebro kommun'},host);
+  const sc=W/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||500);const tp=tip(host);
+  OM.omraden.forEach(o=>el('path',{d:o.svg,class:'vt-omr','fill-rule':'evenodd'},svg));
+  const show=(e,t)=>{const bb=host.getBoundingClientRect();tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
+  P.forEach(b=>{const [c]=vtBed(b.prov[0]?.[1]);const g=el('g',{class:'vt-pt'+(b.id===vtSel?' sel':''),tabindex:'0',role:'button','aria-label':b.n},svg);
+    if(b.varning.length)el('circle',{cx:b.x,cy:b.y,r:15*sc,class:'vt-alg'},g);
+    el('circle',{cx:b.x,cy:b.y,r:(b.id===vtSel?10:7.5)*sc,class:'vt-p-'+c},g);
+    g.addEventListener('mousemove',e=>show(e,`<b>${esc(b.n)}</b><br>${esc(vtBed(b.prov[0]?.[1])[1])}${b.prov[0]?', '+vtDag(b.prov[0][0]):''}${b.varning.length?'<br>Varning: '+esc(b.varning[0].typ.toLowerCase()):''}`));
+    g.addEventListener('mouseleave',()=>tp.hidden=true);g.addEventListener('click',()=>{tp.hidden=true;vtVisa(b.id,true)});
+    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();vtVisa(b.id,true)}})});
+  const s=P.find(b=>b.id===vtSel);if(s){const t=el('text',{x:s.x,y:s.y-16*sc,'text-anchor':'middle',class:'vt-lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=s.n}
+}
+function vtLista(){
+  $('#vt-badlista').innerHTML=VT.bad.platser.map(b=>{const p=b.prov[0];const [c,t]=vtBed(p?.[1]);const k=b.klass[0];
+    return `<li><button type="button" data-id="${b.id}" aria-pressed="${b.id===vtSel}"><span class="vt-bn"><b>${esc(b.n)}</b>${b.eu?miTag('EU-bad'):''}${b.varning.length?`<span class="vt-varn">${esc(b.varning[0].typ)}</span>`:''}</span>
+      <span class="sub">${p?`Senaste prov ${vtDag(p[0])}${p[4]!=null?` · ${fmt(p[4],0)} °C i vattnet`:''}`:'Inga prov'}${k?` · ${esc(k[1].toLowerCase())} ${k[0]}`:''}</span>
+      <span class="vt-st vt-st-${c}">${esc(t)}</span></button></li>`}).join('');
+}
+function vtVisa(id,scroll){
+  vtSel=id;const b=VT.bad.platser.find(x=>x.id===id);if(!b)return;
+  document.querySelectorAll('#vt-badlista button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.id===id));vtKarta();
+  const det=$('#vt-det');det.hidden=false;
+  const kl=b.klass.length?`<div class="vt-klass">${b.klass.map(([y,t])=>`<span class="vt-k vt-k-${vtKlass(t)}"><b>${y}</b>${esc(t.replace(' kvalitet',''))}</span>`).join('')}</div>`:'';
+  det.innerHTML=`<div class="panel-head"><h3>${esc(b.n)}${b.eu?miTag('EU-bad'):''}</h3><span class="small">${b.typ?esc(b.typ):''}${b.sasong[0]?` · badsäsong ${vtDag(b.sasong[0])} – ${vtDag(b.sasong[1])}`:''}</span></div>
+    ${b.varning.map(v=>`<p class="vt-varning"><b>${esc(v.typ)}${v.fran?' sedan '+vtDag(v.fran):''}.</b> ${esc(v.text)}</p>`).join('')}
+    ${b.om?`<p class="small">${esc(b.om)}</p>`:''}
+    ${kl?`<div><span class="label">Klassning enligt EU:s badvattendirektiv</span>${kl}</div>`:''}
+    <div class="tablewrap"><table><thead><tr><th>Provdatum</th><th>Bedömning</th><th class="r">E. coli</th><th class="r hide-sm">Enterokocker</th><th class="r">Vatten</th><th class="hide-sm">Alger</th></tr></thead>
+    <tbody>${b.prov.map(p=>{const [c,t]=vtBed(p[1]);return `<tr><td>${vtDag(p[0])}</td><td><span class="vt-dot vt-p-${c}"></span>${esc(t)}</td><td class="r num">${p[2]??'–'}</td><td class="r num hide-sm">${p[3]??'–'}</td><td class="r num">${p[4]!=null?fmt(p[4],0)+' °C':'–'}</td><td class="hide-sm">${esc(p[5]||'')}</td></tr>`}).join('')}</tbody></table></div>
+    <p class="src">E. coli och enterokocker är bakterier som visar om vattnet har förorenats av till exempel avlopp eller fågelspillning, räknat per 100 ml. Kommunens miljöförvaltning tar proverna. Källa: Havs- och vattenmyndigheten, hämtat ${vtDag(VT.bad.hamtad)}.</p>`;
+  if(scroll)det.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function vtOrt(){
+  const o=VT.dricks.orter.find(r=>r[0]===$('#vt-ort').value)||VT.dricks.orter[0];const [n,dh,ph,verk]=o;
+  const typ=dh<6?'mjukt':dh<10?'medelhårt':'hårt';const pos=Math.min(100,dh/21*100);
+  $('#vt-ortres').innerHTML=`<div class="vt-ort"><span class="vt-dh num">${fmt(dh,1)}<small> °dH</small></span><span class="vt-typ">${typ.charAt(0).toUpperCase()+typ.slice(1)} vatten</span></div>
+    <div class="vt-skala" aria-hidden="true"><span class="m">mjukt</span><span class="mh">medelhårt</span><span class="h">hårt</span><i style="left:${pos}%"></i></div>
+    <p>pH ${fmt(ph,1)} · vattnet kommer från <b>${esc(verk)} vattenverk</b>.${dh<6?' Med mjukt vatten räcker det med lite tvätt- och diskmedel.':''}</p>`;
+}
+function vtPfas(){
+  const P=VT.dricks.pfas.filter(p=>p.grans);
+  $('#vt-pfas-s').textContent=VT.dricks.pfas_prov?'prov '+VT.dricks.pfas_prov:'';
+  $('#vt-pfas').innerHTML=P.map(p=>`<div class="vt-pf"><div class="vt-pf-h"><b>${esc(p.n)}</b><span class="small">gränsvärde ${fmt(p.grans)} ng/l</span></div>
+    ${p.v.map((v,i)=>{const u=p.under[i];const andel=v!=null?v/p.grans*100:0;return `<div class="vt-pf-r"><span>Vattenverk ${i+1}</span><span class="tr"><span class="f" style="width:${Math.max(andel,.6)}%"></span></span><span class="num">${v!=null?fmt(v,v<10?2:1).replace(/,?0+$/,'')+' ng/l':esc(u||'–')}</span><span class="num small">${v!=null?fmt(andel,andel<1?1:0)+' %':'<1 %'}</span></div>`}).join('')}</div>`).join('');
+  $('#vt-pfas-src').textContent=`Medelvärden för utgående dricksvatten. Kommunen redovisar vattenverken som 1–4 utan namn. PFAS 4 är summan av fyra särskilt farliga ämnen, PFAS 21 av 21 ämnen. Källa: Örebro kommun och Livsmedelsverket.`;
+}
+function vtSvartan(){
+  const S=VT.svartan,host=$('#vt-sv');host.innerHTML='';const tp=tip(host);
+  const W=Math.max(300,host.clientWidth||700),H=W<500?220:280,m={l:40,r:12,t:12,b:26};
+  const x=i=>m.l+i/365*(W-m.l-m.r);
+  const vals=[...S.i_ar.map(r=>r[1]),...S.forra.map(r=>r[1]),...S.normal.filter(Boolean).map(n=>n[2])];const ymax=niceTicks(Math.max(...vals)*1.05).slice(-1)[0];
+  const y=v=>H-m.b-v/ymax*(H-m.t-m.b);
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':`Svartåns vattenföring ${S.ar} jämfört med det normala`},host);
+  const gr=el('g',{class:'grid'},svg);niceTicks(ymax).forEach(t=>{el('line',{x1:m.l,x2:W-m.r,y1:y(t),y2:y(t)},gr);const tx=el('text',{x:m.l-6,y:y(t)+4,'text-anchor':'end'},svg);tx.textContent=fmt(t)});
+  VT_MAN_START.forEach((d,i)=>{const tx=el('text',{x:x(d+15),y:H-8,'text-anchor':'middle'},svg);tx.textContent=MON[i]});
+  const N=S.normal.map((n,i)=>n?[i,n]:null).filter(Boolean);
+  el('path',{d:'M'+N.map(([i,n])=>`${x(i).toFixed(1)},${y(n[2]).toFixed(1)}`).join('L')+'L'+N.slice().reverse().map(([i,n])=>`${x(i).toFixed(1)},${y(n[0]).toFixed(1)}`).join('L')+'Z',class:'vt-band'},svg);
+  el('path',{d:'M'+N.map(([i,n])=>`${x(i).toFixed(1)},${y(n[1]).toFixed(1)}`).join('L'),class:'vt-median'},svg);
+  if(S.forra.length)el('path',{d:'M'+S.forra.map(([i,v])=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join('L'),class:'vt-forra'},svg);
+  el('path',{d:'M'+S.i_ar.map(([i,v])=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join('L'),class:'vt-iar'},svg);
+  const sist=S.i_ar[S.i_ar.length-1];el('circle',{cx:x(sist[0]),cy:y(sist[1]),r:4.5,class:'vt-sist'},svg);
+  const hov=el('line',{y1:m.t,y2:H-m.b,class:'vt-hov'},svg);hov.style.display='none';
+  const iar=new Map(S.i_ar),fo=new Map(S.forra);
+  svg.addEventListener('mousemove',e=>{const bb=svg.getBoundingClientRect();const px=(e.clientX-bb.left)/bb.width*W;const i=Math.round((px-m.l)/(W-m.l-m.r)*365);if(i<0||i>365){tp.hidden=true;hov.style.display='none';return}
+    hov.setAttribute('x1',x(i));hov.setAttribute('x2',x(i));hov.style.display='';const n=S.normal[i];const dd=new Date(2000,0,1+i);
+    tp.hidden=false;tp.innerHTML=`<b>${dd.getDate()} ${MON[dd.getMonth()]}</b><br>${S.ar}: ${iar.has(i)?fmt(iar.get(i),1)+' m³/s':'–'}<br>${S.ar-1}: ${fo.has(i)?fmt(fo.get(i),1)+' m³/s':'–'}${n?`<br>Normalt: ${fmt(n[1],1)} (${fmt(n[0],1)}–${fmt(n[2],1)})`:''}`;
+    const hb=host.getBoundingClientRect();tp.style.left=(e.clientX-hb.left)+'px';tp.style.top=(e.clientY-hb.top-8)+'px'});
+  svg.addEventListener('mouseleave',()=>{tp.hidden=true;hov.style.display='none'});
+  $('#vt-sv-legend').innerHTML=`<span><i class="sw" style="background:var(--accent)"></i>${S.ar}</span><span><i class="sw" style="background:var(--mark-gray)"></i>${S.ar-1}</span><span><i class="sw" style="border:2px solid var(--ink2);background:none"></i>Normalt (median 1991–2020)</span><span><i class="sw vt-sw-band"></i>Vanligt spann, 8 år av 10</span>`;
+}
+function vtSvText(){
+  const S=VT.svartan,d=S.senaste,n=d.normal;
+  const lag=n&&d.v<n[0],hog=n&&d.v>n[2];
+  $('#vt-sv-sum').innerHTML=`Den ${vtDag(d.d)} rann <b class="num">${fmt(d.v,d.v<10?2:1)} m³/s</b> genom Svartån vid Karlslund. ${n?`Det normala för dagen är ${fmt(n[1],1)} m³/s. `:''}${lag?'Det är <b>ovanligt lite vatten</b>, mindre än nästan alla år.':hog?'Det är <b>ovanligt mycket vatten</b>, mer än nästan alla år.':'Det är inom det vanliga.'}`;
+  const im=S.i_ar.reduce((a,r)=>r[1]>a[1]?r:a,[0,0]);const dd=new Date(2000,0,1+im[0]);
+  const f=[['Högsta i år',fmt(im[1],1)+' m³/s',`${dd.getDate()} ${MON[dd.getMonth()]} ${S.ar}`],['Rekordet',fmt(S.rekord.max[0])+' m³/s',vtDag(S.rekord.max[1])],['Lägsta uppmätta',fmt(S.rekord.min[0],3).replace(/0+$/,'')+' m³/s',vtDag(S.rekord.min[1])]];
+  $('#vt-sv-fakta').innerHTML=f.map(([l,v,s])=>`<div class="fact"><span class="label">${esc(l)}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`).join('');
+  $('#vt-sv-src').textContent=`Dygnsmedel från SMHI:s mätstation Karlslund 2, där Svartån rinner in i Örebro, sedan ${vtDag(S.fran)}. Värden från ${vtDag(S.prel_fran)} är preliminära och kan justeras av SMHI.`;
+}
+function vtKostnad(){
+  const K=VT.kostnad;if(!K){$('#kostnad').hidden=true;return}
+  $('#vt-k-s').textContent=`${K.ar}, kronor per kvadratmeter och år`;
+  $('#vt-k-sum').innerHTML=`Vatten och avlopp kostar <b>${fmt(K.orebro_kr_m2,2)} kr/m²</b> om året i Örebro, jämfört med ${fmt(K.riket_kr_m2,1)} kr/m² i snitt för Sveriges kommuner. Örebro är den ${K.plats}:e billigaste av ${K.antal_kommuner} kommuner. Men avgiften steg med <b>${fmt(K.forandring_pct,1)} procent</b> på ett år, från ${fmt(K.orebro_kr_m2_forra,2)} kr/m². För en lägenhet blir det ungefär ${fmt(K.orebro_kr_lgh_ar)} kr om året.`;
+  hbars($('#vt-k'),[{n:`Dyrast: ${K.dyrast[0]}`,v:K.dyrast[1],cls:''},{n:'Snittet i Sverige',v:K.riket_kr_m2,cls:'ref'},{n:`Örebro ${K.ar}`,v:K.orebro_kr_m2,cls:'hl'},{n:`Örebro ${K.ar-1}`,v:K.orebro_kr_m2_forra,cls:''},{n:`Billigast: ${K.billigast[0]}`,v:K.billigast[1],cls:''}],{fmtv:v=>fmt(v,1)+' kr'});
+  $('#vt-k-src').innerHTML=`${esc(K.typhus)} Källa: <a href="${esc(K.url)}" target="_blank" rel="noopener">${esc(K.kalla)}</a>. Uppgifterna förs in en gång om året när rapporten kommer.`;
+}
+function initVatten(){
+  const B=VT.bad.platser,eu=B.filter(b=>b.eu).length,varn=B.filter(b=>b.varning.length),dalig=B.filter(b=>b.klass[0]&&/dålig/i.test(b.klass[0][1]));
+  const S=VT.svartan,K=VT.kostnad,orebro=VT.dricks.orter.find(o=>o[0]==='Örebro');
+  $('#vt-lead').textContent=`Här ser du hur vattnet vid kommunens ${B.length} badplatser har klarat proverna, vilket vatten som kommer ur kranen där du bor, hur mycket vatten som rinner i Svartån just nu och vad vatten och avlopp kostar.`;
+  const t=[['Badplatser',fmt(B.length),`varav ${eu} EU-bad med extra provtagning`],['Svartån just nu',fmt(S.senaste.v,S.senaste.v<10?2:1)+' m³/s',`${vtDag(S.senaste.d)}, normalt ${fmt(S.senaste.normal[1],1)}`],
+    ['Dricksvattnet i staden',orebro?fmt(orebro[1],1)+' °dH':'–',orebro?`mjukt vatten från ${orebro[3]}, pH ${fmt(orebro[2],1)}`:''],K?['Vatten och avlopp',fmt(K.orebro_kr_m2,0)+' kr/m²',`per år ${K.ar}, Sverige ${fmt(K.riket_kr_m2,0)} kr/m²`]:null].filter(Boolean);
+  $('#vt-kpis').innerHTML=t.map(([l,v,s])=>`<div class="stat"><span class="label">${esc(l)}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`).join('');
+  const s0=B.find(b=>b.sasong[0])?.sasong;
+  const namn=b=>b.n.includes(', ')?b.n.split(', ').reverse().join(' vid '):b.n;   // "Hjälmaren, Norra Vinön" -> "Norra Vinön vid Hjälmaren"
+  const lista=a=>a.length>1?a.slice(0,-1).map(namn).join(', ')+' och '+namn(a[a.length-1]):namn(a[0]);
+  const per=(a,b)=>{const [y1,m1,d1]=a.split('-'),[y2,m2,d2]=b.split('-');return `${+d1} ${MANAD[+m1-1]}–${+d2} ${MANAD[+m2-1]} ${y2}`};
+  $('#vt-bad-lead').textContent=`${s0?`Badsäsongen var ${per(s0[0],s0[1])}, och kommunen tar prov några gånger under säsongen. `:''}${dalig.length?`${dalig.length} badplatser fick klassningen dålig kvalitet ${dalig[0].klass[0][0]}: ${lista(dalig)}. Klassningen bygger på de senaste fyra årens prov. `:''}${varn.length?`Den senaste varningen för algblomning gällde ${lista(varn)}.`:''}`;
+  $('#vt-bad-n').textContent=`${B.length} st`;
+  $('#vt-legend').innerHTML=`<span><i class="vt-dot vt-p-ok"></i>Tjänligt</span><span><i class="vt-dot vt-p-anm"></i>Tjänligt med anmärkning</span><span><i class="vt-dot vt-p-ej"></i>Otjänligt</span><span><i class="vt-dot vt-algsw"></i>Varning för algblomning</span>`;
+  vtLista();vtKarta();
+  $('#vt-badlista').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)vtVisa(b.dataset.id,true)});
+  const orter=VT.dricks.orter.slice().sort((a,b)=>a[0].localeCompare(b[0],'sv'));
+  $('#vt-ort').innerHTML=orter.map(o=>`<option${o[0]==='Örebro'?' selected':''}>${esc(o[0])}</option>`).join('');
+  $('#vt-ort').addEventListener('change',vtOrt);vtOrt();
+  $('#vt-ort-src').textContent=`Hårdheten mäts i tyska grader (°dH): under 6 är mjukt, 6–10 medelhårt och över 10 hårt. Cirka ${VT.dricks.andel_kommunalt||90} procent av invånarna har kommunalt vatten; har du egen brunn gäller inte siffrorna. Källa: Örebro kommun${VT.dricks.uppdaterad?', uppdaterad '+VT.dricks.uppdaterad:''}.`;
+  vtPfas();vtSvText();vtSvartan();vtKostnad();
+  const h=hashKod();
+  if(h.startsWith('bad=')&&B.some(b=>b.id===h.slice(4)))vtVisa(h.slice(4),true);
+  else if(h.startsWith('ort=')){const o=VT.dricks.orter.find(r=>r[0]===h.slice(4));if(o){$('#vt-ort').value=o[0];vtOrt();requestAnimationFrame(()=>$('#dricks').scrollIntoView({behavior:'smooth'}))}}
+}
+
+
 /* ===== Sidladdning: varje sida hämtar bara sin egen data (body data-sida) ===== */
 let BEF,VAL,rt;
 const SIDA=document.body.dataset.sida;
@@ -1296,7 +1422,7 @@ const RITA={
   vader:()=>{if(VE){renderVeStripes();renderVeCharts()}},
   vard:()=>{if(VA){renderVaVC();vaCmp('va-r',VA.region,vaR,VA.regioner,'0018');vaCmp('va-k',VA.kommun,vaK,VA.kommuner,'1880')}},
   skolor:()=>{if(SK){renderSkCmp();if(skF!=='fo')renderSkCharts();renderSkTable()}},
-  restauranger:()=>RK&&renderRkMap(), mitt:()=>OM&&MI&&miKarta()
+  restauranger:()=>RK&&renderRkMap(), mitt:()=>OM&&MI&&miKarta(), vatten:()=>{if(VT){vtKarta();vtSvartan()}}
 };
 addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{(RITA[SIDA]||(()=>{}))()},200)});
 const felText=(sel,t)=>{const e=$(sel);if(e)e.textContent=t};
@@ -1319,6 +1445,9 @@ function renderStart(S){
   try{const S=await load('start');['#fot-datum','#fot-datum2'].forEach(id=>{const f=$(id);if(f)f.textContent=datumText(S.uppdaterad)});if(SIDA==='start')renderStart(S)}catch(e){console.error(e)}
   renderLadda();
   switch(SIDA){
+  case 'vatten':
+    try{[VT,OM]=await Promise.all([load('vatten'),load('omraden').catch(()=>null)]);initVatten()}catch(e){console.error(e);felText('#vt-lead','Kunde inte läsa in vattendatan.')}
+    break;
   case 'gissa':
     try{[GI,OM]=await Promise.all([load('gissa'),miHamta()?load('omraden').catch(()=>null):null]);initGissa()}catch(e){console.error(e);felText('#gi-kort','Kunde inte läsa in frågorna. Ladda om sidan.')}
     break;

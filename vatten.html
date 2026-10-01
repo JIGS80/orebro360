@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Handeln · Örebro360</title>
-<meta name="description" content="Hur mycket som säljs i Örebros butiker, var handeln ligger och hur många nya bilar som laddas.">
-<link rel="canonical" href="https://jigs80.github.io/orebro360/handel">
+<title>Vattnet · Örebro360</title>
+<meta name="description" content="Badplatsernas vattenprov och algblomning, dricksvattnets hårdhet och PFAS, Svartån just nu och vad vattnet kostar i Örebro.">
+<link rel="canonical" href="https://jigs80.github.io/orebro360/vatten">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sv_SE">
 <meta property="og:site_name" content="Örebro360">
-<meta property="og:title" content="Handeln · Örebro360">
-<meta property="og:description" content="Hur mycket som säljs i Örebros butiker, var handeln ligger och hur många nya bilar som laddas.">
-<meta property="og:url" content="https://jigs80.github.io/orebro360/handel">
+<meta property="og:title" content="Vattnet · Örebro360">
+<meta property="og:description" content="Badplatsernas vattenprov och algblomning, dricksvattnets hårdhet och PFAS, Svartån just nu och vad vattnet kostar i Örebro.">
+<meta property="og:url" content="https://jigs80.github.io/orebro360/vatten">
 <meta property="og:image" content="https://jigs80.github.io/orebro360/assets/dela.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -20,7 +20,7 @@
 <link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/stil.css">
 </head>
-<body data-sida="handel">
+<body data-sida="vatten">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
 <header class="site">
   <div class="wrap site-rad">
@@ -33,13 +33,13 @@
       <a href="restauranger.html">Restaurangkollen</a>
       <a href="skolor.html">Skolor</a>
       <a href="vard.html">Vård</a>
-      <a href="vatten.html">Vattnet</a>
+      <a href="vatten.html" aria-current="page">Vattnet</a>
       <span class="meny-skilj" aria-hidden="true"></span>
       <a href="befolkning.html">Befolkning</a>
       <a href="valet.html">Valet 2026</a>
       <a href="pengar.html">Pengar</a>
       <a href="skatt.html">Din skatt</a>
-      <a href="handel.html" aria-current="page">Handeln</a>
+      <a href="handel.html">Handeln</a>
       <a href="jamfor.html">Jämför städer</a>
       <a href="vader.html">Vädret</a>
       <span class="meny-skilj" aria-hidden="true"></span>
@@ -55,72 +55,68 @@
   </div>
 </header>
 <main id="innehall">
-<section class="theme" id="handel">
+<section class="theme" id="vatten">
   <div class="wrap">
     <div class="sec-head">
-      <span class="label">Handeln</span>
-      <h1 class="sida-h">Örebro är länets köpcentrum</h1>
-      <p class="lead" id="hd-lead">&nbsp;</p>
+      <span class="label">Vattnet</span>
+      <h1 class="sida-h">Hur är vattnet i Örebro?</h1>
+      <p class="lead" id="vt-lead">&nbsp;</p>
     </div>
-    <div class="stats" id="hd-kpis"><span class="loading">Laddar data …</span></div>
+    <div class="stats" id="vt-kpis"><span class="loading">Laddar data …</span></div>
 
-    <div class="chips" role="group" aria-label="Välj mått" id="hd-chips"></div>
+    <h2 class="vt-h" id="bad">Badplatserna</h2>
+    <p class="small vt-ingress" id="vt-bad-lead"></p>
+    <div class="vt-badgrid">
+      <div class="panel">
+        <div class="panel-head"><h3>Var de ligger</h3><span class="small">färgen visar det senaste provet</span></div>
+        <div class="chart vt-karta" id="vt-karta"></div>
+        <div class="legend" id="vt-legend"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Alla badplatser</h3><span class="small" id="vt-bad-n"></span></div>
+        <ul class="vt-badlista" id="vt-badlista"></ul>
+      </div>
+    </div>
+    <div class="panel vt-det" id="vt-det" hidden></div>
+
+    <h2 class="vt-h" id="dricks">Ditt dricksvatten</h2>
     <div class="grid2">
       <div class="panel">
-        <div class="panel-head"><h3 id="hd-title">&nbsp;</h3><span class="small" id="hd-year"></span></div>
-        <p class="small" id="hd-desc"></p>
-        <div class="hbars" id="hd-cmp"></div>
+        <div class="panel-head"><h3>Hårdhet och pH där du bor</h3></div>
+        <label class="small" for="vt-ort">Välj ort</label>
+        <select id="vt-ort" class="vt-sel"></select>
+        <div id="vt-ortres"></div>
+        <p class="src" id="vt-ort-src"></p>
       </div>
       <div class="panel">
-        <div class="panel-head"><h3>Utveckling över tid</h3>
-          <div class="legend" id="hd-leg"><span><i class="sw" style="background:var(--accent)"></i>Örebro</span><span><i class="sw" style="background:var(--ink2)"></i>Hela Sverige</span></div></div>
-        <div class="chart" id="hd-line"></div>
+        <div class="panel-head"><h3>PFAS i dricksvattnet</h3><span class="small" id="vt-pfas-s"></span></div>
+        <p class="small">PFAS är svårnedbrytbara kemikalier som kan skada hälsan. Sedan 1 januari 2026 gäller skärpta gränsvärden. Staplarna visar hur stor del av gränsvärdet varje vattenverk når.</p>
+        <div id="vt-pfas"></div>
+        <p class="src" id="vt-pfas-src"></p>
       </div>
     </div>
 
-    <div class="grid2">
-      <div class="panel">
-        <div class="panel-head"><h3>Här ligger handeln</h3><span class="small" id="hd-ho-ar"></span></div>
-        <div class="chart" id="hd-map"></div>
-        <div class="legend"><span><i class="sw" style="background:var(--accent)"></i>Handelsområde</span><span><i class="sw" style="background:var(--surface);border:1px solid var(--mark-gray)"></i>Örebros områden</span></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><h3>Anställda i handeln per handelsområde</h3></div>
-        <div class="hbars" id="hd-ho"></div>
-        <p class="small">SCB avgränsar handelsområden som platser där många butiker ligger tätt. Området har namn efter statistikområdet där det ligger.</p>
-      </div>
+    <h2 class="vt-h" id="svartan">Svartån just nu</h2>
+    <div class="panel">
+      <div class="panel-head"><h3>Vattenföring vid Karlslund</h3><span class="small">kubikmeter per sekund</span></div>
+      <p id="vt-sv-sum"></p>
+      <div class="chart" id="vt-sv"></div>
+      <div class="legend" id="vt-sv-legend"></div>
+      <div class="vt-fakta" id="vt-sv-fakta"></div>
+      <p class="src" id="vt-sv-src"></p>
     </div>
 
-    <div class="grid2">
-      <div class="panel">
-        <div class="panel-head"><h3>Hur stor andel av de nya bilarna laddas?</h3></div>
-        <div class="chips" role="group" aria-label="Vilka bilar" id="hd-bil-chips">
-          <button class="chip" data-b="el" aria-pressed="true">Elbilar</button>
-          <button class="chip" data-b="ladd" aria-pressed="false">El + laddhybrider</button>
-        </div>
-        <div class="chart" id="hd-bil"></div>
-        <p class="src" id="hd-bil-note"></p>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><h3 id="hd-bil2-title">&nbsp;</h3></div>
-        <div class="hbars" id="hd-bil2"></div>
-      </div>
+    <h2 class="vt-h" id="kostnad">Vad vattnet kostar</h2>
+    <div class="panel">
+      <div class="panel-head"><h3>Avgift för vatten och avlopp</h3><span class="small" id="vt-k-s"></span></div>
+      <p id="vt-k-sum"></p>
+      <div id="vt-k"></div>
+      <p class="src" id="vt-k-src"></p>
     </div>
-
-    <details class="note">
-      <summary>Så ska siffrorna läsas</summary>
-      <ul>
-        <li><b>Försäljningsindex</b> kommer från Handelsrådet via Kolada. Det jämför butikernas faktiska försäljning med försäljningsunderlaget, alltså vad kommunens invånare kan förväntas handla för utifrån hur många de är och deras köpkraft. Över 100 betyder att kommunen lockar kunder utifrån. Under 100 betyder att invånarna handlar mer på andra håll.</li>
-        <li>Försäljningen gäller handeln i kommunen och är inklusive moms.</li>
-        <li><b>Nya bilar</b> kommer från Trafikanalys via SCB och räknas efter var bilens ägare eller brukare är registrerad. Ett enskilt företag eller leasingbolag med många bilar kan därför påverka en kommun mycket från år till år. Årets siffror gäller januari till och med den senaste månaden.</li>
-        <li><b>Handelsområden</b> är SCB:s avgränsning från 2020 och uppdateras vart femte år.</li>
-        <li>Det finns inga öppna uppgifter om kortköp eller om vad örebroarna köper på nätet per kommun.</li>
-      </ul>
-    </details>
   </div>
 </section>
 
-<div class="wrap"><section class="ladda" id="ladda" data-tema="handel" aria-label="Ladda ner datan"></section></div>
+<div class="wrap"><section class="ladda" id="ladda" data-tema="vatten" aria-label="Ladda ner datan"></section></div>
 </main>
 <footer class="site">
   <div class="wrap fot">

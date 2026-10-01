@@ -770,3 +770,66 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .fel-slott{max-width:640px;color:var(--accent);margin-top:28px;opacity:.85}
 @media (max-width:520px){.fot-slott{max-width:220px}}
 [data-sida="fel"] .fot-slott,[data-sida="om"] .fot-slott{display:none}
+
+/* ===== Vattnet ===== */
+/* Layout: nyckeltal överst; badplatser som karta + lista (detalj under); dricksvatten och PFAS i två kolumner; Svartån som diagram med normalband; kostnaden som staplar. */
+.vt-h{font-size:clamp(1.35rem,3vw,1.7rem);margin-top:34px;scroll-margin-top:90px}
+.vt-ingress{max-width:75ch;margin-top:-4px}
+.vt-badgrid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px}
+@media (max-width:900px){.vt-badgrid{grid-template-columns:minmax(0,1fr)}}
+.vt-karta svg{overflow:hidden}
+.vt-karta path.vt-omr{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke}
+.vt-pt{cursor:pointer}
+.vt-pt circle{stroke:var(--surface);stroke-width:2;vector-effect:non-scaling-stroke}
+.vt-pt circle.vt-alg{fill:none;stroke:var(--second);stroke-width:2.5;stroke-dasharray:3 3}
+.vt-pt.sel circle:not(.vt-alg){stroke:var(--ink);stroke-width:2.5}
+.vt-p-ok{fill:var(--up);background:var(--up)}.vt-p-anm{fill:var(--second);background:var(--second)}.vt-p-ej{fill:var(--down);background:var(--down)}.vt-p-inget{fill:var(--mark-gray);background:var(--mark-gray)}
+.vt-dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.vt-algsw{background:none;border:2px dashed var(--second)}
+.vt-karta text.vt-lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round;pointer-events:none}
+.vt-badlista{list-style:none;margin:0;padding:0;border-top:1px solid var(--line);max-height:520px;overflow-y:auto}
+.vt-badlista button{font:inherit;width:100%;text-align:left;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;align-items:center;padding:9px 8px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
+.vt-badlista button:hover,.vt-badlista button[aria-pressed="true"]{background:var(--accent-soft)}
+.vt-badlista .sub{grid-column:1;font-size:.84rem;color:var(--muted)}
+.vt-badlista .vt-st{grid-column:2;grid-row:1/3}
+.vt-bn{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.vt-varn{font-size:.74rem;font-weight:600;padding:0 7px;border-radius:999px;background:color-mix(in srgb,var(--second) 20%,var(--surface));color:var(--ink)}
+.vt-st{font-size:.8rem;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.vt-st-ok{background:color-mix(in srgb,var(--up) 14%,transparent);color:var(--up)}
+.vt-st-anm{background:color-mix(in srgb,var(--second) 20%,transparent);color:var(--ink)}
+.vt-st-ej{background:color-mix(in srgb,var(--down) 14%,transparent);color:var(--down)}
+.vt-st-inget{background:var(--bg);color:var(--muted)}
+.vt-det{margin-top:18px}
+.vt-varning{background:color-mix(in srgb,var(--second) 16%,var(--surface));border-left:4px solid var(--second);padding:8px 12px;border-radius:6px;max-width:none}
+.vt-klass{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.vt-k{display:grid;gap:0;padding:6px 12px;border-radius:8px;font-size:.88rem;border:1px solid var(--line)}
+.vt-k b{font-family:var(--f-data);font-weight:500;font-size:.8rem;color:var(--muted)}
+.vt-k-ok{background:color-mix(in srgb,var(--up) 12%,var(--surface))}.vt-k-ok2{background:color-mix(in srgb,var(--up) 6%,var(--surface))}
+.vt-k-anm{background:color-mix(in srgb,var(--second) 16%,var(--surface))}.vt-k-ej{background:color-mix(in srgb,var(--down) 14%,var(--surface))}
+.vt-sel{font:inherit;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);max-width:320px}
+.vt-ort{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:6px}
+.vt-dh{font-family:var(--f-display);font-size:2.6rem;font-weight:700;color:var(--accent-text);line-height:1}
+.vt-dh small{font-size:1rem;color:var(--muted);font-weight:500}
+.vt-typ{font-family:var(--f-display);font-size:1.25rem;font-weight:700}
+.vt-skala{position:relative;display:grid;grid-template-columns:6fr 4fr 11fr;height:26px;margin:8px 0 26px;font-size:.78rem;color:var(--muted)}
+.vt-skala span{border-top:8px solid;padding-top:4px}
+.vt-skala .m{border-color:color-mix(in srgb,var(--accent) 45%,var(--surface))}.vt-skala .mh{border-color:color-mix(in srgb,var(--second) 45%,var(--surface))}.vt-skala .h{border-color:color-mix(in srgb,var(--down) 40%,var(--surface))}
+.vt-skala i{position:absolute;top:-5px;width:4px;height:18px;margin-left:-2px;background:var(--ink);border-radius:2px}
+.vt-pf{display:grid;gap:6px;margin-bottom:12px}
+.vt-pf-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.vt-pf-r{display:grid;grid-template-columns:7rem minmax(0,1fr) 5.4rem 3rem;gap:8px;align-items:center;font-size:.9rem}
+.vt-pf-r .tr{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.vt-pf-r .f{display:block;height:100%;background:var(--accent);border-radius:5px}
+.vt-pf-r .num{text-align:right}
+@media (max-width:420px){.vt-pf-r{grid-template-columns:5.6rem minmax(0,1fr) 4.8rem}.vt-pf-r .small{display:none}}
+#vt-sv svg{overflow:visible}
+.vt-band{fill:color-mix(in srgb,var(--accent) 14%,transparent);stroke:none}
+.vt-median{fill:none;stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:4 3}
+.vt-forra{fill:none;stroke:var(--mark-gray);stroke-width:1.5}
+.vt-iar{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round}
+.vt-sist{fill:var(--accent);stroke:var(--surface);stroke-width:2}
+.vt-hov{stroke:var(--ink2);stroke-width:1;stroke-dasharray:2 2}
+.vt-sw-band{background:color-mix(in srgb,var(--accent) 22%,transparent)}
+.vt-fakta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:560px){.vt-fakta{grid-template-columns:minmax(0,1fr)}}
+.stat[data-dela] .label{padding-right:26px}
