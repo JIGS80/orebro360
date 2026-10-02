@@ -452,6 +452,7 @@ const OMAT=[
   {k:'aldre',l:'65 år och äldre',u:' %',d:0,s:'andel av invånarna'},
   {k:'hyres',l:'Hyresrätter',u:' %',d:0,s:'andel av lägenheterna'},
   {k:'bilar',l:'Bilar per 1 000 invånare',u:'',d:0,s:'personbilar i trafik'},
+  {k:'buss',l:'Bussturer per 1 000 invånare',u:'',d:0,s:'en vanlig vardag, i området eller precis utanför'},
   {k:'tathet',l:'Invånare per km²',u:'',d:0,s:'landareal'},
 ];
 const omFmt=(m,v)=>v==null?'–':fmt(v,m.d)+m.u;
@@ -480,6 +481,8 @@ document.addEventListener('click',e=>{
   if(r){r.remove();b.setAttribute('aria-expanded','false');return}
   const tmp=document.createElement('div');tmp.innerHTML=infoRuta(k);r=tmp.firstChild;
   const sub=host.querySelector(':scope > .s, :scope > .sub');(sub||host.lastElementChild).after(r);b.setAttribute('aria-expanded','true')});
+/* Bussturerna kommer från kollektiv.json och läggs in i områdesdatan så att de fungerar som de andra måtten */
+function ktTillOm(){if(!KT||!OM)return;OM.omraden.forEach(o=>{const b=KT.omraden[o.kod];if(b)o.buss=b.per1000});OM.kommun.buss=KT.kommun.per1000}
 function omMatDef(){const m=OMAT.find(m=>m.k===omMat);return {...m,get:o=>o[m.k]}}
 function quantBreaks(vals){const v=vals.filter(x=>x!=null).sort((a,b)=>a-b);if(!v.length)return [];return [.2,.4,.6,.8].map(q=>v[Math.min(v.length-1,Math.floor(q*v.length))])}
 function renderOmMap(){
@@ -1098,7 +1101,30 @@ function miKarta(){
   m.rk.filter(r=>r.x!=null).forEach(r=>pt(r.x,r.y,'rk',4.5,`<b>${esc(r.n)}</b><br>kontrollerad ${rkDatum(r.d)}`));
   m.skolor.forEach(s=>{const p=sp[s.c];if(p)pt(p[1],p[2],'sk',5,`<b>${esc(s.n)}</b><br>${esc(miAvst(s))}`)});
   m.vc.forEach(v=>pt(v.x,v.y,'vc',6,`<b>${esc(v.n)}</b><br>${esc(miAvst(v))}`));
+  const bu=KT&&KT.omraden[o.kod];$('#mi-leg-bu').hidden=!(bu&&bu.nara&&!bu.stort);if(bu&&bu.nara&&!bu.stort)pt(bu.nara.x,bu.nara.y,'bu',5.5,`<b>${esc(bu.nara.n)}</b><br>hållplats, ${esc(linjer(bu.nara.linjer))}`);
   const t=el('text',{x:o.lx,y:o.ly,'text-anchor':'middle',class:'mi-lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=o.namn;
+}
+
+/* ===== Bussen nära dig (Länstrafiken Örebro via Trafiklab) ===== */
+let KT=null;
+const linjer=a=>!a||!a.length?'':a.length>6?`${a.length} linjer`:a.length===1?'linje '+a[0]:'linjerna '+a.slice(0,-1).join(', ')+' och '+a[a.length-1];
+const meter=m=>m>=1000?fmt(m/1000,1)+' km':fmt(m)+' m';
+function ktDag(){if(!KT)return '';const d=KT.dag.split('-');return `tisdag ${+d[2]} ${['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december'][+d[1]-1]} ${d[0]}`}
+function miBuss(k){const p=$('#mi-bu-p');if(!p)return;const b=KT&&KT.omraden[k];p.hidden=!b;if(!b)return;
+  const n=b.nara,c=b.centrum||{},K=KT.kommun,rader=[];
+  $('#mi-bu-sum').textContent=`${fmt(b.turer)} bussturer stannar i området eller precis utanför en vanlig vardag, ${fmt(b.per1000)} per 1 000 invånare. För en genomsnittlig örebroare är det ${fmt(K.per1000)}.`;
+  if(b.stort){
+    rader.push(`<li class="mi-bu-not"><span class="sub">Området är stort och har flera orter. Det här är de mest trafikerade hållplatserna:</span></li>`);
+    b.topp.forEach(t=>rader.push(`<li><b>${esc(t.n)}</b><span class="sub">${esc(linjer(t.linjer))} · ${fmt(t.turer)} turer${t.min!=null?` · ${t.min} min till centrum utan byte`:''}</span></li>`));
+  }else if(n){
+    rader.push(`<li><b>${esc(n.n)}</b><span class="sub">närmaste hållplatsen · ${esc(linjer(n.linjer))} · ${fmt(n.turer)} turer, första ${n.forsta}, sista ${n.sista}</span><span class="mi-avst">${meter(n.m)}</span></li>`);
+    const t=b.topp[0];if(t&&t.n!==n.n&&t.turer>=n.turer*1.5)rader.push(`<li><b>${esc(t.n)}</b><span class="sub">flest turer i området · ${esc(linjer(t.linjer))} · ${fmt(t.turer)} turer</span></li>`);
+  }
+  if(c.i_centrum)rader.push(`<li><b>Centrum ligger i området</b><span class="sub">Järntorget och Örebro Resecentrum, där de flesta linjer möts</span></li>`);
+  else if(c.min!=null)rader.push(`<li><b>${c.min} min till centrum</b><span class="sub">utan byte från ${esc(c.fran)} till ${esc(c.till)} med ${esc(linjer(c.linjer))} · ${c.rus?`${c.rus} ${c.rus===1?'avgång':'avgångar'} mellan 7 och 8 på morgonen`:'ingen avgång mellan 7 och 8 på morgonen'}</span>${b.stort||(n&&c.fran===n.n)?'':`<span class="mi-avst">${meter(c.m)}</span>`}</li>`);
+  else rader.push(`<li><b>Ingen direktbuss till centrum</b><span class="sub">resan kräver byte</span></li>`);
+  $('#mi-bu').innerHTML=rader.join('');
+  $('#mi-bu-src').innerHTML=`Länstrafiken Örebros tidtabell för ${ktDag()} via Trafiklab. Tåg ingår inte. Avstånden är fågelvägen från områdets centrum. Sök resa på <a href="https://www.lanstrafiken.se/" target="_blank" rel="noopener">lanstrafiken.se</a>.`;
 }
 function miValj(k){miVisad=k;miSpara(k);try{history.replaceState(null,'','#'+k)}catch(e){}renderMitt();
   if(matchMedia('(max-width:900px)').matches)$('#mi-h').scrollIntoView({behavior:'smooth',block:'start'})}
@@ -1144,6 +1170,7 @@ function renderMitt(){
     $('#mi-val').innerHTML=`<div class="pbar small" style="color:var(--muted)"><span></span><span></span><span class="v">Område</span><span class="v d">Kommun</span></div>`+rows.map(r=>`<div class="pbar" title="${esc(r.n)}: ${fmt(r.v,1)} % i området, ${r.kk!=null?fmt(r.kk,1):'–'} % i hela kommunen"><span><span class="lng">${esc(r.n)}</span><span class="krt">${esc(r.k)}</span></span><span class="tr"><span class="f" style="width:${r.v/mx*100}%;background:${r.f}"></span>${r.kk!=null?`<span class="k" style="left:${r.kk/mx*100}%"></span>`:''}</span><span class="v">${fmt(r.v,1)}</span><span class="v d">${r.kk!=null?fmt(r.kk,1):'–'}</span></div>`).join('');
   }else{$('#mi-val-sum').textContent='Inget valdistrikt ligger huvudsakligen i det här området, så vi kan inte visa hur det röstade.';$('#mi-val').innerHTML=''}
   // badplatser
+  miBuss(o.kod);
   const bad=m.bad||[];$('#mi-bad-p').hidden=!bad.length;
   $('#mi-bad').innerHTML=bad.map(b=>{const [c,t]=vtBed(b.prov?.[1]);return `<li><a href="vatten.html#bad=${esc(b.id)}"><b>${esc(b.n)}</b><span class="sub">${b.prov?`Senaste prov ${vtDag(b.prov[0])}: ${esc(t.toLowerCase())}`:'Inga prov'}${b.klass?` · ${esc(b.klass[1].toLowerCase())} ${b.klass[0]}`:''}${b.varning?' · varning för algblomning':''}</span></a><span class="mi-avst">${esc(miAvst(b))}</span></li>`}).join('');
   // vidare
@@ -1557,7 +1584,7 @@ function renderStart(S){
     try{[GI,OM]=await Promise.all([load('gissa'),miHamta()?load('omraden').catch(()=>null):null]);initGissa()}catch(e){console.error(e);felText('#gi-kort','Kunde inte läsa in frågorna. Ladda om sidan.')}
     break;
   case 'mitt':
-    try{[OM,MI,VAL]=await Promise.all([load('omraden'),load('mitt'),load('val').catch(()=>null)]);initMitt()}catch(e){console.error(e);felText('#mi-karta','Kunde inte läsa in datan för Mitt Örebro. Ladda om sidan.')}
+    try{[OM,MI,VAL,KT]=await Promise.all([load('omraden'),load('mitt'),load('val').catch(()=>null),load('kollektiv').catch(()=>null)]);ktTillOm();initMitt()}catch(e){console.error(e);felText('#mi-karta','Kunde inte läsa in datan för Mitt Örebro. Ladda om sidan.')}
     break;
   case 'pengar':
     try{P=await load('pengar');per='12m';
@@ -1600,8 +1627,8 @@ function renderStart(S){
       if(m)traffMarkera(document.querySelector(`#va-atab tr[data-id="${CSS.escape(m[2])}"]`));}catch(e){console.error(e);felText('#va-lead','Kunde inte läsa in vårddatan.')}
     break;
   case 'omrade':
-    try{[VAL,SK,VA,OM]=await Promise.all([load('val'),load('skolor').catch(()=>null),load('vard').catch(()=>null),load('omraden')]);
-      initOm();
+    try{[VAL,SK,VA,OM,KT]=await Promise.all([load('val'),load('skolor').catch(()=>null),load('vard').catch(()=>null),load('omraden'),load('kollektiv').catch(()=>null)]);
+      ktTillOm();initOm();
       const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}
       addEventListener('hashchange',()=>{const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}});
     }catch(e){console.error(e);felText('#om-lead','Kunde inte läsa in områdesdatan.')}

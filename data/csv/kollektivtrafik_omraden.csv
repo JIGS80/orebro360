@@ -1,0 +1,37 @@
+﻿kod;omrade;bussturer_vardag;bussturer_per_1000_inv;linjer;hallplatser;narmaste_hallplats;avstand_m;minuter_till_centrum;fran_hallplats;avgangar_07_08
+1880R001;Adolfsberg;697;194;1 2 5 6 7 11 807;8;Halltorpsvägen;540;18;Halltorpsvägen;5
+1880R002;Almby-Ormesta;630;135;1 2 6 800 807 819 820;13;Tybble centrum;170;10;Tybble centrum;17
+1880R003;Baronbackarna;373;175;1 3;1;Baronbackarna;110;10;Baronbackarna;12
+1880R004;Brickebacken;187;54;1;3;Brickebacken centrum;90;19;Brickebacken centrum;6
+1880R005;Brickeberg-Norra Bro;249;90;1 807;12;Broängsvägen;80;19;Broängsvägen;5
+1880R006;Brunnsgärdet-Lindhult-Nasta;554;104;4 7 500 506 600 620 701;16;Nasta;410;11;Nasta;8
+1880R007;Ekeby-Almby-Hidingsta-Stora Mellösa;131;20;800 807 819 820;27;Norrbyåsvägen;1000;27;Norrbyåsvägen;6
+1880R008;Eklunda-Sörby;684;106;1 2 5 11 800 807 819 820;14;Eyra Idrottsområde;110;4;Eyra Idrottsområde;22
+1880R009;Ervalla-Ölmbrotorp;115;29;300 314 401;36;Löt;200;28;Löt;1
+1880R010;Garphyttan-Närkes Kil;148;36;300 401 506 520;16;Skoghallsvägen;5030;29;Skoghallsvägen;5
+1880R011;Glanshammar;79;21;200 230 324;45;Glanshammars kyrka;180;27;Glanshammars kyrka;2
+1880R012;Hagaby-Ringstorp;488;87;5 7 11 200 300 314 324 400 401;17;Svampen;350;4;Svampen;11
+1880R013;Holmen-Hjärsta;559;128;1 2 3;5;Baronbackarna;590;10;Baronbackarna;12
+1880R014;Hovsta;295;107;5 300 314 400 401;9;Hovsta centrum;70;21;Hovsta centrum;6
+1880R015;Ladugårdsängen;340;56;5 7 701;8;Termikgatan;300;16;Termikgatan;6
+1880R016;Latorp-Täby-Vintrosa;303;89;500 506 520 600 620;27;Lövåsen;580;20;Lövåsen;1
+1880R017;Lillån;389;102;5 7 300 314 401;13;Kåvivägen;170;7;Kåvivägen;11
+1880R018;Lundby;373;130;1 3;7;Boglundsängen;110;12;Boglundsängen;12
+1880R019;Marieberg-Mosås;304;79;4 7 701;21;Marieberg köpcentrum;320;24;Marieberg köpcentrum;4
+1880R020;Markbacken-Västra Mark;365;86;2 6 520;7;Markbackens centrum;400;8;Markbackens centrum;6
+1880R021;Mellringe-Björkhaga;365;63;2 6 520;12;Mellringevägen;590;14;Mellringevägen;6
+1880R022;Nya Hjärsta-Nyponlunden;186;62;2;4;Vivalla centrum;760;13;Vivalla centrum;12
+1880R023;Näsby-Norra Ormesta;195;54;6 800 819 820;9;Ingenjörsgatan;70;14;Ingenjörsgatan;4
+1880R024;Rosta-Örnsro;837;143;3 4 6 500 506 520 600 620 700 701;9;Rosta centrum;130;10;Rosta centrum;6
+1880R025;Rynninge-Grenadjärstaden;301;71;4 7 200 324;6;Phragménsvägen;350;5;Phragménsvägen;7
+1880R026;Sörbyängen;180;41;5 11;4;Lavendelvägen;340;19;Lavendelvägen;6
+1880R027;Tybble;678;287;1 2 5 6 11 807;7;Tybble centrum;340;10;Tybble centrum;17
+1880R028;Varberga-Oxhagen;365;66;2 6 520;3;Varberga torg;310;10;Varberga torg;6
+1880R029;Vivalla;373;53;1 3;4;Poesigatan;340;13;Poesigatan;12
+1880R030;Västhaga-Solhaga;365;139;3 6 520;7;Rosta gärde;180;14;Rosta gärde;6
+1880R031;Örebro city;1829;284;1 2 3 4 5 6 7 11 200 300 314 324 400 401 500 506 520 600 620 700 701 800 807 819 820;18;Örebro Resecentrum;340;0;;
+1880R032;Örebro norr-CV;1153;206;1 3 4 6 7 11 200 300 314 324 400 401 500 506 520 600 620 700 701 800 807 819 820;17;USÖ Södra Grev Rosengatan;430;3;USÖ Södra Grev Rosengatan;30
+1880R033;Örebro söder;1829;335;1 2 3 4 5 6 7 11 200 300 314 324 400 401 500 506 520 600 620 700 701 800 807 819 820;15;Kulturkvarteret;300;3;Kulturkvarteret;33
+1880R034;Örebro väster;1811;358;1 2 3 4 5 6 7 200 300 314 324 400 401 500 506 520 600 620 700 701 800 807 819 820;4;Örebro Resecentrum;280;0;;
+1880R035;Örebro öster;648;106;1 2 6 11 800 807 819 820;10;Eyra Idrottsområde;430;4;Eyra Idrottsområde;22
+1880R036;Östernärke;81;20;800 820 840;19;Källvägen;410;41;Källvägen;6

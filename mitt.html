@@ -87,7 +87,7 @@
       <div class="panel mi-kartpanel">
         <div class="panel-head"><h3 id="mi-karta-h">Klicka på ditt område</h3><span class="small" id="mi-karta-s"></span></div>
         <div class="chart mi-karta" id="mi-karta"><span class="loading">Laddar kartan …</span></div>
-        <div class="legend" id="mi-legend" hidden><span><i class="sw mi-sw-omr"></i>Ditt område</span><span><i class="mi-pt mi-pt-rk"></i>Livsmedelskontroll</span><span><i class="mi-pt mi-pt-sk"></i>Skola</span><span><i class="mi-pt mi-pt-vc"></i>Vårdcentral</span></div>
+        <div class="legend" id="mi-legend" hidden><span><i class="sw mi-sw-omr"></i>Ditt område</span><span><i class="mi-pt mi-pt-rk"></i>Livsmedelskontroll</span><span><i class="mi-pt mi-pt-sk"></i>Skola</span><span><i class="mi-pt mi-pt-vc"></i>Vårdcentral</span><span id="mi-leg-bu" hidden><i class="mi-pt mi-pt-bu"></i>Hållplats</span></div>
       </div>
     </div>
 
@@ -118,10 +118,18 @@
           <div id="mi-val"></div>
         </div>
       </div>
-      <div class="panel" id="mi-bad-p">
-        <div class="panel-head"><h3>Närmaste badplatserna</h3><span class="small">fågelvägen från områdets centrum</span></div>
-        <ul class="mi-lista" id="mi-bad"></ul>
-        <p class="src">Proverna tas under badsäsongen. Mer om badvattnet och ditt dricksvatten finns på <a href="vatten.html">sidan om vattnet</a>.</p>
+      <div class="grid2">
+        <div class="panel" id="mi-bu-p" hidden>
+          <div class="panel-head"><h3>Bussen nära dig</h3><span class="small" id="mi-bu-s">en vanlig vardag</span></div>
+          <p class="small" id="mi-bu-sum"></p>
+          <ul class="mi-lista" id="mi-bu"></ul>
+          <p class="src" id="mi-bu-src"></p>
+        </div>
+        <div class="panel" id="mi-bad-p">
+          <div class="panel-head"><h3>Närmaste badplatserna</h3><span class="small">fågelvägen från områdets centrum</span></div>
+          <ul class="mi-lista" id="mi-bad"></ul>
+          <p class="src">Proverna tas under badsäsongen. Mer om badvattnet och ditt dricksvatten finns på <a href="vatten.html">sidan om vattnet</a>.</p>
+        </div>
       </div>
       <nav class="mi-vidare" aria-label="Mer om ditt område" id="mi-vidare"></nav>
     </div>
