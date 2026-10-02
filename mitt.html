@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#008572">
 <link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/stil.css?v=7c99217e">
+<link rel="stylesheet" href="assets/stil.css?v=3a4fc302">
 </head>
 <body data-sida="mitt">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
@@ -73,7 +73,7 @@
         <div class="sec-head">
           <span class="label">Mitt Örebro</span>
           <h1 class="sida-h" id="mi-h">Ditt Örebro, samlat på ett ställe</h1>
-          <p class="lead" id="mi-lead">Välj området där du bor, så samlar vi det viktigaste nära dig: hur området ser ut, de senaste livsmedelskontrollerna, skolorna och vårdcentralerna närmast, bussen, lekplatser och återvinning. Resten av sidan ser ut som vanligt.</p>
+          <p class="lead" id="mi-lead">Välj området där du bor, så samlar vi det viktigaste nära dig: närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral med vägbeskrivning dit, och hur området ser ut. Resten av sidan ser ut som vanligt.</p>
         </div>
         <form class="hitta mi-val" id="mi-form">
           <label for="mi-sel">Ditt område</label>
@@ -94,57 +94,53 @@
     </div>
 
     <div id="mi-innehall" hidden>
-      <div class="grid2">
-        <div class="panel">
-          <div class="panel-head"><h3>Livsmedelskontroller nära dig</h3><span class="small" id="mi-rk-s"></span></div>
-          <p class="small" id="mi-rk-sum"></p>
-          <ul class="mi-lista" id="mi-rk"></ul>
-          <p class="src" id="mi-rk-not"></p>
+      <div class="grid2 mi-grid">
+        <div class="panel" data-genvag="Bussen" id="mi-bu-p" hidden>
+          <div class="panel-head"><h3>Bussen nära dig</h3><span class="small" id="mi-bu-s">en vanlig vardag</span></div>
+          <p class="small" id="mi-bu-sum"></p>
+          <ul class="mi-lista" id="mi-bu"></ul>
+          <p class="src" id="mi-bu-src"></p>
         </div>
-        <div class="panel">
+        <div class="contents" id="mi-nm" hidden>
+          <div class="panel" data-genvag="Lek &amp; park" id="mi-lek-p">
+            <div class="panel-head"><h3>Lek och park nära dig</h3><span class="small">fågelvägen från områdets centrum</span></div>
+            <p class="small" id="mi-lek-sum"></p>
+            <ul class="mi-lista" id="mi-lek"></ul>
+            <p class="src" id="mi-lek-src"></p>
+          </div>
+          <div class="panel" data-genvag="Återvinning" id="mi-atv-p">
+            <div class="panel-head"><h3>Återvinning nära dig</h3><span class="small">fågelvägen från områdets centrum</span></div>
+            <p class="small" id="mi-atv-sum"></p>
+            <ul class="mi-lista" id="mi-atv"></ul>
+            <p class="src" id="mi-atv-src"></p>
+          </div>
+        </div>
+        <div class="panel" id="mi-sk-p" data-genvag="Skolor">
           <div class="panel-head"><h3>Skolor nära dig</h3><span class="small">grundskolor</span></div>
           <ul class="mi-lista" id="mi-sk"></ul>
           <p class="small" id="mi-gy"></p>
           <p class="src">Avstånden är fågelvägen från områdets centrum. Förskolor finns inte med eftersom de saknar adresser i den öppna datan.</p>
         </div>
-      </div>
-      <div class="grid2">
-        <div class="panel">
+        <div class="panel" id="mi-vc-p" data-genvag="Vård">
           <div class="panel-head"><h3>Vårdcentraler nära dig</h3><span class="small" id="mi-vc-s"></span></div>
           <ul class="mi-lista" id="mi-vc"></ul>
           <p class="src">Du kan lista dig på vilken vårdcentral du vill i länet. Alla vårdcentraler finns på <a href="vard.html">sidan om vården</a>.</p>
         </div>
-        <div class="panel">
-          <div class="panel-head"><h3>Så röstade ditt område</h3><span class="small">kommunvalet 2026</span></div>
-          <p class="small" id="mi-val-sum"></p>
-          <div id="mi-val"></div>
-        </div>
-      </div>
-      <div class="grid2">
-        <div class="panel" id="mi-bu-p" hidden>
-          <div class="panel-head"><h3>Bussen nära dig</h3><span class="small" id="mi-bu-s">en vanlig vardag</span></div>
-          <p class="small" id="mi-bu-sum"></p>
-          <ul class="mi-lista" id="mi-bu"></ul>
-          <p class="src" id="mi-bu-src"></p>
+        <div class="panel" id="mi-rk-p" data-genvag="Livsmedel">
+          <div class="panel-head"><h3>Livsmedelskontroller nära dig</h3><span class="small" id="mi-rk-s"></span></div>
+          <p class="small" id="mi-rk-sum"></p>
+          <ul class="mi-lista" id="mi-rk"></ul>
+          <p class="src" id="mi-rk-not"></p>
         </div>
         <div class="panel" id="mi-bad-p">
           <div class="panel-head"><h3>Närmaste badplatserna</h3><span class="small">fågelvägen från områdets centrum</span></div>
           <ul class="mi-lista" id="mi-bad"></ul>
           <p class="src">Proverna tas under badsäsongen. Mer om badvattnet och ditt dricksvatten finns på <a href="vatten.html">sidan om vattnet</a>.</p>
         </div>
-      </div>
-      <div class="grid2" id="mi-nm" hidden>
-        <div class="panel" id="mi-lek-p">
-          <div class="panel-head"><h3>Lek och park nära dig</h3><span class="small">fågelvägen från områdets centrum</span></div>
-          <p class="small" id="mi-lek-sum"></p>
-          <ul class="mi-lista" id="mi-lek"></ul>
-          <p class="src" id="mi-lek-src"></p>
-        </div>
-        <div class="panel" id="mi-atv-p">
-          <div class="panel-head"><h3>Återvinning nära dig</h3><span class="small">fågelvägen från områdets centrum</span></div>
-          <p class="small" id="mi-atv-sum"></p>
-          <ul class="mi-lista" id="mi-atv"></ul>
-          <p class="src" id="mi-atv-src"></p>
+        <div class="panel" id="mi-val-p">
+          <div class="panel-head"><h3>Så röstade ditt område</h3><span class="small">kommunvalet 2026</span></div>
+          <p class="small" id="mi-val-sum"></p>
+          <div id="mi-val"></div>
         </div>
       </div>
       <nav class="mi-vidare" aria-label="Mer om ditt område" id="mi-vidare"></nav>
@@ -195,7 +191,7 @@
     <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
   </div>
 </footer>
-<script src="assets/app.js?v=f2c6190f"></script>
+<script src="assets/app.js?v=8d9149ca"></script>
 <script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>

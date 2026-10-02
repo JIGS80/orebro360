@@ -1363,8 +1363,8 @@ function renderMitt(){
     sparad?'Ditt val sparas bara i den här webbläsaren. Vi får aldrig veta vilket område du har valt.':'Valet sparas bara i den här webbläsaren. Vi får aldrig veta vilket område du har valt.';
   miKarta();
   $('#mi-kpis').hidden=!o;$('#mi-innehall').hidden=!o;
-  if(!o){$('#mi-h').textContent='Ditt Örebro, samlat på ett ställe';
-    $('#mi-lead').textContent='Välj området där du bor, så samlar vi det viktigaste nära dig: hur området ser ut, de senaste livsmedelskontrollerna, skolorna och vårdcentralerna närmast, bussen, lekplatser och återvinning. Resten av sidan ser ut som vanligt.';return}
+  if(!o){{const gv=document.querySelector('main .genvagar');if(gv)gv.hidden=true}$('#mi-h').textContent='Ditt Örebro, samlat på ett ställe';
+    $('#mi-lead').textContent='Välj området där du bor, så samlar vi det viktigaste nära dig: närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral med vägbeskrivning dit, och hur området ser ut. Resten av sidan ser ut som vanligt.';return}
   $('#mi-h').innerHTML=`${esc(o.namn)} ${delaLankKnapp('dela/o/'+o.kod+'.html',o.namn+' i siffror','Dela')}`;
   $('#mi-lead').textContent=`Ett av Örebros 36 områden, med ${fmt(m.inv)} invånare. Här har vi samlat det viktigaste nära dig. Allt annat på sidan finns kvar som vanligt.`;
   // nyckeltal
@@ -1402,6 +1402,8 @@ function renderMitt(){
   const bad=m.bad||[];$('#mi-bad-p').hidden=!bad.length;
   $('#mi-bad').innerHTML=bad.map(b=>{const [c,t]=vtBed(b.prov?.[1]);return `<li><a href="vatten.html#bad=${esc(b.id)}"><b>${esc(b.n)}</b><span class="sub">${b.prov?`Senaste prov ${vtDag(b.prov[0])}: ${esc(t.toLowerCase())}`:'Inga prov'}${b.klass?` · ${esc(b.klass[1].toLowerCase())} ${b.klass[0]}`:''}${b.varning?' · varning för algblomning':''}</span></a><span class="mi-avst">${esc(miAvst(b))}</span>${platsAkt(b.x,b.y,b.n)}</li>`}).join('');
   // vidare
+  const gv=document.querySelector('main .genvagar');
+  if(gv){gv.hidden=false;gv.querySelectorAll('a').forEach(l=>{const t=document.getElementById(l.getAttribute('href').slice(1));l.hidden=!t||!!t.closest('[hidden]')})}
   const L=[[`omrade.html#${k}`,'Allt om '+o.namn,'Inkomster, ålder, boende och hushåll jämfört med resten av Örebro.'],[`restauranger.html#omr=${k}`,'Restaurangerna i området','Alla livsmedelsverksamheter och deras kontroller.'],
     ['skatt.html','Vart går din skatt?','Skriv in din lön och se vad kommunalskatten går till.'],['manaden.html','Månadens Örebro','Det senaste i siffror, varje månad.']];
   $('#mi-vidare').innerHTML=L.map(([h,n,s])=>`<a class="mi-v" href="${h}"><b>${esc(n)}</b><span>${esc(s)}</span></a>`).join('');
@@ -1421,12 +1423,23 @@ async function miRemsa(S){
   const host=$('#mi-remsa'),sel=$('#hitta-omr');if(!host)return;
   const k=miHamta();let m=null;
   if(k){try{await miData();m=MI.omraden[k]}catch(e){}}
-  if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').textContent='Var bor du? Välj ditt område, så samlar vi det viktigaste nära dig.';return}
+  if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').textContent='Var bor du? Välj ditt område och se närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral, med vägbeskrivning.';return}
   if(sel)sel.value=k;$('#hitta-lbl').textContent='Ditt område';
-  const vc=m.vc[0];const fakta=[`${fmt(m.inv)} invånare`,`${fmt(m.rk30)} ${m.rk30===1?'livsmedelskontroll':'livsmedelskontroller'} senaste 30 dagarna`,vc?`närmaste vårdcentral ${vc.n.replace(/ ?vårdcentral ?/i,' ').trim()} (${miAvst(vc)})`:''].filter(Boolean);
-  host.innerHTML=`<div class="wrap mi-remsa-in"><a class="mi-remsa-txt" href="mitt.html"><span class="label">Ditt område</span><b>${esc(m.namn)}</b><span class="mi-remsa-fakta">${fakta.map(esc).join(' · ')}</span></a>
-    <span class="mi-remsa-knappar"><a class="mi-remsa-ga" href="mitt.html">Mitt Örebro →</a><button type="button" data-g="byt">Byt</button><button type="button" data-g="glom">Glöm</button></span></div>`;
-  host.hidden=false;
+  const fakta=[`${fmt(m.inv)} invånare`,`${fmt(m.rk30)} ${m.rk30===1?'livsmedelskontroll':'livsmedelskontroller'} senaste 30 dagarna`];
+  const ritaRemsa=nara=>{host.innerHTML=`<div class="wrap mi-remsa-in"><a class="mi-remsa-txt" href="mitt.html"><span class="label">Ditt område</span><b>${esc(m.namn)}</b><span class="mi-remsa-fakta">${fakta.map(esc).join(' · ')}</span></a>
+    <span class="mi-remsa-knappar"><a class="mi-remsa-ga" href="mitt.html">Mitt Örebro →</a><button type="button" data-g="byt">Byt</button><button type="button" data-g="glom">Glöm</button></span></div>${nara||''}`};
+  ritaRemsa('');host.hidden=false;
+  // "Nära dig": det närmaste av det man använder i vardagen, med vägbeskrivning. Allt räknas i webbläsaren.
+  try{const [O2,K2,N2]=await Promise.all([OM?OM:load('omraden'),load('kollektiv').catch(()=>null),load('narmiljo').catch(()=>null)]);OM=OM||O2;
+    if(miHamta()!==k)return;
+    const b=K2&&K2.omraden[k],n=N2&&N2.omraden[k],vc=m.vc[0],R=[];
+    const rad=(typ,namn,avst,x,y,sid)=>{if(!namn)return;const u=hittaUrl(x,y);R.push(`<li><span class="nara-typ">${esc(typ)}</span><a class="nara-namn" href="${sid}">${esc(namn)}</a><span class="nara-m">${esc(typeof avst==='number'?meter(avst):avst)}</span>${u?`<a class="akt-lank" href="${u}" target="_blank" rel="noopener">Hitta hit ↗</a>`:''}</li>`)};
+    if(b&&b.nara&&!b.stort)rad('Hållplats',b.nara.n,b.nara.m,b.nara.x,b.nara.y,'buss.html#omr='+k);
+    if(n&&n.lek)rad('Lekplats',nmNamn('lek',n.lek),n.lek.m,n.lek.x,n.lek.y,'narmiljo.html#omr='+k);
+    if(n&&n.avs){const a=(n.avs.a||'').replace(/\s*\(endast[^)]*\)/i,'').trim();rad('Återvinning',a?(/^(vid|nära) /.test(a)?'Station '+a:a):'Återvinningsstation',n.avs.m,n.avs.x,n.avs.y,'narmiljo.html#omr='+k+'&t=avs')}
+    if(vc)rad('Vårdcentral',vc.n.replace(/ ?vårdcentral ?/i,' ').trim(),miAvst(vc),vc.x,vc.y,'mitt.html');
+    if(R.length)ritaRemsa(`<div class="wrap"><ul class="nara-lista" aria-label="Nära dig, fågelvägen från områdets centrum">${R.join('')}</ul></div>`);
+  }catch(e){console.error(e)}
 }
 
 

@@ -980,3 +980,18 @@ svg .fokus-lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-o
 @media (prefers-reduced-motion:reduce){svg .fokus-ring{animation:none}}
 .mi-karta circle,#nm-karta circle{cursor:pointer}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ===== Mitt Örebro: alla rutor i ett rutnät, i vardagsordning ===== */
+.contents{display:contents}.contents[hidden]{display:none}
+.mi-grid{margin-top:18px}
+/* ===== Startsidans remsa: Nära dig ===== */
+.nara-lista{list-style:none;margin:0;padding:0 0 10px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px 18px;font-size:.88rem}
+.nara-lista li{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 8px;min-width:0}
+.nara-typ{flex-basis:100%;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.nara-namn{font-weight:600;color:var(--ink);text-decoration:none;min-width:0;overflow-wrap:anywhere}
+.nara-namn:hover{text-decoration:underline}
+.nara-m{color:var(--ink2);white-space:nowrap}
+@media (max-width:900px){.nara-lista{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:360px){.nara-lista{grid-template-columns:minmax(0,1fr)}}
+.mi-intro .genvagar{margin:0;padding-inline:0}
+.mi-intro .genvagar[hidden]{display:none}
