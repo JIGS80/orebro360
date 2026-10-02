@@ -2209,7 +2209,7 @@ const felText=(sel,t)=>{const e=$(sel);if(e)e.textContent=t};
 const hashKod=()=>decodeURIComponent(location.hash.slice(1));
 
 function renderStart(S){
-  document.querySelectorAll('[data-tema]').forEach(a=>{const t=S.teman[a.dataset.tema];if(!t)return;
+  document.querySelectorAll('[data-tema]').forEach(a=>{const t=S.teman[a.dataset.tema]||(S.extra||{})[a.dataset.tema];if(!t)return;
     a.querySelector('.v').textContent=t.v;a.querySelector('.s').textContent=t.s});
   document.querySelectorAll('[data-utf]').forEach(a=>{const t=(S.utforska||{})[a.dataset.utf];if(t)a.querySelector('.utf-v').textContent=t});
   const sel=$('#hitta-omr');if(!sel)return;

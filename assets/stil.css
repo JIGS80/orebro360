@@ -1085,3 +1085,19 @@ footer.site p.small a{display:inline-block;padding:3px 0}
 .info-knapp::after{content:"";position:absolute;inset:-6px}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .knapp{background:#14806F;border-color:#14806F} :root:not([data-theme="light"]){--accent-strong:#14806F}}
 :root[data-theme="dark"] .knapp{background:#14806F;border-color:#14806F} :root[data-theme="dark"]{--accent-strong:#14806F}
+
+/* Förstasidans ämneskort i grupper; kompakta kort på mobilen (2 okt 2026) */
+.tema-grupp+.tema-grupp{margin-top:26px}
+.tema-grupp-h{font:500 1.3rem/1.25 var(--f-display);margin:0 0 12px}
+@media (max-width:640px){
+  .teman-h{margin-bottom:10px}
+  .tema-grupp+.tema-grupp{margin-top:22px}
+  .tema-grupp-h{font-size:1.15rem;margin-bottom:8px}
+  .tema-grid{gap:8px}
+  .tema{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"namn v pil" "s s s";gap:2px 10px;padding:12px 14px;align-items:baseline}
+  .tema-namn{font-size:1.05rem}
+  .tema .v{font-size:1.15rem;margin-top:0;text-align:right;white-space:nowrap}
+  .tema .s{font-size:.82rem;line-height:1.35;color:var(--muted)}
+  .tema-text{display:none}
+  .tema::after{border-top:0;margin-top:0;padding-top:0;align-self:baseline;font-size:1.05rem}
+}
