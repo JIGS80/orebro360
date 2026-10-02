@@ -715,7 +715,7 @@ function renderVe(){
   const ys=Object.keys(VE.per_ar).map(Number).sort((a,b)=>b-a);
   $('#ve-ar-sel').innerHTML=ys.map(y=>`<option>${y}</option>`).join('');$('#ve-ar-sel').value=String(ys.find(y=>VE.per_ar[y].max&&VE.ar.some(r=>r[0]===y))||ys[0]);
   $('#ve-ar-sel').addEventListener('change',renderVeAr);renderVeAr();
-  const d=$('#ve-dag');d.max=VE.senaste_dag;d.addEventListener('change',visaDag);
+  const d=$('#ve-dag');d.max=VE.senaste_dag;d.addEventListener('change',visaDag);d.addEventListener('input',visaDag);
 }
 function renderVeAr(){
   const y=+$('#ve-ar-sel').value;const o=VE.per_ar[y]||{};const am=VE.ar.find(r=>r[0]===y);
@@ -729,12 +729,19 @@ function renderVeAr(){
   if(o.frost!=null)rows.push(['Frostdygn',fmt(o.frost),'dygn då temperaturen gick under 0 °C']);
   if(o.neder!=null)rows.push(['Nederbörd',fmt(o.neder)+' mm',o.blotast?`blötast ${dagTxt(o.blotast[1])} med ${fmt(o.blotast[0],1)} mm`:'']);
   if(o.vitjul!=null)rows.push(['Julen',o.vitjul>=1?'Vit jul':'Grön jul',o.vitjul>=1?`${o.vitjul} cm snö på juldagens morgon`:'ingen snö på juldagens morgon']);
-  $('#ve-ar-info').innerHTML=rows.length?`<table class="mini"><tbody>${rows.map(r=>`<tr><td>${r[0]}<span class="sub">${esc(r[2])}</span></td><td class="r">${r[1]}</td></tr>`).join('')}</tbody></table>`+(y===+VE.senaste_dag.slice(0,4)?`<p class="src">Året är inte slut. Siffrorna gäller till och med ${dagTxt(VE.senaste_dag)}.</p>`:''):'<p class="small">Inga fullständiga mätningar det här året.</p>';
+  const nu=y===+VE.senaste_dag.slice(0,4),sak=[];
+  if(!nu&&o.saknas_t)sak.push(`temperatur för ${fmt(o.saknas_t)} dygn`);if(!nu&&o.saknas_p)sak.push(`nederbörd för ${fmt(o.saknas_p)} dygn`);
+  const not=(nu?`<p class="src">Året är inte slut. Siffrorna gäller till och med ${dagTxt(VE.senaste_dag)}.</p>`:'')+
+    (sak.length?`<p class="src">SMHI saknar mätningar av ${sak.join(' och ')} det här året${o.max?', så siffrorna gäller bara de dygn som mättes':''}.</p>`:'')+
+    (y<1941?'<p class="src">Dygnets högsta och lägsta temperatur mättes inte i Örebro före 1941, därför finns inte varmaste dagen, frostdygn och liknande för de här åren.</p>':'');
+  $('#ve-ar-info').innerHTML=rows.length?`<table class="mini"><tbody>${rows.map(r=>`<tr><td>${r[0]}<span class="sub">${esc(r[2])}</span></td><td class="r">${r[1]}</td></tr>`).join('')}</tbody></table>`+not:'<p class="small">Inga fullständiga mätningar det här året.</p>'+not;
 }
+let vedNr=0,VEDp=null;
 async function visaDag(){
-  const v=$('#ve-dag').value;const box=$('#ve-dag-info');if(!v)return;
+  const v=$('#ve-dag').value;const box=$('#ve-dag-info');if(!v)return;const nr=++vedNr;   // bara det senast valda datumet visas, även om filen hämtas medan man fortfarande skriver
   if(v<'1858-12-01'||v>VE.senaste_dag){box.innerHTML=`<p class="small">Mätningarna finns från 1 december 1858 till ${dagTxt(VE.senaste_dag)}.</p>`;return}
-  if(!VED){box.innerHTML='<p class="loading">Hämtar mätningar …</p>';try{VED=await load('vader_dagar')}catch(e){box.innerHTML='<p class="small">Kunde inte hämta dagsvärdena.</p>';return}}
+  if(!VED){box.innerHTML='<p class="loading">Hämtar mätningar …</p>';try{VEDp=VEDp||load('vader_dagar');VED=await VEDp}catch(e){VEDp=null;if(nr===vedNr)box.innerHTML='<p class="small">Kunde inte hämta dagsvärdena. Försök igen om en stund.</p>';return}}
+  if(nr!==vedNr)return;
   const s0=Date.UTC(1858,11,1),[Y,M,D]=v.split('-').map(Number);const i=Math.round((Date.UTC(Y,M-1,D)-s0)/864e5);
   const g=(k,f=10)=>VED[k][i]==null?null:VED[k][i]/f;const t=g('t'),tn=g('tn'),tx=g('tx'),p=g('p'),s=g('s',1);
   // samma datum alla år
@@ -744,7 +751,7 @@ async function visaDag(){
     const omd=w[0]===Y?`Det var den varmaste ${dn} ${forsta}.`:c[0]===Y?`Det var den kallaste ${dn} ${forsta}.`:`Dagen var varmare än ${p} % av alla ${dn} ${forsta}.`;
     jmf=`<p class="small" style="margin-top:8px">${omd} ${w[0]===Y?'':`Varmast var ${dn} ${w[0]} (${grad(w[1])}). `}${c[0]===Y?'':`Kallast var ${dn} ${c[0]} (${grad(c[1])}).`}</p>`}
   const rows=[['Medeltemperatur',grad(t)],['Högsta temperatur',grad(tx)],['Lägsta temperatur',grad(tn)],['Nederbörd',p==null?'–':fmt(p,1)+' mm'],['Snödjup på morgonen',s==null?'–':fmt(s)+' cm']];
-  box.innerHTML=`<h4 style="margin:4px 0 6px;font-family:var(--f-display);font-weight:500">${dagTxt(v)}</h4><table class="mini"><tbody>${rows.map(r=>`<tr><td>${r[0]}</td><td class="r">${r[1]}</td></tr>`).join('')}</tbody></table>${jmf}<p class="src">${v<'2005-07-01'?'Temperatur från stationen i Örebro stad.':'Temperatur från Örebro flygplats.'} ”–” betyder att mätning saknas.</p>`;
+  box.innerHTML=`<h4 style="margin:4px 0 6px;font-family:var(--f-display);font-weight:500">${dagTxt(v)}</h4><table class="mini"><tbody>${rows.map(r=>`<tr><td>${r[0]}</td><td class="r">${r[1]}</td></tr>`).join('')}</tbody></table>${jmf}<p class="src">${v<'2005-07-01'?'Temperatur från stationen i Örebro stad.':'Temperatur från Örebro flygplats.'} ”–” betyder att mätning saknas.${t==null&&tx==null&&v>='2009-05-01'&&v<'2009-12-01'?' Flygplatsen mätte inte temperatur maj–november 2009.':v<'1941-01-01'?' Dygnets högsta och lägsta temperatur mättes inte före 1941, och snödjupet mäts sedan 1947.':''}</p>`;
 }
 
 
