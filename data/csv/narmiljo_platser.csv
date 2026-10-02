@@ -4,55 +4,55 @@
 återvinningscentral;Återvinningscentral Hovsta;;1880R014;Hovsta;513642;6578670
 återvinningscentral;Återvinningscentral Mellringe;;1880R021;Mellringe-Björkhaga;508852;6573670
 återvinningscentral;Återvinningscentral Odensbacken;;1880R036;Östernärke;530632;6558410
-återvinningsstation;;;1880R001;Adolfsberg;510752;6567000
-återvinningsstation;;;1880R002;Almby-Ormesta;513632;6569140
-återvinningsstation;;;1880R002;Almby-Ormesta;513922;6568100
-återvinningsstation;;;1880R006;Brunnsgärdet-Lindhult-Nasta;509632;6567690
+återvinningsstation;;vid Glomman;1880R001;Adolfsberg;510752;6567000
+återvinningsstation;;vid Universitetsallén;1880R002;Almby-Ormesta;513632;6569140
+återvinningsstation;;vid Åstadalsvägen;1880R002;Almby-Ormesta;513922;6568100
+återvinningsstation;;vid Brunnsvägen;1880R006;Brunnsgärdet-Lindhult-Nasta;509632;6567690
 återvinningsstation;;;1880R007;Ekeby-Almby-Hidingsta-Stora Mellösa;512632;6564490
-återvinningsstation;;;1880R007;Ekeby-Almby-Hidingsta-Stora Mellösa;513812;6561840
-återvinningsstation;;;1880R007;Ekeby-Almby-Hidingsta-Stora Mellösa;528582;6563520
+återvinningsstation;;nära Forngårdsvägen;1880R007;Ekeby-Almby-Hidingsta-Stora Mellösa;513812;6561840
+återvinningsstation;;vid Tingstadsvägen;1880R007;Ekeby-Almby-Hidingsta-Stora Mellösa;528582;6563520
 återvinningsstation;;Vinterstadion, grusplan;1880R008;Eklunda-Sörby;513162;6569660
-återvinningsstation;;;1880R009;Ervalla-Ölmbrotorp;513702;6588990
-återvinningsstation;;;1880R009;Ervalla-Ölmbrotorp;513732;6583260
-återvinningsstation;;;1880R010;Garphyttan-Närkes Kil;496932;6573980
-återvinningsstation;;;1880R010;Garphyttan-Närkes Kil;504612;6581220
-återvinningsstation;;;1880R011;Glanshammar;523142;6575140
-återvinningsstation;;;1880R011;Glanshammar;523422;6575290
+återvinningsstation;;vid Klysnavägen;1880R009;Ervalla-Ölmbrotorp;513702;6588990
+återvinningsstation;;nära Ölmbrovägen;1880R009;Ervalla-Ölmbrotorp;513732;6583260
+återvinningsstation;;nära Kilsvägen;1880R010;Garphyttan-Närkes Kil;496932;6573980
+återvinningsstation;;vid Vallbyvägen;1880R010;Garphyttan-Närkes Kil;504612;6581220
+återvinningsstation;;vid Kemivägen;1880R011;Glanshammar;523142;6575140
+återvinningsstation;;nära Gamla Arbogavägen;1880R011;Glanshammar;523422;6575290
 återvinningsstation;;;1880R011;Glanshammar;528652;6576700
 återvinningsstation;;Pettersbergs idrottsplats;1880R012;Hagaby-Ringstorp;513212;6572550
-återvinningsstation;;;1880R013;Holmen-Hjärsta;511282;6571350
-återvinningsstation;;;1880R013;Holmen-Hjärsta;511572;6572140
-återvinningsstation;;;1880R013;Holmen-Hjärsta;511652;6571330
-återvinningsstation;;;1880R013;Holmen-Hjärsta;512082;6571340
-återvinningsstation;;;1880R014;Hovsta;513412;6578690
-återvinningsstation;;;1880R014;Hovsta;513632;6578680
-återvinningsstation;;;1880R016;Latorp-Täby-Vintrosa;497752;6568030
-återvinningsstation;;;1880R016;Latorp-Täby-Vintrosa;499732;6570720
-återvinningsstation;;;1880R017;Lillån;513132;6576260
-återvinningsstation;;;1880R018;Lundby;510532;6574420
-återvinningsstation;;;1880R018;Lundby;511712;6573260
-återvinningsstation;;;1880R019;Marieberg-Mosås;507542;6563630
-återvinningsstation;;;1880R019;Marieberg-Mosås;507712;6564090
-återvinningsstation;;;1880R019;Marieberg-Mosås;508882;6565070
-återvinningsstation;;;1880R021;Mellringe-Björkhaga;508882;6573740
-återvinningsstation;;;1880R022;Nya Hjärsta-Nyponlunden;509592;6572890
-återvinningsstation;;;1880R024;Rosta-Örnsro;510762;6570180
-återvinningsstation;;;1880R025;Rynninge-Grenadjärstaden;513162;6571940
-återvinningsstation;;;1880R025;Rynninge-Grenadjärstaden;513552;6571490
-återvinningsstation;;;1880R026;Sörbyängen;512792;6568470
-återvinningsstation;;;1880R027;Tybble;513732;6568900
-återvinningsstation;;;1880R028;Varberga-Oxhagen;509932;6572340
-återvinningsstation;;;1880R030;Västhaga-Solhaga;509312;6570790
-återvinningsstation;;;1880R032;Örebro norr-CV;512262;6571190
+återvinningsstation;;vid Västra Nobelgatan;1880R013;Holmen-Hjärsta;511282;6571350
+återvinningsstation;;vid Hjalmar Bergmans väg;1880R013;Holmen-Hjärsta;511572;6572140
+återvinningsstation;;vid Lövstagatan;1880R013;Holmen-Hjärsta;511652;6571330
+återvinningsstation;;vid Norra Bangatan;1880R013;Holmen-Hjärsta;512082;6571340
+återvinningsstation;;vid Kårstavägen;1880R014;Hovsta;513412;6578690
+återvinningsstation;;nära cirkulationsplatsen Hovsta;1880R014;Hovsta;513632;6578680
+återvinningsstation;;vid Holmsätersvägen;1880R016;Latorp-Täby-Vintrosa;497752;6568030
+återvinningsstation;;vid Fabriksvägen;1880R016;Latorp-Täby-Vintrosa;499732;6570720
+återvinningsstation;;vid Faluvägen;1880R017;Lillån;513132;6576260
+återvinningsstation;;vid Diabasgatan;1880R018;Lundby;510532;6574420
+återvinningsstation;;vid Boglundsgatan;1880R018;Lundby;511712;6573260
+återvinningsstation;;nära Kundvägen;1880R019;Marieberg-Mosås;507542;6563630
+återvinningsstation;;vid Köpvägen;1880R019;Marieberg-Mosås;507712;6564090
+återvinningsstation;;vid Travbanevägen;1880R019;Marieberg-Mosås;508882;6565070
+återvinningsstation;;vid Runnabyvägen;1880R021;Mellringe-Björkhaga;508882;6573740
+återvinningsstation;;vid Ekersvägen;1880R022;Nya Hjärsta-Nyponlunden;509592;6572890
+återvinningsstation;;vid Västra Vintergatan;1880R024;Rosta-Örnsro;510762;6570180
+återvinningsstation;;vid Höglundagatan;1880R025;Rynninge-Grenadjärstaden;513162;6571940
+återvinningsstation;;vid Lägerhyddsgatan;1880R025;Rynninge-Grenadjärstaden;513552;6571490
+återvinningsstation;;vid Pålsbodagatan;1880R026;Sörbyängen;512792;6568470
+återvinningsstation;;vid Universitetsallén;1880R027;Tybble;513732;6568900
+återvinningsstation;;vid Varbergagatan;1880R028;Varberga-Oxhagen;509932;6572340
+återvinningsstation;;vid Karlslundsgatan;1880R030;Västhaga-Solhaga;509312;6570790
+återvinningsstation;;vid Östra Bangatan;1880R032;Örebro norr-CV;512262;6571190
 återvinningsstation;;Kungsg./Ängg., Servus  (endast glas och batteri);1880R033;Örebro söder;511962;6569660
 återvinningsstation;;Krämaren, Köpmangatan (endast glas och batteri);1880R033;Örebro söder;511982;6569970
-återvinningsstation;;;1880R035;Örebro öster;512882;6570110
-återvinningsstation;;;1880R035;Örebro öster;513412;6569660
-återvinningsstation;;;1880R036;Östernärke;524842;6557180
-återvinningsstation;;;1880R036;Östernärke;530582;6558420
-återvinningsstation;;;1880R036;Östernärke;530832;6547990
-återvinningsstation;;;1880R036;Östernärke;533302;6542020
-återvinningsstation;;;1880R036;Östernärke;538462;6556210
+återvinningsstation;;vid Oskarstorget;1880R035;Örebro öster;512882;6570110
+återvinningsstation;;vid Lykttändargatan;1880R035;Örebro öster;513412;6569660
+återvinningsstation;;nära Askersvägen;1880R036;Östernärke;524842;6557180
+återvinningsstation;;vid Industrivägen;1880R036;Östernärke;530582;6558420
+återvinningsstation;;vid Gröngårdsvägen;1880R036;Östernärke;530832;6547990
+återvinningsstation;;vid Smedvägen;1880R036;Östernärke;533302;6542020
+återvinningsstation;;vid Vinögatan;1880R036;Östernärke;538462;6556210
 hundlekplats;Hundlekplats Brickebacken;;1880R004;Brickebacken;513832;6566100
 hundlekplats;Hundlekplats Åbyparken;;1880R006;Brunnsgärdet-Lindhult-Nasta;509322;6569830
 hundlekplats;Hundlekplats Lundby;;1880R018;Lundby;510512;6574030
@@ -128,7 +128,7 @@ lekplats;Tegnerlunden norra;;1880R013;Holmen-Hjärsta;511582;6571550
 lekplats;Tegnerlunden södra;;1880R013;Holmen-Hjärsta;511562;6571380
 lekplats;Trängkårsvägen 27;;1880R013;Holmen-Hjärsta;511822;6571750
 lekplats;Trängkårsvägen/Lundbygatan;;1880R013;Holmen-Hjärsta;511232;6571600
-lekplats;;;1880R014;Hovsta;512622;6579440
+lekplats;;vid Slingvägen;1880R014;Hovsta;512622;6579440
 lekplats;Enebovägen 16;Hovsta;1880R014;Hovsta;512532;6578460
 lekplats;Hovsta torg;Granbergavägen 18;1880R014;Hovsta;512622;6578670
 lekplats;Hässlevägen–Småstuguvägen 5–7;;1880R014;Hovsta;512632;6578520
@@ -136,7 +136,7 @@ lekplats;Klackvägen 10–12;;1880R014;Hovsta;512932;6578900
 lekplats;Lundvägen 8–12;;1880R014;Hovsta;512942;6578360
 lekplats;Rågvägen–Kornvägen 12;;1880R014;Hovsta;513102;6577900
 lekplats;Vetevägen 60–80;;1880R014;Hovsta;513422;6578050
-lekplats;;;1880R015;Ladugårdsängen;511822;6568440
+lekplats;;vid Fatbursgatan;1880R015;Ladugårdsängen;511822;6568440
 lekplats;Ladugårdsparken;Landstormsvägen 27A;1880R015;Ladugårdsängen;511472;6568370
 lekplats;Ladugårdsängens park;Fatbursgatan 14;1880R015;Ladugårdsängen;511712;6568430
 lekplats;Ladugårdsängens park;Loggatan 32;1880R015;Ladugårdsängen;512002;6568450
@@ -182,7 +182,7 @@ lekplats;Hjärsta;Slånbärsgatan 38;1880R022;Nya Hjärsta-Nyponlunden;509652;65
 lekplats;Nyponlunden;;1880R022;Nya Hjärsta-Nyponlunden;509282;6573770
 lekplats;Skördeängen;;1880R022;Nya Hjärsta-Nyponlunden;510562;6572570
 lekplats;Vivallakullens lekmiljöer;;1880R022;Nya Hjärsta-Nyponlunden;510052;6573140
-lekplats;;;1880R023;Näsby-Norra Ormesta;515692;6569540
+lekplats;;vid Notstugegatan;1880R023;Näsby-Norra Ormesta;515692;6569540
 lekplats;Barkaregatan 24D;Näsby;1880R023;Näsby-Norra Ormesta;514772;6569540
 lekplats;Hagmarken;Rusthållaregatan 7;1880R023;Näsby-Norra Ormesta;514012;6569560
 lekplats;Hjälmarviksparken;;1880R023;Näsby-Norra Ormesta;515892;6569700

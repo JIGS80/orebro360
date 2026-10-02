@@ -84,7 +84,7 @@
         </div>
         <div class="chart" id="nm-karta"></div>
         <div class="om-legend" id="nm-legend"></div>
-        <p class="src">Klicka på ett område för att se vad som ligger närmast där. Håll muspekaren över en prick för att se namnet.</p>
+        <p class="src">Klicka på ett område för att se vad som ligger närmast där. Tryck på en prick för namn och vägbeskrivning.</p>
       </div>
       <div class="panel">
         <div class="om-head"><span class="label">Valt område</span><span class="big" id="nm-namn">&nbsp;</span><span class="small" id="nm-sum"></span></div>
@@ -101,7 +101,7 @@
 
     <div class="panel" id="g-lista" data-genvag="Alla lekplatser">
       <div class="panel-head"><h3 id="nm-lista-h">Alla lekplatser</h3><span class="small" id="nm-lista-n"></span></div>
-      <div class="tablewrap"><table id="nm-lista"><thead><tr><th>Namn</th><th>Adress eller plats</th><th>Område</th></tr></thead><tbody></tbody></table></div>
+      <div class="tablewrap"><table id="nm-lista"><thead><tr><th>Namn</th><th>Adress eller plats</th><th>Område</th><th aria-label="Vägbeskrivning"></th></tr></thead><tbody></tbody></table></div>
       <p class="src">Listan följer det som är valt ovanför kartan. Namnen kommer från kommunens karta; vi har bara gjort om versalerna.</p>
     </div>
 
@@ -113,7 +113,8 @@
         <li><b>Parker</b> är kommunens stadsdelsparker och större parker. Mindre grönytor och naturområden finns inte med.</li>
         <li>En <b>återvinningsstation</b> tar förpackningar, tidningar, batterier och textil, dygnet runt. Två stationer i centrum tar bara glas och batterier och räknas inte som närmaste station. En <b>återvinningscentral</b> är bemannad och tar grovsopor, trädgårdsavfall, elavfall och farligt avfall.</li>
         <li>Avstånden är <b>fågelvägen</b> från områdets centrum. Den faktiska vägen är oftast längre.</li>
-        <li>Uppgifterna hämtas varje vecka från <a href="https://karta.orebro.se/" target="_blank" rel="noopener">Örebro kommuns webbkarta</a>. Öppettider och felanmälan finns på <a href="https://www.orebro.se/bygga-bo--trafik/avfall--atervinning/atervinningsstationer.html" target="_blank" rel="noopener">orebro.se</a>.</li>
+        <li>Uppgifterna hämtas varje vecka från <a href="https://karta.orebro.se/" target="_blank" rel="noopener">Örebro kommuns webbkarta</a>. Kommunen anger inte adress för de flesta återvinningsstationer; "vid" och "nära" är närmaste gata enligt <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>.</li>
+        <li><b>Hitta hit</b> öppnar en vägbeskrivning i Google Maps. Då skickas bara platsens läge till Google, aldrig vilket område du har valt. Öppettider och felanmälan finns på <a href="https://www.orebro.se/bygga-bo--trafik/avfall--atervinning/atervinningsstationer.html" target="_blank" rel="noopener">orebro.se</a>.</li>
       </ul>
     </details>
   </div>

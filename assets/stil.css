@@ -941,7 +941,7 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .om-legend .mi-pt{width:10px;height:10px;border-radius:50%;display:inline-block}.om-legend .mi-pt-bu{background:var(--c6)}
 
 /* ===== Sidan Bussen ===== */
-#bu-karta circle.mi-pt-bu{stroke:var(--surface);stroke-width:1.5;vector-effect:non-scaling-stroke;pointer-events:none}
+#bu-karta circle.mi-pt-bu{stroke:var(--surface);stroke-width:1.5;vector-effect:non-scaling-stroke;cursor:pointer}
 #bu-tab tr.bu-sel td{background:var(--accent-soft)}
 #bu-tab td .sub{display:block;font-size:.8rem;color:var(--muted)}
 #bu-tab tr.row{cursor:pointer}
@@ -963,3 +963,20 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 #nm-tab tr.bu-sel td,#nm-lista tr.bu-sel td{background:var(--accent-soft)}
 #nm-tab tr.row,#nm-lista tr.row{cursor:pointer}
 .om-legend .mi-pt{margin-right:5px;vertical-align:-1px}
+
+/* ===== Platser: Visa på karta, Hitta hit och kort när man trycker på en prick ===== */
+.mi-lista .mi-akt{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:4px 16px;font-size:.82rem;margin-top:1px}
+.akt-knapp{appearance:none;background:none;border:0;padding:0;font:inherit;color:var(--accent-text);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.akt-knapp:hover,.akt-lank:hover{text-decoration-thickness:2px}
+.akt-lank{color:var(--accent-text);text-underline-offset:2px;white-space:nowrap}
+.tip.fast{pointer-events:auto;white-space:normal;min-width:170px;max-width:260px;padding:9px 30px 9px 11px;line-height:1.45}
+.tip.fast .akt-lank,.tip.fast .akt-knapp{color:inherit;font-weight:600}
+.tip-stang{position:absolute;top:2px;right:4px;appearance:none;background:none;border:0;color:inherit;font-size:1.1rem;line-height:1;padding:4px;cursor:pointer;opacity:.8}
+svg .fokus{pointer-events:none}
+svg .fokus-ring{fill:none;stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;animation:fokus 1.6s ease-out 3}
+svg .fokus-pt{fill:var(--ink);stroke:var(--surface);stroke-width:2;vector-effect:non-scaling-stroke}
+svg .fokus-lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round}
+@keyframes fokus{0%{opacity:1}70%{opacity:.25}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){svg .fokus-ring{animation:none}}
+.mi-karta circle,#nm-karta circle{cursor:pointer}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
