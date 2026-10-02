@@ -1068,3 +1068,13 @@ svg .fokus-lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-o
 #rt-tab tbody tr{cursor:pointer}
 #rt-tab tbody tr:hover td,#rt-tab tbody tr.vald td{background:var(--accent-soft)}
 #rt-tab tbody tr.summa td{border-top:2px solid var(--line)}
+
+/* Brott och trygghet */
+.br-forst{border-left:4px solid var(--accent);margin:18px 0 8px}
+.br-forst-h{font:500 1.15rem/1.3 var(--f-display);margin:0 0 6px}
+.br-forst ul{margin:0;padding-left:1.2em}
+.br-forst li{margin:4px 0;line-height:1.5}
+.br-del{font:500 1.45rem/1.25 var(--f-display);margin:34px 0 10px;scroll-margin-top:90px}
+#br-tab tbody tr{cursor:pointer}
+#br-tab tbody tr:hover td,#br-tab tbody tr.vald td{background:var(--accent-soft)}
+#br-ntu td .sub,#br-tab td .sub{display:inline;color:var(--muted);font-size:.85em}
