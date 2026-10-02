@@ -8,6 +8,7 @@ const ymLabel=ym=>{const [y,m]=ym.split(/-|M/);return MON[+m-1]+' '+y};
 const NS='http://www.w3.org/2000/svg';
 function el(tag,attrs={},parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
 function tip(host){let t=host.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';t.hidden=true;host.appendChild(t)}return t}
+function diagramNamn(host,typ){const p=host&&host.closest('.panel,.chart-box,section');const h=p&&p.querySelector('h3,h2');return (h&&h.textContent.trim()?h.textContent.trim():typ)}
 function niceTicks(max,n=4){const raw=max/n,p=Math.pow(10,Math.floor(Math.log10(raw)));const s=[1,2,2.5,5,10].map(x=>x*p).find(x=>x>=raw);const out=[];for(let v=0;v<=max+1e-9;v+=s)out.push(v);if(out[out.length-1]<max)out.push(out[out.length-1]+s);return out}
 
 function hbars(host,rows,{fmtv=v=>fmt(v),max}={}){
@@ -18,7 +19,7 @@ function hbars(host,rows,{fmtv=v=>fmt(v),max}={}){
 /* stapeldiagram (månader) */
 function barChart(host,labels,values,sel,{unit='mkr'}={}){
   host.innerHTML='';const W=Math.max(340,Math.min(900,host.clientWidth||720)),H=W<500?220:250,L=44,R=8,T=12,B=28;
-  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Stapeldiagram'},host);
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Stapeldiagram: '+diagramNamn(host,'')},host);
   const max=Math.max(...values);const ticks=niceTicks(max);const top=ticks[ticks.length-1];
   const y=v=>T+(H-T-B)*(1-v/top);const g=el('g',{class:'grid'},svg);
   ticks.forEach(t=>{el('line',{x1:L,x2:W-R,y1:y(t),y2:y(t)},g);const tx=el('text',{x:L-6,y:y(t)+4,'text-anchor':'end'},svg);tx.textContent=fmt(t)});
@@ -40,7 +41,7 @@ function lineChart(host,series,{yfmt=v=>fmt(v),xlab,minZero=false,height=260}={}
   let lo=Math.min(...all),hi=Math.max(...all);if(minZero)lo=0;if(hi===lo){hi+=1;lo-=1}
   const span=hi-lo,raw=span/4,pw=Math.pow(10,Math.floor(Math.log10(raw))),st=[1,2,2.5,5,10].map(x=>x*pw).find(x=>x>=raw);
   lo=Math.floor(lo/st)*st;hi=Math.ceil(hi/st)*st;const ticks=[];for(let v=lo;v<=hi+st/1e6;v+=st)ticks.push(v);
-  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img'},host);
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Linjediagram: '+diagramNamn(host,'')+(series.length?' ('+series.map(s=>s.name).filter(Boolean).join(', ')+')':'')},host);
   const x=i=>L+(W-L-R)*(xs.length<2?.5:i/(xs.length-1));const y=v=>T+(H-T-B)*(1-(v-lo)/(hi-lo));
   const g=el('g',{class:'grid'},svg);
   ticks.forEach(v=>{el('line',{x1:L,x2:W-R,y1:y(v),y2:y(v)},g);const t=el('text',{x:L-6,y:y(v)+4,'text-anchor':'end'},svg);t.textContent=yfmt(v)})
@@ -374,14 +375,14 @@ function renderSkTable(){
   const col=F.cols.find(c=>c.k===st.k);
   L=L.map(s=>({s,v:F.get(s,st.k)})).sort((a,b)=>{if(col.txt)return st.dir*a.v.localeCompare(b.v,'sv');if(a.v==null&&b.v==null)return a.s.n.localeCompare(b.s.n,'sv');if(a.v==null)return 1;if(b.v==null)return -1;return st.dir*(a.v-b.v)}).map(x=>x.s);
   $('#sk-table thead').innerHTML='<tr>'+F.cols.map(c=>{const y=c.yr?modeYear(all,c.yr):null;
-    return `<th class="${c.txt?'':'r'} ${c.cls||''}"><button data-k="${c.k}" ${st.k===c.k?`aria-sort="${st.dir>0?'ascending':'descending'}"`:''}>${c.l}<span class="ar">${st.k===c.k?(st.dir>0?'▲':'▼'):''}</span></button>${y?`<span class="yr">${y}</span>`:''}</th>`}).join('')+'</tr>';
+    return `<th class="${c.txt?'':'r'} ${c.cls||''}" ${st.k===c.k?`aria-sort="${st.dir>0?'ascending':'descending'}"`:''}><button data-k="${c.k}">${c.l}<span class="ar">${st.k===c.k?(st.dir>0?'▲':'▼'):''}</span></button>${y?`<span class="yr">${y}</span>`:''}</th>`}).join('')+'</tr>';
   const cell=(s,c)=>{if(c.txt){const sub=skF==='fo'?'':[HM[s.hm]||s.hm,arskurser(s),lv(s.gr?.elever??s.gy?.elever??s.fsk?.elever)?'ca '+fmt(lv(s.gr?.elever??s.gy?.elever??s.fsk?.elever))+' elever':''].filter(Boolean).join(' · ');
       return `<td>${esc(s.n)}${miNara&&miNara.skolor.has(s.c)?miTag('Nära dig'):''}${sub?`<span class="sub">${esc(sub)}</span>`:''}</td>`}
     const v=F.get(s,c.k);if(v==null)return `<td class="r na ${c.cls||''}">–</td>`;
     const t=c.sign?sgn(v):fmt(v,c.d)+(c.u?' '+c.u:'');return `<td class="r ${c.cls||''} ${c.sign?(v>0?'sign-pos':v<0?'sign-neg':''):''}">${t}</td>`};
   const exp=skF!=='fo';const tot=L.length;if(!q&&!skAll&&L.length>25)L=L.slice(0,25);
   const mb=$('#sk-more');mb.hidden=L.length===tot;mb.textContent=`Visa alla ${fmt(tot)}`;
-  $('#sk-table tbody').innerHTML=L.length?L.map(s=>`<tr class="${exp?'row':''}" data-c="${s.c||''}" ${exp?`tabindex="0" aria-expanded="${skOpen===s.c}"`:''}>${F.cols.map(c=>cell(s,c)).join('')}</tr>${exp&&skOpen===s.c?`<tr class="detail"><td colspan="${F.cols.length}">${detail(s)}</td></tr>`:''}`).join('')
+  $('#sk-table tbody').innerHTML=L.length?L.map(s=>`<tr class="${exp?'row':''}" data-c="${s.c||''}" ${exp?`tabindex="0" data-oppen="${skOpen===s.c}"`:''}>${F.cols.map(c=>cell(s,c)).join('')}</tr>${exp&&skOpen===s.c?`<tr class="detail"><td colspan="${F.cols.length}">${detail(s)}</td></tr>`:''}`).join('')
     :`<tr><td colspan="${F.cols.length}" class="small">Inget matchar ”${esc(q)}”.</td></tr>`;
   $('#sk-count').textContent=L.length<tot?`visar ${fmt(L.length)} av ${fmt(tot)}`:`${fmt(tot)} av ${fmt(all.length)}`;
   $('#sk-note').textContent=exp?'Klicka på en skola för att se allt vi har om den. Klicka på en kolumnrubrik för att sortera.':'Klicka på en kolumnrubrik för att sortera.';
@@ -626,7 +627,7 @@ function renderVaAldre(){
   const kom=id=>{const k=VA.kommun.find(x=>x.id===id);return k?{o:vaLast(k,'1880'),r:vaLast(k,'0000')}:null};
   $('#va-a-n').textContent=`${A.enheter.length} ${vaTyp==='sabo'?'boenden':'hemtjänstgrupper'} med svar`;
   $('#va-a-desc').textContent=vaTyp==='sabo'?'Särskilda boenden för äldre (äldreboenden) i kommunal och privat regi.':'Hemtjänstgrupper, både kommunens egna och privata utförare som man kan välja genom valfrihetssystemet.';
-  $('#va-atab thead').innerHTML='<tr><th><button data-k="n">'+(vaTyp==='sabo'?'Äldreboende':'Hemtjänst')+'<span class="ar">'+(vaSort.k==='n'?(vaSort.dir>0?'▲':'▼'):'')+'</span></button></th>'+M.map((m,i)=>`<th class="r${i>2?' hide-sm':''}"><button data-k="${m.id}" ${vaSort.k===m.id?`aria-sort="${vaSort.dir>0?'ascending':'descending'}"`:''}>${esc(m.l)}<span class="ar">${vaSort.k===m.id?(vaSort.dir>0?'▲':'▼'):''}</span></button></th>`).join('')+'</tr>';
+  $('#va-atab thead').innerHTML='<tr><th><button data-k="n">'+(vaTyp==='sabo'?'Äldreboende':'Hemtjänst')+'<span class="ar">'+(vaSort.k==='n'?(vaSort.dir>0?'▲':'▼'):'')+'</span></button></th>'+M.map((m,i)=>`<th class="r${i>2?' hide-sm':''}" ${vaSort.k===m.id?`aria-sort="${vaSort.dir>0?'ascending':'descending'}"`:''}><button data-k="${m.id}" >${esc(m.l)}<span class="ar">${vaSort.k===m.id?(vaSort.dir>0?'▲':'▼'):''}</span></button></th>`).join('')+'</tr>';
   const rows=A.enheter.slice().sort((a,b)=>{if(vaSort.k==='n')return vaSort.dir*a.n.localeCompare(b.n,'sv');const x=a.v[vaSort.k]?.[1],y=b.v[vaSort.k]?.[1];if(x==null&&y==null)return 0;if(x==null)return 1;if(y==null)return -1;return vaSort.dir*(x-y)});
   const ref=['1880','0000'].map(m=>`<tr class="va-ref"><td>${m==='1880'?'Hela Örebro':'Hela Sverige'}</td>${M.map((mm,i)=>{const k=kom(mm.id);const v=k&&(m==='1880'?k.o:k.r);return `<td class="r${i>2?' hide-sm':''}">${v?fmt(v.v,0)+' %':''}</td>`}).join('')}</tr>`).join('');
   $('#va-atab tbody').innerHTML=ref+rows.map(r=>`<tr data-id="${esc(r.id)}"><td>${esc(r.n)}</td>${M.map((m,i)=>{const x=r.v[m.id];return `<td class="r${i>2?' hide-sm':''}${x?'':' na'}"><span class="va-cell" style="--w:${x?x[1]:0}%">${x?x[1]+' %':'–'}</span></td>`}).join('')}</tr>`).join('');
@@ -875,7 +876,7 @@ function rtPer(t,pl,a){const d=RT.per1000[t==='alla'?'100':t]?.[pl];return d?d[a
 /* enkla staplar för månader och timmar */
 function kolumner(host,labels,values,{tick=()=>true,tipText}={}){
   host.innerHTML='';const W=Math.max(300,Math.min(760,host.clientWidth||480)),H=200,L=36,R=6,T=10,B=24;
-  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Stapeldiagram'},host);const tp=tip(host);
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Stapeldiagram: '+diagramNamn(host,'')},host);const tp=tip(host);
   const max=Math.max(1,...values),ticks=niceTicks(max,3),top=ticks[ticks.length-1];const y=v=>T+(H-T-B)*(1-v/top);
   const g=el('g',{class:'grid'},svg);ticks.forEach(t=>{el('line',{x1:L,x2:W-R,y1:y(t),y2:y(t)},g);const tx=el('text',{x:L-6,y:y(t)+4,'text-anchor':'end'},svg);tx.textContent=fmt(t)});
   const bw=(W-L-R)/values.length,mx=values.indexOf(Math.max(...values));
@@ -1083,7 +1084,7 @@ async function load(name){const r=await fetch('data/'+name+'.json');if(!r.ok)thr
 
 /* ===== Var finns leverantörerna? (Bolagsverkets grunddata) ===== */
 let LOK,lokPens='utan';
-const LOK_G=[['kommun','Örebro kommun','var(--accent)','#fff'],['lan','Övriga Örebro län','var(--second)','#fff'],['sverige','Övriga Sverige','var(--mark-gray)','var(--ink)'],
+const LOK_G=[['kommun','Örebro kommun','var(--accent-strong,var(--accent))','#fff'],['lan','Övriga Örebro län','var(--second)','#fff'],['sverige','Övriga Sverige','var(--mark-gray)','var(--ink)'],
   ['off','Myndigheter, regioner och kommuner','var(--q2)','var(--ink)'],['okand','Ort saknas','var(--line)','var(--ink2)'],['utland','Utlandet','var(--ink2)','var(--bg)']];
 const lokGrupp=x=>(LOK.ort[x.o||x.n]||['okand'])[0];
 const lokMed=x=>lokPens==='med'||!LOK.pension.includes(x.o);
@@ -1457,7 +1458,7 @@ function nmTabell(){
     return {kod:o.kod,namn:o.namn,lek:n.antal.lek,lek_per1000:n.lek_per1000,m_lek:n.lek?.m??null,m_park:n.park?.m??null,avs:n.antal.avs,m_avs:n.avs?.m??null}});
   const k=nmSort.k,d=nmSort.dir;
   rader.sort((x,y)=>{const a=x[k],c=y[k];if(a==null&&c==null)return x.namn.localeCompare(y.namn,'sv');if(a==null)return 1;if(c==null)return -1;return typeof a==='string'?d*a.localeCompare(c,'sv'):d*(a-c)||x.namn.localeCompare(y.namn,'sv')});
-  $('#nm-tab thead').innerHTML='<tr>'+NM_KOL.map(([kk,l,txt])=>`<th class="${txt?'':'r'}"><button data-k="${kk}" ${k===kk?`aria-sort="${d>0?'ascending':'descending'}"`:''}>${l}<span class="ar">${k===kk?(d>0?'▲':'▼'):''}</span></button></th>`).join('')+'</tr>';
+  $('#nm-tab thead').innerHTML='<tr>'+NM_KOL.map(([kk,l,txt])=>`<th class="${txt?'':'r'}" ${k===kk?`aria-sort="${d>0?'ascending':'descending'}"`:''}><button data-k="${kk}">${l}<span class="ar">${k===kk?(d>0?'▲':'▼'):''}</span></button></th>`).join('')+'</tr>';
   const m=v=>v==null?'–':meter(v);
   $('#nm-tab tbody').innerHTML=rader.map(r=>`<tr class="row${r.kod===nmSel?' bu-sel':''}" data-k="${r.kod}" tabindex="0"><td>${esc(r.namn)}${r.kod===mitt?miTag('Ditt område'):''}</td><td class="r">${fmt(r.lek)}</td><td class="r">${r.lek_per1000!=null?fmt(r.lek_per1000,1):'–'}</td><td class="r">${m(r.m_lek)}</td><td class="r">${m(r.m_park)}</td><td class="r">${fmt(r.avs)}</td><td class="r">${m(r.m_avs)}</td></tr>`).join('');
   $('#nm-n').textContent=`${rader.length} områden`;
@@ -1554,7 +1555,7 @@ function buTabell(){
     return {kod:o.kod,namn:o.namn,turer:b.turer,per1000:b.per1000,min:buMin(b),rus:b.centrum?.i_centrum?null:(b.centrum?.rus??null),hpl:b.stort?null:b.nara?.n,m:b.nara?.m,b}});
   const k=buSort.k,d=buSort.dir;
   rader.sort((x,y)=>{const a=x[k],c=y[k];if(a==null&&c==null)return x.namn.localeCompare(y.namn,'sv');if(a==null)return 1;if(c==null)return -1;return typeof a==='string'?d*a.localeCompare(c,'sv'):d*(a-c)});
-  $('#bu-tab thead').innerHTML='<tr>'+BU_KOL.map(([kk,l,txt])=>`<th class="${txt?'':'r'}"><button data-k="${kk}" ${k===kk?`aria-sort="${d>0?'ascending':'descending'}"`:''}>${l}<span class="ar">${k===kk?(d>0?'▲':'▼'):''}</span></button></th>`).join('')+'</tr>';
+  $('#bu-tab thead').innerHTML='<tr>'+BU_KOL.map(([kk,l,txt])=>`<th class="${txt?'':'r'}" ${k===kk?`aria-sort="${d>0?'ascending':'descending'}"`:''}><button data-k="${kk}">${l}<span class="ar">${k===kk?(d>0?'▲':'▼'):''}</span></button></th>`).join('')+'</tr>';
   $('#bu-tab tbody').innerHTML=rader.map(r=>`<tr class="row${r.kod===buSel?' bu-sel':''}" data-k="${r.kod}" tabindex="0"><td>${esc(r.namn)}${r.kod===mitt?miTag('Ditt område'):''}</td><td class="r">${fmt(r.turer)}</td><td class="r">${fmt(r.per1000)}</td><td class="r">${r.b.centrum?.i_centrum?'i centrum':r.min!=null?r.min:'–'}</td><td class="r">${r.rus!=null?r.rus:'–'}</td><td>${r.hpl?`${esc(r.hpl)}<span class="sub">${meter(r.m)}</span>`:'<span class="sub">flera orter</span>'}</td></tr>`).join('');
   $('#bu-n').textContent=`${rader.length} områden`;
 }
@@ -2067,7 +2068,7 @@ function vtKarta(){
   const host=$('#vt-karta');host.innerHTML='';if(!OM){host.innerHTML='<p class="small">Kartan kräver områdesdatan.</p>';return}
   const P=VT.bad.platser.filter(b=>b.x!=null);
   const xs=P.map(b=>b.x),ys=P.map(b=>b.y);let x0=Math.min(...xs)-350,x1=Math.max(...xs)+350,y0=Math.min(...ys)-350,y1=Math.max(...ys)+350;
-  const W=x1-x0,H=y1-y0;const svg=el('svg',{viewBox:`${x0} ${y0} ${W} ${H}`,role:'img','aria-label':'Karta över badplatserna i Örebro kommun'},host);kartZoom(host,svg);
+  const W=x1-x0,H=y1-y0;const svg=el('svg',{viewBox:`${x0} ${y0} ${W} ${H}`,role:'group','aria-label':'Karta över badplatserna i Örebro kommun'},host);kartZoom(host,svg);
   const sc=W/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||500);const tp=tip(host);
   OM.omraden.forEach(o=>el('path',{d:o.svg,class:'vt-omr','fill-rule':'evenodd'},svg));
   const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};

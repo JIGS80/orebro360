@@ -114,7 +114,7 @@
 
 /* Layout: en lång sida med klistrig flikrad; varje tema är ett eget avsnitt med sammanfattning överst, detaljer under. */
 :root{
-  --bg:#F2F5F4; --surface:#FFFFFF; --ink:#15201E; --ink2:#46534F; --muted:#6F7C79; --line:#D8E0DD;
+  --bg:#F2F5F4; --surface:#FFFFFF; --ink:#15201E; --ink2:#46534F; --muted:#5F6C69; --line:#D8E0DD;
   --accent:#008572; --accent-text:#006B5C; --accent-soft:#DCEEEA; --second:#C0842A;
   --mark-gray:#B8C3C0; --up:#0F6E3E; --down:#A8432A;
   --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
@@ -251,7 +251,7 @@ th .yr{display:block;font-weight:400;text-transform:none;letter-spacing:0;font-s
 #sk-table tbody tr.row{cursor:pointer}
 #sk-table tbody tr.row:hover td{background:var(--accent-soft)}
 #sk-table tbody tr.row td:first-child{color:var(--accent-text);font-weight:600}
-#sk-table tbody tr.row[aria-expanded="true"] td{background:var(--accent-soft)}
+#sk-table tbody tr.row[data-oppen="true"] td{background:var(--accent-soft)}
 #sk-table td.na{color:var(--muted)}
 tr.detail > td{padding:0;background:var(--surface)}
 .sd{display:grid;gap:18px;padding:16px 8px 22px;border-bottom:2px solid var(--accent)}
@@ -903,7 +903,7 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 @media (prefers-reduced-motion:reduce){.till-toppen{transition:none}}
 
 /* ===== ⓘ-knappen: vad som mäts, för vilka, när och källan ===== */
-.info-knapp{position:relative;display:inline-grid;place-items:center;width:19px;height:19px;margin-left:6px;vertical-align:-3px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--accent) 60%,var(--line));background:var(--surface);color:var(--accent-text);cursor:pointer;padding:0;flex:none}
+.info-knapp{position:relative;display:inline-grid;place-items:center;width:22px;height:22px;margin-left:6px;vertical-align:-5px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--accent) 60%,var(--line));background:var(--surface);color:var(--accent-text);cursor:pointer;padding:0;flex:none}
 .info-knapp::before{content:"i";font:700 .74rem/1 Georgia,serif;font-style:italic}
 .info-knapp::after{content:"";position:absolute;inset:-9px}
 .info-knapp:hover,.info-knapp[aria-expanded="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -1078,3 +1078,10 @@ svg .fokus-lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-o
 #br-tab tbody tr{cursor:pointer}
 #br-tab tbody tr:hover td,#br-tab tbody tr.vald td{background:var(--accent-soft)}
 #br-ntu td .sub,#br-tab td .sub{display:inline;color:var(--muted);font-size:.85em}
+
+/* Tillgänglighet (granskning 2 okt 2026): större tryckytor och kontrast i mörkt läge */
+th button{padding:4px 0}
+footer.site p.small a{display:inline-block;padding:3px 0}
+.info-knapp::after{content:"";position:absolute;inset:-6px}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .knapp{background:#14806F;border-color:#14806F} :root:not([data-theme="light"]){--accent-strong:#14806F}}
+:root[data-theme="dark"] .knapp{background:#14806F;border-color:#14806F} :root[data-theme="dark"]{--accent-strong:#14806F}
