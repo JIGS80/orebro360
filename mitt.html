@@ -72,7 +72,7 @@
         <div class="sec-head">
           <span class="label">Mitt Örebro</span>
           <h1 class="sida-h" id="mi-h">Ditt Örebro, samlat på ett ställe</h1>
-          <p class="lead" id="mi-lead">Välj området där du bor, så samlar vi det viktigaste nära dig: hur området ser ut, de senaste livsmedelskontrollerna och skolorna och vårdcentralerna närmast. Resten av sidan ser ut som vanligt.</p>
+          <p class="lead" id="mi-lead">Välj området där du bor, så samlar vi det viktigaste nära dig: hur området ser ut, de senaste livsmedelskontrollerna, skolorna och vårdcentralerna närmast, bussen, lekplatser och återvinning. Resten av sidan ser ut som vanligt.</p>
         </div>
         <form class="hitta mi-val" id="mi-form">
           <label for="mi-sel">Ditt område</label>
@@ -88,7 +88,7 @@
       <div class="panel mi-kartpanel">
         <div class="panel-head"><h3 id="mi-karta-h">Klicka på ditt område</h3><span class="small" id="mi-karta-s"></span></div>
         <div class="chart mi-karta" id="mi-karta"><span class="loading">Laddar kartan …</span></div>
-        <div class="legend" id="mi-legend" hidden><span><i class="sw mi-sw-omr"></i>Ditt område</span><span><i class="mi-pt mi-pt-rk"></i>Livsmedelskontroll</span><span><i class="mi-pt mi-pt-sk"></i>Skola</span><span><i class="mi-pt mi-pt-vc"></i>Vårdcentral</span><span id="mi-leg-bu" hidden><i class="mi-pt mi-pt-bu"></i>Hållplats</span></div>
+        <div class="legend" id="mi-legend" hidden><span><i class="sw mi-sw-omr"></i>Ditt område</span><span><i class="mi-pt mi-pt-rk"></i>Livsmedelskontroll</span><span><i class="mi-pt mi-pt-sk"></i>Skola</span><span><i class="mi-pt mi-pt-vc"></i>Vårdcentral</span><span id="mi-leg-bu" hidden><i class="mi-pt mi-pt-bu"></i>Hållplats</span><span id="mi-leg-lek" hidden><i class="mi-pt mi-pt-lek"></i>Lekplats</span><span id="mi-leg-park" hidden><i class="mi-pt mi-pt-park"></i>Park</span><span id="mi-leg-avs" hidden><i class="mi-pt mi-pt-avs"></i>Återvinningsstation</span></div>
       </div>
     </div>
 
@@ -130,6 +130,20 @@
           <div class="panel-head"><h3>Närmaste badplatserna</h3><span class="small">fågelvägen från områdets centrum</span></div>
           <ul class="mi-lista" id="mi-bad"></ul>
           <p class="src">Proverna tas under badsäsongen. Mer om badvattnet och ditt dricksvatten finns på <a href="vatten.html">sidan om vattnet</a>.</p>
+        </div>
+      </div>
+      <div class="grid2" id="mi-nm" hidden>
+        <div class="panel" id="mi-lek-p">
+          <div class="panel-head"><h3>Lek och park nära dig</h3><span class="small">fågelvägen från områdets centrum</span></div>
+          <p class="small" id="mi-lek-sum"></p>
+          <ul class="mi-lista" id="mi-lek"></ul>
+          <p class="src" id="mi-lek-src"></p>
+        </div>
+        <div class="panel" id="mi-atv-p">
+          <div class="panel-head"><h3>Återvinning nära dig</h3><span class="small">fågelvägen från områdets centrum</span></div>
+          <p class="small" id="mi-atv-sum"></p>
+          <ul class="mi-lista" id="mi-atv"></ul>
+          <p class="src" id="mi-atv-src"></p>
         </div>
       </div>
       <nav class="mi-vidare" aria-label="Mer om ditt område" id="mi-vidare"></nav>
