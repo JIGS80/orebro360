@@ -1,0 +1,451 @@
+﻿kommun;ar;antal_salda;medelpris_tkr
+Örebro;1981;488;337
+Örebro;1982;425;319
+Örebro;1983;494;321
+Örebro;1984;575;339
+Örebro;1985;536;366
+Örebro;1986;678;363
+Örebro;1987;666;407
+Örebro;1988;607;467
+Örebro;1989;541;559
+Örebro;1990;536;639
+Örebro;1991;638;728
+Örebro;1992;369;666
+Örebro;1993;332;611
+Örebro;1994;445;618
+Örebro;1995;404;676
+Örebro;1996;483;753
+Örebro;1997;569;767
+Örebro;1998;505;850
+Örebro;1999;598;901
+Örebro;2000;518;991
+Örebro;2001;479;1035
+Örebro;2002;491;1072
+Örebro;2003;481;1207
+Örebro;2004;515;1355
+Örebro;2005;581;1472
+Örebro;2006;593;1667
+Örebro;2007;617;1915
+Örebro;2008;577;2013
+Örebro;2009;555;1988
+Örebro;2010;604;2017
+Örebro;2011;573;2084
+Örebro;2012;545;2138
+Örebro;2013;537;2227
+Örebro;2014;608;2456
+Örebro;2015;648;2724
+Örebro;2016;598;2920
+Örebro;2017;613;3116
+Örebro;2018;559;3123
+Örebro;2019;597;3275
+Örebro;2020;562;3518
+Örebro;2021;607;4049
+Örebro;2022;599;4215
+Örebro;2023;470;3783
+Örebro;2024;565;3927
+Örebro;2025;633;3850
+Uppsala;1981;595;429
+Uppsala;1982;1202;426
+Uppsala;1983;780;427
+Uppsala;1984;695;436
+Uppsala;1985;835;444
+Uppsala;1986;836;467
+Uppsala;1987;639;591
+Uppsala;1988;667;706
+Uppsala;1989;758;883
+Uppsala;1990;625;945
+Uppsala;1991;947;1044
+Uppsala;1992;500;901
+Uppsala;1993;531;815
+Uppsala;1994;674;849
+Uppsala;1995;705;857
+Uppsala;1996;831;909
+Uppsala;1997;1038;937
+Uppsala;1998;664;1058
+Uppsala;1999;871;1201
+Uppsala;2000;782;1342
+Uppsala;2001;821;1579
+Uppsala;2002;735;1804
+Uppsala;2003;735;1906
+Uppsala;2004;814;1990
+Uppsala;2005;781;2055
+Uppsala;2006;841;2231
+Uppsala;2007;955;2426
+Uppsala;2008;760;2551
+Uppsala;2009;766;2515
+Uppsala;2010;783;2862
+Uppsala;2011;742;2915
+Uppsala;2012;814;3059
+Uppsala;2013;785;3206
+Uppsala;2014;781;3431
+Uppsala;2015;815;3729
+Uppsala;2016;822;4087
+Uppsala;2017;776;4038
+Uppsala;2018;789;4022
+Uppsala;2019;783;3963
+Uppsala;2020;831;4270
+Uppsala;2021;864;5113
+Uppsala;2022;764;5218
+Uppsala;2023;755;4653
+Uppsala;2024;856;4759
+Uppsala;2025;858;5042
+Linköping;1981;596;406
+Linköping;1982;614;417
+Linköping;1983;567;404
+Linköping;1984;595;416
+Linköping;1985;614;440
+Linköping;1986;695;456
+Linköping;1987;621;505
+Linköping;1988;625;585
+Linköping;1989;604;674
+Linköping;1990;526;741
+Linköping;1991;672;820
+Linköping;1992;485;770
+Linköping;1993;477;783
+Linköping;1994;494;756
+Linköping;1995;554;761
+Linköping;1996;634;785
+Linköping;1997;592;845
+Linköping;1998;644;934
+Linköping;1999;722;1006
+Linköping;2000;573;1139
+Linköping;2001;566;1296
+Linköping;2002;566;1391
+Linköping;2003;666;1529
+Linköping;2004;612;1725
+Linköping;2005;670;1843
+Linköping;2006;705;2094
+Linköping;2007;774;2188
+Linköping;2008;658;2159
+Linköping;2009;604;2353
+Linköping;2010;631;2398
+Linköping;2011;622;2536
+Linköping;2012;671;2528
+Linköping;2013;675;2571
+Linköping;2014;614;2786
+Linköping;2015;698;3072
+Linköping;2016;628;3284
+Linköping;2017;564;3704
+Linköping;2018;668;3710
+Linköping;2019;702;3827
+Linköping;2020;696;4121
+Linköping;2021;637;4732
+Linköping;2022;672;5051
+Linköping;2023;532;4423
+Linköping;2024;614;4421
+Linköping;2025;681;4425
+Västerås;1981;297;387
+Västerås;1982;359;379
+Västerås;1983;336;393
+Västerås;1984;326;429
+Västerås;1985;320;446
+Västerås;1986;350;482
+Västerås;1987;308;537
+Västerås;1988;308;632
+Västerås;1989;313;774
+Västerås;1990;320;831
+Västerås;1991;325;923
+Västerås;1992;210;822
+Västerås;1993;193;822
+Västerås;1994;304;824
+Västerås;1995;323;804
+Västerås;1996;376;839
+Västerås;1997;540;881
+Västerås;1998;413;954
+Västerås;1999;513;1029
+Västerås;2000;559;1097
+Västerås;2001;640;1103
+Västerås;2002;471;1372
+Västerås;2003;521;1474
+Västerås;2004;537;1666
+Västerås;2005;467;1886
+Västerås;2006;544;2052
+Västerås;2007;606;2236
+Västerås;2008;480;2281
+Västerås;2009;531;2377
+Västerås;2010;529;2408
+Västerås;2011;479;2505
+Västerås;2012;571;2466
+Västerås;2013;586;2360
+Västerås;2014;607;2675
+Västerås;2015;653;2954
+Västerås;2016;671;3175
+Västerås;2017;636;3401
+Västerås;2018;618;3507
+Västerås;2019;663;3510
+Västerås;2020;698;3852
+Västerås;2021;685;4409
+Västerås;2022;735;4663
+Västerås;2023;620;4004
+Västerås;2024;755;4236
+Västerås;2025;784;4182
+Norrköping;1981;387;388
+Norrköping;1982;502;401
+Norrköping;1983;533;398
+Norrköping;1984;430;401
+Norrköping;1985;384;416
+Norrköping;1986;518;442
+Norrköping;1987;478;478
+Norrköping;1988;464;563
+Norrköping;1989;524;656
+Norrköping;1990;462;728
+Norrköping;1991;530;791
+Norrköping;1992;289;717
+Norrköping;1993;319;655
+Norrköping;1994;366;665
+Norrköping;1995;372;682
+Norrköping;1996;438;722
+Norrköping;1997;542;757
+Norrköping;1998;447;810
+Norrköping;1999;515;845
+Norrköping;2000;449;919
+Norrköping;2001;428;941
+Norrköping;2002;407;1053
+Norrköping;2003;447;1119
+Norrköping;2004;460;1314
+Norrköping;2005;518;1471
+Norrköping;2006;507;1626
+Norrköping;2007;568;1836
+Norrköping;2008;531;1868
+Norrköping;2009;477;1876
+Norrköping;2010;550;2046
+Norrköping;2011;559;2060
+Norrköping;2012;471;2112
+Norrköping;2013;544;2225
+Norrköping;2014;541;2300
+Norrköping;2015;653;2601
+Norrköping;2016;549;2899
+Norrköping;2017;536;3050
+Norrköping;2018;542;3219
+Norrköping;2019;547;3394
+Norrköping;2020;520;3440
+Norrköping;2021;616;3919
+Norrköping;2022;581;4086
+Norrköping;2023;506;3770
+Norrköping;2024;627;3751
+Norrköping;2025;642;3865
+Jönköping;1981;611;364
+Jönköping;1982;620;350
+Jönköping;1983;591;344
+Jönköping;1984;641;346
+Jönköping;1985;642;363
+Jönköping;1986;811;377
+Jönköping;1987;710;413
+Jönköping;1988;715;475
+Jönköping;1989;652;581
+Jönköping;1990;687;690
+Jönköping;1991;721;731
+Jönköping;1992;453;683
+Jönköping;1993;438;623
+Jönköping;1994;575;660
+Jönköping;1995;607;652
+Jönköping;1996;629;696
+Jönköping;1997;735;758
+Jönköping;1998;649;799
+Jönköping;1999;799;881
+Jönköping;2000;657;938
+Jönköping;2001;641;1039
+Jönköping;2002;623;1151
+Jönköping;2003;642;1272
+Jönköping;2004;658;1450
+Jönköping;2005;767;1518
+Jönköping;2006;776;1657
+Jönköping;2007;803;1832
+Jönköping;2008;745;1909
+Jönköping;2009;717;2083
+Jönköping;2010;661;2214
+Jönköping;2011;710;2283
+Jönköping;2012;661;2215
+Jönköping;2013;690;2425
+Jönköping;2014;700;2519
+Jönköping;2015;673;2822
+Jönköping;2016;673;3064
+Jönköping;2017;574;3515
+Jönköping;2018;656;3487
+Jönköping;2019;627;3484
+Jönköping;2020;651;3777
+Jönköping;2021;719;4164
+Jönköping;2022;665;4341
+Jönköping;2023;540;3920
+Jönköping;2024;673;3839
+Jönköping;2025;731;4182
+Helsingborg;1981;487;381
+Helsingborg;1982;510;382
+Helsingborg;1983;616;390
+Helsingborg;1984;684;403
+Helsingborg;1985;660;422
+Helsingborg;1986;797;433
+Helsingborg;1987;750;475
+Helsingborg;1988;606;578
+Helsingborg;1989;707;691
+Helsingborg;1990;597;825
+Helsingborg;1991;699;903
+Helsingborg;1992;434;781
+Helsingborg;1993;502;798
+Helsingborg;1994;589;816
+Helsingborg;1995;527;811
+Helsingborg;1996;626;874
+Helsingborg;1997;699;979
+Helsingborg;1998;654;1095
+Helsingborg;1999;742;1219
+Helsingborg;2000;653;1321
+Helsingborg;2001;624;1406
+Helsingborg;2002;673;1538
+Helsingborg;2003;671;1751
+Helsingborg;2004;698;1909
+Helsingborg;2005;741;2150
+Helsingborg;2006;765;2453
+Helsingborg;2007;806;2733
+Helsingborg;2008;773;2638
+Helsingborg;2009;615;2884
+Helsingborg;2010;678;2962
+Helsingborg;2011;635;2848
+Helsingborg;2012;615;2875
+Helsingborg;2013;630;3031
+Helsingborg;2014;697;3139
+Helsingborg;2015;678;3341
+Helsingborg;2016;680;3570
+Helsingborg;2017;641;3719
+Helsingborg;2018;668;3835
+Helsingborg;2019;701;4042
+Helsingborg;2020;718;4422
+Helsingborg;2021;735;4976
+Helsingborg;2022;672;5361
+Helsingborg;2023;500;4510
+Helsingborg;2024;632;4899
+Helsingborg;2025;681;4743
+Umeå;1981;482;417
+Umeå;1982;427;396
+Umeå;1983;465;397
+Umeå;1984;451;400
+Umeå;1985;437;411
+Umeå;1986;593;420
+Umeå;1987;556;454
+Umeå;1988;514;540
+Umeå;1989;494;664
+Umeå;1990;463;759
+Umeå;1991;622;852
+Umeå;1992;331;776
+Umeå;1993;376;703
+Umeå;1994;441;786
+Umeå;1995;437;759
+Umeå;1996;518;792
+Umeå;1997;613;842
+Umeå;1998;618;926
+Umeå;1999;749;962
+Umeå;2000;547;1086
+Umeå;2001;535;1177
+Umeå;2002;576;1221
+Umeå;2003;537;1199
+Umeå;2004;562;1361
+Umeå;2005;602;1574
+Umeå;2006;576;1805
+Umeå;2007;654;1870
+Umeå;2008;556;2023
+Umeå;2009;547;2060
+Umeå;2010;606;2149
+Umeå;2011;570;2163
+Umeå;2012;545;2227
+Umeå;2013;630;2301
+Umeå;2014;580;2519
+Umeå;2015;651;2874
+Umeå;2016;539;3122
+Umeå;2017;554;3344
+Umeå;2018;589;3495
+Umeå;2019;579;3502
+Umeå;2020;606;3682
+Umeå;2021;634;4009
+Umeå;2022;581;4394
+Umeå;2023;496;4169
+Umeå;2024;664;4102
+Umeå;2025;687;4160
+Hela Sverige;1981;40237;330
+Hela Sverige;1982;45535;333
+Hela Sverige;1983;47361;334
+Hela Sverige;1984;49438;346
+Hela Sverige;1985;48886;362
+Hela Sverige;1986;56930;374
+Hela Sverige;1987;55513;405
+Hela Sverige;1988;59603;476
+Hela Sverige;1989;58997;562
+Hela Sverige;1990;54295;625
+Hela Sverige;1991;57235;745
+Hela Sverige;1992;33262;661
+Hela Sverige;1993;35650;622
+Hela Sverige;1994;42738;653
+Hela Sverige;1995;41877;651
+Hela Sverige;1996;46622;679
+Hela Sverige;1997;54672;733
+Hela Sverige;1998;48578;793
+Hela Sverige;1999;56882;849
+Hela Sverige;2000;50946;951
+Hela Sverige;2001;50674;1049
+Hela Sverige;2002;51615;1113
+Hela Sverige;2003;54253;1223
+Hela Sverige;2004;56248;1340
+Hela Sverige;2005;59224;1455
+Hela Sverige;2006;58751;1625
+Hela Sverige;2007;64221;1782
+Hela Sverige;2008;56983;1811
+Hela Sverige;2009;51865;1911
+Hela Sverige;2010;53869;2022
+Hela Sverige;2011;51437;2050
+Hela Sverige;2012;49534;2102
+Hela Sverige;2013;51431;2235
+Hela Sverige;2014;54884;2364
+Hela Sverige;2015;58141;2567
+Hela Sverige;2016;54544;2772
+Hela Sverige;2017;55005;2967
+Hela Sverige;2018;54725;2976
+Hela Sverige;2019;56298;3040
+Hela Sverige;2020;56519;3267
+Hela Sverige;2021;60284;3793
+Hela Sverige;2022;56053;3915
+Hela Sverige;2023;46641;3577
+Hela Sverige;2024;52797;3758
+Hela Sverige;2025;57184;3913
+Örebro län;1981;1502;291
+Örebro län;1982;1591;279
+Örebro län;1983;1666;282
+Örebro län;1984;1811;296
+Örebro län;1985;1666;308
+Örebro län;1986;2118;314
+Örebro län;1987;2193;341
+Örebro län;1988;2259;375
+Örebro län;1989;2258;429
+Örebro län;1990;2173;492
+Örebro län;1991;1984;547
+Örebro län;1992;1089;497
+Örebro län;1993;1003;460
+Örebro län;1994;1342;473
+Örebro län;1995;1357;494
+Örebro län;1996;1583;531
+Örebro län;1997;1838;558
+Örebro län;1998;1671;590
+Örebro län;1999;1941;624
+Örebro län;2000;1770;657
+Örebro län;2001;1662;672
+Örebro län;2002;1728;695
+Örebro län;2003;1744;754
+Örebro län;2004;1812;825
+Örebro län;2005;1918;910
+Örebro län;2006;1989;1004
+Örebro län;2007;2103;1109
+Örebro län;2008;1902;1177
+Örebro län;2009;1710;1234
+Örebro län;2010;1760;1257
+Örebro län;2011;1652;1297
+Örebro län;2012;1650;1302
+Örebro län;2013;1634;1337
+Örebro län;2014;1779;1488
+Örebro län;2015;1879;1652
+Örebro län;2016;1802;1787
+Örebro län;2017;1862;1906
+Örebro län;2018;1797;1930
+Örebro län;2019;1869;2005
+Örebro län;2020;1829;2139
+Örebro län;2021;1896;2529
+Örebro län;2022;1878;2621
+Örebro län;2023;1496;2366
+Örebro län;2024;1698;2512
+Örebro län;2025;1729;2567

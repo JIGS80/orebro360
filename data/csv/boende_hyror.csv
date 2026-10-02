@@ -1,0 +1,438 @@
+﻿kommun;storlek;ar;medianhyra_kr_manad;felmarginal_kr;median_kr_kvm_ar
+Örebro;1 rum och kök;2016;3934;391;1134
+Örebro;1 rum och kök;2017;3844;375;1194
+Örebro;1 rum och kök;2018;4020;376;1234
+Örebro;1 rum och kök;2019;4080;388;1272
+Örebro;1 rum och kök;2020;4233;385;1324
+Örebro;1 rum och kök;2021;4315;387;1344
+Örebro;1 rum och kök;2022;4407;391;1370
+Örebro;1 rum och kök;2023;5003;344;1443
+Örebro;1 rum och kök;2024;5267;388;1531
+Örebro;1 rum och kök;2025;5539;412;1664
+Örebro;1 rum och kök;2026;6230;570;1781
+Örebro;2 rum och kök;2016;5039;236;1022
+Örebro;2 rum och kök;2017;5312;270;1043
+Örebro;2 rum och kök;2018;5432;303;1054
+Örebro;2 rum och kök;2019;5564;229;1132
+Örebro;2 rum och kök;2020;5903;276;1179
+Örebro;2 rum och kök;2021;5963;265;1203
+Örebro;2 rum och kök;2022;6076;279;1216
+Örebro;2 rum och kök;2023;6456;339;1282
+Örebro;2 rum och kök;2024;6801;305;1363
+Örebro;2 rum och kök;2025;7115;312;1445
+Örebro;2 rum och kök;2026;7291;341;1500
+Örebro;3 rum och kök;2016;6086;426;961
+Örebro;3 rum och kök;2017;6262;430;982
+Örebro;3 rum och kök;2018;6598;457;1019
+Örebro;3 rum och kök;2019;7384;579;1086
+Örebro;3 rum och kök;2020;7290;570;1131
+Örebro;3 rum och kök;2021;7941;604;1198
+Örebro;3 rum och kök;2022;8156;618;1230
+Örebro;3 rum och kök;2023;8560;712;1281
+Örebro;3 rum och kök;2024;9078;737;1373
+Örebro;3 rum och kök;2025;9662;747;1455
+Örebro;3 rum och kök;2026;10065;829;1510
+Örebro;4 rum eller fler;2016;7334;1276;928
+Örebro;4 rum eller fler;2017;7625;1522;937
+Örebro;4 rum eller fler;2018;8430;1660;961
+Örebro;4 rum eller fler;2019;8857;1222;997
+Örebro;4 rum eller fler;2020;8503;721;998
+Örebro;4 rum eller fler;2021;9043;886;1027
+Örebro;4 rum eller fler;2022;9010;947;1086
+Örebro;4 rum eller fler;2023;9896;1034;1089
+Örebro;4 rum eller fler;2024;9959;1097;1182
+Örebro;4 rum eller fler;2025;10475;1079;1221
+Örebro;4 rum eller fler;2026;11681;1472;1265
+Örebro;Alla hyreslägenheter;2016;5518;236;995
+Örebro;Alla hyreslägenheter;2017;5599;237;1022
+Örebro;Alla hyreslägenheter;2018;5818;230;1047
+Örebro;Alla hyreslägenheter;2019;6014;243;1139
+Örebro;Alla hyreslägenheter;2020;6244;240;1175
+Örebro;Alla hyreslägenheter;2021;6521;295;1198
+Örebro;Alla hyreslägenheter;2022;6559;314;1225
+Örebro;Alla hyreslägenheter;2023;6807;311;1294
+Örebro;Alla hyreslägenheter;2024;7245;360;1394
+Örebro;Alla hyreslägenheter;2025;7490;357;1470
+Örebro;Alla hyreslägenheter;2026;7770;358;1539
+Uppsala;1 rum och kök;2016;4633;729;1502
+Uppsala;1 rum och kök;2017;4640;766;1424
+Uppsala;1 rum och kök;2018;4444;725;1402
+Uppsala;1 rum och kök;2019;5248;776;1643
+Uppsala;1 rum och kök;2020;5652;686;1835
+Uppsala;1 rum och kök;2021;5733;581;1976
+Uppsala;1 rum och kök;2022;5932;577;2020
+Uppsala;1 rum och kök;2023;6193;759;2093
+Uppsala;1 rum och kök;2024;6140;684;2076
+Uppsala;1 rum och kök;2025;6633;791;2255
+Uppsala;1 rum och kök;2026;7026;797;2487
+Uppsala;2 rum och kök;2016;5625;265;1138
+Uppsala;2 rum och kök;2017;5913;346;1197
+Uppsala;2 rum och kök;2018;5879;310;1222
+Uppsala;2 rum och kök;2019;6286;421;1275
+Uppsala;2 rum och kök;2020;6780;460;1419
+Uppsala;2 rum och kök;2021;6942;448;1447
+Uppsala;2 rum och kök;2022;7187;389;1496
+Uppsala;2 rum och kök;2023;7536;401;1551
+Uppsala;2 rum och kök;2024;8411;432;1738
+Uppsala;2 rum och kök;2025;8920;382;1866
+Uppsala;2 rum och kök;2026;9167;425;1931
+Uppsala;3 rum och kök;2016;6698;379;1076
+Uppsala;3 rum och kök;2017;6787;464;1087
+Uppsala;3 rum och kök;2018;7038;508;1096
+Uppsala;3 rum och kök;2019;6819;609;1116
+Uppsala;3 rum och kök;2020;7753;780;1186
+Uppsala;3 rum och kök;2021;7710;677;1214
+Uppsala;3 rum och kök;2022;7649;605;1236
+Uppsala;3 rum och kök;2023;8426;692;1316
+Uppsala;3 rum och kök;2024;9403;739;1444
+Uppsala;3 rum och kök;2025;9911;825;1576
+Uppsala;3 rum och kök;2026;11128;871;1667
+Uppsala;4 rum eller fler;2016;8506;681;1083
+Uppsala;4 rum eller fler;2017;8563;704;1090
+Uppsala;4 rum eller fler;2018;8708;1201;1118
+Uppsala;4 rum eller fler;2019;9683;1482;1146
+Uppsala;4 rum eller fler;2020;10064;1363;1224
+Uppsala;4 rum eller fler;2021;10424;1283;1215
+Uppsala;4 rum eller fler;2022;10793;1478;1270
+Uppsala;4 rum eller fler;2023;11217;1463;1283
+Uppsala;4 rum eller fler;2024;12380;1820;1483
+Uppsala;4 rum eller fler;2025;12963;1607;1582
+Uppsala;4 rum eller fler;2026;12983;1524;1611
+Uppsala;Alla hyreslägenheter;2016;6182;265;1114
+Uppsala;Alla hyreslägenheter;2017;6449;293;1142
+Uppsala;Alla hyreslägenheter;2018;6478;319;1155
+Uppsala;Alla hyreslägenheter;2019;6680;310;1273
+Uppsala;Alla hyreslägenheter;2020;7131;303;1359
+Uppsala;Alla hyreslägenheter;2021;7222;315;1386
+Uppsala;Alla hyreslägenheter;2022;7417;309;1435
+Uppsala;Alla hyreslägenheter;2023;7865;329;1519
+Uppsala;Alla hyreslägenheter;2024;8472;357;1671
+Uppsala;Alla hyreslägenheter;2025;9059;399;1791
+Uppsala;Alla hyreslägenheter;2026;9406;402;1868
+Linköping;1 rum och kök;2016;3843;461;1251
+Linköping;1 rum och kök;2017;3708;373;1237
+Linköping;1 rum och kök;2018;3943;513;1269
+Linköping;1 rum och kök;2019;4249;449;1337
+Linköping;1 rum och kök;2020;4300;700;1332
+Linköping;1 rum och kök;2021;4300;1031;1384
+Linköping;1 rum och kök;2022;4382;905;1407
+Linköping;1 rum och kök;2023;4421;992;1468
+Linköping;1 rum och kök;2024;5096;702;1741
+Linköping;1 rum och kök;2025;5637;779;1858
+Linköping;1 rum och kök;2026;5838;639;1921
+Linköping;2 rum och kök;2016;5413;252;1090
+Linköping;2 rum och kök;2017;5455;256;1109
+Linköping;2 rum och kök;2018;5520;237;1121
+Linköping;2 rum och kök;2019;5843;264;1148
+Linköping;2 rum och kök;2020;6100;323;1174
+Linköping;2 rum och kök;2021;6287;320;1212
+Linköping;2 rum och kök;2022;6514;349;1253
+Linköping;2 rum och kök;2023;6740;379;1297
+Linköping;2 rum och kök;2024;7256;335;1413
+Linköping;2 rum och kök;2025;7559;329;1483
+Linköping;2 rum och kök;2026;7858;395;1579
+Linköping;3 rum och kök;2016;6401;236;1032
+Linköping;3 rum och kök;2017;6456;214;1031
+Linköping;3 rum och kök;2018;6717;274;1105
+Linköping;3 rum och kök;2019;6872;360;1044
+Linköping;3 rum och kök;2020;7029;361;1051
+Linköping;3 rum och kök;2021;7374;463;1167
+Linköping;3 rum och kök;2022;7512;534;1149
+Linköping;3 rum och kök;2023;7660;478;1229
+Linköping;3 rum och kök;2024;8508;519;1296
+Linköping;3 rum och kök;2025;9215;623;1377
+Linköping;3 rum och kök;2026;9742;640;1472
+Linköping;4 rum eller fler;2016;7419;468;927
+Linköping;4 rum eller fler;2017;7555;444;930
+Linköping;4 rum eller fler;2018;7801;597;973
+Linköping;4 rum eller fler;2019;8484;719;1027
+Linköping;4 rum eller fler;2020;8710;705;1046
+Linköping;4 rum eller fler;2021;9307;765;1074
+Linköping;4 rum eller fler;2022;8957;960;1105
+Linköping;4 rum eller fler;2023;10038;929;1190
+Linköping;4 rum eller fler;2024;10832;1228;1302
+Linköping;4 rum eller fler;2025;11382;1113;1388
+Linköping;4 rum eller fler;2026;11752;1306;1406
+Linköping;Alla hyreslägenheter;2016;5976;223;1078
+Linköping;Alla hyreslägenheter;2017;5988;233;1083
+Linköping;Alla hyreslägenheter;2018;6238;234;1121
+Linköping;Alla hyreslägenheter;2019;6488;226;1127
+Linköping;Alla hyreslägenheter;2020;6680;202;1159
+Linköping;Alla hyreslägenheter;2021;6918;267;1200
+Linköping;Alla hyreslägenheter;2022;7039;213;1240
+Linköping;Alla hyreslägenheter;2023;7370;248;1291
+Linköping;Alla hyreslägenheter;2024;7754;272;1382
+Linköping;Alla hyreslägenheter;2025;8074;283;1467
+Linköping;Alla hyreslägenheter;2026;8449;324;1543
+Västerås;1 rum och kök;2016;4063;477;1162
+Västerås;1 rum och kök;2017;4087;453;1171
+Västerås;1 rum och kök;2018;4223;454;1193
+Västerås;1 rum och kök;2019;4323;395;1272
+Västerås;1 rum och kök;2020;4427;317;1468
+Västerås;1 rum och kök;2021;4596;296;1493
+Västerås;1 rum och kök;2022;4704;238;1482
+Västerås;1 rum och kök;2023;4939;315;1548
+Västerås;1 rum och kök;2024;5273;351;1705
+Västerås;1 rum och kök;2025;5521;363;1899
+Västerås;1 rum och kök;2026;5856;404;1940
+Västerås;2 rum och kök;2016;5174;127;1071
+Västerås;2 rum och kök;2017;5234;151;1074
+Västerås;2 rum och kök;2018;5432;153;1124
+Västerås;2 rum och kök;2019;5598;171;1111
+Västerås;2 rum och kök;2020;5729;135;1142
+Västerås;2 rum och kök;2021;5931;182;1189
+Västerås;2 rum och kök;2022;6125;189;1267
+Västerås;2 rum och kök;2023;6579;281;1376
+Västerås;2 rum och kök;2024;7065;294;1464
+Västerås;2 rum och kök;2025;7439;287;1600
+Västerås;2 rum och kök;2026;7747;304;1662
+Västerås;3 rum och kök;2016;6426;308;1001
+Västerås;3 rum och kök;2017;6606;342;1042
+Västerås;3 rum och kök;2018;6797;324;1057
+Västerås;3 rum och kök;2019;6792;345;1079
+Västerås;3 rum och kök;2020;7023;364;1108
+Västerås;3 rum och kök;2021;7217;469;1139
+Västerås;3 rum och kök;2022;7371;596;1159
+Västerås;3 rum och kök;2023;8009;641;1263
+Västerås;3 rum och kök;2024;8958;601;1380
+Västerås;3 rum och kök;2025;9311;613;1471
+Västerås;3 rum och kök;2026;9844;690;1527
+Västerås;4 rum eller fler;2016;8437;735;970
+Västerås;4 rum eller fler;2017;8494;801;1001
+Västerås;4 rum eller fler;2018;8580;684;1001
+Västerås;4 rum eller fler;2019;8804;796;1022
+Västerås;4 rum eller fler;2020;9388;719;1045
+Västerås;4 rum eller fler;2021;9687;720;1070
+Västerås;4 rum eller fler;2022;9829;677;1082
+Västerås;4 rum eller fler;2023;10606;785;1192
+Västerås;4 rum eller fler;2024;10942;945;1222
+Västerås;4 rum eller fler;2025;11480;943;1296
+Västerås;4 rum eller fler;2026;11888;1204;1346
+Västerås;Alla hyreslägenheter;2016;5532;212;1052
+Västerås;Alla hyreslägenheter;2017;5585;213;1073
+Västerås;Alla hyreslägenheter;2018;6062;268;1101
+Västerås;Alla hyreslägenheter;2019;5944;218;1114
+Västerås;Alla hyreslägenheter;2020;6212;249;1142
+Västerås;Alla hyreslägenheter;2021;6635;318;1178
+Västerås;Alla hyreslägenheter;2022;6778;322;1251
+Västerås;Alla hyreslägenheter;2023;7299;392;1368
+Västerås;Alla hyreslägenheter;2024;7719;396;1495
+Västerås;Alla hyreslägenheter;2025;8103;378;1598
+Västerås;Alla hyreslägenheter;2026;8491;432;1662
+Norrköping;1 rum och kök;2016;4096;384;1216
+Norrköping;1 rum och kök;2018;4023;397;1286
+Norrköping;1 rum och kök;2019;4375;367;1297
+Norrköping;1 rum och kök;2020;4471;330;1371
+Norrköping;1 rum och kök;2021;4680;351;1391
+Norrköping;1 rum och kök;2022;4619;412;1418
+Norrköping;1 rum och kök;2023;5057;471;1480
+Norrköping;1 rum och kök;2024;5522;467;1638
+Norrköping;1 rum och kök;2025;5880;613;1691
+Norrköping;1 rum och kök;2026;6046;634;1802
+Norrköping;2 rum och kök;2016;5476;268;1075
+Norrköping;2 rum och kök;2017;5629;318;1111
+Norrköping;2 rum och kök;2018;5701;288;1120
+Norrköping;2 rum och kök;2019;6113;392;1197
+Norrköping;2 rum och kök;2020;6205;337;1191
+Norrköping;2 rum och kök;2021;6451;277;1249
+Norrköping;2 rum och kök;2022;6613;259;1314
+Norrköping;2 rum och kök;2023;7003;310;1373
+Norrköping;2 rum och kök;2024;7444;303;1464
+Norrköping;2 rum och kök;2025;7835;313;1600
+Norrköping;2 rum och kök;2026;8095;311;1661
+Norrköping;3 rum och kök;2016;6672;214;1016
+Norrköping;3 rum och kök;2017;6866;232;1032
+Norrköping;3 rum och kök;2018;7030;214;1045
+Norrköping;3 rum och kök;2019;7366;278;1119
+Norrköping;3 rum och kök;2020;7732;284;1174
+Norrköping;3 rum och kök;2021;7972;342;1198
+Norrköping;3 rum och kök;2022;8109;351;1235
+Norrköping;3 rum och kök;2023;8717;359;1298
+Norrköping;3 rum och kök;2024;9234;446;1397
+Norrköping;3 rum och kök;2025;9917;459;1478
+Norrköping;3 rum och kök;2026;10274;546;1553
+Norrköping;4 rum eller fler;2016;8661;944;1032
+Norrköping;4 rum eller fler;2017;9197;899;1072
+Norrköping;4 rum eller fler;2018;9307;656;1081
+Norrköping;4 rum eller fler;2019;8931;709;1051
+Norrköping;4 rum eller fler;2020;9128;684;1076
+Norrköping;4 rum eller fler;2021;9391;740;1104
+Norrköping;4 rum eller fler;2022;9430;859;1124
+Norrköping;4 rum eller fler;2023;9854;924;1163
+Norrköping;4 rum eller fler;2024;10585;1093;1245
+Norrköping;4 rum eller fler;2025;11104;906;1310
+Norrköping;4 rum eller fler;2026;11253;1399;1375
+Norrköping;Hyrt småhus;2026;10762;1508;1444
+Norrköping;Alla hyreslägenheter;2016;6183;274;1050
+Norrköping;Alla hyreslägenheter;2017;6336;265;1075
+Norrköping;Alla hyreslägenheter;2018;6421;247;1090
+Norrköping;Alla hyreslägenheter;2019;7048;283;1123
+Norrköping;Alla hyreslägenheter;2020;7020;263;1176
+Norrköping;Alla hyreslägenheter;2021;7316;317;1216
+Norrköping;Alla hyreslägenheter;2022;7478;260;1247
+Norrköping;Alla hyreslägenheter;2023;7776;253;1304
+Norrköping;Alla hyreslägenheter;2024;8268;246;1420
+Norrköping;Alla hyreslägenheter;2025;8756;378;1494
+Norrköping;Alla hyreslägenheter;2026;8934;359;1590
+Jönköping;1 rum och kök;2016;3492;273;1029
+Jönköping;1 rum och kök;2017;3596;218;1042
+Jönköping;1 rum och kök;2018;3639;219;1101
+Jönköping;1 rum och kök;2019;3658;254;1125
+Jönköping;1 rum och kök;2020;3808;274;1179
+Jönköping;1 rum och kök;2021;3720;344;1164
+Jönköping;1 rum och kök;2022;3876;337;1179
+Jönköping;1 rum och kök;2023;4164;402;1246
+Jönköping;1 rum och kök;2024;4688;448;1392
+Jönköping;1 rum och kök;2025;4733;463;1390
+Jönköping;1 rum och kök;2026;4940;500;1632
+Jönköping;2 rum och kök;2016;4725;211;931
+Jönköping;2 rum och kök;2017;4747;244;951
+Jönköping;2 rum och kök;2018;5144;251;1000
+Jönköping;2 rum och kök;2019;5083;229;1047
+Jönköping;2 rum och kök;2020;5231;232;1070
+Jönköping;2 rum och kök;2021;5244;185;1050
+Jönköping;2 rum och kök;2022;5415;244;1097
+Jönköping;2 rum och kök;2023;5779;278;1159
+Jönköping;2 rum och kök;2024;6063;236;1226
+Jönköping;2 rum och kök;2025;6649;284;1290
+Jönköping;2 rum och kök;2026;6887;273;1345
+Jönköping;3 rum och kök;2016;6076;221;895
+Jönköping;3 rum och kök;2017;6146;210;929
+Jönköping;3 rum och kök;2018;6224;201;959
+Jönköping;3 rum och kök;2019;6652;296;1003
+Jönköping;3 rum och kök;2020;6912;305;1039
+Jönköping;3 rum och kök;2021;6911;300;1048
+Jönköping;3 rum och kök;2022;7043;324;1078
+Jönköping;3 rum och kök;2023;7342;363;1136
+Jönköping;3 rum och kök;2024;7939;389;1199
+Jönköping;3 rum och kök;2025;8466;455;1255
+Jönköping;3 rum och kök;2026;9250;522;1314
+Jönköping;4 rum eller fler;2017;7852;893;854
+Jönköping;4 rum eller fler;2018;7457;780;892
+Jönköping;4 rum eller fler;2019;7589;989;943
+Jönköping;4 rum eller fler;2020;8472;1022;981
+Jönköping;4 rum eller fler;2021;8523;1041;1012
+Jönköping;4 rum eller fler;2022;8701;841;1037
+Jönköping;4 rum eller fler;2023;9045;875;1081
+Jönköping;4 rum eller fler;2024;9761;956;1148
+Jönköping;4 rum eller fler;2025;10300;935;1196
+Jönköping;4 rum eller fler;2026;10743;1069;1241
+Jönköping;Alla hyreslägenheter;2016;5505;269;927
+Jönköping;Alla hyreslägenheter;2017;5556;242;953
+Jönköping;Alla hyreslägenheter;2018;5691;226;979
+Jönköping;Alla hyreslägenheter;2019;5899;245;1017
+Jönköping;Alla hyreslägenheter;2020;6055;236;1059
+Jönköping;Alla hyreslägenheter;2021;6218;275;1052
+Jönköping;Alla hyreslägenheter;2022;6370;266;1080
+Jönköping;Alla hyreslägenheter;2023;6731;265;1143
+Jönköping;Alla hyreslägenheter;2024;7218;269;1215
+Jönköping;Alla hyreslägenheter;2025;7570;278;1279
+Jönköping;Alla hyreslägenheter;2026;7859;230;1346
+Helsingborg;1 rum och kök;2016;3595;454;1111
+Helsingborg;1 rum och kök;2017;3461;458;1118
+Helsingborg;1 rum och kök;2018;3933;633;1176
+Helsingborg;1 rum och kök;2019;4205;1141;1492
+Helsingborg;1 rum och kök;2020;3930;1092;1365
+Helsingborg;1 rum och kök;2022;5795;970;1748
+Helsingborg;1 rum och kök;2023;6068;897;1886
+Helsingborg;1 rum och kök;2024;6025;904;2001
+Helsingborg;1 rum och kök;2025;6077;708;2056
+Helsingborg;1 rum och kök;2026;6400;796;2055
+Helsingborg;2 rum och kök;2016;5602;296;1094
+Helsingborg;2 rum och kök;2017;5722;216;1151
+Helsingborg;2 rum och kök;2018;5969;330;1217
+Helsingborg;2 rum och kök;2019;5884;374;1195
+Helsingborg;2 rum och kök;2020;6376;405;1233
+Helsingborg;2 rum och kök;2021;6538;354;1286
+Helsingborg;2 rum och kök;2022;6461;314;1298
+Helsingborg;2 rum och kök;2023;6917;319;1393
+Helsingborg;2 rum och kök;2024;7412;399;1504
+Helsingborg;2 rum och kök;2025;7909;407;1598
+Helsingborg;2 rum och kök;2026;8187;449;1678
+Helsingborg;3 rum och kök;2016;6536;329;1032
+Helsingborg;3 rum och kök;2017;6609;332;1038
+Helsingborg;3 rum och kök;2018;7091;432;1085
+Helsingborg;3 rum och kök;2019;7650;469;1222
+Helsingborg;3 rum och kök;2020;8057;444;1286
+Helsingborg;3 rum och kök;2021;8286;478;1295
+Helsingborg;3 rum och kök;2022;8793;550;1352
+Helsingborg;3 rum och kök;2023;8867;515;1381
+Helsingborg;3 rum och kök;2024;9163;556;1480
+Helsingborg;3 rum och kök;2025;9487;576;1508
+Helsingborg;3 rum och kök;2026;10642;570;1637
+Helsingborg;4 rum eller fler;2016;9051;1599;1078
+Helsingborg;4 rum eller fler;2017;9303;1464;1197
+Helsingborg;4 rum eller fler;2018;9231;1875;1211
+Helsingborg;4 rum eller fler;2019;9185;2368;1105
+Helsingborg;4 rum eller fler;2020;10407;1827;1085
+Helsingborg;4 rum eller fler;2022;10682;1491;1282
+Helsingborg;4 rum eller fler;2023;11619;1633;1424
+Helsingborg;4 rum eller fler;2024;11749;1646;1487
+Helsingborg;4 rum eller fler;2025;12786;1563;1644
+Helsingborg;4 rum eller fler;2026;13596;1239;1700
+Helsingborg;Alla hyreslägenheter;2016;6169;272;1069
+Helsingborg;Alla hyreslägenheter;2017;6230;250;1087
+Helsingborg;Alla hyreslägenheter;2018;6522;269;1141
+Helsingborg;Alla hyreslägenheter;2019;6798;260;1198
+Helsingborg;Alla hyreslägenheter;2020;7049;271;1249
+Helsingborg;Alla hyreslägenheter;2021;7154;239;1291
+Helsingborg;Alla hyreslägenheter;2022;7323;275;1328
+Helsingborg;Alla hyreslägenheter;2023;7689;295;1406
+Helsingborg;Alla hyreslägenheter;2024;8131;290;1506
+Helsingborg;Alla hyreslägenheter;2025;8555;299;1598
+Helsingborg;Alla hyreslägenheter;2026;9155;372;1673
+Umeå;1 rum och kök;2016;3784;291;1248
+Umeå;1 rum och kök;2017;3876;271;1259
+Umeå;1 rum och kök;2018;4040;358;1383
+Umeå;1 rum och kök;2019;4064;281;1345
+Umeå;1 rum och kök;2020;4287;226;1435
+Umeå;1 rum och kök;2021;4246;153;1401
+Umeå;1 rum och kök;2022;4342;361;1452
+Umeå;1 rum och kök;2023;4487;387;1497
+Umeå;1 rum och kök;2024;5000;326;1780
+Umeå;1 rum och kök;2025;5101;415;1975
+Umeå;1 rum och kök;2026;5583;477;2065
+Umeå;2 rum och kök;2016;5024;196;1026
+Umeå;2 rum och kök;2017;5111;198;1023
+Umeå;2 rum och kök;2018;5246;225;1060
+Umeå;2 rum och kök;2019;5360;230;1067
+Umeå;2 rum och kök;2020;5544;268;1092
+Umeå;2 rum och kök;2021;5660;248;1147
+Umeå;2 rum och kök;2022;5937;270;1177
+Umeå;2 rum och kök;2023;6165;264;1216
+Umeå;2 rum och kök;2024;6649;274;1304
+Umeå;2 rum och kök;2025;6986;303;1400
+Umeå;2 rum och kök;2026;7325;261;1449
+Umeå;3 rum och kök;2016;6256;250;955
+Umeå;3 rum och kök;2017;6514;278;980
+Umeå;3 rum och kök;2018;6544;319;1016
+Umeå;3 rum och kök;2019;6630;293;992
+Umeå;3 rum och kök;2020;6964;386;1012
+Umeå;3 rum och kök;2021;7085;327;1030
+Umeå;3 rum och kök;2022;7190;324;1051
+Umeå;3 rum och kök;2023;7544;397;1096
+Umeå;3 rum och kök;2024;8007;373;1162
+Umeå;3 rum och kök;2025;8264;428;1223
+Umeå;3 rum och kök;2026;8751;476;1282
+Umeå;4 rum eller fler;2016;7305;627;909
+Umeå;4 rum eller fler;2017;6932;771;916
+Umeå;4 rum eller fler;2018;7442;768;943
+Umeå;4 rum eller fler;2019;8075;661;977
+Umeå;4 rum eller fler;2020;8379;677;998
+Umeå;4 rum eller fler;2021;8795;765;1018
+Umeå;4 rum eller fler;2022;8816;795;1048
+Umeå;4 rum eller fler;2023;9005;807;1085
+Umeå;4 rum eller fler;2024;10250;879;1153
+Umeå;4 rum eller fler;2025;10607;1040;1211
+Umeå;4 rum eller fler;2026;11391;1052;1319
+Umeå;Alla hyreslägenheter;2016;5394;242;999
+Umeå;Alla hyreslägenheter;2017;5615;255;1008
+Umeå;Alla hyreslägenheter;2018;5693;239;1049
+Umeå;Alla hyreslägenheter;2019;5843;290;1049
+Umeå;Alla hyreslägenheter;2020;6045;279;1077
+Umeå;Alla hyreslägenheter;2021;6240;269;1110
+Umeå;Alla hyreslägenheter;2022;6339;250;1136
+Umeå;Alla hyreslägenheter;2023;6618;253;1170
+Umeå;Alla hyreslägenheter;2024;6996;302;1290
+Umeå;Alla hyreslägenheter;2025;7375;301;1389
+Umeå;Alla hyreslägenheter;2026;7618;309;1458

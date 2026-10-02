@@ -12,7 +12,7 @@ function niceTicks(max,n=4){const raw=max/n,p=Math.pow(10,Math.floor(Math.log10(
 
 function hbars(host,rows,{fmtv=v=>fmt(v),max}={}){
   const m=max??Math.max(...rows.map(r=>Math.abs(r.v)),1);
-  host.innerHTML=rows.map(r=>`<div class="hbar ${r.cls||''}" title="${esc(r.n)}: ${esc(fmtv(r.v))}"><span class="name">${esc(r.n)}</span><span class="track"><span class="fill" style="display:block;width:${Math.max(0,r.v)/m*100}%"></span></span><span class="val">${esc(fmtv(r.v))}</span></div>`).join('');
+  host.innerHTML=rows.map(r=>`<div class="hbar ${r.cls||''}" title="${esc(r.n)}: ${esc(fmtv(r.v))}"><span class="name">${esc(r.n)}</span><span class="track"><span class="fill" style="display:block;width:${Math.max(0,r.v)/m*100}%"></span></span><span class="val">${esc(fmtv(r.v,r))}</span></div>`).join('');
 }
 
 /* stapeldiagram (månader) */
@@ -804,6 +804,60 @@ function initHd(){
   renderHdCmp();renderHdMap();renderHdBil();
 }
 
+/* ===== Boende: villapriser och hyror ===== */
+let BO,boPv='nom',boRum='3';
+const BO_RUM=['1','2','3','4','00','5'],BO_RUM_KORT={'1':'Etta','2':'Tvåa','3':'Trea','4':'Fyra eller större','00':'Alla storlekar','5':'Hyrt småhus'};
+const BO_RUM_EN={'1':'en etta','2':'en tvåa','3':'en trea','4':'en fyra eller större','00':'en hyreslägenhet','5':'ett hyrt småhus'};
+const boM=(v,d=2)=>fmt(v/1000,d)+' mkr';
+function boReal(v,y){const K=BO.kpi,ys=Object.keys(K),s=ys[ys.length-1];return K[y]?v*K[s]/K[y]:null}
+function boHyraAr(){const h=BO.hyra['1880'][boRum]||{};const ys=Object.keys(h);return ys[ys.length-1]}
+function renderBoVilla(){
+  document.querySelectorAll('#bo-pv .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pv===boPv));
+  const val=(v,y)=>boPv==='real'?boReal(v[1],y):v[1];
+  const ser=[['1880','Örebro kommun','var(--accent)'],['18','Örebro län','var(--second)'],['0000','Hela Sverige','var(--ink2)','5 4']].filter(([k])=>BO.villa[k]).map(([k,n,c,d])=>({name:n,color:c,dash:d,pts:Object.entries(BO.villa[k]).map(([y,v])=>[+y,val(v,y)]).filter(p=>p[1]!=null)}));
+  lineChart($('#bo-villa'),ser,{yfmt:v=>fmt(v/1000,1)+' mkr',minZero:true});
+  const ks=Object.keys(BO.kpi);
+  $('#bo-villa-not').textContent=boPv==='real'?`Medelpris för sålda villor, radhus och parhus som är permanentbostad, omräknat till ${ks[ks.length-1]} års penningvärde med KPI.`:'Medelpris för sålda villor, radhus och parhus som är permanentbostad, i kronor det året.';
+}
+function renderBoHyra(){
+  document.querySelectorAll('#bo-rum .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.rum===boRum));
+  const y=boHyraAr(),en=BO_RUM_EN[boRum];
+  $('#bo-hyra-h').textContent=`Hyran för ${en} i olika städer`;$('#bo-hyra-ar').textContent=y;
+  const rows=Object.keys(BO.kommuner).map(c=>{const x=BO.hyra[c]?.[boRum]?.[y];return x?{n:BO.kommuner[c],v:x[0],fm:x[1],cls:c==='1880'?'hl':''}:null}).filter(Boolean).sort((a,b)=>b.v-a.v);
+  hbars($('#bo-hyra-cmp'),rows,{fmtv:(v,r)=>fmt(v)+' kr'+(r&&r.fm?' ±'+fmt(r.fm):'')});
+  $('#bo-hyra-tid-h').textContent=`Hyran för ${en} i Örebro över tid`;
+  const h=BO.hyra['1880'][boRum];
+  lineChart($('#bo-hyra-tid'),[{name:BO_RUM_KORT[boRum],color:'var(--accent)',pts:Object.entries(h).map(([y,x])=>[+y,x[0]])}],{yfmt:v=>fmt(v)+' kr',minZero:true});
+}
+function initBo(){
+  const V=BO.villa,vy=BO.villa_ar,v=V['1880'][vy],vr=V['0000']?.[vy],vl=V['18']?.[vy];
+  const hy=BO.hyra_ar,h=BO.hyra['1880']['3'],t=h[hy],y0=Object.keys(h)[0],t0=h[y0];
+  const r0=String(+vy-20),v0=V['1880'][r0],okReal=v0&&boReal(v0[1],r0)?Math.round((v[1]/boReal(v0[1],r0)-1)*100):null;
+  const okH=Math.round((t[0]/t0[0]-1)*100);
+  const tiles=[['En villa i Örebro',boM(v[1]),`medelpris ${vy}`+(vr?` · hela Sverige ${boM(vr[1])}`:'')],
+    ['Hyran för en trea',fmt(t[0])+' kr',`i månaden ${hy}, median · ±${fmt(t[1])} kr`],
+    [`Villapriset sedan ${r0}`,(okReal>=0?'+':'')+fmt(okReal)+' %','utöver inflationen'],
+    [`Hyran för en trea sedan ${y0}`,'+'+fmt(okH)+' %',`${fmt(t0[0])} kr i månaden ${y0}`]];
+  $('#bo-kpis').innerHTML=tiles.filter(x=>!x[1].includes('NaN')&&!x[1].startsWith('null')).map(([l,v,s])=>`<div class="stat"><span class="label">${esc(l)}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`).join('');
+  const jmf=vr?(Math.abs(v[1]/vr[1]-1)<.05?`nästan lika mycket som i hela Sverige (${boM(vr[1])})`:v[1]>vr[1]?`mer än i hela Sverige (${boM(vr[1])})`:`mindre än i hela Sverige (${boM(vr[1])})`):'';
+  $('#bo-lead').textContent=`En villa eller ett radhus i Örebro kommun såldes för i snitt ${fmt(v[1]/1000,2)} miljoner kronor ${vy}, ${jmf}`+(vl?` och mer än i länet som helhet (${boM(vl[1])}).`:'.')+` Den som hyr en trea betalar ${fmt(t[0])} kronor i månaden ${hy}, räknat som median. Det är ${fmt(okH)} procent mer än ${y0}.`;
+  $('#bo-villa-ar').textContent=`medelpris ${vy}`;
+  const rows=Object.keys(BO.kommuner).filter(c=>V[c]?.[vy]).map(c=>({n:BO.kommuner[c],v:V[c][vy][1],cls:c==='1880'?'hl':(c==='0000'||c==='18')?'ref':''})).sort((a,b)=>b.v-a.v);
+  hbars($('#bo-villa-cmp'),rows,{fmtv:v=>boM(v)});
+  $('#bo-villa-antal').textContent=`${fmt(v[0])} villor, radhus och parhus såldes i Örebro kommun ${vy}. Medelpriset kan ändras mycket från år till år när det säljs få hus, särskilt i små kommuner.`;
+  const rum=BO_RUM.filter(r=>BO.hyra['1880'][r]&&Object.keys(BO.hyra['1880'][r]).length);
+  $('#bo-rum').innerHTML=rum.map(r=>`<button class="chip" type="button" data-rum="${r}" aria-pressed="false">${BO_RUM_KORT[r]}</button>`).join('');
+  $('#bo-rum').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){boRum=b.dataset.rum;try{history.replaceState(null,'','#rum='+boRum)}catch(_){}renderBoHyra()}});
+  $('#bo-pv').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){boPv=b.dataset.pv;renderBoVilla()}});
+  const hr=hashKod();if(hr.startsWith('rum=')&&rum.includes(hr.slice(4)))boRum=hr.slice(4);
+  $('#bo-tab-ar').textContent=hy;$('#bo-tab-tio').textContent=String(+hy-10);
+  $('#bo-tab tbody').innerHTML=rum.map(r=>{const d=BO.hyra['1880'][r],x=d[hy];if(!x)return '';const g=d[String(+hy-10)];
+    return `<tr><td>${esc(BO_RUM_KORT[r])}</td><td class="num">${fmt(x[0])} kr</td><td class="num">±${fmt(x[1])} kr</td><td class="num">${x[2]?fmt(x[2])+' kr':'–'}</td><td class="num">${g?fmt(g[0])+' kr':'–'}</td></tr>`}).join('');
+  const K=BO.kvm,ky=Object.keys(K['1880']||{}).pop();
+  if(ky)$('#bo-kvm-not').textContent=`Hyran per kvadratmeter och år för alla hyreslägenheter ${ky} (median): Örebro ${fmt(K['1880'][ky])} kr`+(K['18']?.[ky]?`, Örebro län ${fmt(K['18'][ky])} kr`:'')+(K['0000']?.[ky]?`, hela Sverige ${fmt(K['0000'][ky])} kr`:'')+'.';
+  renderBoVilla();renderBoHyra();
+}
+
 /* ===== Restaurangkollen ===== */
 let RK,rkTyp=()=>{},rkGrp='Restaurang och café',rkSel=null,rkZoom='stad',rkQ='',rkOmr=null;
 const RK_TYP={Restaurang:'Restaurang',Café:'Café',Pizzeria:'Pizzeria',Butik:'Butik',Tillagning:'Kök i skola, vård eller omsorg',Buffert:'Producent, distributör eller annat'};
@@ -985,7 +1039,7 @@ function initManaden(){
 }
 
 /* ===== Ladda ner datan ===== */
-const TEMA_NAMN={narmiljo:'Lek, park och återvinning',buss:'Bussen',vatten:'Vattnet',pengar:'Kommunens pengar',befolkning:'Befolkning',omrade:'Områden',jamfor:'Jämför städer',skolor:'Skolor',vard:'Vård och omsorg',handel:'Handeln',restauranger:'Restaurangkollen',vader:'Vädret',valet:'Valet 2026',skatt:'Vart går din skatt?',hundra:'Örebro som 100 personer'};
+const TEMA_NAMN={boende:'Bostadspriser och hyror',narmiljo:'Lek, park och återvinning',buss:'Bussen',vatten:'Vattnet',pengar:'Kommunens pengar',befolkning:'Befolkning',omrade:'Områden',jamfor:'Jämför städer',skolor:'Skolor',vard:'Vård och omsorg',handel:'Handeln',restauranger:'Restaurangkollen',vader:'Vädret',valet:'Valet 2026',skatt:'Vart går din skatt?',hundra:'Örebro som 100 personer'};
 const kbText=kb=>kb>=1024?fmt(kb/1024,1)+' MB':fmt(Math.max(1,kb))+' kB';
 const filRad=(f,kol)=>`<li class="dl-fil"><div><b>${esc(f.titel)}</b><span class="small">${esc(f.beskr)}</span><span class="src">Källa: ${esc(f.kalla)} · ${fmt(f.rader)} rader · ${kbText(f.kb)}</span>${kol?`<details><summary>Kolumner</summary><p class="num small">${f.kolumner.map(esc).join(' · ')}</p></details>`:''}</div><a class="dl-knapp" href="data/csv/${esc(f.fil)}" download>Ladda ner CSV</a></li>`;
 async function renderLadda(){
@@ -1953,7 +2007,7 @@ function initVatten(){
 
 
 /* ===== Status på Om-sidan: hur gamla är uppgifterna? ===== */
-const STATUS_SIDA={buss:'buss.html',narmiljo:'narmiljo.html',restauranger:'restauranger.html',pengar:'pengar.html',befolkning:'befolkning.html',vader:'vader.html',vatten:'vatten.html',vard:'vard.html',handel:'handel.html',skolor:'skolor.html',omrade:'omrade.html',jamfor:'jamfor.html',manaden:'manaden.html',gissa:'gissa.html',valet:'valet.html'};
+const STATUS_SIDA={boende:'boende.html',buss:'buss.html',narmiljo:'narmiljo.html',restauranger:'restauranger.html',pengar:'pengar.html',befolkning:'befolkning.html',vader:'vader.html',vatten:'vatten.html',vard:'vard.html',handel:'handel.html',skolor:'skolor.html',omrade:'omrade.html',jamfor:'jamfor.html',manaden:'manaden.html',gissa:'gissa.html',valet:'valet.html'};
 function renderStatus(S){
   const idag=new Date();idag.setHours(0,0,0,0);
   $('#st-tab tbody').innerHTML=S.rader.map(r=>{const d=r.hamtad?new Date(r.hamtad+'T00:00:00'):null;const dagar=d?Math.round((idag-d)/864e5):null;
@@ -2063,6 +2117,9 @@ function renderStart(S){
       const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}
       addEventListener('hashchange',()=>{const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}});
     }catch(e){console.error(e);felText('#om-lead','Kunde inte läsa in områdesdatan.')}
+    break;
+  case 'boende':
+    try{BO=await load('boende');initBo()}catch(e){console.error(e);felText('#bo-lead','Kunde inte läsa in bostadsdatan.')}
     break;
   case 'handel':
     try{[HD,OM]=await Promise.all([load('handel'),load('omraden').catch(()=>null)]);initHd()}catch(e){console.error(e);felText('#hd-lead','Kunde inte läsa in handelsdatan.')}
