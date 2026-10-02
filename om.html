@@ -123,7 +123,7 @@
     <div class="panel">
       <h2 class="om-h">Personuppgifter och kakor</h2>
       <ul class="om-lista">
-        <li><b>Inga kakor och ingen spårning.</b> Sidan använder inga analysverktyg och vi samlar inte in något om dig. Typsnitten ligger på samma server som sidan, så inga uppgifter skickas till någon annan när du besöker den.</li>
+        <li><b>Inga kakor.</b> Vi räknar besök med <a href="https://www.goatcounter.com/">GoatCounter</a>, en räknare med öppen källkod som inte använder kakor och inte sparar IP-adresser eller enskilda besök. Den sparar bara sammanräknade siffror: hur många som besökt varje sida, varifrån de kom (till exempel en länk på Facebook), vilken sorts webbläsare och skärm och vilket land. Vi kan inte se vem du är. Statistiken är öppen för alla på <a href="https://orebro360.goatcounter.com">orebro360.goatcounter.com</a>. Har du en annonsblockerare blir du troligen inte räknad, och det är helt i sin ordning. Typsnitten ligger på samma server som sidan.</li>
         <li><b>Mitt Örebro.</b> Om du väljer ditt område sparas valet i din egen webbläsare, så att sidan kommer ihåg det nästa gång. Det skickas aldrig till oss eller någon annan. Du tar bort det med knappen Glöm mitt val, eller genom att rensa webbplatsdata i webbläsaren.</li>
         <li><b>Gissa siffran</b> sparar dina gissningar och vilka frågor du redan har gissat på i webbläsaren på samma sätt, så att du kan fortsätta senare och får nya frågor nästa gång. De skickas inte till oss. <b>Dela-knapparna</b> ritar bilden i din egen webbläsare; ingenting laddas upp förrän du själv väljer att dela.</li>
         <li><b>Restaurangkollen</b> visar Örebro kommuns egna resultat från livsmedelskontroller. Uppgifterna är allmänna och publicerade av kommunen. En del verksamheter drivs som enskild firma och kan därför bära ägarens namn. Vi visar bara det som kommunen själv visar, och när kommunen tar bort en uppgift, till exempel vid ägarbyte, försvinner den här vid nästa uppdatering.</li>
@@ -209,5 +209,6 @@
   </div>
 </footer>
 <script src="assets/app.js"></script>
+<script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>
