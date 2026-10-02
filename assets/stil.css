@@ -1052,3 +1052,14 @@ svg .fokus-lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-o
 #pl-ova{margin-top:6px}
 @media (prefers-reduced-motion:reduce){.pl-karta *{transition:none!important}}
 .pl-kort-res{color:var(--accent-text)}
+
+/* Zoom i kartorna (kartZoom i app.js) */
+.kz-host{position:relative}
+.kz-host svg{touch-action:pan-y !important}
+.kz-host.kz-in svg{touch-action:none !important;cursor:grab}
+.kz-host.kz-drar svg{cursor:grabbing}
+.kz-knappar{position:absolute;top:8px;right:8px;display:grid;gap:6px;z-index:3}
+.kz-k{width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 1.25rem/1 var(--f-body);cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.12);padding:0}
+.kz-k:hover{background:var(--accent-soft)}
+.kz-k[hidden]{display:none}
+.kz-k:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
