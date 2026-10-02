@@ -945,3 +945,21 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 #bu-tab tr.bu-sel td{background:var(--accent-soft)}
 #bu-tab td .sub{display:block;font-size:.8rem;color:var(--muted)}
 #bu-tab tr.row{cursor:pointer}
+
+/* ===== Sidan Lek, park och återvinning ===== */
+#nm-karta svg{display:block;width:100%;height:auto;touch-action:manipulation;overflow:hidden}
+#nm-karta path.nm-a{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
+#nm-karta path.nm-a:hover{fill:var(--accent-soft)}
+#nm-karta path.nm-a-sel{fill:var(--accent-soft)}
+#nm-karta path.seloutline{fill:none;stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;pointer-events:none}
+#nm-karta text.lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round;pointer-events:none}
+#nm-karta circle.nm-pt{stroke:var(--surface);stroke-width:1.2;vector-effect:non-scaling-stroke;cursor:pointer}
+.nm-pt-lek{fill:var(--c5)}.nm-pt-park{fill:var(--c1)}.nm-pt-utegym{fill:var(--c3)}.nm-pt-hund{fill:var(--c2)}.nm-pt-avs{fill:var(--ink2)}.nm-pt-avc{fill:var(--c4)}
+#nm-karta circle.nm-pt-tg{fill:var(--c6)}
+#nm-karta circle.nm-pt-st{stroke:var(--ink);stroke-width:2.5}
+.om-legend .nm-lg-lek{background:var(--c5)}.om-legend .nm-lg-park{background:var(--c1)}.om-legend .nm-lg-utegym{background:var(--c3)}.om-legend .nm-lg-hund{background:var(--c2)}.om-legend .nm-lg-avs{background:var(--ink2)}.om-legend .nm-lg-avc{background:var(--c4)}.om-legend .nm-lg-tg{background:var(--c6)}
+.om-legend .nm-lg-st{background:var(--surface);box-shadow:inset 0 0 0 2px var(--ink)}
+.nm-typ{margin:0 0 10px;flex-wrap:wrap}
+#nm-tab tr.bu-sel td,#nm-lista tr.bu-sel td{background:var(--accent-soft)}
+#nm-tab tr.row,#nm-lista tr.row{cursor:pointer}
+.om-legend .mi-pt{margin-right:5px;vertical-align:-1px}
