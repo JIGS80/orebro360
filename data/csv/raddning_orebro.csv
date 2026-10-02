@@ -1,0 +1,393 @@
+﻿handelse;ar;antal
+Brand i byggnad;1998;133
+Brand i byggnad;1999;181
+Brand i byggnad;2000;184
+Brand i byggnad;2001;181
+Brand i byggnad;2002;146
+Brand i byggnad;2003;159
+Brand i byggnad;2004;136
+Brand i byggnad;2005;109
+Brand i byggnad;2006;183
+Brand i byggnad;2007;160
+Brand i byggnad;2008;178
+Brand i byggnad;2009;170
+Brand i byggnad;2010;227
+Brand i byggnad;2011;168
+Brand i byggnad;2012;204
+Brand i byggnad;2013;189
+Brand i byggnad;2014;221
+Brand i byggnad;2015;131
+Brand i byggnad;2016;186
+Brand i byggnad;2017;185
+Brand i byggnad;2018;142
+Brand i byggnad;2019;159
+Brand i byggnad;2020;169
+Brand i byggnad;2021;157
+Brand i byggnad;2022;128
+Brand i byggnad;2023;146
+Brand i byggnad;2024;137
+Brand i byggnad;2025;134
+Brand utomhus;1998;156
+Brand utomhus;1999;182
+Brand utomhus;2000;159
+Brand utomhus;2001;179
+Brand utomhus;2002;177
+Brand utomhus;2003;195
+Brand utomhus;2004;161
+Brand utomhus;2005;171
+Brand utomhus;2006;169
+Brand utomhus;2007;124
+Brand utomhus;2008;141
+Brand utomhus;2009;123
+Brand utomhus;2010;160
+Brand utomhus;2011;168
+Brand utomhus;2012;160
+Brand utomhus;2013;153
+Brand utomhus;2014;166
+Brand utomhus;2015;207
+Brand utomhus;2016;224
+Brand utomhus;2017;259
+Brand utomhus;2018;182
+Brand utomhus;2019;153
+Brand utomhus;2020;150
+Brand utomhus;2021;127
+Brand utomhus;2022;130
+Brand utomhus;2023;127
+Brand utomhus;2024;117
+Brand utomhus;2025;109
+Trafikolycka;1998;107
+Trafikolycka;1999;106
+Trafikolycka;2000;104
+Trafikolycka;2001;121
+Trafikolycka;2002;133
+Trafikolycka;2003;105
+Trafikolycka;2004;84
+Trafikolycka;2005;67
+Trafikolycka;2006;105
+Trafikolycka;2007;95
+Trafikolycka;2008;133
+Trafikolycka;2009;140
+Trafikolycka;2010;182
+Trafikolycka;2011;178
+Trafikolycka;2012;173
+Trafikolycka;2013;192
+Trafikolycka;2014;190
+Trafikolycka;2015;233
+Trafikolycka;2016;215
+Trafikolycka;2017;277
+Trafikolycka;2018;237
+Trafikolycka;2019;189
+Trafikolycka;2020;181
+Trafikolycka;2021;218
+Trafikolycka;2022;211
+Trafikolycka;2023;222
+Trafikolycka;2024;197
+Trafikolycka;2025;191
+Drunkning;1998;4
+Drunkning;1999;7
+Drunkning;2000;7
+Drunkning;2001;7
+Drunkning;2002;5
+Drunkning;2003;7
+Drunkning;2004;7
+Drunkning;2005;3
+Drunkning;2006;2
+Drunkning;2007;1
+Drunkning;2008;2
+Drunkning;2009;3
+Drunkning;2010;13
+Drunkning;2011;6
+Drunkning;2012;5
+Drunkning;2013;12
+Drunkning;2014;9
+Drunkning;2015;5
+Drunkning;2016;6
+Drunkning;2017;6
+Drunkning;2018;8
+Drunkning;2019;2
+Drunkning;2020;5
+Drunkning;2021;7
+Drunkning;2022;3
+Drunkning;2023;6
+Drunkning;2024;3
+Drunkning;2025;6
+Automatlarm;1998;381
+Automatlarm;1999;414
+Automatlarm;2000;409
+Automatlarm;2001;399
+Automatlarm;2002;444
+Automatlarm;2003;358
+Automatlarm;2004;449
+Automatlarm;2005;346
+Automatlarm;2006;436
+Automatlarm;2007;515
+Automatlarm;2008;460
+Automatlarm;2009;507
+Automatlarm;2010;576
+Automatlarm;2011;571
+Automatlarm;2012;510
+Automatlarm;2013;477
+Automatlarm;2014;501
+Automatlarm;2015;569
+Automatlarm;2016;482
+Automatlarm;2017;525
+Automatlarm;2018;581
+Automatlarm;2019;552
+Automatlarm;2020;500
+Automatlarm;2021;629
+Automatlarm;2022;603
+Automatlarm;2023;643
+Automatlarm;2024;633
+Automatlarm;2025;617
+Nödställd person;1998;0
+Nödställd person;1999;0
+Nödställd person;2000;0
+Nödställd person;2001;0
+Nödställd person;2002;0
+Nödställd person;2003;0
+Nödställd person;2004;0
+Nödställd person;2005;7
+Nödställd person;2006;8
+Nödställd person;2007;9
+Nödställd person;2008;7
+Nödställd person;2009;4
+Nödställd person;2010;10
+Nödställd person;2011;16
+Nödställd person;2012;11
+Nödställd person;2013;8
+Nödställd person;2014;10
+Nödställd person;2015;13
+Nödställd person;2016;14
+Nödställd person;2017;24
+Nödställd person;2018;23
+Nödställd person;2019;20
+Nödställd person;2020;30
+Nödställd person;2021;53
+Nödställd person;2022;38
+Nödställd person;2023;43
+Nödställd person;2024;53
+Nödställd person;2025;64
+Farligt ämne;1998;31
+Farligt ämne;1999;42
+Farligt ämne;2000;49
+Farligt ämne;2001;35
+Farligt ämne;2002;21
+Farligt ämne;2003;19
+Farligt ämne;2004;16
+Farligt ämne;2005;20
+Farligt ämne;2006;14
+Farligt ämne;2007;11
+Farligt ämne;2008;13
+Farligt ämne;2009;16
+Farligt ämne;2010;18
+Farligt ämne;2011;25
+Farligt ämne;2012;16
+Farligt ämne;2013;23
+Farligt ämne;2014;23
+Farligt ämne;2015;36
+Farligt ämne;2016;44
+Farligt ämne;2017;55
+Farligt ämne;2018;47
+Farligt ämne;2019;51
+Farligt ämne;2020;52
+Farligt ämne;2021;33
+Farligt ämne;2022;38
+Farligt ämne;2023;37
+Farligt ämne;2024;24
+Farligt ämne;2025;30
+Nödställt djur;1998;15
+Nödställt djur;1999;6
+Nödställt djur;2000;5
+Nödställt djur;2001;3
+Nödställt djur;2002;11
+Nödställt djur;2003;8
+Nödställt djur;2004;5
+Nödställt djur;2005;3
+Nödställt djur;2006;4
+Nödställt djur;2007;5
+Nödställt djur;2008;8
+Nödställt djur;2009;7
+Nödställt djur;2010;9
+Nödställt djur;2011;7
+Nödställt djur;2012;3
+Nödställt djur;2013;13
+Nödställt djur;2014;4
+Nödställt djur;2015;2
+Nödställt djur;2016;7
+Nödställt djur;2017;2
+Nödställt djur;2018;5
+Nödställt djur;2019;5
+Nödställt djur;2020;7
+Nödställt djur;2021;7
+Nödställt djur;2022;3
+Nödställt djur;2023;2
+Nödställt djur;2024;6
+Nödställt djur;2025;5
+Storm;1998;3
+Storm;1999;24
+Storm;2000;6
+Storm;2001;3
+Storm;2002;4
+Storm;2003;7
+Storm;2004;0
+Storm;2005;5
+Storm;2006;0
+Storm;2007;9
+Storm;2008;4
+Storm;2009;0
+Storm;2010;0
+Storm;2011;14
+Storm;2012;2
+Storm;2013;0
+Storm;2014;2
+Storm;2015;7
+Storm;2016;4
+Storm;2017;2
+Storm;2018;2
+Storm;2019;2
+Storm;2020;3
+Storm;2021;2
+Storm;2022;2
+Storm;2023;0
+Storm;2024;3
+Storm;2025;1
+Ras eller skred;1998;0
+Ras eller skred;1999;0
+Ras eller skred;2000;0
+Ras eller skred;2001;1
+Ras eller skred;2002;0
+Ras eller skred;2003;0
+Ras eller skred;2004;0
+Ras eller skred;2005;0
+Ras eller skred;2006;0
+Ras eller skred;2007;0
+Ras eller skred;2008;0
+Ras eller skred;2009;0
+Ras eller skred;2010;0
+Ras eller skred;2011;0
+Ras eller skred;2012;0
+Ras eller skred;2013;1
+Ras eller skred;2014;0
+Ras eller skred;2015;0
+Ras eller skred;2016;0
+Ras eller skred;2017;0
+Ras eller skred;2018;1
+Ras eller skred;2019;0
+Ras eller skred;2020;0
+Ras eller skred;2021;0
+Ras eller skred;2022;0
+Ras eller skred;2023;0
+Ras eller skred;2024;0
+Ras eller skred;2025;0
+Översvämning;1998;0
+Översvämning;1999;0
+Översvämning;2000;0
+Översvämning;2001;0
+Översvämning;2002;0
+Översvämning;2003;0
+Översvämning;2004;0
+Översvämning;2005;0
+Översvämning;2006;3
+Översvämning;2007;0
+Översvämning;2008;3
+Översvämning;2009;0
+Översvämning;2010;0
+Översvämning;2011;0
+Översvämning;2012;0
+Översvämning;2013;1
+Översvämning;2014;0
+Översvämning;2015;0
+Översvämning;2016;0
+Översvämning;2017;0
+Översvämning;2018;0
+Översvämning;2019;0
+Översvämning;2020;0
+Översvämning;2021;2
+Översvämning;2022;0
+Översvämning;2023;16
+Översvämning;2024;0
+Översvämning;2025;0
+Vattenskada;1998;4
+Vattenskada;1999;9
+Vattenskada;2000;29
+Vattenskada;2001;7
+Vattenskada;2002;12
+Vattenskada;2003;21
+Vattenskada;2004;3
+Vattenskada;2005;0
+Vattenskada;2006;5
+Vattenskada;2007;5
+Vattenskada;2008;3
+Vattenskada;2009;6
+Vattenskada;2010;25
+Vattenskada;2011;8
+Vattenskada;2012;7
+Vattenskada;2013;8
+Vattenskada;2014;6
+Vattenskada;2015;3
+Vattenskada;2016;11
+Vattenskada;2017;17
+Vattenskada;2018;5
+Vattenskada;2019;11
+Vattenskada;2020;0
+Vattenskada;2021;17
+Vattenskada;2022;15
+Vattenskada;2023;38
+Vattenskada;2024;27
+Vattenskada;2025;17
+Annan olycka;1998;30
+Annan olycka;1999;11
+Annan olycka;2000;18
+Annan olycka;2001;12
+Annan olycka;2002;12
+Annan olycka;2003;14
+Annan olycka;2004;7
+Annan olycka;2005;19
+Annan olycka;2006;24
+Annan olycka;2007;11
+Annan olycka;2008;22
+Annan olycka;2009;7
+Annan olycka;2010;11
+Annan olycka;2011;0
+Annan olycka;2012;4
+Annan olycka;2013;3
+Annan olycka;2014;7
+Annan olycka;2015;36
+Annan olycka;2016;8
+Annan olycka;2017;5
+Annan olycka;2018;6
+Annan olycka;2019;1
+Annan olycka;2020;3
+Annan olycka;2021;6
+Annan olycka;2022;3
+Annan olycka;2023;4
+Annan olycka;2024;8
+Annan olycka;2025;19
+Ingen risk för skada;1998;95
+Ingen risk för skada;1999;86
+Ingen risk för skada;2000;77
+Ingen risk för skada;2001;104
+Ingen risk för skada;2002;97
+Ingen risk för skada;2003;81
+Ingen risk för skada;2004;44
+Ingen risk för skada;2005;24
+Ingen risk för skada;2006;59
+Ingen risk för skada;2007;63
+Ingen risk för skada;2008;74
+Ingen risk för skada;2009;82
+Ingen risk för skada;2010;89
+Ingen risk för skada;2011;83
+Ingen risk för skada;2012;95
+Ingen risk för skada;2013;105
+Ingen risk för skada;2014;100
+Ingen risk för skada;2015;133
+Ingen risk för skada;2016;108
+Ingen risk för skada;2017;152
+Ingen risk för skada;2018;155
+Ingen risk för skada;2019;135
+Ingen risk för skada;2020;102
+Ingen risk för skada;2021;106
+Ingen risk för skada;2022;148
+Ingen risk för skada;2023;133
+Ingen risk för skada;2024;131
+Ingen risk för skada;2025;130

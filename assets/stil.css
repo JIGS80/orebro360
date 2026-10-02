@@ -1063,3 +1063,8 @@ svg .fokus-lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-o
 .kz-k:hover{background:var(--accent-soft)}
 .kz-k[hidden]{display:none}
 .kz-k:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Räddningstjänsten */
+#rt-tab tbody tr{cursor:pointer}
+#rt-tab tbody tr:hover td,#rt-tab tbody tr.vald td{background:var(--accent-soft)}
+#rt-tab tbody tr.summa td{border-top:2px solid var(--line)}

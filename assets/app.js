@@ -866,6 +866,74 @@ function initBo(){
   renderBoVilla();renderBoHyra();
 }
 
+/* ===== Räddningstjänsten (MCF:s insatsstatistik) ===== */
+let RT,rtTyp='alla';
+const RT_KNAPP=['alla','1','3','2','5','14'];
+function rtNamn(t){return t==='alla'?'Alla olyckor och larm':RT.typer.find(x=>x.id===t).n}
+function rtSerie(t){const ar=Object.keys(RT.orebro['1']);return ar.map(a=>[+a,t==='alla'?RT.typer.reduce((s,x)=>s+(RT.orebro[x.id][a]||0),0):RT.orebro[t][a]||0])}
+function rtPer(t,pl,a){const d=RT.per1000[t==='alla'?'100':t]?.[pl];return d?d[a]:null}
+/* enkla staplar för månader och timmar */
+function kolumner(host,labels,values,{tick=()=>true,tipText}={}){
+  host.innerHTML='';const W=Math.max(300,Math.min(760,host.clientWidth||480)),H=200,L=36,R=6,T=10,B=24;
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Stapeldiagram'},host);const tp=tip(host);
+  const max=Math.max(1,...values),ticks=niceTicks(max,3),top=ticks[ticks.length-1];const y=v=>T+(H-T-B)*(1-v/top);
+  const g=el('g',{class:'grid'},svg);ticks.forEach(t=>{el('line',{x1:L,x2:W-R,y1:y(t),y2:y(t)},g);const tx=el('text',{x:L-6,y:y(t)+4,'text-anchor':'end'},svg);tx.textContent=fmt(t)});
+  const bw=(W-L-R)/values.length,mx=values.indexOf(Math.max(...values));
+  values.forEach((v,i)=>{const x=L+i*bw+1.5,w=Math.max(1,bw-3),h=Math.max(v?1:0,y(0)-y(v));
+    el('rect',{x,y:y(0)-h,width:w,height:h,rx:Math.min(3,w/3),fill:i===mx?'var(--accent)':'var(--mark-gray)'},svg);
+    const hit=el('rect',{x:L+i*bw,y:T,width:bw,height:H-T-B,fill:'transparent'},svg);
+    hit.addEventListener('mouseenter',()=>{tp.hidden=false;tp.innerHTML=tipText?tipText(i,v):`<b>${esc(labels[i])}</b><br>${fmt(v)}`;const bb=svg.getBoundingClientRect();tp.style.left=((x+w/2)/W*bb.width)+'px';tp.style.top=(y(v)/H*bb.height)+'px'});
+    hit.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
+    if(tick(i)){const tx=el('text',{x:x+w/2,y:H-8,'text-anchor':'middle'},svg);tx.textContent=labels[i]}});
+}
+function renderRt(){
+  document.querySelectorAll('#rt-typ .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===rtTyp));
+  const t=rtTyp,n=rtNamn(t),y=RT.ar_senast,ser=rtSerie(t);
+  $('#rt-tid-h').textContent=`${n} i Örebro kommun sedan ${ser[0][0]}`;
+  lineChart($('#rt-tid'),[{name:n,color:'var(--accent)',pts:ser}],{yfmt:v=>fmt(v),minZero:true});
+  const typ=t==='alla'?null:RT.typer.find(x=>x.id===t);
+  $('#rt-tid-not').textContent=(typ?typ.l[0].toUpperCase()+typ.l.slice(1)+'. ':'Alla händelsetyper i tabellen nedanför. ')+'Antal per år.';
+  $('#rt-cmp-ar').textContent=y;
+  const rows=Object.keys(RT.kommuner).map(pl=>{const v=rtPer(t,pl,y);return v==null?null:{n:RT.kommuner[pl],v,cls:pl==='1880'?'hl':(pl==='0000'||pl==='0018')?'ref':''}}).filter(Boolean).sort((a,b)=>b.v-a.v);
+  hbars($('#rt-cmp'),rows,{fmtv:v=>fmt(v,2)});
+  const sum=(o)=>t==='alla'?RT.typer.reduce((a,x)=>a.map((v,i)=>v+o[x.id][i]),o['1'].map(()=>0)):o[t];
+  const fem=`${RT.fem_ar[0]}–${RT.fem_ar[1]}`;$('#rt-fem').textContent=fem;$('#rt-fem2').textContent=fem;
+  kolumner($('#rt-man'),MAN_K,sum(RT.manad),{tipText:(i,v)=>`<b>${MANAD[i]}</b><br>${fmt(v)} under ${fem}`});
+  kolumner($('#rt-tim'),Array.from({length:24},(_,h)=>String(h).padStart(2,'0')),sum(RT.timme),{tick:i=>i%3===0,tipText:(i,v)=>`<b>kl. ${String(i).padStart(2,'0')}–${String(i+1).padStart(2,'0')}</b><br>${fmt(v)} under ${fem}`});
+  document.querySelectorAll('#rt-tab tbody tr').forEach(tr=>tr.classList.toggle('vald',tr.dataset.t===t));
+}
+function initRt(){
+  const y=RT.ar_senast,O=RT.orebro,u=RT.uppdrag[y]||{},alla=Object.values(u).reduce((a,b)=>a+b,0);
+  const tot=RT.typer.reduce((s,x)=>s+(O[x.id][y]||0),0),ar=Object.keys(O['1']),y5=ar.slice(-6,-1);
+  const snitt=t=>y5.reduce((s,a)=>s+(O[t][a]||0),0)/y5.length;
+  const tiles=[['Alla utryckningar',fmt(alla),`${y}, ungefär ${fmt(alla/365,1)} om dagen`],['Bränder i byggnader',fmt(O['1'][y]),`${y}, varav ${fmt((RT.bostad['101']?.[y]||0)+(RT.bostad['102']?.[y]||0)+(RT.bostad['103']?.[y]||0)+(RT.bostad['104']?.[y]||0))} i bostäder`],
+    ['Trafikolyckor',fmt(O['2'][y]),`${y} · snitt ${fmt(snitt('2'))} per år ${y5[0]}–${y5[4]}`],['Drunkningslarm',fmt(O['5'][y]),`${y}, drunkningar och tillbud`]];
+  $('#rt-kpis').innerHTML=tiles.map(([l,v,s])=>`<div class="stat"><span class="label">${esc(l)}</span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`).join('');
+  const am=O['14'][y],pr=rtPer('100','1880',y),prS=rtPer('100','0000',y);
+  $('#rt-lead').textContent=`Räddningstjänsten ryckte ut ${fmt(alla)} gånger i Örebro kommun ${y}. Nästan hälften av gångerna (${fmt(am)}) var det ett automatiskt brandlarm där det inte brann. Det brann i ${fmt(O['1'][y])} byggnader och ${fmt(O['3'][y])} gånger utomhus, och räddningstjänsten åkte till ${fmt(O['2'][y])} trafikolyckor.`+(pr&&prS?` Räknat per invånare är det ${Math.abs(pr/prS-1)<.05?'ungefär lika många olyckor och larm som':pr<prS?'något färre olyckor och larm än':'något fler olyckor och larm än'} i Sverige som helhet.`:'');
+  $('#rt-typ').innerHTML=RT_KNAPP.map(t=>`<button class="chip" type="button" data-t="${t}" aria-pressed="false">${esc(t==='alla'?'Alla':rtNamn(t))}</button>`).join('');
+  $('#rt-typ').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){rtTyp=b.dataset.t;try{history.replaceState(null,'','#typ='+rtTyp)}catch(_){}renderRt()}});
+  $('#rt-tab-ar').textContent=y;$('#rt-th-ar').textContent=y;$('#rt-th-snitt').textContent=`Snitt ${y5[0]}–${y5[4]}`;
+  const rad=(id,n,v,sn,p,ps)=>`<tr data-t="${id}" tabindex="0"><td>${esc(n)}</td><td class="num">${fmt(v)}</td><td class="num">${fmt(sn)}</td><td class="num">${p==null?'–':fmt(p,2)}</td><td class="num">${ps==null?'–':fmt(ps,2)}</td></tr>`;
+  $('#rt-tab tbody').innerHTML=RT.typer.filter(x=>y5.some(a=>O[x.id][a])||O[x.id][y]).map(x=>rad(x.id,x.n,O[x.id][y]||0,snitt(x.id),rtPer(x.id,'1880',y),rtPer(x.id,'0000',y))).join('')+
+    `<tr data-t="alla" tabindex="0" class="summa"><td><b>Alla olyckor och larm</b></td><td class="num"><b>${fmt(tot)}</b></td><td class="num">${fmt(y5.reduce((s,a)=>s+RT.typer.reduce((q,x)=>q+(O[x.id][a]||0),0),0)/5)}</td><td class="num">${pr==null?'–':fmt(pr,2)}</td><td class="num">${prS==null?'–':fmt(prS,2)}</td></tr>`;
+  const valjRad=tr=>{if(!tr)return;rtTyp=tr.dataset.t;renderRt();$('#g-tid').scrollIntoView({behavior:'smooth',block:'start'})};
+  $('#rt-tab tbody').addEventListener('click',e=>valjRad(e.target.closest('tr[data-t]')));
+  $('#rt-tab tbody').addEventListener('keydown',e=>{if(e.key==='Enter')valjRad(e.target.closest('tr[data-t]'))});
+  // bostäder och drunkning
+  $('#rt-bo-ar').textContent=y;
+  hbars($('#rt-bo'),Object.keys(RT.bostad).map(k=>({n:RT.bostad_namn[k]||k,v:RT.bostad[k][y]||0,cls:'hl'})).sort((a,b)=>b.v-a.v),{fmtv:v=>fmt(v)});
+  const bar=Object.keys(RT.bostad['101']||{}),b0=bar[0];const bs=a=>Object.values(RT.bostad).reduce((s,d)=>s+(d[a]||0),0);
+  $('#rt-bo-not').textContent=`Bränder och brandtillbud i bostäder. Totalt ${fmt(bs(y))} ${y}, jämfört med ${fmt(bs(b0))} ${b0}.`;
+  const ar10=Object.keys(RT.vatten['1']||{}).slice(-10),vs=k=>ar10.reduce((s,a)=>s+(RT.vatten[k][a]||0),0);
+  $('#rt-va-ar').textContent=`${ar10[0]}–${ar10[ar10.length-1]}`;
+  hbars($('#rt-va'),Object.keys(RT.vatten).map(k=>({n:RT.vatten_namn[k]||k,v:vs(k),cls:'hl'})).filter(r=>r.v>0).sort((a,b)=>b.v-a.v),{fmtv:v=>fmt(v)});
+  const om=Object.entries(RT.omkomna).filter(([a])=>a<=y).slice(-10),omS=om.reduce((s,[,v])=>s+v,0);
+  $('#rt-va-not').textContent=`Drunkningar och drunkningstillbud de senaste tio åren, ${fmt(ar10.reduce((s,a)=>s+Object.keys(RT.vatten).reduce((q,k)=>q+(RT.vatten[k][a]||0),0),0))} totalt. Svartån räknas som å.`+(om.length?` Under samma tid omkom ${fmt(omS)} personer i bränder i kommunen.`:'');
+  const h=hashKod();if(h.startsWith('typ=')&&RT.orebro[h.slice(4)]||h==='typ=alla')rtTyp=h.slice(4);
+  renderRt();
+}
+
 /* ===== Restaurangkollen ===== */
 let RK,rkTyp=()=>{},rkGrp='Restaurang och café',rkSel=null,rkZoom='stad',rkQ='',rkOmr=null;
 const RK_TYP={Restaurang:'Restaurang',Café:'Café',Pizzeria:'Pizzeria',Butik:'Butik',Tillagning:'Kök i skola, vård eller omsorg',Buffert:'Producent, distributör eller annat'};
@@ -1047,7 +1115,7 @@ function initManaden(){
 }
 
 /* ===== Ladda ner datan ===== */
-const TEMA_NAMN={boende:'Bostadspriser och hyror',narmiljo:'Lek, park och återvinning',buss:'Bussen',vatten:'Vattnet',pengar:'Kommunens pengar',befolkning:'Befolkning',omrade:'Områden',jamfor:'Jämför städer',skolor:'Skolor',vard:'Vård och omsorg',handel:'Handeln',restauranger:'Restaurangkollen',vader:'Vädret',valet:'Valet 2026',skatt:'Vart går din skatt?',hundra:'Örebro som 100 personer'};
+const TEMA_NAMN={raddning:'Räddningstjänsten',boende:'Bostadspriser och hyror',narmiljo:'Lek, park och återvinning',buss:'Bussen',vatten:'Vattnet',pengar:'Kommunens pengar',befolkning:'Befolkning',omrade:'Områden',jamfor:'Jämför städer',skolor:'Skolor',vard:'Vård och omsorg',handel:'Handeln',restauranger:'Restaurangkollen',vader:'Vädret',valet:'Valet 2026',skatt:'Vart går din skatt?',hundra:'Örebro som 100 personer'};
 const kbText=kb=>kb>=1024?fmt(kb/1024,1)+' MB':fmt(Math.max(1,kb))+' kB';
 const filRad=(f,kol)=>`<li class="dl-fil"><div><b>${esc(f.titel)}</b><span class="small">${esc(f.beskr)}</span><span class="src">Källa: ${esc(f.kalla)} · ${fmt(f.rader)} rader · ${kbText(f.kb)}</span>${kol?`<details><summary>Kolumner</summary><p class="num small">${f.kolumner.map(esc).join(' · ')}</p></details>`:''}</div><a class="dl-knapp" href="data/csv/${esc(f.fil)}" download>Ladda ner CSV</a></li>`;
 async function renderLadda(){
@@ -2063,7 +2131,7 @@ function initVatten(){
 
 
 /* ===== Status på Om-sidan: hur gamla är uppgifterna? ===== */
-const STATUS_SIDA={boende:'boende.html',buss:'buss.html',narmiljo:'narmiljo.html',restauranger:'restauranger.html',pengar:'pengar.html',befolkning:'befolkning.html',vader:'vader.html',vatten:'vatten.html',vard:'vard.html',handel:'handel.html',skolor:'skolor.html',omrade:'omrade.html',jamfor:'jamfor.html',manaden:'manaden.html',gissa:'gissa.html',valet:'valet.html'};
+const STATUS_SIDA={raddning:'raddning.html',boende:'boende.html',buss:'buss.html',narmiljo:'narmiljo.html',restauranger:'restauranger.html',pengar:'pengar.html',befolkning:'befolkning.html',vader:'vader.html',vatten:'vatten.html',vard:'vard.html',handel:'handel.html',skolor:'skolor.html',omrade:'omrade.html',jamfor:'jamfor.html',manaden:'manaden.html',gissa:'gissa.html',valet:'valet.html'};
 function renderStatus(S){
   const idag=new Date();idag.setHours(0,0,0,0);
   $('#st-tab tbody').innerHTML=S.rader.map(r=>{const d=r.hamtad?new Date(r.hamtad+'T00:00:00'):null;const dagar=d?Math.round((idag-d)/864e5):null;
@@ -2173,6 +2241,9 @@ function renderStart(S){
       const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}
       addEventListener('hashchange',()=>{const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}});
     }catch(e){console.error(e);felText('#om-lead','Kunde inte läsa in områdesdatan.')}
+    break;
+  case 'raddning':
+    try{RT=await load('raddning');initRt()}catch(e){console.error(e);felText('#rt-lead','Kunde inte läsa in räddningstjänstens siffror.')}
     break;
   case 'boende':
     try{BO=await load('boende');initBo()}catch(e){console.error(e);felText('#bo-lead','Kunde inte läsa in bostadsdatan.')}
