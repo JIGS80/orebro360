@@ -315,13 +315,13 @@ tr.detail > td{padding:0;background:var(--surface)}
 .om-tools select{font:inherit;font-weight:400;padding:9px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%}
 .om-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
 @media (max-width:900px){.om-grid{grid-template-columns:minmax(0,1fr)}}
-#om-map svg{display:block;width:100%;height:auto;touch-action:manipulation;overflow:hidden}
-#om-map path.a{stroke:var(--map-line);stroke-width:1;vector-effect:non-scaling-stroke;cursor:pointer;stroke-linejoin:round}
-#om-map path.a:hover{filter:brightness(1.08)}
+#om-map svg,#bu-karta svg{display:block;width:100%;height:auto;touch-action:manipulation;overflow:hidden}
+#om-map path.a,#bu-karta path.a{stroke:var(--map-line);stroke-width:1;vector-effect:non-scaling-stroke;cursor:pointer;stroke-linejoin:round}
+#om-map path.a:hover,#bu-karta path.a:hover{filter:brightness(1.08)}
 #om-map path.outline{fill:none;stroke:var(--ink2);stroke-width:1.2;vector-effect:non-scaling-stroke;pointer-events:none;opacity:.7}
-#om-map path.seloutline{fill:none;stroke:var(--ink);stroke-width:3;vector-effect:non-scaling-stroke;pointer-events:none}
+#om-map path.seloutline,#bu-karta path.seloutline{fill:none;stroke:var(--ink);stroke-width:3;vector-effect:non-scaling-stroke;pointer-events:none}
 #om-map circle.sk{fill:var(--surface);stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke;pointer-events:none}
-#om-map text.lbl{font-family:var(--f-body);font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
+#om-map text.lbl,#bu-karta text.lbl{font-family:var(--f-body);font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
 .om-legend{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:.8rem;color:var(--ink2);align-items:center}
 .om-legend .sw{width:22px;height:12px;border-radius:2px}
 .om-head{display:grid;gap:4px}
@@ -937,3 +937,11 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 @media (max-width:370px){.stats>.stat{padding:12px 11px}.stat .label{letter-spacing:.03em;font-size:.7rem}}
 
 .mi-bu-not .sub{margin:0}
+.mi-lista .mi-bt{display:grid;gap:1px;min-width:0}
+.om-legend .mi-pt{width:10px;height:10px;border-radius:50%;display:inline-block}.om-legend .mi-pt-bu{background:var(--c6)}
+
+/* ===== Sidan Bussen ===== */
+#bu-karta circle.mi-pt-bu{stroke:var(--surface);stroke-width:1.5;vector-effect:non-scaling-stroke;pointer-events:none}
+#bu-tab tr.bu-sel td{background:var(--accent-soft)}
+#bu-tab td .sub{display:block;font-size:.8rem;color:var(--muted)}
+#bu-tab tr.row{cursor:pointer}
