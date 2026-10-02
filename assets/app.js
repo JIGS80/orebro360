@@ -1443,6 +1443,187 @@ async function miRemsa(S){
 }
 
 
+
+/* ===== Spelet Var ligger platsen? =====
+   Motorn (PL_MOTOR) är rena funktioner: urval per datum, avstånd och poäng. Kartan och flödet ligger under,
+   lagringen i plLas/plSpara. Platslistan och kartbakgrunden kommer från spel.json (byggs av bygg_data.py). */
+const PL_MOTOR={
+  // datum i Europe/Stockholm som ÅÅÅÅ-MM-DD
+  datum(d=new Date()){try{return new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Stockholm',year:'numeric',month:'2-digit',day:'2-digit'}).format(d)}catch(e){return d.toISOString().slice(0,10)}},
+  dagNr(ds){const [y,m,d]=ds.split('-').map(Number);return Math.floor(Date.UTC(y,m-1,d)/864e5)},
+  hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0},
+  rng(seed){let a=seed>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}},
+  blanda(arr,seed){const a=arr.slice(),r=PL_MOTOR.rng(seed);for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a},
+  // dagens tre: en lätt, en medel och en svår. Varje svårighet går igenom hela sin lista i en blandad ordning innan något upprepas.
+  dagens(platser,version,ds){const nr=PL_MOTOR.dagNr(ds);
+    return [1,2,3].map(sv=>{const pool=platser.filter(p=>p.sv===sv).map(p=>p.id).sort();if(!pool.length)return null;
+      const n=pool.length,varv=Math.floor(nr/n),ord=v=>PL_MOTOR.blanda(pool,PL_MOTOR.hash(version+'|'+sv+'|'+v));
+      const o=ord(varv);
+      // vid skarven mellan två varv: samma plats ska inte komma två dagar i rad
+      if(n>1&&o[0]===ord(varv-1)[n-1])[o[0],o[1]]=[o[1],o[0]];
+      return o[nr%n]}).filter(Boolean)},
+  avstand(lat1,lon1,lat2,lon2){const R=6371008.8,r=Math.PI/180,dl=(lat2-lat1)*r,dn=(lon2-lon1)*r;
+    const a=Math.sin(dl/2)**2+Math.cos(lat1*r)*Math.cos(lat2*r)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.min(1,Math.sqrt(a)))},
+  poang(m){if(!(m>=0))return 0;if(m<=50)return 1000;return Math.max(0,Math.min(1000,Math.round(1000*Math.exp(-(m-50)/2000))))},
+  ruta(p){return p>=800?'🟩':p>=400?'🟨':p>=100?'🟧':'⬜'}
+};
+const PL_NYCKEL='orebro360.platsen.v1';let PL=null,plMinne=null,plTillst=null;   // plTillst: {lage:'dag'|'ovning', ids, svar[], steg}
+function plLas(){try{const v=localStorage.getItem(PL_NYCKEL);if(v)return JSON.parse(v)}catch(e){}return plMinne||{}}
+function plSpara(d){plMinne=d;try{localStorage.setItem(PL_NYCKEL,JSON.stringify(d))}catch(e){}}
+const plPlats=id=>PL.platser.find(p=>p.id===id);
+const plDatumText=ds=>{const [y,m,d]=ds.split('-').map(Number);return `${d} ${['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december'][m-1]} ${y}`};
+const plAvst=m=>m<1000?`${fmt(Math.round(m/10)*10)}\u00a0meter`:`${fmt(m/1000,m<10000?1:0)}\u00a0km`;
+const plOmdome=p=>p>=950?'Pricken!':p>=800?'Mycket nära':p>=500?'Nära':p>=200?'Hyfsat':p>=50?'En bit bort':'Långt bort';
+
+/* --- kartan: egen SVG med kommunens områden, sjöar, åar och större vägar; ingen extern kartleverantör --- */
+let plVb=null,plSvg=null,plNal=null,plLast=false,plPek=new Map(),plDrag=null;
+function plHela(){const W=OM.karta.w,H=OM.karta.h,p=120;return [-p,-p,W+2*p,H+2*p]}
+function plStad(){return omBox.stad?omBox.stad.slice():plHela()}
+function plSattVb(vb){const hela=plHela(),minW=120;let [x,y,w,h]=vb;const ar=hela[3]/hela[2],box=plSvg.getBoundingClientRect(),asp=box.height&&box.width?box.height/box.width:ar;
+  w=Math.max(minW,Math.min(hela[2]*1.4,w));h=w*asp;x=Math.max(hela[0]-w*.4,Math.min(hela[0]+hela[2]-w*.6,x));y=Math.max(hela[1]-h*.4,Math.min(hela[1]+hela[3]-h*.6,y));
+  plVb=[x,y,w,h];plSvg.setAttribute('viewBox',plVb.map(v=>v.toFixed(1)).join(' '));plSkala()}
+function plSkala(){const sc=plVb[2]/Math.max(240,plSvg.getBoundingClientRect().width||600);plSvg.style.setProperty('--sc',sc);
+  plSvg.querySelectorAll('[data-r]').forEach(c=>c.setAttribute('r',+c.dataset.r*sc));
+  plSvg.querySelectorAll('text[data-fs]').forEach(t=>{t.style.fontSize=(+t.dataset.fs*sc)+'px';t.style.strokeWidth=(4*sc)+'px';if(t.dataset.dy)t.setAttribute('dy',+t.dataset.dy*sc)})}
+function plStart(u){const vb=u==='stad'?plStad():plHela();const box=plSvg.getBoundingClientRect(),asp=box.height/box.width||1;
+  // passa in hela utsnittet: bredden räknas så att även höjden får plats
+  let w=Math.max(vb[2],vb[3]/asp);plSattVb([vb[0]+vb[2]/2-w/2,vb[1]+vb[3]/2-w*asp/2,w,w*asp]);
+  document.querySelectorAll('#pl-utsnitt .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.u===u))}
+function plZoom(f,cx,cy){const [x,y,w,h]=plVb;cx=cx??x+w/2;cy=cy??y+h/2;const nw=w*f,nh=h*f;plSattVb([cx-(cx-x)*f,cy-(cy-y)*f,nw,nh]);
+  document.querySelectorAll('#pl-utsnitt .chip').forEach(c=>c.setAttribute('aria-pressed','false'))}
+function plPunkt(e){const pt=plSvg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const m=plSvg.getScreenCTM();return m?pt.matrixTransform(m.inverse()):{x:0,y:0}}
+function plRitaKarta(){
+  const host=$('#pl-karta');host.innerHTML='';
+  plSvg=el('svg',{class:'pl-svg','aria-hidden':'true',focusable:'false'},host);
+  const B=PL.bakgrund,W=OM.karta.w,H=OM.karta.h;
+  el('rect',{x:-3000,y:-3000,width:W+6000,height:H+6000,class:'pl-utanfor'},plSvg);
+  const go=el('g',{class:'pl-omr'},plSvg);OM.omraden.forEach(o=>el('path',{d:o.svg,'fill-rule':'evenodd'},go));
+  if(B.sjoar)el('path',{d:B.sjoar,class:'pl-sjo','fill-rule':'evenodd'},plSvg);
+  if(B.aar)el('path',{d:B.aar,class:'pl-a'},plSvg);
+  if(B.vagar2)el('path',{d:B.vagar2,class:'pl-vag2'},plSvg);
+  if(B.vagar)el('path',{d:B.vagar,class:'pl-vag'},plSvg);
+  el('g',{id:'pl-lager'},plSvg);
+  plStart('hela');
+}
+function plRitaNal(){const g=plSvg.querySelector('#pl-lager');g.innerHTML='';if(!plNal)return;
+  const n=el('g',{class:'pl-nal'+(plLast?' last':'')},g);el('circle',{cx:plNal.x,cy:plNal.y,'data-r':9,class:'pl-nal-yta'},n);el('circle',{cx:plNal.x,cy:plNal.y,'data-r':3.5,class:'pl-nal-pkt'},n);plSkala()}
+function plVisaFacit(p,svar){const g=plSvg.querySelector('#pl-lager');g.innerHTML='';
+  el('line',{x1:svar.x,y1:svar.y,x2:p.x,y2:p.y,class:'pl-linje'},g);
+  const n=el('g',{class:'pl-nal last'},g);el('circle',{cx:svar.x,cy:svar.y,'data-r':9,class:'pl-nal-yta'},n);el('circle',{cx:svar.x,cy:svar.y,'data-r':3.5,class:'pl-nal-pkt'},n);
+  const f=el('g',{class:'pl-facit'},g);el('circle',{cx:p.x,cy:p.y,'data-r':11,class:'pl-facit-ring'},f);el('circle',{cx:p.x,cy:p.y,'data-r':5,class:'pl-facit-pkt'},f);
+  const t=el('text',{x:p.x,y:p.y,'data-fs':14,'data-dy':-17,'text-anchor':'middle',class:'pl-facit-lbl'},f);t.textContent=p.n;
+  // visa både nålen och rätt plats
+  const x0=Math.min(p.x,svar.x),x1=Math.max(p.x,svar.x),y0=Math.min(p.y,svar.y),y1=Math.max(p.y,svar.y),pad=Math.max(60,(x1-x0)*.25,(y1-y0)*.25);
+  const box=plSvg.getBoundingClientRect(),asp=box.height/box.width||1;let w=Math.max(x1-x0+2*pad,(y1-y0+2*pad)/asp,220);
+  plSattVb([(x0+x1)/2-w/2,(y0+y1)/2-w*asp/2,w,w*asp]);
+  document.querySelectorAll('#pl-utsnitt .chip').forEach(c=>c.setAttribute('aria-pressed','false'))}
+function plSattNal(x,y){if(plLast||!plTillst)return;plNal={x,y};plRitaNal();$('#pl-las').disabled=false}
+function plKartHandelser(){
+  const host=$('#pl-karta');
+  host.addEventListener('pointerdown',e=>{plPek.set(e.pointerId,{x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY});host.setPointerCapture?.(e.pointerId);
+    if(plPek.size===1)plDrag={vb:plVb.slice(),x:e.clientX,y:e.clientY,flytt:0};else plDrag={...plDrag,pinch:true}});
+  host.addEventListener('pointermove',e=>{const q=plPek.get(e.pointerId);if(!q)return;q.x=e.clientX;q.y=e.clientY;
+    const box=plSvg.getBoundingClientRect(),k=plVb[2]/box.width;
+    if(plPek.size===2){const [a,b]=[...plPek.values()];const d=Math.hypot(a.x-b.x,a.y-b.y);if(plDrag.d0==null){plDrag.d0=d;plDrag.vbp=plVb.slice()}
+      const f=plDrag.d0/d,mx=(a.x+b.x)/2,my=(a.y+b.y)/2,p=plPunkt({clientX:mx,clientY:my});plVb=plDrag.vbp.slice();plZoom(f,p.x,p.y);plDrag.flytt=99;return}
+    if(plPek.size===1&&plDrag&&!plDrag.pinch){const dx=e.clientX-plDrag.x,dy=e.clientY-plDrag.y;plDrag.flytt=Math.max(plDrag.flytt,Math.hypot(dx,dy));
+      if(plDrag.flytt>6){plSattVb([plDrag.vb[0]-dx*k,plDrag.vb[1]-dy*k,plDrag.vb[2],plDrag.vb[3]]);host.classList.add('drar')}}});
+  const slut=e=>{const q=plPek.get(e.pointerId);plPek.delete(e.pointerId);host.classList.remove('drar');
+    if(e.type==='pointerup'&&q&&plPek.size===0&&plDrag&&!plDrag.pinch&&plDrag.flytt<=6){const p=plPunkt(e);plSattNal(p.x,p.y)}
+    if(plPek.size===0)plDrag=null};
+  host.addEventListener('pointerup',slut);host.addEventListener('pointercancel',slut);
+  host.addEventListener('wheel',e=>{e.preventDefault();const p=plPunkt(e);plZoom(e.deltaY>0?1.25:0.8,p.x,p.y)},{passive:false});
+  host.addEventListener('keydown',e=>{
+    if(e.key==='+'||e.key==='='){plZoom(0.7);e.preventDefault();return}
+    if(e.key==='-'||e.key==='_'){plZoom(1.4);e.preventDefault();return}
+    if(e.key==='Enter'||e.key===' '){if(!$('#pl-las').disabled){plLasGissning()}e.preventDefault();return}
+    const steg={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(!steg||plLast||!plTillst)return;e.preventDefault();
+    const d=plVb[2]*(e.shiftKey?0.005:0.03);if(!plNal){plSattNal(plVb[0]+plVb[2]/2,plVb[1]+plVb[3]/2)}else plSattNal(plNal.x+steg[0]*d,plNal.y+steg[1]*d);
+    // håll nålen i bild
+    const [x,y,w,h]=plVb;if(plNal.x<x+w*.08||plNal.x>x+w*.92||plNal.y<y+h*.08||plNal.y>y+h*.92)plSattVb([plNal.x-w/2,plNal.y-h/2,w,h])});
+  document.querySelectorAll('.pl-zk').forEach(b=>b.addEventListener('click',()=>plZoom(b.dataset.z==='in'?0.6:1.6)));
+  $('#pl-utsnitt').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)plStart(b.dataset.u)});
+  addEventListener('resize',()=>{if(plVb)plSattVb(plVb)});
+}
+
+/* --- flödet --- */
+function plProg(){const t=plTillst,ut=[];for(let i=0;i<3;i++){const s=t&&t.svar[i];ut.push(`<span class="pl-pr${s?' klar':''}${t&&i===t.steg&&!s?' nu':''}">${s?`${fmt(s.p)}`:i+1}</span>`)}$('#pl-prog').innerHTML=ut.join('')}
+function plVisaFraga(){const t=plTillst,p=plPlats(t.ids[t.steg]);plLast=false;plNal=null;
+  $('#pl-steg').textContent=(t.lage==='ovning'?'Övning · ':'')+`Plats ${t.steg+1} av 3 · ${['lätt','medel','svår'][p.sv-1]}`;
+  $('#pl-namn').textContent=p.n;$('#pl-ledtrad').textContent=p.ledtrad;
+  $('#pl-las').disabled=true;$('#pl-las').hidden=false;$('#pl-intro').hidden=true;$('#pl-slut').hidden=true;
+  $('#pl-svar').hidden=false;$('#pl-svar').innerHTML=`<p class="pl-uppmaning"><b>Var ligger ${esc(p.n)}?</b> Tryck på kartan där du tror att platsen ligger. Du kan flytta nålen tills du låser.</p>`;
+  plStart('hela');plRitaNal();plProg()}
+function plVisaSvar(){const t=plTillst,p=plPlats(t.ids[t.steg]),s=t.svar[t.steg];plLast=true;plNal={x:s.x,y:s.y};
+  $('#pl-steg').textContent=(t.lage==='ovning'?'Övning · ':'')+`Plats ${t.steg+1} av 3 · ${['lätt','medel','svår'][p.sv-1]}`;
+  $('#pl-namn').textContent=p.n;$('#pl-ledtrad').innerHTML=`<b class="pl-kort-res">${esc(plOmdome(s.p).replace(/!$/,''))}: ${fmt(s.p)}\u00a0poäng</b> · ${s.d<10?'rätt på':esc(plAvst(s.d))+' bort'}`;$('#pl-las').hidden=true;$('#pl-intro').hidden=true;
+  plVisaFacit(p,s);
+  const sista=t.steg>=2,ext=/^https?:/.test(p.lank);
+  $('#pl-svar').hidden=false;$('#pl-svar').innerHTML=`<div class="pl-res" role="status">
+      <span class="pl-omdome">${esc(plOmdome(s.p))}</span>
+      <span class="pl-poang"><b>${fmt(s.p)}</b> poäng</span>
+      <span class="pl-avst">Din nål var ${esc(plAvst(s.d))} från ${esc(p.n)}.</span>
+    </div>
+    <p class="pl-fakta">${esc(p.fakta)}</p>
+    <p class="pl-lankar"><a href="${esc(p.lank)}"${ext?' target="_blank" rel="noopener"':''}>${esc(p.lanktext)}${ext?' ↗':''}</a> · ${hittaLank(p.x,p.y)}</p>
+    <p class="src">Källa: ${esc(p.kalla)}.</p>
+    <button type="button" class="knapp" id="pl-nasta">${sista?'Se resultatet':'Nästa plats'}</button>`;
+  $('#pl-nasta').addEventListener('click',()=>{if(sista)plVisaSlut();else{t.steg++;plSparaTillst();plVisaFraga()}});
+  $('#pl-nasta').focus({preventScroll:true});plProg()}
+function plLasGissning(){if(!plNal||plLast)return;const t=plTillst,p=plPlats(t.ids[t.steg]),ll=kartLL(plNal.x,plNal.y);
+  const d=PL_MOTOR.avstand(ll[0],ll[1],p.lat,p.lon),poang=PL_MOTOR.poang(d);
+  t.svar[t.steg]={x:Math.round(plNal.x*10)/10,y:Math.round(plNal.y*10)/10,d:Math.round(d),p:poang};plSparaTillst();plVisaSvar()}
+function plSparaTillst(){const d=plLas();const t=plTillst;
+  if(t.lage==='dag'){d.dag={datum:t.datum,ver:PL.version,ids:t.ids,svar:t.svar,steg:t.steg};
+    if(t.svar.length===3&&t.svar.every(Boolean)){d.resultat=d.resultat||{};if(!d.resultat[t.datum])d.resultat[t.datum]={p:t.svar.reduce((a,s)=>a+s.p,0),rundor:t.svar.map(s=>s.p)}}}
+  else d.ovning={ids:t.ids,svar:t.svar,steg:t.steg};
+  plSpara(d)}
+function plDelaText(datum,rundor){const tot=rundor.reduce((a,b)=>a+b,0);return `Var ligger platsen? ${plDatumText(datum)}\n${rundor.map(PL_MOTOR.ruta).join('')} ${fmt(tot)} av 3 000 poäng\nhttps://orebro360.se/platsen.html`}
+function plVisaSlut(){const t=plTillst,tot=t.svar.reduce((a,s)=>a+s.p,0);$('#pl-svar').hidden=true;$('#pl-slut').hidden=false;$('#pl-intro').hidden=true;
+  const d=plLas(),dagRes=d.resultat&&d.resultat[plDagensDatum()];
+  const rader=t.ids.map((id,i)=>{const p=plPlats(id),s=t.svar[i];return `<li><span class="pl-sr-namn">${esc(p.n)}</span><span class="pl-sr-d">${esc(plAvst(s.d))}</span><span class="pl-sr-p">${fmt(s.p)}</span></li>`}).join('');
+  const morgon=new Date(Date.now()+864e5);
+  $('#pl-slut').innerHTML=`<span class="label">${t.lage==='ovning'?'Övning klar':'Dagens resultat'}</span>
+    <p class="pl-total"><b>${fmt(tot)}</b> av 3 000 poäng</p>
+    ${t.lage==='ovning'&&dagRes?`<p class="small">Ditt resultat i dagens omgång är fortfarande ${fmt(dagRes.p)} poäng. Övningen räknas inte.</p>`:''}
+    <ol class="pl-sammanfattning">${rader}</ol>
+    ${t.lage==='dag'?`<div class="pl-dela-rad"><button type="button" class="knapp" id="pl-dela">Dela resultat</button><span class="small" id="pl-dela-svar" role="status"></span></div>
+    <textarea class="pl-dela-text" id="pl-dela-text" readonly hidden rows="3"></textarea>
+    <p class="small">Delningen visar datum och poäng men inte platserna. Nya platser kommer vid midnatt, ${esc(plDatumText(PL_MOTOR.datum(morgon)))}.</p>`:''}
+    <button type="button" class="knapp-l" id="pl-ova">${t.lage==='ovning'?'Öva igen med tre nya platser':'Öva med tre andra platser'}</button>`;
+  if(t.lage==='dag')$('#pl-dela').addEventListener('click',()=>plDela(t.datum,t.svar.map(s=>s.p)));
+  $('#pl-ova').addEventListener('click',plNyOvning);
+  $('#pl-steg').textContent=t.lage==='ovning'?'Övning':'Klart för i dag';$('#pl-namn').textContent=`${fmt(tot)} poäng`;$('#pl-ledtrad').textContent='';plProg()}
+async function plDela(datum,rundor){const text=plDelaText(datum,rundor),svar=$('#pl-dela-svar');
+  try{if(navigator.share){await navigator.share({text});return}}catch(e){if(e&&e.name==='AbortError')return}
+  try{await navigator.clipboard.writeText(text);svar.textContent='Kopierat! Klistra in var du vill.';return}catch(e){}
+  const ta=$('#pl-dela-text');ta.hidden=false;ta.value=text;ta.focus();ta.select();svar.textContent='Markera och kopiera texten.'}
+function plDagensDatum(){return PL_MOTOR.datum()}
+function plNyOvning(){const d=plLas(),idag=(d.dag&&d.dag.datum===plDagensDatum())?d.dag.ids:[];
+  const kvar=PL.platser.filter(p=>!idag.includes(p.id)),r=PL_MOTOR.rng(Date.now()&0xffffffff);
+  const val=[1,2,3].map(sv=>{const a=kvar.filter(p=>p.sv===sv);return a[Math.floor(r()*a.length)].id});
+  plTillst={lage:'ovning',ids:val,svar:[],steg:0};plSparaTillst();plVisaFraga();$('#pl-karta').scrollIntoView({behavior:'smooth',block:'center'})}
+function plStartaDagens(){const ds=plDagensDatum(),d=plLas();
+  let ids=(d.dag&&d.dag.datum===ds&&d.dag.ids.every(plPlats))?d.dag.ids:PL_MOTOR.dagens(PL.platser,PL.version,ds);
+  const svar=(d.dag&&d.dag.datum===ds&&d.dag.ids.join()===ids.join())?(d.dag.svar||[]):[];
+  const antal=svar.filter(Boolean).length,sparat=d.dag&&d.dag.datum===ds?d.dag.steg:null;
+  // samma runda som innan omladdningen: ett låst svar visas igen, annars nästa olåsta plats
+  const steg=Number.isInteger(sparat)&&sparat>=0&&sparat<=2&&sparat<=antal?sparat:Math.min(2,antal);
+  plTillst={lage:'dag',datum:ds,ids,svar,steg};plSparaTillst();
+  if(svar.filter(Boolean).length===3)plVisaSlut();else if(svar[plTillst.steg])plVisaSvar();else plVisaFraga()}
+function initPlatsen(){
+  OM.omraden.forEach(o=>o._box=pathBox(o.svg));omStad();
+  try{plRitaKarta();plKartHandelser()}catch(e){console.error(e);felText('#pl-karta','Kartan kunde inte ritas. Ladda om sidan.');return}
+  $('#pl-las').addEventListener('click',plLasGissning);
+  $('#pl-start').addEventListener('click',()=>{plStartaDagens();$('#pl-karta').scrollIntoView({behavior:'smooth',block:'center'})});
+  const ds=plDagensDatum(),d=plLas();
+  $('#pl-lead').textContent=`Tre platser i Örebro kommun varje dag, i dag ${plDatumText(ds)}. Sätt ut en nål där du tror att platsen ligger och se hur nära du kom.`;
+  // fortsätt där man var: en pågående eller avslutad dagsomgång, annars introduktionen
+  if(d.dag&&d.dag.datum===ds&&(d.dag.svar||[]).some(Boolean))plStartaDagens();
+  else{$('#pl-steg').textContent=plDatumText(ds);$('#pl-namn').textContent='Dagens tre platser';$('#pl-ledtrad').textContent='en lätt, en medel och en svår';plProg()}
+  if(d.resultat&&d.resultat[ds]&&!(d.dag&&d.dag.datum===ds)){$('#pl-start').textContent='Visa dagens resultat'}
+}
+
 /* ===== Sök på allt (startsidan). Indexet sok.json laddas först när man börjar skriva. ===== */
 let SOK=null,sokLaddar=null,sokAktiv=-1,sokTraffar=[];
 const SOK_TYP={j:'Hundlekplats',y:'Lekplats',p:'Park',u:'Utegym',c:'Återvinning',k:'Hållplats',b:'Badplats',w:'Dricksvatten',t:'Ämne',o:'Område',r:'Livsmedel',s:'Skola',f:'Förskola',v:'Vårdcentral',a:'Äldreboende',h:'Hemtjänst',l:'Leverantör',d:'Valdistrikt'};
@@ -1829,6 +2010,9 @@ function renderStart(S){
     break;
   case 'narmiljo':
     try{[OM,NM]=await Promise.all([load('omraden'),load('narmiljo')]);initNarmiljo()}catch(e){console.error(e);felText('#nm-lead','Kunde inte läsa in datan om lekplatser och återvinning.')}
+    break;
+  case 'platsen':
+    try{[OM,PL]=await Promise.all([load('omraden'),load('spel')]);initPlatsen()}catch(e){console.error(e);felText('#pl-karta','Kunde inte läsa in spelet. Ladda om sidan.')}
     break;
   case 'buss':
     try{[OM,KT]=await Promise.all([load('omraden'),load('kollektiv')]);ktTillOm();initBuss()}catch(e){console.error(e);felText('#bu-lead','Kunde inte läsa in bussdatan.')}
