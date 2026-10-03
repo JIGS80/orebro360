@@ -1850,10 +1850,12 @@ function plKartHandelser(){
 
 /* --- flödet --- */
 function plProg(){const t=plTillst,ut=[];for(let i=0;i<3;i++){const s=t&&t.svar[i];ut.push(`<span class="pl-pr${s?' klar':''}${t&&i===t.steg&&!s?' nu':''}">${s?`${fmt(s.p)}`:i+1}</span>`)}$('#pl-prog').innerHTML=ut.join('')}
+const plMobil=()=>matchMedia('(max-width:900px)').matches;
+const plRulla=el=>{if(!el)return;el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})};
 function plVisaFraga(){const t=plTillst,p=plPlats(t.ids[t.steg]);plLast=false;plNal=null;
   $('#pl-steg').textContent=(t.lage==='ovning'?'Övning · ':'')+`Plats ${t.steg+1} av 3 · ${['lätt','medel','svår'][p.sv-1]}`;
   $('#pl-namn').textContent=p.n;$('#pl-ledtrad').textContent=p.ledtrad;
-  $('#pl-las').disabled=true;$('#pl-las').hidden=false;$('#pl-intro').hidden=true;$('#pl-slut').hidden=true;
+  $('#pl-las').disabled=true;$('#pl-las').hidden=false;$('#pl-vidare').hidden=true;$('#pl-om-lank').hidden=true;$('#pl-intro').hidden=true;$('#pl-slut').hidden=true;
   $('#pl-svar').hidden=false;$('#pl-svar').innerHTML=`<p class="pl-uppmaning"><b>Var ligger ${esc(p.n)}?</b> Tryck på kartan där du tror att platsen ligger. Du kan flytta nålen tills du låser.</p>`;
   plStart('hela');plRitaNal();plProg()}
 function plVisaSvar(){const t=plTillst,p=plPlats(t.ids[t.steg]),s=t.svar[t.steg];plLast=true;plNal={x:s.x,y:s.y};
@@ -1870,8 +1872,11 @@ function plVisaSvar(){const t=plTillst,p=plPlats(t.ids[t.steg]),s=t.svar[t.steg]
     <p class="pl-lankar"><a href="${esc(p.lank)}"${ext?' target="_blank" rel="noopener"':''}>${esc(p.lanktext)}${ext?' ↗':''}</a> · ${hittaLank(p.x,p.y)}</p>
     <p class="src">Källa: ${esc(p.kalla)}.</p>
     <button type="button" class="knapp" id="pl-nasta">${sista?'Se resultatet':'Nästa plats'}</button>`;
-  $('#pl-nasta').addEventListener('click',()=>{if(sista)plVisaSlut();else{t.steg++;plSparaTillst();plVisaFraga()}});
-  $('#pl-nasta').focus({preventScroll:true});plProg()}
+  const vidare=()=>{if(sista){plVisaSlut();if(plMobil())plRulla($('#pl-panel'))}else{t.steg++;plSparaTillst();plVisaFraga();if(plMobil())plRulla($('.pl-kartpanel'))}};
+  $('#pl-nasta').addEventListener('click',vidare);
+  // på mobilen ligger rutan med fakta under kartan; knappen bredvid kartan gör att man slipper skrolla
+  const v=$('#pl-vidare');v.textContent=sista?'Se resultatet':'Nästa plats';v.hidden=false;v.onclick=vidare;$('#pl-om-lank').hidden=false;
+  (plMobil()?v:$('#pl-nasta')).focus({preventScroll:true});plProg()}
 function plLasGissning(){if(!plNal||plLast)return;const t=plTillst,p=plPlats(t.ids[t.steg]),ll=kartLL(plNal.x,plNal.y);
   const d=PL_MOTOR.avstand(ll[0],ll[1],p.lat,p.lon),poang=PL_MOTOR.poang(d);
   t.svar[t.steg]={x:Math.round(plNal.x*10)/10,y:Math.round(plNal.y*10)/10,d:Math.round(d),p:poang};plSparaTillst();plVisaSvar()}
@@ -1881,7 +1886,7 @@ function plSparaTillst(){const d=plLas();const t=plTillst;
   else d.ovning={ids:t.ids,svar:t.svar,steg:t.steg};
   plSpara(d)}
 function plDelaText(datum,rundor){const tot=rundor.reduce((a,b)=>a+b,0);return `Var ligger platsen? ${plDatumText(datum)}\n${rundor.map(PL_MOTOR.ruta).join('')} ${fmt(tot)} av 3 000 poäng\nhttps://orebro360.se/platsen.html`}
-function plVisaSlut(){const t=plTillst,tot=t.svar.reduce((a,s)=>a+s.p,0);$('#pl-svar').hidden=true;$('#pl-slut').hidden=false;$('#pl-intro').hidden=true;
+function plVisaSlut(){const t=plTillst,tot=t.svar.reduce((a,s)=>a+s.p,0);$('#pl-svar').hidden=true;$('#pl-vidare').hidden=true;$('#pl-om-lank').hidden=true;$('#pl-las').hidden=true;$('#pl-slut').hidden=false;$('#pl-intro').hidden=true;
   const d=plLas(),dagRes=d.resultat&&d.resultat[plDagensDatum()];
   const rader=t.ids.map((id,i)=>{const p=plPlats(id),s=t.svar[i];return `<li><span class="pl-sr-namn">${esc(p.n)}</span><span class="pl-sr-d">${esc(plAvst(s.d))}</span><span class="pl-sr-p">${fmt(s.p)}</span></li>`}).join('');
   const morgon=new Date(Date.now()+864e5);
@@ -1904,7 +1909,7 @@ function plDagensDatum(){return PL_MOTOR.datum()}
 function plNyOvning(){const d=plLas(),idag=(d.dag&&d.dag.datum===plDagensDatum())?d.dag.ids:[];
   const kvar=PL.platser.filter(p=>!idag.includes(p.id)),r=PL_MOTOR.rng(Date.now()&0xffffffff);
   const val=[1,2,3].map(sv=>{const a=kvar.filter(p=>p.sv===sv);return a[Math.floor(r()*a.length)].id});
-  plTillst={lage:'ovning',ids:val,svar:[],steg:0};plSparaTillst();plVisaFraga();$('#pl-karta').scrollIntoView({behavior:'smooth',block:'center'})}
+  plTillst={lage:'ovning',ids:val,svar:[],steg:0};plSparaTillst();plVisaFraga();if(plMobil())plRulla($('.pl-kartpanel'));else $('#pl-karta').scrollIntoView({behavior:'smooth',block:'center'})}
 function plStartaDagens(){const ds=plDagensDatum(),d=plLas();
   let ids=(d.dag&&d.dag.datum===ds&&d.dag.ids.every(plPlats))?d.dag.ids:PL_MOTOR.dagens(PL.platser,PL.version,ds);
   const svar=(d.dag&&d.dag.datum===ds&&d.dag.ids.join()===ids.join())?(d.dag.svar||[]):[];
@@ -1917,7 +1922,7 @@ function initPlatsen(){
   OM.omraden.forEach(o=>o._box=pathBox(o.svg));omStad();
   try{plRitaKarta();plKartHandelser()}catch(e){console.error(e);felText('#pl-karta','Kartan kunde inte ritas. Ladda om sidan.');return}
   $('#pl-las').addEventListener('click',plLasGissning);
-  $('#pl-start').addEventListener('click',()=>{plStartaDagens();$('#pl-karta').scrollIntoView({behavior:'smooth',block:'center'})});
+  $('#pl-start').addEventListener('click',()=>{plStartaDagens();if(!$('#pl-slut').hidden)plRulla($('#pl-panel'));else if(plMobil())plRulla($('.pl-kartpanel'));else $('#pl-karta').scrollIntoView({behavior:'smooth',block:'center'})});
   const ds=plDagensDatum(),d=plLas();
   $('#pl-lead').textContent=`Tre platser i Örebro kommun varje dag, i dag ${plDatumText(ds)}. Sätt ut en nål där du tror att platsen ligger och se hur nära du kom.`;
   // fortsätt där man var: en pågående eller avslutad dagsomgång, annars introduktionen

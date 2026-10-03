@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#008572">
 <link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/stil.css?v=5f24b65e">
+<link rel="stylesheet" href="assets/stil.css?v=63b687bf">
 </head>
 <body data-sida="platsen">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
@@ -91,16 +91,18 @@
         </div>
         <div class="pl-kartram">
           <div class="pl-karta" id="pl-karta" tabindex="0" role="application" aria-label="Karta över Örebro kommun. Tryck eller klicka för att sätta ut nålen. Med tangentbordet: piltangenterna flyttar nålen, plus och minus zoomar, Enter låser gissningen." aria-describedby="pl-tangent"></div>
+          <div class="chips pl-utsnitt" role="group" aria-label="Kartans utsnitt" id="pl-utsnitt"><button class="chip" type="button" data-u="hela">Hela kommunen</button><button class="chip" type="button" data-u="stad">Staden</button></div>
           <div class="pl-zoom" role="group" aria-label="Zoom">
             <button type="button" class="pl-zk" data-z="in" aria-label="Zooma in">+</button>
             <button type="button" class="pl-zk" data-z="ut" aria-label="Zooma ut">−</button>
           </div>
         </div>
         <div class="pl-under">
-          <div class="chips" role="group" aria-label="Kartans utsnitt" id="pl-utsnitt"><button class="chip" type="button" data-u="hela">Hela kommunen</button><button class="chip" type="button" data-u="stad">Staden</button></div>
           <button type="button" class="knapp pl-las" id="pl-las" disabled>Lås min gissning</button>
+          <button type="button" class="knapp pl-las pl-vidare" id="pl-vidare" hidden>Nästa plats</button>
+          <a href="#pl-panel" class="pl-om-lank" id="pl-om-lank" hidden>Om platsen ↓</a>
         </div>
-        <p class="src" id="pl-tangent">Tryck på kartan för att sätta ut nålen; du kan flytta den tills du låser. Dra för att flytta kartan och nyp eller använd + och − för att zooma. Tangentbord: piltangenterna flyttar nålen (Skift för små steg), + och − zoomar, Enter låser.</p>
+        <p class="src" id="pl-tangent">Tryck på kartan för att sätta ut nålen; du kan flytta den tills du låser. Dra för att flytta kartan och nyp eller använd + och − för att zooma.<span class="pl-tangentbord"> Tangentbord: piltangenterna flyttar nålen (Skift för små steg), + och − zoomar, Enter låser.</span></p>
       </div>
 
       <div class="panel pl-sida-panel" id="pl-panel">
@@ -176,7 +178,7 @@
     <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
   </div>
 </footer>
-<script src="assets/app.js?v=6e6fe44f"></script>
+<script src="assets/app.js?v=cce3ced7"></script>
 <script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>
