@@ -1725,7 +1725,7 @@ async function miRemsa(S){
   const host=$('#mi-remsa'),sel=$('#hitta-omr');if(!host)return;
   const k=miHamta();let m=null;
   if(k){try{await miData();m=MI.omraden[k]}catch(e){}}
-  if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').textContent='Var bor du? Välj ditt område och se närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral, med vägbeskrivning.';return}
+  if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').innerHTML='Var bor du?<span class="lead-lang"> Välj ditt område och se närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral, med vägbeskrivning.</span><span class="lead-kort"> Se hållplats, lekplats, skola och vårdcentral närmast dig.</span>';return}
   if(sel)sel.value=k;$('#hitta-lbl').textContent='Ditt område';
   const fakta=[`${fmt(m.inv)} invånare`,`${fmt(m.rk30)} ${m.rk30===1?'livsmedelskontroll':'livsmedelskontroller'} senaste 30 dagarna`];
   const ritaRemsa=nara=>{host.innerHTML=`<div class="wrap mi-remsa-in"><a class="mi-remsa-txt" href="mitt.html"><span class="label">Ditt område</span><b>${esc(m.namn)}</b><span class="mi-remsa-fakta">${fakta.map(esc).join(' · ')}</span></a>
@@ -2284,6 +2284,8 @@ const hashKod=()=>decodeURIComponent(location.hash.slice(1));
 function renderStart(S){
   document.querySelectorAll('[data-tema]').forEach(a=>{const t=S.teman[a.dataset.tema]||(S.extra||{})[a.dataset.tema];if(!t)return;
     a.querySelector('.v').textContent=t.v;a.querySelector('.s').textContent=t.s});
+  document.querySelectorAll('[data-nu]').forEach(e=>{const t=S.teman[e.dataset.nu];if(t)e.textContent=t.v});
+  {const e=$('#nu-ljus');if(e){try{const [y,m,d]=stockholmIdag();const n=solMin(solDag(y,m,d));e.innerHTML=`${Math.floor(n/60)}<small> h </small>${n%60}<small> min</small>`;e.setAttribute('aria-label',`${Math.floor(n/60)} timmar ${n%60} minuter`)}catch(x){e.closest('a').hidden=true}}}
   document.querySelectorAll('[data-utf]').forEach(a=>{const t=(S.utforska||{})[a.dataset.utf];if(t)a.querySelector('.utf-v').textContent=t});
   const sel=$('#hitta-omr');if(!sel)return;
   sel.innerHTML='<option value="">Välj ditt område</option>'+S.omraden.map(([k,n])=>`<option value="${k}">${esc(n)}</option>`).join('');

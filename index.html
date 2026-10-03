@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#008572">
 <link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/stil.css?v=806e8ffe">
+<link rel="stylesheet" href="assets/stil.css?v=3edd4544">
 </head>
 <body data-sida="start">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
@@ -79,7 +79,12 @@
       <div class="kicker"><span class="label">Öppen data om Örebro kommun</span><span class="coords">59°16′N 15°13′E · kommunkod 1880</span></div>
       <h1 class="wordmark">Örebro<span>360</span></h1>
       <p class="tagline">Örebro i siffror</p>
-      <p class="lead">Här ser du hur det ser ut där du bor, när restaurangen senast kontrollerades, hur det går i skolorna och vart kommunens pengar går. Allt kommer från öppna källor och uppdateras varje vecka.</p>
+      <p class="lead"><span class="lead-lang">Här ser du hur det ser ut där du bor, när restaurangen senast kontrollerades, hur det går i skolorna och vart kommunens pengar går. Allt kommer från öppna källor och uppdateras varje vecka.</span><span class="lead-kort">Där du bor, i skolorna, på restaurangerna och i kommunens kassa. Från öppna källor, uppdaterat varje vecka.</span></p>
+      <div class="nu" role="group" aria-label="Örebro just nu">
+        <a class="nu-k" href="befolkning.html"><span class="nu-v" data-nu="befolkning">&nbsp;</span><span class="nu-s">invånare</span></a>
+        <a class="nu-k" href="vader.html#g-ljus"><span class="nu-v" id="nu-ljus">&nbsp;</span><span class="nu-s">dagsljus i dag</span></a>
+        <a class="nu-k" href="natur.html"><span class="nu-v" data-nu="natur">&nbsp;</span><span class="nu-s">arter sågs förra veckan</span></a>
+      </div>
       <form class="sok" id="sok-form" role="search">
         <label for="sok-q">Sök på allt</label>
         <div class="sok-ruta">
@@ -89,10 +94,10 @@
         <ul id="sok-lista" class="sok-lista" role="listbox" aria-label="Sökträffar" hidden></ul>
       </form>
       <form class="hitta liten" id="hitta">
-        <label for="hitta-omr" id="hitta-lbl">Var bor du? Välj ditt område och se närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral, med vägbeskrivning.</label>
+        <label for="hitta-omr" id="hitta-lbl">Var bor du?<span class="lead-lang"> Välj ditt område och se närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral, med vägbeskrivning.</span><span class="lead-kort"> Se hållplats, lekplats, skola och vårdcentral närmast dig.</span></label>
         <div class="hitta-rad">
           <select id="hitta-omr"><option value="">Välj ditt område</option></select>
-          <button type="submit">Visa mitt Örebro</button>
+          <button type="submit">Visa<span class="lead-lang"> mitt Örebro</span></button>
         </div>
       </form>
     </div>
@@ -291,7 +296,7 @@
     <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
   </div>
 </footer>
-<script src="assets/app.js?v=8ea92c11"></script>
+<script src="assets/app.js?v=ed0122a6"></script>
 <script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>
