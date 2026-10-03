@@ -2101,7 +2101,11 @@ async function delaOppna(d){
   const fil=new File([blob],'orebro360.png',{type:'image/png'});
   const kanDela=!!(navigator.canShare&&navigator.canShare({files:[fil]}));
   $('#dela-dela').hidden=!kanDela;$('#dela-ladda').href=burl;
-  $('#dela-dela').onclick=async()=>{try{await navigator.share({files:[fil],title:d.etikett,text:`${d.varde}: ${d.text} ${url}`})}catch(e){}};
+  $('#dela-dela').onclick=async()=>{const not=$('#dela-not');
+    try{await navigator.share({files:[fil],title:d.etikett,text:`${d.varde}: ${d.text} ${url}`});return}catch(e){if(e&&e.name==='AbortError')return}
+    // en del telefoner vägrar dela bilden; dela då länken, och annars visa vad man kan göra i stället
+    try{await navigator.share({title:d.etikett,text:`${d.varde}: ${d.text}`,url});return}catch(e){if(e&&e.name==='AbortError')return}
+    not.textContent='Telefonen lät oss inte öppna delningen. Tryck på Spara bilden och dela den från bilderna, eller kopiera länken.'};
   $('#dela-kopiera').onclick=async()=>{try{await navigator.clipboard.writeText(url);$('#dela-not').textContent='Länken är kopierad: '+url}catch(e){$('#dela-not').textContent='Länken: '+url}};
 }
 // en dela-knapp i varje nyckeltalsruta (.stat), även de som ritas senare

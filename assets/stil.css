@@ -450,10 +450,10 @@ h1.sida-h{font-size:clamp(1.8rem,4.4vw,2.6rem);letter-spacing:-.015em}
 .wordmark span{font-family:var(--f-data);font-weight:500;color:var(--accent-text);letter-spacing:-.07em;margin-left:.02em}
 .tagline{font-family:var(--f-display);font-weight:500;font-size:clamp(1.25rem,2.6vw,1.6rem);color:var(--ink);margin-top:-4px}
 .hero .lead{max-width:52ch}
-.hitta{display:grid;gap:6px;margin-top:10px;max-width:520px}
+.hitta{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;margin-top:10px;max-width:520px}
 .hitta label{font-weight:600;font-size:.95rem}
 .hitta-rad{display:flex;gap:8px;flex-wrap:wrap}
-.hitta select{font:inherit;flex:1 1 220px;min-width:0;padding:11px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.hitta select{font:inherit;flex:1 1 220px;min-width:0;width:0;padding:11px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 .hitta button,.knapp{font:inherit;font-weight:600;padding:11px 16px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap}
 .hitta button:hover,.knapp:hover{filter:brightness(1.08)}
 .hero-dial{display:flex;justify-content:center}
