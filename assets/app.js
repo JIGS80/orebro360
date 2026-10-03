@@ -1585,7 +1585,7 @@ function busRader(b){const n=b.nara,c=b.centrum||{},rader=[];
 function miBuss(k){const p=$('#mi-bu-p');if(!p)return;const b=KT&&KT.omraden[k];p.hidden=!b;if(!b)return;
   $('#mi-bu-sum').textContent=`${fmt(b.turer)} bussturer stannar i området eller precis utanför en vanlig vardag, ${fmt(b.per1000)} per 1 000 invånare. För en genomsnittlig örebroare är det ${fmt(KT.kommun.per1000)}.`;
   $('#mi-bu').innerHTML=busRader(b);
-  $('#mi-bu-src').innerHTML=`Länstrafiken Örebros tidtabell för ${ktDag()} via Trafiklab. Tåg ingår inte. Avstånden är fågelvägen från områdets centrum. <a href="buss.html#omr=${k}">Jämför alla områden på sidan Bussen</a> · sök resa på <a href="https://www.lanstrafiken.se/" target="_blank" rel="noopener">lanstrafiken.se</a>.`;
+  $('#mi-bu-src').innerHTML=`Länstrafiken Örebros tidtabell för ${ktDag()} via Trafiklab. Tåg ingår inte. Avstånden är fågelvägen från områdets centrum. <a href="buss.html#omr=${k}">Jämför alla områden på sidan Bussen</a> · avgångar och linjer: ${ltLank('sök hållplatsen hos Länstrafiken')}.`;
 }
 
 /* ===== Sidan Bussen: alla områden, karta och tabell ===== */
@@ -1616,8 +1616,11 @@ function buValt(){
   $('#bu-namn').textContent=o.namn;
   $('#bu-sum').textContent=`${fmt(b.turer)} bussturer en vanlig vardag · ${fmt(b.per1000)} per 1 000 invånare · plats ${rank} av ${Object.keys(KT.omraden).length}`;
   $('#bu-valt').innerHTML=busRader(b);
-  $('#bu-mitt').innerHTML=miHamta()===o.kod?`${miTag('Ditt område')} <a href="mitt.html">Se allt om ditt område i Mitt Örebro</a>`:`<a href="mitt.html#${o.kod}">Se allt om ${esc(o.namn)} i Mitt Örebro</a>`;
+  const hn=b.stort?'hållplatserna':esc(b.nara?.n||'hållplatsen');
+  $('#bu-mitt').innerHTML=`<span class="bu-lt">Avgångar och linjer från ${hn}: ${ltLank('sök hållplatsen hos Länstrafiken')}</span>`+(miHamta()===o.kod?`${miTag('Ditt område')} <a href="mitt.html">Se allt om ditt område i Mitt Örebro</a>`:`<a href="mitt.html#${o.kod}">Se allt om ${esc(o.namn)} i Mitt Örebro</a>`);
 }
+const LT_HPL='https://www.lanstrafiken.se/reseplanering/hallplatser-och-linjer/hitta-din-hallplats/';
+const ltLank=t=>`<a href="${LT_HPL}" target="_blank" rel="noopener">${t}<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (Länstrafiken, öppnas i ny flik)</span></a>`;
 const BU_KOL=[['namn','Område',1],['turer','Turer per vardag'],['per1000','Per 1 000 inv.'],['min','Min till centrum'],['rus','Avgångar 7–8'],['hpl','Närmaste hållplats',1]];
 function buTabell(){
   const mitt=miHamta();
