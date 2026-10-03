@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#008572">
 <link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/stil.css?v=3edd4544">
+<link rel="stylesheet" href="assets/stil.css?v=a8d67ecf">
 </head>
 <body data-sida="om">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
@@ -130,7 +130,7 @@
     <div class="panel">
       <h2 class="om-h">Personuppgifter och kakor</h2>
       <ul class="om-lista">
-        <li><b>Inga kakor.</b> Vi räknar besök med <a href="https://www.goatcounter.com/">GoatCounter</a>, en räknare med öppen källkod som inte använder kakor och inte sparar IP-adresser eller enskilda besök. Den sparar bara sammanräknade siffror: hur många som besökt varje sida, varifrån de kom (till exempel en länk på Facebook), vilken sorts webbläsare och vilket land. Vi kan inte se vem du är. Statistiken är öppen för alla på <a href="https://orebro360.goatcounter.com">orebro360.goatcounter.com</a>. Har du en annonsblockerare blir du troligen inte räknad, och det är helt i sin ordning. Typsnitten ligger på samma server som sidan.</li>
+        <li><b>Inga kakor.</b> Vi räknar besök med <a href="https://www.goatcounter.com/">GoatCounter</a>, en räknare med öppen källkod som inte använder kakor och inte sparar IP-adresser eller enskilda besök. Den sparar bara sammanräknade siffror: hur många som besökt varje sida, varifrån de kom (till exempel en länk på Facebook), vilken sorts webbläsare och vilket land. Vi kan inte se vem du är. Statistiken är öppen för alla på <a href="https://orebro360.goatcounter.com">orebro360.goatcounter.com</a>. Har du en annonsblockerare blir du troligen inte räknad, och det är helt i sin ordning. Vill du inte bli räknad alls kan du stänga av räknaren för dig själv här nedanför. Typsnitten ligger på samma server som sidan.</li>
         <li><b>Mitt Örebro.</b> Om du väljer ditt område sparas valet i din egen webbläsare, så att sidan kommer ihåg det nästa gång. Det skickas aldrig till oss eller någon annan. Du tar bort det med knappen Glöm mitt val, eller genom att rensa webbplatsdata i webbläsaren.</li>
         <li><b>Hitta hit</b> öppnar en vägbeskrivning i Google Maps i en ny flik. Då får Google veta platsens läge, till exempel en lekplats eller vårdcentral, men inte vilket område du har valt hos oss. Ingenting skickas till Google förrän du klickar.</li>
         <li><b>Gissa siffran</b> sparar dina gissningar och vilka frågor du redan har gissat på i webbläsaren på samma sätt, så att du kan fortsätta senare och får nya frågor nästa gång. De skickas inte till oss. <b>Dela-knapparna</b> ritar bilden i din egen webbläsare; ingenting laddas upp förrän du själv väljer att dela.</li>
@@ -138,6 +138,13 @@
         <li>Verksamheter som kommunen räknar som livsmedelshantering i hemlik miljö, till exempel gruppboenden och bed and breakfast, visas utan adress och utan plats på kartan, eftersom det kan vara någons bostad.</li>
         <li>Övriga uppgifter på sidan är statistik om grupper och områden och innehåller inga uppgifter om enskilda personer.</li>
       </ul>
+      <div class="gc-val" id="gc-val" hidden>
+        <div>
+          <p class="gc-text" id="gc-text" role="status" aria-live="polite"></p>
+          <p class="small" id="gc-not">Valet sparas bara i den här webbläsaren på den här enheten, på samma sätt som räknaren själv gör, och skickas inte till oss. Använder du flera webbläsare eller enheter gör du valet i var och en. Rensar du webbplatsdata börjar räknaren räkna igen.</p>
+        </div>
+        <button type="button" class="knapp knapp-2" id="gc-knapp"></button>
+      </div>
     </div>
 
     <div class="panel" id="status">
@@ -223,7 +230,7 @@
     <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
   </div>
 </footer>
-<script src="assets/app.js?v=ed0122a6"></script>
+<script src="assets/app.js?v=ea6cea0f"></script>
 <script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>

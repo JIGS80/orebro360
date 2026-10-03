@@ -1185,3 +1185,10 @@ footer.site p.small a{display:inline-block;padding:3px 0}
   .hitta.liten button{padding:10px 16px}
 }
 @media (max-width:360px){.nu{gap:6px}.nu-k{padding:8px 7px}.nu-v{font-size:1rem}.nu-s{font-size:.74rem}}
+
+/* Om-sidan: räkna inte mina besök */
+.gc-val{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 20px;align-items:center;margin-top:14px;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--r);background:var(--surface)}
+.gc-val.gc-av{border-left-color:var(--muted)}
+.gc-text{margin:0 0 4px}
+.gc-val .small{margin:0}
+@media (max-width:640px){.gc-val{grid-template-columns:1fr}.gc-val .knapp{justify-self:start}}

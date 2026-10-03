@@ -2266,6 +2266,21 @@ function renderStatus(S){
 
 /* ===== Sidladdning: varje sida hämtar bara sin egen data (body data-sida) ===== */
 let BEF,VAL,rt;
+/* Om-sidan: stäng av besöksräknaren för sig själv. Samma inställning som GoatCounters #toggle-goatcounter
+   (localStorage skipgc = 't'), men utan dialogrutor och med läget synligt. */
+function initGc(){
+  const box=$('#gc-val');if(!box)return;
+  let ls=null;try{ls=window.localStorage;ls.getItem('skipgc')}catch(e){ls=null}
+  box.hidden=false;
+  const txt=$('#gc-text'),kn=$('#gc-knapp');
+  if(!ls){txt.innerHTML='<b>Din webbläsare låter inte sidan spara valet</b>, så det går inte att stänga av räknaren här. En annonsblockerare stoppar den också.';kn.hidden=true;return}
+  const visa=()=>{const av=ls.getItem('skipgc')==='t';box.classList.toggle('gc-av',av);
+    txt.innerHTML=av?'<b>Dina besök räknas inte</b> i den här webbläsaren.':'<b>Dina besök räknas</b> i den här webbläsaren, som en siffra bland alla andra.';
+    kn.textContent=av?'Räkna mina besök igen':'Räkna inte mina besök';
+    if(location.hostname!=='orebro360.se')txt.insertAdjacentHTML('beforeend',' <span class="sub">(Räknaren används bara på orebro360.se, inte i den här förhandsversionen.)</span>')};
+  kn.addEventListener('click',()=>{try{ls.getItem('skipgc')==='t'?ls.removeItem('skipgc'):ls.setItem('skipgc','t')}catch(e){}visa()});
+  visa();
+}
 const SIDA=document.body.dataset.sida;
 async function load(name){const r=await fetch('data/'+name+'.json');if(!r.ok)throw new Error(name);return r.json()}
 const datumText=d=>{const [y,m,dd]=d.split('-');return `${+dd} ${MANAD[+m-1]} ${y}`};
@@ -2304,6 +2319,7 @@ function renderStart(S){
     try{[VT,OM]=await Promise.all([load('vatten'),load('omraden').catch(()=>null)]);initVatten()}catch(e){console.error(e);felText('#vt-lead','Kunde inte läsa in vattendatan.')}
     break;
   case 'om':
+    initGc();
     try{renderStatus(await load('status'))}catch(e){console.error(e);felText('#st-tab tbody','Kunde inte läsa in statusen.')}
     break;
   case 'gissa':
