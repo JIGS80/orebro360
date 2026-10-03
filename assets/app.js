@@ -2258,7 +2258,7 @@ function renderStatus(S){
   $('#st-tab tbody').innerHTML=S.rader.map(r=>{const d=r.hamtad?new Date(r.hamtad+'T00:00:00'):null;const dagar=d?Math.round((idag-d)/864e5):null;
     const sen=r.max_dagar!=null&&(dagar==null||dagar>r.max_dagar);
     const st=r.max_dagar==null?['inget','Klar']:sen?['ej','Försenad']:['ok','Aktuell'];
-    return `<tr${sen?' class="st-sen"':''}><td><a href="${STATUS_SIDA[r.tema]||'#'}">${esc(r.namn)}</a></td><td class="hide-sm">${esc(r.kalla)}</td><td>${r.hamtad?vtDag(r.hamtad):'–'}${dagar!=null&&dagar>1?`<span class="sub">${dagar} dagar sedan</span>`:''}</td><td class="hide-sm">${esc(r.period||'')}</td><td><span class="vt-st vt-st-${st[0]}">${st[1]}</span></td></tr>`}).join('');
+    return `<tr${sen?' class="st-sen"':''}><td><a href="${STATUS_SIDA[r.tema]||'#'}">${esc(r.namn)}</a></td><td class="hide-sm">${esc(r.kalla)}${r.schema?`<span class="sub">${esc(r.schema[0].toUpperCase()+r.schema.slice(1))}</span>`:''}</td><td>${r.hamtad?vtDag(r.hamtad):'–'}${dagar!=null&&dagar>1?`<span class="sub">${dagar} dagar sedan</span>`:''}</td><td class="hide-sm">${esc(r.period||'')}</td><td><span class="vt-st vt-st-${st[0]}">${st[1]}</span></td></tr>`}).join('');
 }
 
 /* ===== Sidladdning: varje sida hämtar bara sin egen data (body data-sida) ===== */
