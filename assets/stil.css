@@ -858,24 +858,41 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .aa-knapp svg{width:17px;height:17px}
 .aa-knapp:hover,.aa-knapp[aria-expanded="true"]{border-color:var(--accent);color:var(--accent-text);background:var(--accent-soft)}
 .alla-amnen{border-top:1px solid var(--line);background:var(--bg);max-height:calc(100vh - 70px);max-height:calc(100dvh - 70px);overflow-y:auto;overscroll-behavior:contain}
-.aa-rad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 28px;padding-block:18px 24px}
+.aa-rad{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px 28px;padding-block:16px 20px}
+.aa-bor,.aa-kommun{grid-column:span 2}
+.aa-grupp.aa-bor ul,.aa-grupp.aa-kommun ul{grid-template-columns:1fr 1fr;gap:2px 28px}
+.aa-kol{display:grid;gap:14px;align-content:start}
+.aa-k{display:none}
 .aa-grupp h2{font:700 .78rem var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin:0 0 6px}
 .aa-grupp ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
 .aa-grupp a{display:grid;gap:1px;padding:7px 10px;margin-inline:-10px;border-radius:8px;text-decoration:none;color:var(--ink)}
 .aa-grupp a b{font-weight:650}
-.aa-grupp a span{font-size:.84rem;color:var(--ink2);line-height:1.35}
+.aa-grupp a span{font-size:.84rem;color:var(--ink2);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .aa-grupp a:hover{background:var(--accent-soft)}
 .aa-grupp a[aria-current="page"] b{color:var(--accent-text)}
-.aa-grupp a[aria-current="page"] b::after{content:" · du är här";font-weight:500;font-size:.8rem;color:var(--ink2)}
-@media (max-width:1000px){.aa-rad{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.aa-grupp a[aria-current="page"] b:not(.aa-k)::after{content:" · du är här";font-weight:500;font-size:.8rem;color:var(--ink2)}
+@media (max-width:1000px){
+  .aa-rad{grid-template-columns:1fr;gap:12px}
+  .aa-bor,.aa-kommun{grid-column:auto}
+  .aa-kol{gap:12px}
+  .aa-grupp a span{display:none}
+  .aa-grupp.aa-bor ul,.aa-grupp.aa-kommun ul,.aa-grupp ul{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:0 20px}
+  .aa-grupp a[aria-current="page"]{background:var(--accent-soft)}
+  .aa-grupp a[aria-current="page"] b:not(.aa-k)::after{content:none}
+  .aa-grupp a{padding:6px 10px;margin-inline:0}
+}
 @media (max-width:760px){
   .brand{margin-right:auto}
   .aa-knapp{order:1;padding:5px 10px 5px 8px;font-size:.86rem}
   .meny-ram{order:2}
-  .aa-rad{grid-template-columns:1fr;gap:14px;padding-block:12px 20px}
-  .aa-grupp a span{display:none}
-  .aa-grupp ul{grid-template-columns:1fr 1fr;gap:0 10px}
-  .aa-grupp a{margin-inline:0;padding:9px 10px;min-height:40px;align-content:center}
+  .aa-rad{gap:10px;padding-block:10px 16px}
+  .aa-kol{grid-template-columns:1fr;gap:10px}
+  .aa-grupp.aa-bor ul,.aa-grupp.aa-kommun ul,.aa-grupp ul{grid-template-columns:1fr 1fr;gap:0 10px}
+  .aa-grupp h2{margin-bottom:2px}
+  .aa-grupp a{margin-inline:0;padding:6px 10px;min-height:40px;align-content:center;font-size:.95rem;line-height:1.2}
+  .aa-l{display:none}.aa-k{display:inline}
+  .aa-grupp a[aria-current="page"] b::after{content:none}
+  .aa-grupp a[aria-current="page"]{background:var(--accent-soft)}
 }
 
 /* ===== Snabbsök överst på Skolor och Vård ===== */
