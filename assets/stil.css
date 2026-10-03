@@ -1101,3 +1101,28 @@ footer.site p.small a{display:inline-block;padding:3px 0}
   .tema-text{display:none}
   .tema::after{border-top:0;margin-top:0;padding-top:0;align-self:baseline;font-size:1.05rem}
 }
+
+/* Dagsljuset (Vädret) */
+.ve-ljus-v{font:700 clamp(2rem,5vw,2.8rem)/1.05 var(--f-display);color:var(--accent-text);margin:6px 0 2px;letter-spacing:-.02em}
+.ve-ljus-s{color:var(--ink2);margin:0 0 14px}
+.ve-ljus-tider{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 12px}
+.ve-ljus-tider div{background:var(--bg);border-radius:10px;padding:8px 10px}
+.ve-ljus-tider dt{font-size:.8rem;color:var(--muted)}
+.ve-ljus-tider dd{margin:2px 0 0;font:600 1.25rem/1.2 var(--f-display)}
+/* Djur och natur */
+.na-fynd{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.na-fynd{grid-template-columns:minmax(0,1fr)}}
+.na-fynd li{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"namn n" "g g" "pl pl";gap:2px 10px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.na-namn{grid-area:namn;font:600 1.1rem/1.3 var(--f-display)}
+.na-namn a{color:inherit;text-decoration:none}.na-namn a:hover{text-decoration:underline}
+.na-g{grid-area:g;font-size:.82rem;color:var(--muted)}
+.na-pl{grid-area:pl;font-size:.9rem;color:var(--ink2)}
+.na-n{grid-area:n;font-size:.9rem;color:var(--accent-text);white-space:nowrap}
+.na-rl{display:inline-block;font:600 .7rem/1 var(--f-mono,monospace);padding:3px 5px;border-radius:4px;background:#F4E3C3;color:#6B4A0E;vertical-align:2px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .na-rl{background:#4A3A1C;color:#F1D9A8}}
+:root[data-theme="dark"] .na-rl{background:#4A3A1C;color:#F1D9A8}
+.na-nya{margin:8px 0 0;padding-left:1.1em;columns:2;column-gap:20px}
+.na-nya li{margin:3px 0;break-inside:avoid}
+.na-nya .sub,#na-lista .sub,#na-grupp .sub{color:var(--muted);font-size:.85em}
+#na-lista td a{color:inherit}
+#na-grupp .chip[aria-pressed="true"] .sub{color:inherit}

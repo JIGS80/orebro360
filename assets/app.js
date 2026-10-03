@@ -753,6 +753,7 @@ async function visaDag(){
     const omd=w[0]===Y?`Det var den varmaste ${dn} ${forsta}.`:c[0]===Y?`Det var den kallaste ${dn} ${forsta}.`:`Dagen var varmare än ${p} % av alla ${dn} ${forsta}.`;
     jmf=`<p class="small" style="margin-top:8px">${omd} ${w[0]===Y?'':`Varmast var ${dn} ${w[0]} (${grad(w[1])}). `}${c[0]===Y?'':`Kallast var ${dn} ${c[0]} (${grad(c[1])}).`}</p>`}
   const rows=[['Medeltemperatur',grad(t)],['Högsta temperatur',grad(tx)],['Lägsta temperatur',grad(tn)],['Nederbörd',p==null?'–':fmt(p,1)+' mm'],['Snödjup på morgonen',s==null?'–':fmt(s)+' cm']];
+  const sd=solDag(Y,M,D);if(sd)rows.push(['Dagsljus',`${solTidK(solMin(sd))} (${solKl(sd.upp)}–${solKl(sd.ned)})`]);
   box.innerHTML=`<h4 style="margin:4px 0 6px;font-family:var(--f-display);font-weight:500">${dagTxt(v)}</h4><table class="mini"><tbody>${rows.map(r=>`<tr><td>${r[0]}</td><td class="r">${r[1]}</td></tr>`).join('')}</tbody></table>${jmf}<p class="src">${upp?'':v<'2005-07-01'?'Temperatur från stationen i Örebro stad. ':'Temperatur från Örebro flygplats. '}”–” betyder att mätning saknas.${upp?` Örebro flygplats mätte inte temperatur den här dagen. Temperaturen är <b>uppskattad</b> från SMHI:s stationer ${esc((VED.uppsk_stationer||[]).join(' och '))}, justerad med den vanliga skillnaden mot flygplatsen samma månad (oftast inom någon grad).`:v<'1941-01-01'?' Dygnets högsta och lägsta temperatur mättes inte före 1941, och snödjupet mäts sedan 1947.':''}</p>`;
 }
 
@@ -985,6 +986,75 @@ function initBr(){
   renderBr();renderBrMu();
 }
 
+/* ===== Dagsljuset (räknas ut i webbläsaren, solekvationen enligt NOAA/Wikipedia; ingen källa behövs) ===== */
+const SOL_LAT=59.2741,SOL_LON=15.2066,SOL_TZ='Europe/Stockholm';
+function solDag(y,m,d){   // m 1–12; returnerar {upp,ned,mitt} som Date (UTC-tid) eller null vid midnattssol/polarnatt
+  const r=Math.PI/180,J=Date.UTC(y,m-1,d,12)/864e5+2440587.5,n=Math.ceil(J-2451545+0.0008),Js=n-SOL_LON/360;
+  const M=(357.5291+0.98560028*Js)%360,C=1.9148*Math.sin(M*r)+0.02*Math.sin(2*M*r)+0.0003*Math.sin(3*M*r);
+  const L=(M+C+180+102.9372)%360,Jt=2451545+Js+0.0053*Math.sin(M*r)-0.0069*Math.sin(2*L*r);
+  const sd=Math.sin(L*r)*Math.sin(23.4397*r),cd=Math.cos(Math.asin(sd));
+  const cw=(Math.sin(-0.833*r)-Math.sin(SOL_LAT*r)*sd)/(Math.cos(SOL_LAT*r)*cd);if(cw<-1||cw>1)return null;
+  const w=Math.acos(cw)/r,t=j=>new Date((j-2440587.5)*864e5);
+  return {upp:t(Jt-w/360),ned:t(Jt+w/360),mitt:t(Jt)};
+}
+const solMin=s=>s?Math.round((s.ned-s.upp)/6e4):null;
+const solKl=t=>t.toLocaleTimeString('sv-SE',{timeZone:SOL_TZ,hour:'2-digit',minute:'2-digit'});
+const solTid=min=>`${Math.floor(min/60)} timmar och ${min%60} ${min%60===1?'minut':'minuter'}`;
+const solTidK=min=>`${Math.floor(min/60)} h ${min%60} min`;
+function stockholmIdag(){const p=new Intl.DateTimeFormat('en-CA',{timeZone:SOL_TZ,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()).split('-').map(Number);return p}
+function renderLjus(){
+  if(!$('#ve-ljus-v'))return;
+  const [y,m,d]=stockholmIdag(),idag=solDag(y,m,d),ig=new Date(Date.UTC(y,m-1,d-1)),igar=solDag(ig.getUTCFullYear(),ig.getUTCMonth()+1,ig.getUTCDate());
+  const a=solMin(idag),b=solMin(igar),diff=a-b;
+  $('#ve-ljus-dag').textContent=`${d} ${MANAD[m-1]}`;
+  $('#ve-ljus-v').textContent=solTidK(a);
+  $('#ve-ljus-s').textContent=`mellan soluppgång och solnedgång, ${diff===0?'lika mycket som':`${Math.abs(diff)} ${Math.abs(diff)===1?'minut':'minuter'} ${diff>0?'mer':'mindre'} än`} i går.`;
+  $('#ve-upp').textContent=solKl(idag.upp);$('#ve-ned').textContent=solKl(idag.ned);$('#ve-hog').textContent=solKl(idag.mitt);
+  // hela året
+  const pts=[],dagar=[];let max=[0],min=[1e9];
+  for(let i=0;i<366;i++){const t=new Date(Date.UTC(y,0,1+i));if(t.getUTCFullYear()!==y)break;const s=solDag(y,t.getUTCMonth()+1,t.getUTCDate()),v=solMin(s);
+    pts.push([i,v/60]);dagar.push(t)}
+  {const vs=pts.map(p=>Math.round(p[1]*60)),mx=Math.max(...vs),mn=Math.min(...vs),mitt=v=>{const ix=vs.map((x,i)=>x===v?i:-1).filter(i=>i>=0);return dagar[ix[Math.floor(ix.length/2)]]};max=[mx,mitt(mx)];min=[mn,mitt(mn)]}   // mitten av dagarna med samma längd (minuterna avrundas)
+  const iD=Math.round((Date.UTC(y,m-1,d)-Date.UTC(y,0,1))/864e5);
+  const dt=t=>`${t.getUTCDate()} ${MANAD[t.getUTCMonth()]}`;
+  $('#ve-ljus-ar').textContent=y;
+  lineChart($('#ve-ljus-kurva'),[{name:'Dagsljus',color:'var(--mark-gray)',pts,nolabel:true},{name:'I dag',color:'var(--accent)',pts:[[iD,a/60]]}],
+    {yfmt:v=>fmt(v,0)+' h',xlab:i=>MAN_K[dagar[i].getUTCMonth()],minZero:true});
+  // nästa vändpunkt
+  const solst=[[Date.UTC(y,5,21),'midsommar, när dagarna är som längst'],[Date.UTC(y,11,21),'vintersolståndet, när dagarna är som kortast'],[Date.UTC(y+1,5,21),'midsommar, när dagarna är som längst']];
+  const nu=Date.UTC(y,m-1,d),nx=solst.find(s=>s[0]>=nu),kvar=Math.round((nx[0]-nu)/864e5);
+  $('#ve-ljus-ext').textContent=`Längst är dagen ${dt(max[1])} med ${solTid(max[0])}, kortast ${dt(min[1])} med ${solTid(min[0])}. ${kvar===0?'I dag är det '+nx[1].split(',')[0]+'.':`Det är ${kvar} dagar kvar till ${nx[1]}.`}`;
+}
+
+/* ===== Djur och natur (Artportalen via SLU Artdatabanken) ===== */
+let NA,naGrupp='Fåglar',naAlla=false;
+const NA_RL={NT:'nära hotad',VU:'sårbar',EN:'starkt hotad',CR:'akut hotad'};
+function naRad(r){return `<a href="https://artfakta.se/taxa/${r.id}" target="_blank" rel="noopener">${esc(r.n[0].toUpperCase()+r.n.slice(1))}</a>${r.rl&&NA_RL[r.rl]?` <span class="na-rl" title="Rödlistad: ${NA_RL[r.rl]}">${r.rl}</span>`:''}`}
+function renderNaLista(){
+  document.querySelectorAll('#na-grupp .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.g===naGrupp));
+  const L=NA.lista.filter(r=>naGrupp==='Alla'||r.g===naGrupp);
+  $('#na-lista-n').textContent=`${fmt(L.length)} ${L.length===1?'art':'arter'}`;
+  const visa=naAlla?L:L.slice(0,25);
+  $('#na-lista tbody').innerHTML=visa.map(r=>`<tr><td>${naRad(r)}${r.n===r.sci?'':` <span class="sub">${esc(r.sci)}</span>`}</td><td class="num">${fmt(r.fynd)}</td><td>${esc(r.plats)}</td></tr>`).join('')+(L.length>visa.length?`<tr class="na-fler"><td colspan="3"><button type="button" class="knapp-l" id="na-visa-alla">Visa alla ${fmt(L.length)} arter</button></td></tr>`:'');
+  const k=$('#na-visa-alla');if(k)k.addEventListener('click',()=>{naAlla=true;renderNaLista()});
+}
+function initNa(){
+  const v=NA.vecka,dt=s=>{const [y,m,d]=s.split('-').map(Number);return `${d} ${MANAD[m-1]}`},per=v.fran.slice(5,7)===v.till.slice(5,7)?`${+v.fran.slice(8)}–${dt(v.till)}`:`${dt(v.fran)}–${dt(v.till)}`;
+  const tiles=[['Arter',fmt(NA.arter),`rapporterade vecka ${v.nr}`],['Fågelarter',fmt(NA.faglar),`vecka ${v.nr}`],['Fynd',fmt(NA.fynd),'rapporter till Artportalen'],['Rapportörer',fmt(NA.rapportorer),'personer som rapporterade']];
+  $('#na-kpis').innerHTML=tiles.map(([l,x,s])=>`<div class="stat"><span class="label">${esc(l)}</span><span class="v num">${x}</span><span class="s">${esc(s)}</span></div>`).join('');
+  const st=NA.stjarna;
+  $('#na-lead').textContent=`${fmt(NA.arter)} arter rapporterades i Örebro kommun förra veckan (${per})`+(st?`, bland annat ${st.n} ${st.plats.startsWith('området')||st.plats==='i kommunen'?(st.plats==='i kommunen'?'i kommunen':'i '+st.plats):'vid '+st.plats}`:'')+`. ${fmt(NA.rapportorer)} personer rapporterade ${fmt(NA.fynd)} fynd till Artportalen.`;
+  $('#na-v').textContent=`vecka ${v.nr}, ${per}`;
+  $('#na-fynd').innerHTML=NA.veckans.map(r=>`<li><span class="na-namn">${naRad(r)}</span><span class="na-g">${esc(r.g)}</span><span class="na-pl">${esc(r.plats)}</span><span class="na-n num">${fmt(r.fynd)} ${r.fynd===1?'fynd':'fynd'}</span></li>`).join('')||'<li>Inga av de kända arterna rapporterades förra veckan.</li>';
+  $('#na-nya').innerHTML=NA.nya.length?NA.nya.map(r=>`<li>${naRad(r)} <span class="sub">${esc(r.plats)}</span></li>`).join(''):'<li class="small">Inga nya fågelarter jämfört med veckorna innan.</li>';
+  lineChart($('#na-tid'),[{name:'Alla arter',color:'var(--accent)',pts:NA.veckor.map((w,i)=>[i,w.arter])},{name:'Fåglar',color:'var(--second)',pts:NA.veckor.map((w,i)=>[i,w.faglar])}],
+    {yfmt:x=>fmt(x),minZero:true,xlab:i=>'v. '+(()=>{const t=new Date(NA.veckor[i].fran);const d=new Date(Date.UTC(t.getFullYear(),t.getMonth(),t.getDate()+3));const y0=new Date(Date.UTC(d.getUTCFullYear(),0,4));return 1+Math.round(((d-y0)/864e5-3+((y0.getUTCDay()+6)%7))/7)})()});
+  const G=['Fåglar','Däggdjur','Fjärilar','Svampar','Växter'].filter(g=>NA.lista.some(r=>r.g===g));
+  $('#na-grupp').innerHTML=[...G,'Alla'].map(g=>`<button class="chip" type="button" data-g="${g}" aria-pressed="false">${esc(g)} <span class="sub">${fmt(g==='Alla'?NA.lista.length:NA.lista.filter(r=>r.g===g).length)}</span></button>`).join('');
+  $('#na-grupp').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){naGrupp=b.dataset.g;naAlla=false;renderNaLista()}});
+  renderNaLista();
+}
+
 /* ===== Restaurangkollen ===== */
 let RK,rkTyp=()=>{},rkGrp='Restaurang och café',rkSel=null,rkZoom='stad',rkQ='',rkOmr=null;
 const RK_TYP={Restaurang:'Restaurang',Café:'Café',Pizzeria:'Pizzeria',Butik:'Butik',Tillagning:'Kök i skola, vård eller omsorg',Buffert:'Producent, distributör eller annat'};
@@ -1166,7 +1236,7 @@ function initManaden(){
 }
 
 /* ===== Ladda ner datan ===== */
-const TEMA_NAMN={brott:'Brott och trygghet',raddning:'Räddningstjänsten',boende:'Bostadspriser och hyror',narmiljo:'Lek, park och återvinning',buss:'Bussen',vatten:'Vattnet',pengar:'Kommunens pengar',befolkning:'Befolkning',omrade:'Områden',jamfor:'Jämför städer',skolor:'Skolor',vard:'Vård och omsorg',handel:'Handeln',restauranger:'Restaurangkollen',vader:'Vädret',valet:'Valet 2026',skatt:'Vart går din skatt?',hundra:'Örebro som 100 personer'};
+const TEMA_NAMN={natur:'Djur och natur',brott:'Brott och trygghet',raddning:'Räddningstjänsten',boende:'Bostadspriser och hyror',narmiljo:'Lek, park och återvinning',buss:'Bussen',vatten:'Vattnet',pengar:'Kommunens pengar',befolkning:'Befolkning',omrade:'Områden',jamfor:'Jämför städer',skolor:'Skolor',vard:'Vård och omsorg',handel:'Handeln',restauranger:'Restaurangkollen',vader:'Vädret',valet:'Valet 2026',skatt:'Vart går din skatt?',hundra:'Örebro som 100 personer'};
 const kbText=kb=>kb>=1024?fmt(kb/1024,1)+' MB':fmt(Math.max(1,kb))+' kB';
 const filRad=(f,kol)=>`<li class="dl-fil"><div><b>${esc(f.titel)}</b><span class="small">${esc(f.beskr)}</span><span class="src">Källa: ${esc(f.kalla)} · ${fmt(f.rader)} rader · ${kbText(f.kb)}</span>${kol?`<details><summary>Kolumner</summary><p class="num small">${f.kolumner.map(esc).join(' · ')}</p></details>`:''}</div><a class="dl-knapp" href="data/csv/${esc(f.fil)}" download>Ladda ner CSV</a></li>`;
 async function renderLadda(){
@@ -2182,7 +2252,7 @@ function initVatten(){
 
 
 /* ===== Status på Om-sidan: hur gamla är uppgifterna? ===== */
-const STATUS_SIDA={brott:'brott.html',raddning:'raddning.html',boende:'boende.html',buss:'buss.html',narmiljo:'narmiljo.html',restauranger:'restauranger.html',pengar:'pengar.html',befolkning:'befolkning.html',vader:'vader.html',vatten:'vatten.html',vard:'vard.html',handel:'handel.html',skolor:'skolor.html',omrade:'omrade.html',jamfor:'jamfor.html',manaden:'manaden.html',gissa:'gissa.html',valet:'valet.html'};
+const STATUS_SIDA={natur:'natur.html',brott:'brott.html',raddning:'raddning.html',boende:'boende.html',buss:'buss.html',narmiljo:'narmiljo.html',restauranger:'restauranger.html',pengar:'pengar.html',befolkning:'befolkning.html',vader:'vader.html',vatten:'vatten.html',vard:'vard.html',handel:'handel.html',skolor:'skolor.html',omrade:'omrade.html',jamfor:'jamfor.html',manaden:'manaden.html',gissa:'gissa.html',valet:'valet.html'};
 function renderStatus(S){
   const idag=new Date();idag.setHours(0,0,0,0);
   $('#st-tab tbody').innerHTML=S.rader.map(r=>{const d=r.hamtad?new Date(r.hamtad+'T00:00:00'):null;const dagar=d?Math.round((idag-d)/864e5):null;
@@ -2293,6 +2363,9 @@ function renderStart(S){
       addEventListener('hashchange',()=>{const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}});
     }catch(e){console.error(e);felText('#om-lead','Kunde inte läsa in områdesdatan.')}
     break;
+  case 'natur':
+    try{NA=await load('natur');initNa()}catch(e){console.error(e);felText('#na-lead','Kunde inte läsa in fynden från Artportalen.')}
+    break;
   case 'brott':
     try{BR=await load('brott');initBr()}catch(e){console.error(e);felText('#br-lead','Kunde inte läsa in siffrorna om brott och trygghet.')}
     break;
@@ -2311,6 +2384,7 @@ function renderStart(S){
       initRk();if(h.startsWith('v=')&&RK.verksamheter.some(v=>v.id===h.slice(2)))rkVal(h.slice(2),true)}catch(e){console.error(e);felText('#rk-lead','Kunde inte läsa in kontrollresultaten.')}
     break;
   case 'vader':
+    try{renderLjus()}catch(e){console.error(e)}
     try{VE=await load('vader');renderVe()}catch(e){console.error(e);felText('#ve-lead','Kunde inte läsa in väderdatan.')}
     break;
   case 'skatt':
