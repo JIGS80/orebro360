@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#008572">
 <link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/stil.css?v=63b687bf">
+<link rel="stylesheet" href="assets/stil.css?v=41afdae7">
 </head>
 <body data-sida="start">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
@@ -80,11 +80,10 @@
       <h1 class="wordmark">Örebro<span>360</span></h1>
       <p class="tagline">Örebro i siffror</p>
       <p class="lead"><span class="lead-lang">Här ser du hur det ser ut där du bor, när restaurangen senast kontrollerades, hur det går i skolorna och vart kommunens pengar går. Allt kommer från öppna källor och uppdateras varje vecka.</span><span class="lead-kort">Där du bor, i skolorna, på restaurangerna och i kommunens kassa. Från öppna källor, uppdaterat varje vecka.</span></p>
-      <div class="nu" role="group" aria-label="Örebro just nu">
-        <a class="nu-k" href="befolkning.html"><span class="nu-v" data-nu="befolkning">&nbsp;</span><span class="nu-s">invånare</span></a>
-        <a class="nu-k" href="vader.html#g-ljus"><span class="nu-v" id="nu-ljus">&nbsp;</span><span class="nu-s">dagsljus i dag</span></a>
-        <a class="nu-k" href="natur.html"><span class="nu-v" data-nu="natur">&nbsp;</span><span class="nu-s">arter sågs förra veckan</span></a>
-      </div>
+      <section class="nu-ram" aria-labelledby="nu-h" hidden>
+        <div class="nu-topp"><h2 class="nu-h" id="nu-h">Örebro just nu</h2><button type="button" class="nu-paus" id="nu-paus" aria-pressed="false" aria-label="Pausa rullningen"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="nu-ik-paus" d="M6 4h3v12H6zM11 4h3v12h-3z"/><path class="nu-ik-spela" d="M6 4l10 6-10 6z"/></svg></button></div>
+        <div class="nu-rad" id="nu-rad" role="list"></div>
+      </section>
       <form class="sok" id="sok-form" role="search">
         <label for="sok-q">Sök på allt</label>
         <div class="sok-ruta">
@@ -296,7 +295,7 @@
     <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
   </div>
 </footer>
-<script src="assets/app.js?v=cce3ced7"></script>
+<script src="assets/app.js?v=03a9a67f"></script>
 <script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>

@@ -2305,11 +2305,33 @@ addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{(RITA[SIDA]||
 const felText=(sel,t)=>{const e=$(sel);if(e)e.textContent=t};
 const hashKod=()=>decodeURIComponent(location.hash.slice(1));
 
+/* Förstasidan på mobilen: "Örebro just nu", en rad med siffror som rullar fram av sig själv.
+   Rullningen stannar så fort besökaren rör raden och kan pausas med knappen; ingen rullning vid "minska rörelse". */
+const NU_TEMAN=['befolkning','ljus','vatten','natur','buss','narmiljo','vader','boende','raddning','valet','jamfor','pengar','skolor','handel'];
+function nuEtikett(s){let t=(s||'').split(';')[0].trim();if(t.length>30&&t.includes(', '))t=t.split(', ')[0];return t}
+function nuRad(S){const ram=$('.nu-ram'),rad=$('#nu-rad');if(!ram||!rad)return;
+  const lank=k=>(document.querySelector(`a.tema[data-tema="${k}"]`)||{}).getAttribute?.('href')||k+'.html';
+  const kort=NU_TEMAN.map(k=>{
+    if(k==='ljus'){try{const [y,m,d]=stockholmIdag(),n=solMin(solDag(y,m,d));if(n==null)return '';
+      return `<a class="nu-k" role="listitem" href="vader.html#g-ljus"><span class="nu-v" aria-label="${Math.floor(n/60)} timmar ${n%60} minuter">${Math.floor(n/60)}<small> h </small>${n%60}<small> min</small></span><span class="nu-s">dagsljus i dag</span></a>`}catch(e){return ''}}
+    const t=S.teman[k];if(!t||!t.v)return '';
+    return `<a class="nu-k" role="listitem" href="${esc(lank(k))}"><span class="nu-v">${esc(t.v)}</span><span class="nu-s">${esc(nuEtikett(t.s))}</span></a>`}).filter(Boolean);
+  if(!kort.length)return;rad.innerHTML=kort.join('');ram.hidden=false;nuRulla(rad)}
+function nuRulla(rad){const knapp=$('#nu-paus');const lugn=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let tid=null,stoppad=lugn;
+  const steg=()=>{const k=rad.querySelector('.nu-k');if(!k||rad.offsetParent===null)return;const w=k.getBoundingClientRect().width+parseFloat(getComputedStyle(rad).columnGap||8);
+    if(rad.scrollLeft+rad.clientWidth>=rad.scrollWidth-4)rad.scrollTo({left:0,behavior:'smooth'});else rad.scrollBy({left:w,behavior:'smooth'})};
+  const visa=()=>{knapp.setAttribute('aria-pressed',String(stoppad));knapp.setAttribute('aria-label',stoppad?'Rulla siffrorna':'Pausa rullningen');knapp.classList.toggle('stoppad',stoppad)};
+  const start=()=>{clearInterval(tid);tid=stoppad?null:setInterval(steg,3800)};
+  const stopp=()=>{stoppad=true;clearInterval(tid);tid=null;visa()};
+  ['pointerdown','touchstart','wheel','focusin','keydown'].forEach(h=>rad.addEventListener(h,stopp,{passive:true}));
+  knapp.addEventListener('click',()=>{stoppad=!stoppad;visa();start();if(!stoppad)steg()});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInterval(tid);tid=null}else start()});
+  if(lugn)knapp.hidden=true;visa();start()}
 function renderStart(S){
   document.querySelectorAll('[data-tema]').forEach(a=>{const t=S.teman[a.dataset.tema]||(S.extra||{})[a.dataset.tema];if(!t)return;
     a.querySelector('.v').textContent=t.v;a.querySelector('.s').textContent=t.s});
-  document.querySelectorAll('[data-nu]').forEach(e=>{const t=S.teman[e.dataset.nu];if(t)e.textContent=t.v});
-  {const e=$('#nu-ljus');if(e){try{const [y,m,d]=stockholmIdag();const n=solMin(solDag(y,m,d));e.innerHTML=`${Math.floor(n/60)}<small> h </small>${n%60}<small> min</small>`;e.setAttribute('aria-label',`${Math.floor(n/60)} timmar ${n%60} minuter`)}catch(x){e.closest('a').hidden=true}}}
+  nuRad(S);
   document.querySelectorAll('[data-utf]').forEach(a=>{const t=(S.utforska||{})[a.dataset.utf];if(t)a.querySelector('.utf-v').textContent=t});
   const sel=$('#hitta-omr');if(!sel)return;
   sel.innerHTML='<option value="">Välj ditt område</option>'+S.omraden.map(([k,n])=>`<option value="${k}">${esc(n)}</option>`).join('');
