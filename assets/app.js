@@ -1831,7 +1831,7 @@ async function miRemsa(S){
   const host=$('#mi-remsa'),sel=$('#hitta-omr');if(!host)return;
   const k=miHamta();let m=null;
   if(k){try{await miData();m=MI.omraden[k]}catch(e){}}
-  if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').innerHTML='Var bor du?<span class="lead-lang"> Välj ditt område och se närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral, med vägbeskrivning.</span><span class="lead-kort"> Se hållplats, lekplats, skola och vårdcentral närmast dig.</span>';return}
+  if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').innerHTML='Var bor du?<span class="hitta-mer"> Se hållplats, lekplats, skola och vårdcentral närmast dig.</span>';return}
   if(sel)sel.value=k;$('#hitta-lbl').textContent='Ditt område';
   const fakta=[`${fmt(m.inv)} invånare`,`${fmt(m.rk30)} ${m.rk30===1?'livsmedelskontroll':'livsmedelskontroller'} senaste 30 dagarna`];
   const ritaRemsa=nara=>{host.innerHTML=`<div class="wrap mi-remsa-in"><a class="mi-remsa-txt" href="mitt.html"><span class="label">Ditt område</span><b>${esc(m.namn)}</b><span class="mi-remsa-fakta">${fakta.map(esc).join(' · ')}</span></a>
