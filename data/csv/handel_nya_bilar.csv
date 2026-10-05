@@ -159,11 +159,11 @@
 Örebro;2025;Etanol;26
 Örebro;2025;Gas;0
 Örebro;2025;Övriga;1
-Örebro;2026;Bensin;721
-Örebro;2026;Diesel;341
-Örebro;2026;El;1247
-Örebro;2026;Elhybrid;171
-Örebro;2026;Laddhybrid;1399
+Örebro;2026;Bensin;839
+Örebro;2026;Diesel;357
+Örebro;2026;El;1498
+Örebro;2026;Elhybrid;205
+Örebro;2026;Laddhybrid;1616
 Örebro;2026;Etanol;8
 Örebro;2026;Gas;0
 Örebro;2026;Övriga;0
@@ -327,12 +327,12 @@ Uppsala;2025;Laddhybrid;1072
 Uppsala;2025;Etanol;45
 Uppsala;2025;Gas;0
 Uppsala;2025;Övriga;0
-Uppsala;2026;Bensin;371
-Uppsala;2026;Diesel;174
-Uppsala;2026;El;1316
-Uppsala;2026;Elhybrid;355
-Uppsala;2026;Laddhybrid;677
-Uppsala;2026;Etanol;26
+Uppsala;2026;Bensin;423
+Uppsala;2026;Diesel;191
+Uppsala;2026;El;1554
+Uppsala;2026;Elhybrid;418
+Uppsala;2026;Laddhybrid;757
+Uppsala;2026;Etanol;28
 Uppsala;2026;Gas;2
 Uppsala;2026;Övriga;0
 Linköping;2006;Bensin;3302
@@ -495,12 +495,12 @@ Linköping;2025;Laddhybrid;989
 Linköping;2025;Etanol;18
 Linköping;2025;Gas;1
 Linköping;2025;Övriga;0
-Linköping;2026;Bensin;470
-Linköping;2026;Diesel;156
-Linköping;2026;El;993
-Linköping;2026;Elhybrid;425
-Linköping;2026;Laddhybrid;630
-Linköping;2026;Etanol;11
+Linköping;2026;Bensin;518
+Linköping;2026;Diesel;167
+Linköping;2026;El;1185
+Linköping;2026;Elhybrid;483
+Linköping;2026;Laddhybrid;724
+Linköping;2026;Etanol;13
 Linköping;2026;Gas;0
 Linköping;2026;Övriga;1
 Västerås;2006;Bensin;3063
@@ -663,11 +663,11 @@ Västerås;2025;Laddhybrid;795
 Västerås;2025;Etanol;17
 Västerås;2025;Gas;0
 Västerås;2025;Övriga;0
-Västerås;2026;Bensin;587
-Västerås;2026;Diesel;196
-Västerås;2026;El;889
-Västerås;2026;Elhybrid;457
-Västerås;2026;Laddhybrid;525
+Västerås;2026;Bensin;711
+Västerås;2026;Diesel;208
+Västerås;2026;El;1043
+Västerås;2026;Elhybrid;529
+Västerås;2026;Laddhybrid;591
 Västerås;2026;Etanol;14
 Västerås;2026;Gas;0
 Västerås;2026;Övriga;0
@@ -831,11 +831,11 @@ Norrköping;2025;Laddhybrid;652
 Norrköping;2025;Etanol;5
 Norrköping;2025;Gas;0
 Norrköping;2025;Övriga;0
-Norrköping;2026;Bensin;463
-Norrköping;2026;Diesel;237
-Norrköping;2026;El;668
-Norrköping;2026;Elhybrid;186
-Norrköping;2026;Laddhybrid;441
+Norrköping;2026;Bensin;515
+Norrköping;2026;Diesel;249
+Norrköping;2026;El;815
+Norrköping;2026;Elhybrid;221
+Norrköping;2026;Laddhybrid;492
 Norrköping;2026;Etanol;8
 Norrköping;2026;Gas;0
 Norrköping;2026;Övriga;0
@@ -999,11 +999,11 @@ Jönköping;2025;Laddhybrid;1601
 Jönköping;2025;Etanol;1
 Jönköping;2025;Gas;0
 Jönköping;2025;Övriga;0
-Jönköping;2026;Bensin;771
-Jönköping;2026;Diesel;346
-Jönköping;2026;El;1438
-Jönköping;2026;Elhybrid;327
-Jönköping;2026;Laddhybrid;853
+Jönköping;2026;Bensin;883
+Jönköping;2026;Diesel;365
+Jönköping;2026;El;1759
+Jönköping;2026;Elhybrid;377
+Jönköping;2026;Laddhybrid;953
 Jönköping;2026;Etanol;5
 Jönköping;2026;Gas;0
 Jönköping;2026;Övriga;0
@@ -1167,11 +1167,11 @@ Helsingborg;2025;Laddhybrid;932
 Helsingborg;2025;Etanol;5
 Helsingborg;2025;Gas;1
 Helsingborg;2025;Övriga;0
-Helsingborg;2026;Bensin;461
-Helsingborg;2026;Diesel;144
-Helsingborg;2026;El;932
-Helsingborg;2026;Elhybrid;234
-Helsingborg;2026;Laddhybrid;505
+Helsingborg;2026;Bensin;547
+Helsingborg;2026;Diesel;155
+Helsingborg;2026;El;1112
+Helsingborg;2026;Elhybrid;270
+Helsingborg;2026;Laddhybrid;577
 Helsingborg;2026;Etanol;3
 Helsingborg;2026;Gas;1
 Helsingborg;2026;Övriga;0
@@ -1335,11 +1335,11 @@ Umeå;2025;Laddhybrid;754
 Umeå;2025;Etanol;19
 Umeå;2025;Gas;0
 Umeå;2025;Övriga;0
-Umeå;2026;Bensin;227
-Umeå;2026;Diesel;162
-Umeå;2026;El;730
-Umeå;2026;Elhybrid;172
-Umeå;2026;Laddhybrid;364
+Umeå;2026;Bensin;254
+Umeå;2026;Diesel;181
+Umeå;2026;El;859
+Umeå;2026;Elhybrid;192
+Umeå;2026;Laddhybrid;426
 Umeå;2026;Etanol;10
 Umeå;2026;Gas;0
 Umeå;2026;Övriga;4
@@ -1503,11 +1503,11 @@ Hela Sverige;2025;Laddhybrid;73223
 Hela Sverige;2025;Etanol;1926
 Hela Sverige;2025;Gas;13
 Hela Sverige;2025;Övriga;33
-Hela Sverige;2026;Bensin;38396
-Hela Sverige;2026;Diesel;14523
-Hela Sverige;2026;El;77202
-Hela Sverige;2026;Elhybrid;14957
-Hela Sverige;2026;Laddhybrid;44752
-Hela Sverige;2026;Etanol;734
+Hela Sverige;2026;Bensin;44217
+Hela Sverige;2026;Diesel;15994
+Hela Sverige;2026;El;91298
+Hela Sverige;2026;Elhybrid;17004
+Hela Sverige;2026;Laddhybrid;51108
+Hela Sverige;2026;Etanol;789
 Hela Sverige;2026;Gas;10
-Hela Sverige;2026;Övriga;25
+Hela Sverige;2026;Övriga;29
