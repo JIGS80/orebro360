@@ -1323,3 +1323,49 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 }
 .tema{align-content:start}
 @media (min-width:1000px){.tema-grid.rest1{grid-template-columns:repeat(6,minmax(0,1fr))}.tema-grid.rest1>.tema{grid-column:span 2}.tema-grid.rest1>.tema:nth-last-child(-n+4){grid-column:span 3}}
+/* Trossamfund (8 okt 2026): filter, karta och lista. Färgerna skiljer traditionerna åt; namnet står alltid i text bredvid. */
+.tf-t0{--tf:var(--c1)}.tf-t1{--tf:var(--c3)}.tf-t2{--tf:var(--c4)}.tf-t3{--tf:var(--c6)}.tf-t4{--tf:var(--c5)}.tf-t5{--tf:var(--c2)}.tf-km{--tf:var(--surface)}
+#tf-karta path.nm-a{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
+#tf-karta path.nm-a:hover,#tf-karta path.nm-a-sel{fill:var(--accent-soft)}
+#tf-karta path.seloutline{fill:none;stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;pointer-events:none}
+#tf-karta text.lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round;pointer-events:none}
+#tf-karta svg{display:block;width:100%;height:auto;touch-action:manipulation;overflow:hidden}
+#tf-karta circle.tf-pt{fill:var(--tf);stroke:var(--surface);stroke-width:1.4;vector-effect:non-scaling-stroke;cursor:pointer}
+#tf-karta circle.tf-km{stroke:var(--ink2);stroke-width:2}
+#tf-karta circle.tf-pt-sel{stroke:var(--ink);stroke-width:2.5}
+.om-legend .mi-pt.tf-t0,.om-legend .mi-pt.tf-t1,.om-legend .mi-pt.tf-t2,.om-legend .mi-pt.tf-t3,.om-legend .mi-pt.tf-t4,.om-legend .mi-pt.tf-t5,.om-legend .mi-pt.tf-km,.tf-prick{background:var(--tf)}
+.om-legend .mi-pt.tf-km,.tf-prick.tf-km{box-shadow:inset 0 0 0 2px var(--ink2)}
+.tf-filter{margin-top:18px}
+.tf-falt{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:10px 12px;align-items:end}
+.tf-f{display:grid;gap:4px;min-width:0;font-size:.9rem;font-weight:600}
+.tf-f input,.tf-f select{font:inherit;font-weight:400;font-size:.98rem;width:100%;min-width:0;padding:9px 11px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.tf-f input{border:2px solid var(--accent);padding:8px 10px}
+.tf-f input:focus,.tf-f select:focus{outline:none;box-shadow:0 0 0 4px var(--accent-soft)}
+.tf-rad{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:10px;min-height:2.2em}
+.tf-rad .small{margin:0}
+.tf-rensa{padding:6px 12px;font-size:.9rem}
+.tf-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;margin-top:16px;align-items:start}
+.tf-kartpanel{position:sticky;top:76px}
+.tf-h2{font-size:1.15rem}
+.tf-lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.tf-k{padding:13px 0 12px;border-bottom:1px solid var(--line)}
+.tf-k-topp{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start}
+.tf-prick{width:11px;height:11px;border-radius:50%;display:inline-block;margin-top:.45em}
+.tf-namn{font-size:1.05rem;margin:0;line-height:1.3}
+.tf-sam{margin:2px 0 0;font-size:.92rem;color:var(--ink2)}
+.tf-k .small{margin:2px 0 0}
+.tf-ingen{color:var(--muted);font-style:italic}
+.tf-akt{display:flex;flex-wrap:wrap;gap:4px 16px;margin:7px 0 0 21px;font-size:.88rem}
+.tf-akt .mi-akt{display:contents}
+.tf-detalj{margin:8px 0 0 21px;font-size:.93rem}
+.tf-detalj p{margin:0 0 8px}
+.tf-detalj h4{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:12px 0 4px;font-family:var(--f-body)}
+.tf-org,.tf-lankar{list-style:none;margin:0;padding:0}
+.tf-org li{display:grid;gap:1px;padding:4px 0}
+.tf-org .sub,.tf-lankar li{font-size:.88rem;color:var(--ink2)}
+.tf-lankar li{padding:2px 0;overflow-wrap:anywhere}
+.tf-varn{font-size:.8rem;color:var(--c4)}
+.tf-k-oppen{background:linear-gradient(var(--accent-soft),var(--accent-soft)) left/3px 100% no-repeat;padding-left:10px;margin-left:-10px}
+.tf-tom{padding:18px 0;color:var(--ink2)}
+@media (max-width:900px){.tf-grid{grid-template-columns:minmax(0,1fr)}.tf-kartpanel{position:static}.tf-falt{grid-template-columns:repeat(3,minmax(0,1fr))}.tf-f-q{grid-column:1/-1}}
+@media (max-width:560px){.tf-falt{grid-template-columns:minmax(0,1fr)}.tf-f-q{grid-column:auto}}

@@ -1447,6 +1447,7 @@ document.addEventListener('click',e=>{
     if(SIDA==='mitt'){miKarta();host=$('#mi-karta')}
     else if(SIDA==='buss'){if(!iVb(omBox.stad,x,y))buSattZoom('hela');buKarta();host=$('#bu-karta')}
     else if(SIDA==='narmiljo'){if(!iVb(omBox.stad,x,y))nmSattZoom('hela');nmKarta();host=$('#nm-karta')}
+    else if(SIDA==='trossamfund'){if(!iVb(omBox.stad,x,y))tfSattZoom('hela');tfKarta();host=$('#tf-karta')}
     if(host)host.scrollIntoView({behavior:'smooth',block:'center'});return}
   const o=e.target.closest('[data-valj-omr]');if(o&&SIDA==='narmiljo'){nmValj(o.dataset.valjOmr)}});
 
@@ -1694,6 +1695,97 @@ function miPlaner(k){const box=$('#mi-pn');if(!box)return;if(!PN){box.hidden=tru
     :`<li class="small">Kommunen har inga pågående detaljplaner som vi kan koppla till området just nu.</li>`;
   $('#mi-pn-src').innerHTML=`${pl.length>5?`${pl.length} planer i området. `:''}<a href="planer.html#omr=${k}">Alla planer i området och kartan</a> · Örebro kommuns pågående planarbeten, hämtade ${vtDag(PN.hamtad)}. Synpunkter lämnas till kommunen.`}
 
+/* ===== Sidan Trossamfund: Tro och gemenskap i Örebro (handkontrollerad förteckning) ===== */
+let TF=null,tfZoom='hela',tfOppen=null;
+const TF_F={q:'',omr:'',trad:'',sam:''};
+const TF_KL=['tf-t0','tf-t1','tf-t2','tf-t3','tf-t4','tf-t5'];
+const tfAlla=()=>TF.platser.concat(TF.utan_plats);
+const tfHitta=id=>tfAlla().find(p=>p.id===id);
+const tfOnamn=k=>{const o=OM&&OM.omraden.find(x=>x.kod===k);return o?o.namn:''};
+const tfTrad=p=>p.org.length?p.org[0].tradition:null;
+const tfKl=p=>{const i=TF.traditioner.indexOf(tfTrad(p));return p.status==='kulturmiljo'?'tf-km':(TF_KL[i]||'tf-t5')};
+const tfSam=o=>o.samfund||'Uppgift saknas';
+function tfMatch(p){const f=TF_F;
+  if(f.omr&&p.o!==f.omr)return false;
+  if(f.trad&&!p.org.some(o=>o.tradition===f.trad))return false;
+  if(f.sam&&!p.org.some(o=>o.samfund===f.sam))return false;
+  if(f.q){const q=rkNorm(f.q);const t=rkNorm([p.namn,p.adress||'',p.ort,tfOnamn(p.o),...p.org.map(o=>o.namn+' '+(o.samfund||'')+' '+o.tradition)].join(' '));if(!q.split(/\s+/).every(w=>t.includes(w)))return false}
+  return true}
+function tfKarta(){const host=$('#tf-karta');if(!host)return;const W=OM.karta.w,H=OM.karta.h;const vb=tfZoom==='stad'?omBox.stad:[0,0,W,H];
+  host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över Örebros områden med kyrkor, moskéer och andra platser för trossamfund'},host);kartZoom(host,svg);
+  const tp=tip(host);const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||600);
+  const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
+  OM.omraden.forEach(o=>{const n=(TF.omraden[o.kod]||{}).antal||0;const p=el('path',{d:o.svg,class:'nm-a'+(o.kod===TF_F.omr?' nm-a-sel':''),'fill-rule':'evenodd'},svg);
+    p.addEventListener('mousemove',e=>show(e,`<b>${esc(o.namn)}</b><br>${n?`${n} ${n===1?'plats':'platser'}`:'inga platser i förteckningen'}`));p.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
+    p.addEventListener('click',()=>{tp.hidden=true;tfSatt('omr',o.kod===TF_F.omr?'':o.kod)})});
+  const s=OM.omraden.find(o=>o.kod===TF_F.omr);if(s)el('path',{d:s.svg,class:'seloutline','fill-rule':'evenodd'},svg);
+  TF.platser.filter(tfMatch).forEach(p=>{const c=el('circle',{cx:p.x,cy:p.y,r:(p.id===tfOppen?7:4.6)*sc,class:'tf-pt '+tfKl(p)+(p.id===tfOppen?' tf-pt-sel':'')},svg);
+    const txt=`<b>${esc(p.namn)}</b><br>${esc(p.status==='kulturmiljo'?'Kulturmiljö':[...new Set(p.org.map(tfSam))].join(', '))}`;
+    c.addEventListener('mousemove',e=>show(e,txt));c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
+    c.addEventListener('click',e=>kortVisa(host,tp,e,`${txt}<br><button type="button" class="akt-knapp" data-tf-visa="${esc(p.id)}">Läs mer</button> · ${hittaLank(p.x,p.y)}`))});
+  if(s){const t=el('text',{x:s.lx,y:s.ly-9*sc,'text-anchor':'middle',class:'lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=s.namn}
+  fokusRita(svg,sc);
+  const anv=new Set(TF.platser.filter(tfMatch).map(tfKl));
+  $('#tf-legend').innerHTML=TF.traditioner.map((t,i)=>anv.has(TF_KL[i])?`<span><i class="mi-pt ${TF_KL[i]}"></i>${esc(t)}</span>`:'').join('')+(anv.has('tf-km')?`<span><i class="mi-pt tf-km"></i>Kulturmiljö</span>`:'')}
+function tfKort(p){const op=p.id===tfOppen,nOrg=p.org.length;
+  const sam=p.status==='kulturmiljo'?'Kulturmiljö, kyrkobyggnad':[...new Set(p.org.map(tfSam))].join(' · ');
+  const var_=[p.adress||'Besöksadress: uppgift saknas',p.ort!=='Örebro'||!p.adress?p.ort:'',tfOnamn(p.o)].filter(Boolean).join(' · ');
+  const lank=l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.text)} ↗</a>${l.ok===false?' <span class="tf-varn">svarade inte vid senaste kontrollen</span>':''}`;
+  const orgRad=o=>`<li><b>${esc(o.namn)}</b><span class="sub">${esc(tfSam(o))}${o.samfund?'':' (samfund)'} · ${esc(o.tradition)}</span>${o.webb?`<span class="sub">${lank({text:'Webbplats',url:o.webb,ok:o.ok})}</span>`:'<span class="sub">Webbplats: uppgift saknas</span>'}</li>`;
+  return `<li class="tf-k${op?' tf-k-oppen':''}" id="tf-${esc(p.id)}" data-id="${esc(p.id)}">
+    <div class="tf-k-topp"><span class="tf-prick mi-pt ${tfKl(p)}" aria-hidden="true"></span><div class="tf-k-text"><h3 class="tf-namn">${esc(p.namn)}</h3>
+      <p class="tf-sam">${esc(sam)}</p><p class="small">${esc(var_)}</p>${p.o?'':'<p class="small tf-ingen">Ingen kontrollerad besöksplats, finns inte på kartan</p>'}</div></div>
+    <div class="tf-akt">${p.o?platsAkt(p.x,p.y,p.namn):''}<button type="button" class="akt-knapp tf-mer" aria-expanded="${op}" aria-controls="tf-d-${esc(p.id)}">${op?'Visa mindre':'Mer om platsen'}</button></div>
+    <div class="tf-detalj" id="tf-d-${esc(p.id)}"${op?'':' hidden'}>
+      ${p.beskr?`<p>${esc(p.beskr)}</p>`:''}
+      ${p.historia?`<h4>Historia</h4><p>${esc(p.historia)}</p>`:''}
+      ${nOrg?`<h4>${nOrg===1?'Församling':'Församlingar som använder platsen'}</h4><ul class="tf-org">${p.org.map(orgRad).join('')}</ul>`:''}
+      ${p.lankar.length?`<h4>Verksamhet och mer</h4><ul class="tf-lankar">${p.lankar.map(l=>`<li>${lank(l)}</li>`).join('')}</ul>`:''}
+      <h4>Källor</h4><ul class="tf-lankar">${p.kallor.map(l=>`<li>${lank(l)}</li>`).join('')}</ul>
+      <p class="small">Senast kontrollerad ${vtDag(p.kontrollerad)}${p.o?` · läge: ${esc(p.lage)}`:''}</p>
+    </div></li>`}
+function tfLista(){const L=tfAlla().filter(tfMatch).sort((a,b)=>a.namn.localeCompare(b.namn,'sv'));
+  $('#tf-lista').innerHTML=L.map(tfKort).join('');
+  const tom=!L.length;$('#tf-tom').hidden=!tom;
+  const nk=L.filter(p=>p.o).length,f=TF_F.q||TF_F.omr||TF_F.trad||TF_F.sam;
+  $('#tf-n').textContent=f?`${L.length} ${L.length===1?'plats':'platser'} stämmer${nk<L.length?`, ${nk} på kartan`:''}`:`${L.length} platser, ${nk} på kartan`;
+  $('#tf-rensa').hidden=!f;
+  $('#tf-lista-h').textContent=TF_F.omr?`Platser i ${tfOnamn(TF_F.omr)}`:f?'Platser som stämmer':'Alla platser'}
+function tfHash(){try{const q=[];if(TF_F.omr)q.push('omr='+TF_F.omr);if(TF_F.trad)q.push('trad='+encodeURIComponent(TF_F.trad));if(TF_F.sam)q.push('sam='+encodeURIComponent(TF_F.sam));if(tfOppen)q.push('plats='+tfOppen);
+  history.replaceState(null,'',q.length?'#'+q.join('&'):location.pathname)}catch(e){}}
+function tfSatt(k,v){TF_F[k]=v;const m={omr:'#tf-omr',trad:'#tf-trad',sam:'#tf-sam',q:'#tf-q'}[k];if($(m).value!==v)$(m).value=v;
+  if(k==='omr'&&v){const o=OM.omraden.find(x=>x.kod===v);if(o&&omBox.stad){const b=o._box;if(b[0]>=omBox.stad[0]&&b[2]<=omBox.stad[0]+omBox.stad[2]&&b[1]>=omBox.stad[1]&&b[3]<=omBox.stad[1]+omBox.stad[3])tfSattZoom('stad')}}
+  FOKUS=null;tfHash();tfKarta();tfLista()}
+function tfSattZoom(z){tfZoom=z;document.querySelectorAll('#tf-zoom .chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.z===z))}
+function tfVisa(id,rulla){const p=tfHitta(id);if(!p)return;if(!tfMatch(p)){Object.keys(TF_F).forEach(k=>TF_F[k]='');['#tf-omr','#tf-trad','#tf-sam','#tf-q'].forEach(s=>$(s).value='')}
+  tfOppen=id;tfHash();tfKarta();tfLista();const li=document.getElementById('tf-'+id);if(li&&rulla!==false)requestAnimationFrame(()=>traffMarkera(li))}
+function initTrossamfund(){OM.omraden.forEach(o=>o._box=pathBox(o.svg));omStad();
+  const A=TF.antal,tile=(l,v,s)=>`<div class="stat"><span class="label"><span class="lt">${esc(l)}</span></span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
+  $('#tf-kpis').innerHTML=[tile('Platser',fmt(A.platser),`kyrkor, moskéer och andra lokaler, i ${A.omraden} av 36 områden`),tile('Församlingar och samfund',fmt(A.organisationer),'lokala församlingar och organisationer'),
+    tile('Traditioner',fmt(TF.traditioner.length),TF.traditioner.map(t=>t.replace('Kristen: ','')).join(', ')),tile('Senast kontrollerad',vtDag(TF.uppdaterad),'uppgifterna kontrolleras för hand')].join('');
+  const opt=(s,l)=>{$(s).insertAdjacentHTML('beforeend',l.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join(''))};
+  opt('#tf-omr',OM.omraden.slice().sort((a,b)=>a.namn.localeCompare(b.namn,'sv')).map(o=>[o.kod,o.namn]));
+  opt('#tf-trad',TF.traditioner.map(t=>[t,t]));opt('#tf-sam',TF.samfund.map(s=>[s,s]));
+  $('#tf-omr').addEventListener('change',e=>tfSatt('omr',e.target.value));$('#tf-trad').addEventListener('change',e=>tfSatt('trad',e.target.value));$('#tf-sam').addEventListener('change',e=>tfSatt('sam',e.target.value));
+  let t;$('#tf-q').addEventListener('input',e=>{clearTimeout(t);t=setTimeout(()=>tfSatt('q',e.target.value.trim()),150)});
+  const rensa=()=>{tfOppen=null;Object.keys(TF_F).forEach(k=>TF_F[k]='');['#tf-omr','#tf-trad','#tf-sam','#tf-q'].forEach(s=>$(s).value='');FOKUS=null;tfHash();tfKarta();tfLista()};
+  $('#tf-rensa').addEventListener('click',rensa);$('#tf-tom-rensa').addEventListener('click',rensa);
+  $('#tf-zoom').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;tfSattZoom(b.dataset.z);tfKarta()});
+  $('#tf-lista').addEventListener('click',e=>{const b=e.target.closest('.tf-mer');if(!b)return;const id=b.closest('.tf-k').dataset.id;tfOppen=tfOppen===id?null:id;tfHash();tfLista();tfKarta();const n=document.querySelector(`#tf-${CSS.escape(id)} .tf-mer`);if(n)n.focus()});
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-tf-visa]');if(b)tfVisa(b.dataset.tfVisa)});
+  const h=new URLSearchParams(location.hash.slice(1));
+  if(h.get('omr')&&TF.omraden[h.get('omr')])TF_F.omr=h.get('omr');
+  if(h.get('trad')&&TF.traditioner.includes(h.get('trad')))TF_F.trad=h.get('trad');
+  if(h.get('sam')&&TF.samfund.includes(h.get('sam')))TF_F.sam=h.get('sam');
+  ['omr','trad','sam'].forEach(k=>{if(TF_F[k])$('#tf-'+k).value=TF_F[k]});
+  tfKarta();tfLista();if(h.get('plats'))tfVisa(h.get('plats'));
+  addEventListener('hashchange',()=>{const g=new URLSearchParams(location.hash.slice(1)),id=g.get('plats');if(id&&id!==tfOppen)tfVisa(id);else if(g.get('omr')&&g.get('omr')!==TF_F.omr&&TF.omraden[g.get('omr')])tfSatt('omr',g.get('omr'))})}
+/* Mitt Örebro: Tro och gemenskap nära dig */
+function miTro(k){const box=$('#mi-tf');if(!box)return;const a=TF&&TF.omraden[k];box.hidden=!a;if(!a)return;
+  $('#mi-tf-l').innerHTML=a.nara.map(([id,m])=>{const p=tfHitta(id);if(!p)return '';const sam=[...new Set(p.org.map(tfSam))].join(', ');
+    return `<li><span class="mi-bt"><a href="trossamfund.html#plats=${encodeURIComponent(p.id)}"><b>${esc(p.namn)}</b></a><span class="sub">${esc(sam)}${p.o===k?' · i ditt område':''}</span></span><span class="mi-avst">${esc(meter(m))}</span>${platsAkt(p.x,p.y,p.namn)}</li>`}).join('');
+  $('#mi-tf-src').innerHTML=`${a.antal?`${a.antal} ${a.antal===1?'plats':'platser'} i området. `:''}<a href="trossamfund.html#omr=${k}">Alla trossamfund i området</a> · avstånd fågelvägen från områdets mitt. Förteckningen kan vara ofullständig.`}
+
 /* ===== Sidan Bussen: alla områden, karta och tabell ===== */
 let buSel=null,buZoom='stad',buSort={k:'per1000',dir:-1};
 const buMin=b=>b.centrum?.i_centrum?0:(b.centrum?.min??null);
@@ -1806,7 +1898,7 @@ function renderMitt(){
     $('#mi-val').innerHTML=`<div class="pbar small" style="color:var(--muted)"><span></span><span></span><span class="v">Område</span><span class="v d">Kommun</span></div>`+rows.map(r=>`<div class="pbar" title="${esc(r.n)}: ${fmt(r.v,1)} % i området, ${r.kk!=null?fmt(r.kk,1):'–'} % i hela kommunen"><span><span class="lng">${esc(r.n)}</span><span class="krt">${esc(r.k)}</span></span><span class="tr"><span class="f" style="width:${r.v/mx*100}%;background:${r.f}"></span>${r.kk!=null?`<span class="k" style="left:${r.kk/mx*100}%"></span>`:''}</span><span class="v">${fmt(r.v,1)}</span><span class="v d">${r.kk!=null?fmt(r.kk,1):'–'}</span></div>`).join('');
   }else{$('#mi-val-sum').textContent='Inget valdistrikt ligger huvudsakligen i det här området, så vi kan inte visa hur det röstade.';$('#mi-val').innerHTML=''}
   // badplatser
-  miBuss(o.kod);miPlaner(o.kod);miNarmiljo(o.kod);
+  miBuss(o.kod);miPlaner(o.kod);miNarmiljo(o.kod);miTro(o.kod);
   const bad=m.bad||[];$('#mi-bad-p').hidden=!bad.length;
   $('#mi-bad').innerHTML=bad.map(b=>{const [c,t]=vtBed(b.prov?.[1]);return `<li><a href="vatten.html#bad=${esc(b.id)}"><b>${esc(b.n)}</b><span class="sub">${b.prov?`Senaste prov ${vtDag(b.prov[0])}: ${esc(t.toLowerCase())}`:'Inga prov'}${b.klass?` · ${esc(b.klass[1].toLowerCase())} ${b.klass[0]}`:''}${b.varning?' · varning för algblomning':''}</span></a><span class="mi-avst">${esc(miAvst(b))}</span>${platsAkt(b.x,b.y,b.n)}</li>`}).join('');
   // vidare
@@ -2039,9 +2131,9 @@ function initPlatsen(){
 
 /* ===== Sök på allt (startsidan). Indexet sok.json laddas först när man börjar skriva. ===== */
 let SOK=null,sokLaddar=null,sokAktiv=-1,sokTraffar=[];
-const SOK_TYP={q:'Plan',j:'Hundlekplats',y:'Lekplats',p:'Park',u:'Utegym',c:'Återvinning',k:'Hållplats',b:'Badplats',w:'Dricksvatten',t:'Ämne',o:'Område',r:'Livsmedel',s:'Skola',f:'Förskola',v:'Vårdcentral',a:'Äldreboende',h:'Hemtjänst',l:'Leverantör',d:'Valdistrikt'};
+const SOK_TYP={g:'Trossamfund',q:'Plan',j:'Hundlekplats',y:'Lekplats',p:'Park',u:'Utegym',c:'Återvinning',k:'Hållplats',b:'Badplats',w:'Dricksvatten',t:'Ämne',o:'Område',r:'Livsmedel',s:'Skola',f:'Förskola',v:'Vårdcentral',a:'Äldreboende',h:'Hemtjänst',l:'Leverantör',d:'Valdistrikt'};
 const SOK_PRIO={q:3,t:0,o:1,k:5,j:5,y:5,p:4,u:5,c:4,b:2,s:2,v:3,r:4,f:5,w:5,a:6,h:7,d:8,l:9};
-const SOK_LANK={q:r=>'planer.html#plan='+encodeURIComponent(r[3]),j:r=>'narmiljo.html#omr='+r[3]+'&t=hund',y:r=>'narmiljo.html#omr='+r[3]+'&t=lek',p:r=>'narmiljo.html#omr='+r[3]+'&t=park',u:r=>'narmiljo.html#omr='+r[3]+'&t=utegym',c:r=>'narmiljo.html#omr='+r[3]+'&t=avs',k:r=>'buss.html#omr='+r[3],b:r=>'vatten.html#bad='+r[3],w:r=>'vatten.html#ort='+encodeURIComponent(r[3]),t:r=>r[3],o:r=>'omrade.html#'+r[3],r:r=>'restauranger.html#v='+r[3],s:r=>'skolor.html#s'+r[3],f:r=>'skolor.html#f'+r[3],
+const SOK_LANK={g:r=>'trossamfund.html#plats='+encodeURIComponent(r[3]),q:r=>'planer.html#plan='+encodeURIComponent(r[3]),j:r=>'narmiljo.html#omr='+r[3]+'&t=hund',y:r=>'narmiljo.html#omr='+r[3]+'&t=lek',p:r=>'narmiljo.html#omr='+r[3]+'&t=park',u:r=>'narmiljo.html#omr='+r[3]+'&t=utegym',c:r=>'narmiljo.html#omr='+r[3]+'&t=avs',k:r=>'buss.html#omr='+r[3],b:r=>'vatten.html#bad='+r[3],w:r=>'vatten.html#ort='+encodeURIComponent(r[3]),t:r=>r[3],o:r=>'omrade.html#'+r[3],r:r=>'restauranger.html#v='+r[3],s:r=>'skolor.html#s'+r[3],f:r=>'skolor.html#f'+r[3],
   v:r=>'vard.html#vc='+encodeURIComponent(r[1]),a:r=>'vard.html#sabo='+r[3],h:r=>'vard.html#hemtjanst='+r[3],d:r=>'valet.html#vd='+r[3],l:r=>'pengar.html#lev='+encodeURIComponent(r[1])};
 function sokLadda(){if(!sokLaddar)sokLaddar=load('sok').then(d=>{SOK=d.rader.map(r=>({r,n:rkNorm(r[1]),s:rkNorm(r[2])}));return SOK}).catch(e=>{sokLaddar=null;throw e});return sokLaddar}
 function sokSok(q){
@@ -2370,7 +2462,7 @@ function initVatten(){
 
 
 /* ===== Status på Om-sidan: hur gamla är uppgifterna? ===== */
-const STATUS_SIDA={planer:'planer.html',natur:'natur.html',brott:'brott.html',raddning:'raddning.html',boende:'boende.html',buss:'buss.html',narmiljo:'narmiljo.html',restauranger:'restauranger.html',pengar:'pengar.html',befolkning:'befolkning.html',vader:'vader.html',vatten:'vatten.html',vard:'vard.html',handel:'handel.html',skolor:'skolor.html',omrade:'omrade.html',jamfor:'jamfor.html',manaden:'manaden.html',gissa:'gissa.html',valet:'valet.html'};
+const STATUS_SIDA={trossamfund:'trossamfund.html',planer:'planer.html',natur:'natur.html',brott:'brott.html',raddning:'raddning.html',boende:'boende.html',buss:'buss.html',narmiljo:'narmiljo.html',restauranger:'restauranger.html',pengar:'pengar.html',befolkning:'befolkning.html',vader:'vader.html',vatten:'vatten.html',vard:'vard.html',handel:'handel.html',skolor:'skolor.html',omrade:'omrade.html',jamfor:'jamfor.html',manaden:'manaden.html',gissa:'gissa.html',valet:'valet.html'};
 function renderStatus(S){
   const idag=new Date();idag.setHours(0,0,0,0);
   $('#st-tab tbody').innerHTML=S.rader.map(r=>{const d=r.hamtad?new Date(r.hamtad+'T00:00:00'):null;const dagar=d?Math.round((idag-d)/864e5):null;
@@ -2463,7 +2555,7 @@ function renderStart(S){
     try{[GI,OM]=await Promise.all([load('gissa'),miHamta()?load('omraden').catch(()=>null):null]);initGissa()}catch(e){console.error(e);felText('#gi-kort','Kunde inte läsa in frågorna. Ladda om sidan.')}
     break;
   case 'mitt':
-    try{[OM,MI,VAL,KT,NM]=await Promise.all([load('omraden'),load('mitt'),load('val').catch(()=>null),load('kollektiv').catch(()=>null),load('narmiljo').catch(()=>null)]);PN=await load('planer').catch(()=>null);ktTillOm();initMitt()}catch(e){console.error(e);felText('#mi-karta','Kunde inte läsa in datan för Mitt Örebro. Ladda om sidan.')}
+    try{[OM,MI,VAL,KT,NM]=await Promise.all([load('omraden'),load('mitt'),load('val').catch(()=>null),load('kollektiv').catch(()=>null),load('narmiljo').catch(()=>null)]);PN=await load('planer').catch(()=>null);TF=await load('trossamfund').catch(()=>null);ktTillOm();initMitt()}catch(e){console.error(e);felText('#mi-karta','Kunde inte läsa in datan för Mitt Örebro. Ladda om sidan.')}
     break;
   case 'narmiljo':
     try{[OM,NM]=await Promise.all([load('omraden'),load('narmiljo')]);initNarmiljo()}catch(e){console.error(e);felText('#nm-lead','Kunde inte läsa in datan om lekplatser och återvinning.')}
@@ -2520,6 +2612,9 @@ function renderStart(S){
       const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}
       addEventListener('hashchange',()=>{const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}});
     }catch(e){console.error(e);felText('#om-lead','Kunde inte läsa in områdesdatan.')}
+    break;
+  case 'trossamfund':
+    try{[OM,TF]=await Promise.all([load('omraden'),load('trossamfund')]);initTrossamfund()}catch(e){console.error(e);felText('#tf-lista','Kunde inte läsa in förteckningen över trossamfund.')}
     break;
   case 'planer':
     try{[OM,PN]=await Promise.all([load('omraden'),load('planer')]);initPlaner()}catch(e){console.error(e);felText('#pn-lead','Kunde inte läsa in kommunens planer.')}
