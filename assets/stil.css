@@ -1346,6 +1346,9 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .tf-rensa{padding:6px 12px;font-size:.9rem}
 .tf-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;margin-top:16px;align-items:start}
 .tf-kartpanel{position:sticky;top:76px}
+/* Kartrutan står kvar när man skrollar listan; kartan krymper så att hela rutan (rubrik, karta, förklaring, text) ryms på skärmen */
+#tf-karta svg{max-height:calc(100vh - 300px);max-height:calc(100svh - 300px);min-height:240px}
+@media (max-height:600px){.tf-kartpanel{position:static}#tf-karta svg{max-height:none;min-height:0}}
 .tf-h2{font-size:1.15rem}
 .tf-lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .tf-k{padding:13px 0 12px;border-bottom:1px solid var(--line)}
@@ -1367,5 +1370,5 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .tf-varn{font-size:.8rem;color:var(--c4)}
 .tf-k-oppen{background:linear-gradient(var(--accent-soft),var(--accent-soft)) left/3px 100% no-repeat;padding-left:10px;margin-left:-10px}
 .tf-tom{padding:18px 0;color:var(--ink2)}
-@media (max-width:900px){.tf-grid{grid-template-columns:minmax(0,1fr)}.tf-kartpanel{position:static}.tf-falt{grid-template-columns:repeat(3,minmax(0,1fr))}.tf-f-q{grid-column:1/-1}}
+@media (max-width:900px){.tf-grid{grid-template-columns:minmax(0,1fr)}.tf-kartpanel{position:static}#tf-karta svg{max-height:none;min-height:0}.tf-falt{grid-template-columns:repeat(3,minmax(0,1fr))}.tf-f-q{grid-column:1/-1}}
 @media (max-width:560px){.tf-falt{grid-template-columns:minmax(0,1fr)}.tf-f-q{grid-column:auto}}
