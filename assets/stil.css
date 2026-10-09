@@ -854,9 +854,9 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .stat .label{overflow-wrap:break-word;hyphens:auto}
 
 /* ===== Alla ämnen: knapp i sidhuvudet och utfällbar panel med hela sidan ===== */
-.aa-knapp{flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 .9rem var(--f-body);cursor:pointer}
+.aa-knapp{flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 10px;border-radius:999px;border:1px solid var(--accent-strong,var(--accent));background:var(--accent-strong,var(--accent));color:#fff;font:600 .9rem var(--f-body);cursor:pointer}
 .aa-knapp svg{width:17px;height:17px}
-.aa-knapp:hover,.aa-knapp[aria-expanded="true"]{border-color:var(--accent);color:var(--accent-text);background:var(--accent-soft)}
+.aa-knapp:hover,.aa-knapp[aria-expanded="true"]{filter:brightness(.88)}
 .alla-amnen{border-top:1px solid var(--line);background:var(--bg);max-height:calc(100vh - 70px);max-height:calc(100dvh - 70px);overflow-y:auto;overscroll-behavior:contain}
 .aa-rad{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px 28px;padding-block:16px 20px}
 .aa-bor,.aa-kommun{grid-column:span 2}
