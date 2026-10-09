@@ -2526,11 +2526,16 @@ function nuRulla(rad){const knapp=$('#nu-paus');const lugn=matchMedia('(prefers-
   knapp.addEventListener('click',()=>{stoppad=!stoppad;visa();start();if(!stoppad)steg()});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInterval(tid);tid=null}else start()});
   if(lugn)knapp.hidden=true;visa();start()}
+/* Utforska-kortet Tyck till nu: räknas i webbläsaren så att det stämmer varje dag, inte bara på måndagar */
+function utfTyck(till){const d=new Date(),i=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  const o=till.filter(x=>x>=i).sort();if(!o.length)return'Inga planer är öppna för synpunkter just nu. Se vad som är på gång där du bor.';
+  const s=o[0],dag=s===i?'i dag':`${+s.slice(8)} ${MANAD[+s.slice(5,7)-1]}`;
+  return `${o.length===1?'En plan går':o.length+' planer går'} att tycka till om just nu. Nästa sista dag: ${dag}.`}
 function renderStart(S){
   document.querySelectorAll('[data-tema]').forEach(a=>{const t=S.teman[a.dataset.tema]||(S.extra||{})[a.dataset.tema];if(!t)return;
     a.querySelector('.v').textContent=t.v;a.querySelector('.s').textContent=t.s});
   nuRad(S);
-  document.querySelectorAll('[data-utf]').forEach(a=>{const t=(S.utforska||{})[a.dataset.utf];if(t)a.querySelector('.utf-v').textContent=t});
+  document.querySelectorAll('[data-utf]').forEach(a=>{const t=(S.utforska||{})[a.dataset.utf];if(!t)return;a.querySelector('.utf-v').textContent=typeof t==='string'?t:utfTyck(t.till||[])});
   const sel=$('#hitta-omr');if(!sel)return;
   sel.innerHTML='<option value="">Välj ditt område</option>'+S.omraden.map(([k,n])=>`<option value="${k}">${esc(n)}</option>`).join('');
   $('#hitta').addEventListener('submit',e=>{e.preventDefault();if(sel.value)miSpara(sel.value);location.href='mitt.html'+(sel.value?'#'+sel.value:'')});
