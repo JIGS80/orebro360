@@ -2544,6 +2544,8 @@ function renderStart(S){
   miRemsa(S);initSok();
 }
 
+/* Har besökaren själv skrollat eller tryckt sedan sidan öppnades? Då flyttar vi inte sidan efteråt. */
+let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEventListener(t,()=>{hashRorts=true},{once:true,passive:true}));
 (async()=>{
   miMeny();initDela();initGenvagar();initSnabb();
   try{const S=await load('start');['#fot-datum','#fot-datum2'].forEach(id=>{const f=$(id);if(f)f.textContent=datumText(S.uppdaterad)});if(SIDA==='start')renderStart(S)}catch(e){console.error(e)}
@@ -2663,4 +2665,8 @@ function renderStart(S){
       if(h.startsWith('vd=')&&VD.distrikt.some(d=>d.k===h.slice(3))){vdSelect(h.slice(3),true);requestAnimationFrame(()=>$('#vd-map').scrollIntoView({behavior:'smooth',block:'start'}))}}catch(e){console.error(e);felText('#vd-map','Kunde inte läsa in kartan över valdistrikten.')}
     break;
   }
+  /* Länk till ett avsnitt (t.ex. planer.html#g-oppna): webbläsaren hoppar dit innan datan har laddats, och sedan
+     trycks avsnittet nedåt när nyckeltal och listor fylls i. Hoppa dit igen när sidan är klar, om besökaren inte själv har skrollat. */
+  const mal=/^#[a-z][\w-]*$/i.test(location.hash)&&document.getElementById(location.hash.slice(1));
+  if(mal&&!hashRorts)requestAnimationFrame(()=>mal.scrollIntoView({block:'start'}));
 })();
