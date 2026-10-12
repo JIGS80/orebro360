@@ -1392,3 +1392,6 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
   .tema .s{-webkit-line-clamp:1;line-clamp:1;font-size:.84rem}
   .om-kort{padding-block:40px 12px}
 }
+/* Direktlänk till valet om besöksräkningen (orebro360.se/om#gc-val) ska inte hamna under sidhuvudet */
+#gc-val{scroll-margin-top:96px}
+@media (max-width:760px){#gc-val{scroll-margin-top:124px}}
