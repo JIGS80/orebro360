@@ -2114,11 +2114,11 @@ function initMitt(){
   initGata();miNyttBesok();renderMitt();
 }
 async function miRemsa(S){
-  const host=$('#mi-remsa'),sel=$('#hitta-omr');if(!host)return;
+  const host=$('#mi-remsa'),lank=$('#hitta');if(!host)return;
   const k=miHamta();let m=null;
   if(k){try{await miData();m=MI.omraden[k]}catch(e){}}
-  if(!m){host.hidden=true;host.innerHTML='';if(sel)sel.value='';$('#hitta-lbl').innerHTML='Var bor du?<span class="hitta-mer"> Se hållplats, lekplats, skola och vårdcentral närmast dig.</span>';return}
-  if(sel)sel.value=k;$('#hitta-lbl').textContent='Ditt område';
+  if(!m){host.hidden=true;host.innerHTML='';if(lank){lank.hidden=false;$('#hitta-lbl').textContent='Var bor du?';$('#hitta-s').textContent='Se det som finns närmast dig';lank.href='mitt.html'}return}
+  if(lank)lank.hidden=true;   // remsan ovanför visar redan ditt område
   const fakta=[`${fmt(m.inv)} invånare`,`${fmt(m.rk30)} ${m.rk30===1?'livsmedelskontroll':'livsmedelskontroller'} senaste 30 dagarna`];
   const ritaRemsa=nara=>{host.innerHTML=`<div class="wrap mi-remsa-in"><a class="mi-remsa-txt" href="mitt.html"><span class="label">Ditt område</span><b>${esc(m.namn)}</b><span class="mi-remsa-fakta">${fakta.map(esc).join(' · ')}</span></a>
     <span class="mi-remsa-knappar"><a class="mi-remsa-ga" href="mitt.html">Mitt Örebro →</a><button type="button" data-g="byt">Byt</button><button type="button" data-g="glom">Glöm</button></span></div>${nara||''}`};
@@ -2765,21 +2765,15 @@ function idagStart(I){const box=$('#idag');if(!box||!I)return;
   let akt=Math.floor(Math.random()*L.length),byt=null,hovra=false;
   const mitt=$('#idag-mitt');
   $('#idag-prickar').innerHTML=L.map((r,i)=>`<button type="button" class="idag-prick" data-i="${i}" aria-label="Visa ${esc(r.t.replace(/, ungefär$/,''))}"></button>`).join('');
-  $('#idag-not').innerHTML=`Räknat från midnatt. Pengar, kontroller, fynd och bilar är genomsnitt, inte realtid. <button type="button" class="akt-knapp" id="idag-dela">Dela</button>`;
-  const visa=i=>{akt=(i+L.length)%L.length;const r=L[akt];mitt.href=r.l;$('#idag-enh').textContent=r.enh?' '+r.enh:'';$('#idag-s').textContent=r.s;
+  const visa=i=>{akt=(i+L.length)%L.length;const r=L[akt];mitt.href=r.l;$('#idag-enh').textContent=r.enh?' '+r.enh:'';mitt.title=r.s;
     box.querySelectorAll('.idag-prick').forEach((b,j)=>b.setAttribute('aria-pressed',j===akt));tal();
     if(!lugn){mitt.classList.remove('idag-in');void mitt.offsetWidth;mitt.classList.add('idag-in')}};
   const tal=()=>{const n=idagNu(),r=L[akt],t=idagTal(r,r.v(n));const e=$('#idag-v');e.textContent=t;$('#idag-t').textContent=idagText(r,r.v(n));mitt.classList.toggle('lang',t.length>9)};
   const rita=()=>{const n=idagNu();tal();
-    $('#idag-kl').textContent=`kl. ${String(n.h).padStart(2,'0')}.${String(n.m).padStart(2,'0')}`;
     $('#idag-bage').style.strokeDasharray=`${(n.t/86400*1000).toFixed(1)} 1000`;
     if(!lugn)$('#idag-sek').style.transform=`rotate(${n.t*6}deg)`;   // n.t ökar hela dygnet, så visaren aldrig snurrar baklänges vid hel minut
     $('#idag-l').innerHTML=L.map(r=>`<li><a href="${r.l}">${idagTal(r,r.v(n))}${r.enh?' '+r.enh:''} ${esc(idagText(r,r.v(n)))}</a> (${esc(r.s)})</li>`).join('');
-    const sek=(Date.now()-start.tid)/1000,se=$('#idag-sedan'),v=id=>{const r=L.find(x=>x.id===id);return r?r.v(n)-start.v[id]:null};
-    if(sek>=3&&n.t>start.n.t){const d=[],kr=v('kr'),b=L.find(x=>x.id==='buss'),li=v('liter');if(kr!=null)d.push(`${fmt(Math.floor(kr))} kr`);
-      if(b){const k=Math.floor(b.v(n))-Math.floor(start.v.buss);if(k>0)d.push(`${k} ${k===1?'busstur':'bussturer'}`)}
-      if(li!=null)d.push(li>=1e6?`${fmt(li/1e6,1)} miljoner liter i Svartån`:`${fmt(Math.floor(li))} liter i Svartån`);
-      if(d.length){se.textContent='Sedan du kom: '+d.join(' · ');se.hidden=false}}};
+    };
   let tick=null;const kor=()=>{clearInterval(tick);clearInterval(byt);tick=byt=null;if(idagPaus||document.hidden)return;
     tick=setInterval(rita,lugn?10000:1000);if(!lugn)byt=setInterval(()=>{if(!hovra)visa(akt+1)},6000)};
   box.hidden=false;const gd=box.parentElement.querySelector('.hero-dial');if(gd)gd.hidden=true;
@@ -2801,11 +2795,9 @@ function renderStart(S){
     a.querySelector('.v').textContent=t.v;a.querySelector('.s').textContent=t.s});
   nuRad(S);idagStart(S.idag);
   document.querySelectorAll('[data-utf]').forEach(a=>{const t=(S.utforska||{})[a.dataset.utf];if(!t)return;a.querySelector('.utf-v').textContent=typeof t==='string'?t:utfTyck(t.till||[])});
-  const sel=$('#hitta-omr');if(!sel)return;
-  sel.innerHTML='<option value="">Välj ditt område</option>'+S.omraden.map(([k,n])=>`<option value="${k}">${esc(n)}</option>`).join('');
-  $('#hitta').addEventListener('submit',e=>{e.preventDefault();if(sel.value)miSpara(sel.value);location.href='mitt.html'+(sel.value?'#'+sel.value:'')});
-  $('#mi-remsa').addEventListener('click',e=>{const b=e.target.closest('button[data-g]');if(!b)return;
-    if(b.dataset.g==='glom'){miGlom();miRemsa(S)}else{$('#hitta').scrollIntoView({behavior:'smooth',block:'center'});sel.focus({preventScroll:true})}});
+  const rs=$('#mi-remsa');if(!rs)return;
+  rs.addEventListener('click',e=>{const b=e.target.closest('button[data-g]');if(!b)return;
+    if(b.dataset.g==='glom'){miGlom();miRemsa(S)}else location.href='mitt.html'});
   miRemsa(S);initSok();
 }
 
