@@ -390,6 +390,15 @@ h3.va-sub{font-size:1.45rem;font-weight:700}
 .rk-list button:hover,.rk-list button[aria-pressed="true"]{background:var(--accent-soft)}
 .rk-list button[aria-pressed="true"] b{color:var(--accent-text)}
 .rk-list .more{padding:10px}
+/* Mina restauranger */
+.rk-sparad{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent-text);font:600 .72rem/1.5 var(--f-body);vertical-align:middle}
+.rk-list button .rk-sparad{color:var(--accent-text);font-size:.72rem}
+.rk-spara-rad{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:10px}
+.rk-spara{padding:8px 13px;font-size:.9rem}
+.rk-spara[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-text)}
+.rk-spara:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#rk-mina{margin-top:-2px}
+.mi-mina .src .akt-knapp{margin-left:4px}
 #rk-map circle.rk-pt{fill:var(--accent);fill-opacity:.7;stroke:var(--surface);stroke-width:1;vector-effect:non-scaling-stroke;cursor:pointer}
 #rk-map circle.rk-pt:hover{fill-opacity:1}
 #rk-map circle.rk-sel{fill:var(--accent);stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;cursor:pointer}

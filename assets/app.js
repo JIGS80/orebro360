@@ -1057,7 +1057,7 @@ function initNa(){
 }
 
 /* ===== Restaurangkollen ===== */
-let RK,rkTyp=()=>{},rkGrp='Restaurang och café',rkSel=null,rkZoom='stad',rkQ='',rkOmr=null;
+let RK,rkTyp=()=>{},rkGrp='Restaurang och café',rkSel=null,rkZoom='stad',rkQ='',rkOmr=null,rkMina=false;
 const RK_TYP={Restaurang:'Restaurang',Café:'Café',Pizzeria:'Pizzeria',Butik:'Butik',Tillagning:'Kök i skola, vård eller omsorg',Buffert:'Producent, distributör eller annat'};
 const RK_ORD=['A','K','Å','S','U'];
 const rkDatum=d=>{const [y,m,dd]=d.split('-');return `${+dd} ${MON[+m-1]} ${y}`};
@@ -1065,6 +1065,7 @@ const rkNorm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-̧̃]/g,'').normal
 function rkRes(k){return k.res?k.res.split(',').filter(Boolean).map(s=>({nr:s.slice(0,3),c:s.slice(3)})):[]}
 function rkFilter(){
   const q=rkNorm(rkQ.trim());
+  if(rkMina){const s=new Set(minaHamta().map(x=>x[0]));return RK.verksamheter.filter(v=>s.has(v.id)&&(!q||v._s.includes(q)))}
   return RK.verksamheter.filter(v=>(rkGrp==='Alla'||RK.grupper[v.t]===rkGrp)&&(!rkOmr||v.o===rkOmr)&&(!q||v._s.includes(q)));
 }
 function rkPills(res){
@@ -1072,12 +1073,12 @@ function rkPills(res){
   return RK_ORD.filter(c=>n[c]).map(c=>`<span class="rk-pill rk-${c==='Å'?'O':c}">${n[c]} ${esc(RK.koder[c])}</span>`).join('');
 }
 function renderRkList(){
-  const rows=rkFilter();const max=60;
+  const rows=rkFilter();const max=60,sp=new Set(minaHamta().map(x=>x[0]));rkMinaRita();
   $('#rk-count').textContent=`${fmt(rows.length)} träffar`;
   $('#rk-list').innerHTML=rows.length?rows.slice(0,max).map(v=>{const s=v.k[0];
-    return `<li><button type="button" data-id="${v.id}" aria-pressed="${v.id===rkSel}"><b>${esc(v.n)}</b><span>${v.h?'Adress visas inte':esc(v.a||'')}${s?` · senast kontrollerad ${rkDatum(s.d)}`:' · ingen kontroll visas'}</span></button></li>`}).join('')
+    return `<li><button type="button" data-id="${v.id}" aria-pressed="${v.id===rkSel}"><b>${esc(v.n)}${sp.has(v.id)?' <span class="rk-sparad">Sparad</span>':''}</b><span>${v.h?'Adress visas inte':esc(v.a||'')}${s?` · senast kontrollerad ${rkDatum(s.d)}`:' · ingen kontroll visas'}</span></button></li>`}).join('')
     +(rows.length>max?`<li class="more small">Visar ${max} av ${fmt(rows.length)}. Sök på namn eller gata för att hitta fler.</li>`:'')
-    :'<li class="more small">Inga verksamheter matchar sökningen.</li>';
+    :`<li class="more small">${rkMina&&!sp.size?'Du har inte sparat några verksamheter än. Välj en och tryck på Spara i Mina restauranger.':'Inga verksamheter matchar sökningen.'}</li>`;
   renderRkMap(rows);
 }
 function renderRkMap(rows){
@@ -1113,14 +1114,21 @@ function rkVal(id,scroll){
       <div class="tablewrap"><table><thead><tr><th>Kontrollpunkt</th><th>Resultat</th></tr></thead><tbody>${rader}</tbody></table></div></details>`}).join('');
   const sen=v.k[0];
   $('#rk-det').innerHTML=`<div class="rk-top">
-      <div><h3>${esc(v.n)}</h3><p class="small">${v.h?'Hemlik miljö, adressen visas inte':esc(v.a||'')} · ${esc(RK_TYP[v.t]||v.t)}${v.reg?` · registrerad ${rkDatum(v.reg)}`:''}</p></div>
+      <div><h3>${esc(v.n)}</h3><p class="small">${v.h?'Hemlik miljö, adressen visas inte':esc(v.a||'')} · ${esc(RK_TYP[v.t]||v.t)}${v.reg?` · registrerad ${rkDatum(v.reg)}`:''}</p>
+        <div class="rk-spara-rad"><button type="button" class="knapp-l rk-spara" data-rk-spara="${esc(v.id)}"></button><span class="small rk-spara-not" role="status"></span></div></div>
       <div class="rk-sen"><span class="label">Senast kontrollerad</span><span class="v num">${sen?rkDatum(sen.d):'–'}</span><span class="s">${sen?esc(sen.r):'Kommunen visar ingen kontroll ännu'}</span></div>
     </div>
     ${ktr||''}
     <p class="src">${v.k.length?`${v.k.length} ${v.k.length===1?'kontroll':'kontroller'} visas. `:''}<a href="${esc(RK.sida+v.id)}" target="_blank" rel="noopener">Se verksamheten hos Örebro kommun</a>${v.h?'':' · '+delaLankKnapp('dela/r/'+v.id+'.html',v.n+' · Restaurangkollen')}${omr?` · Ligger i <a href="omrade.html#${v.o}">${esc(omr)}</a>`:''}${v.ca?' · Kommunens karta saknar en punkt för verksamheten, så vi har placerat den ungefär efter gatan i adressen.':''}</p>`;
-  renderRkMap();
+  rkSparaKnapp(v.id,'');renderRkMap();
   if(scroll)$('#rk-det').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
+// Mina restauranger i Restaurangkollen: knappen i detaljvyn och valet ovanför listan
+function rkSparaKnapp(id,not){const b=document.querySelector('[data-rk-spara]');if(!b||b.dataset.rkSpara!==id)return;const har=minaHar(id);
+  b.setAttribute('aria-pressed',har);b.textContent=har?'✓ Sparad i Mina restauranger':'Spara i Mina restauranger';
+  const n=b.parentElement.querySelector('.rk-spara-not');n.innerHTML=not||(har?'Visas i <a href="mitt.html">Mitt Örebro</a>. Sparas bara i den här webbläsaren.':'')}
+function rkMinaRita(){const c=$('#rk-mina');if(!c)return;const n=minaHamta().length;if(!n&&!rkMina){c.hidden=true;c.innerHTML='';return}
+  c.hidden=false;c.innerHTML=`<button class="chip" type="button" data-mina aria-pressed="${rkMina}">Mina restauranger <span class="sub">${n}</span></button>`}
 function initRk(){
   RK.verksamheter.forEach(v=>v._s=rkNorm(v.n+' '+(v.a||'')));
   const V=RK.verksamheter,alla=V.flatMap(v=>v.k.map(k=>({...k,t:v.t}))),medRes=alla.filter(k=>k.res);
@@ -1140,6 +1148,10 @@ function initRk(){
     c.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;rkOmr=b.dataset.o||null;c.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderRkList()})}
   let tmo;$('#rk-q').addEventListener('input',e=>{clearTimeout(tmo);tmo=setTimeout(()=>{rkQ=e.target.value;renderRkList()},120)});
   $('#rk-list').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)rkVal(b.dataset.id,true)});
+  $('#rk-mina').addEventListener('click',e=>{if(!e.target.closest('[data-mina]'))return;rkMina=!rkMina;renderRkList()});
+  $('#rk-det').addEventListener('click',e=>{const b=e.target.closest('[data-rk-spara]');if(!b)return;const id=b.dataset.rkSpara,v=RK.verksamheter.find(x=>x.id===id);if(!v)return;
+    const fore=minaHar(id);if(!minaVaxla(id,v.n)){rkSparaKnapp(id,`Du har redan sparat ${MI_RK_MAX}. Ta bort någon i <a href="mitt.html">Mitt Örebro</a> eller här först.`);return}
+    rkSparaKnapp(id,fore?'Borttagen ur Mina restauranger.':'');renderRkList()});
   document.addEventListener('click',e=>{const b=e.target.closest('[data-rk-visa]');if(b)rkVal(b.dataset.rkVisa,true)});
   $('#rk-zoom').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;rkZoom=b.dataset.z;document.querySelectorAll('#rk-zoom .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderRkMap()});
   // vad kontrollerna hittar: antal avvikelser per kontrollpunkt
@@ -1897,7 +1909,16 @@ function initBuss(){
    Gatan och dagen för senaste besöket sparas bara i webbläsaren (localStorage), och bara när besökaren själv väljer det.
    De hamnar aldrig i adressraden, i delningslänkar eller i "Hitta hit" (som bara skickar målet till kartan). Avstånden räknas här. ===== */
 const MI_GATA='orebro360.gata',MI_NYTT='orebro360.nytt';
-let gataMinne=null,nyttMinne=null,GATA=null,HPL=null,miGataLaddar=null,miNyttKlar=false;
+/* Mina restauranger: verksamheter som besökaren själv har sparat i Restaurangkollen. Sparas bara i webbläsaren
+   (orebro360.rk = [[id, namn], ...], senast sparad först, högst 20). Namnet sparas så att listan kan säga vilken det var
+   om verksamheten försvinner ur kommunens förteckning. Skickas aldrig någonstans och står aldrig i adressen. */
+const MI_RK='orebro360.rk',MI_RK_MAX=20;let rkMinne=null;
+function minaHamta(){try{const v=localStorage.getItem(MI_RK);if(v){const a=JSON.parse(v);if(Array.isArray(a))return a.filter(x=>Array.isArray(x)&&typeof x[0]==='string'&&/^[0-9a-f-]{8,40}$/i.test(x[0])&&typeof x[1]==='string').slice(0,MI_RK_MAX)}}catch(e){}return rkMinne||[]}
+function minaSpara(a){rkMinne=a.length?a:null;try{a.length?localStorage.setItem(MI_RK,JSON.stringify(a)):localStorage.removeItem(MI_RK)}catch(e){}}
+const minaGlom=()=>minaSpara([]);
+const minaHar=id=>minaHamta().some(x=>x[0]===id);
+function minaVaxla(id,n){let a=minaHamta();if(a.some(x=>x[0]===id))a=a.filter(x=>x[0]!==id);else{if(a.length>=MI_RK_MAX)return false;a=[[id,n],...a]}minaSpara(a);return true}
+let gataMinne=null,nyttMinne=null,GATA=null,HPL=null,miGataLaddar=null,miNyttKlar=false,miRkLaddar=null;
 function gataHamta(){try{const v=localStorage.getItem(MI_GATA);if(v){const g=JSON.parse(v);if(g&&typeof g.n==='string'&&/^1880R\d{3}$/.test(g.k)&&isFinite(g.x)&&isFinite(g.y))return g}}catch(e){}return gataMinne}
 function gataSpara(g){gataMinne={n:g.n,k:g.k,x:g.x,y:g.y};try{localStorage.setItem(MI_GATA,JSON.stringify(gataMinne))}catch(e){}}
 function gataGlom(){gataMinne=null;try{localStorage.removeItem(MI_GATA)}catch(e){}}
@@ -1906,7 +1927,10 @@ function nyttSpara(d){nyttMinne=d;try{localStorage.setItem(MI_NYTT,JSON.stringif
 function nyttGlom(){nyttMinne=null;try{localStorage.removeItem(MI_NYTT)}catch(e){}}
 const miIdag=()=>{const [y,m,d]=stockholmIdag();return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`};
 function miGataData(){if(GATA&&HPL)return Promise.resolve();
-  if(!miGataLaddar)miGataLaddar=Promise.all([load('gata'),load('hallplatser')]).then(([g,h])=>{GATA=g;HPL=h}).catch(e=>{miGataLaddar=null;throw e});return miGataLaddar}
+  if(!miGataLaddar)miGataLaddar=Promise.all([GATA||load('gata'),HPL||load('hallplatser')]).then(([g,h])=>{GATA=GATA||g;HPL=h}).catch(e=>{miGataLaddar=null;throw e});return miGataLaddar}
+// bara gata.json (verksamheterna med senaste kontroll), för Mina restauranger
+function miRkData(){if(GATA)return Promise.resolve();if(!miRkLaddar)miRkLaddar=load('gata').then(g=>{GATA=GATA||g}).catch(e=>{miRkLaddar=null;throw e});return miRkLaddar}
+const miRkMap=()=>GATA._rk||(GATA._rk=new Map(GATA.rk.map(v=>[v[0],v])));
 // varifrån avstånden räknas: din gata om den ligger i området som visas (och datan har laddats), annars områdets centrum
 function miFran(k){const g=gataHamta(),m=MI&&MI.omraden[k];if(g&&g.k===k&&GATA&&HPL)return {x:g.x,y:g.y,gata:g.n};return m?{x:m.cx,y:m.cy,gata:null}:null}
 const miM=(f,x,y)=>Math.round(Math.hypot(x-f.x,y-f.y))*10;   // kartans enhet är 10 m
@@ -1943,6 +1967,8 @@ function miKortRader(k,f){const m=MI.omraden[k],R=[],b=KT&&KT.omraden[k],n=NM&&N
     const vc=m.vc[0];if(vc)rad('Vårdcentral',vc.n,miAvst(vc),vc.tel!=null?`telefonen besvarad samma dag ${fmt(vc.tel)} %`:'','mi-vc-p');
     if(n&&n.lek)rad('Lekplats',nmNamn('lek',n.lek),n.lek.m,'','mi-lek-p');
     if(n&&n.avs){const a=(n.avs.a||'').replace(/\s*\(endast[^)]*\)/i,'').trim();rad('Återvinning',a?(/^(vid|nära) /.test(a)?'Station '+a:a):'Återvinningsstation',n.avs.m,'','mi-atv-p')}}
+  if(GATA){const a=minaHamta();if(a.length){const M=miRkMap(),g=new Date(Date.now()-30*864e5).toISOString().slice(0,10),n=a.filter(([id])=>{const v=M.get(id);return v&&v[6]&&v[6]>=g}).length;
+    if(n)rad('Mina restauranger',`${n} av ${a.length} ${a.length===1?'sparad':'sparade'} kontrollerade`,'','de senaste 30 dagarna','mi-mina')}}
   rad('Livsmedel',m.rk30?`${fmt(m.rk30)} ${m.rk30===1?'kontroll':'kontroller'} i området`:'Inga kontroller i området','',m.rk30?'de senaste 30 dagarna':'de senaste 30 dagarna; '+fmt(m.rk90)+' de senaste 90','mi-rk-p');
   if(PN){const op=(PN.omraden[k]||[]).map(id=>PN.planer.find(p=>p.id===id)).filter(p=>p&&pnOpp(p));
     if(op.length)rad('Planer',`${op.length===1?'En plan går':op.length+' planer går'} att tycka till om`,'',`sista dag ${pnDatum(op.map(p=>p.till).sort()[0])}`,'mi-pn')}
@@ -1955,7 +1981,10 @@ function miNytt(k){const box=$('#mi-nytt'),d=nyttHamta(),m=MI.omraden[k];$('#mi-
   const f=d.forra,dag=iso=>{const [y,mm,dd]=iso.split('-').map(Number);return `${dd} ${MANAD[mm-1]}`},R=[];
   if(f===d.nu){$('#mi-nytt-h').textContent='Nytt sedan du var här';$('#mi-nytt-s').textContent='';
     $('#mi-nytt-l').innerHTML='<li class="small">Nästa gång du kommer hit visas vad som har hänt i området sedan i dag: nya livsmedelskontroller, planer, badprov och busstidtabeller.</li>';return}
-  m.rk.filter(r=>r.d>f).forEach(r=>{const [c,txt]=miStatus(r);R.push(`<li><a href="restauranger.html#v=${esc(r.id)}"><b>${esc(r.n)}</b><span class="sub">Ny livsmedelskontroll ${rkDatum(r.d)} · ${esc(r.r)}</span></a><span class="mi-st mi-st-${c}">${txt}</span></li>`)});
+  const sedda=new Set();
+  if(GATA){const M=miRkMap();minaHamta().forEach(([id])=>{const v=M.get(id);if(!v||!v[6]||v[6]<=f)return;sedda.add(id);const [c,txt]=miStatus({p:v[8],avv:v[9]});
+    R.push(`<li><a href="restauranger.html#v=${esc(id)}"><b>${esc(v[1])}</b><span class="sub">En av dina sparade · ny livsmedelskontroll ${rkDatum(v[6])} · ${esc(v[7])}</span></a><span class="mi-st mi-st-${c}">${txt}</span></li>`)})}
+  m.rk.filter(r=>r.d>f&&!sedda.has(r.id)).forEach(r=>{const [c,txt]=miStatus(r);R.push(`<li><a href="restauranger.html#v=${esc(r.id)}"><b>${esc(r.n)}</b><span class="sub">Ny livsmedelskontroll ${rkDatum(r.d)} · ${esc(r.r)}</span></a><span class="mi-st mi-st-${c}">${txt}</span></li>`)});
   if(PN){const ids=new Set(PN.omraden[k]||[]);(PN.nytt||[]).filter(x=>x.datum>f&&ids.has(x.id)).forEach(x=>{const p=PN.planer.find(q=>q.id===x.id);if(!p)return;
     R.push(`<li><a href="planer.html#plan=${encodeURIComponent(p.id)}"><b>${esc(p.kort)}</b><span class="sub">${x.ny?'Ny plan':'Nytt skede: '+esc(x.status)}${pnOpp(p)?` · sista dag att tycka till ${pnDatum(p.till)}`:''}</span></a></li>`)})}
   (m.bad||[]).filter(b=>b.prov&&b.prov[0]>f).forEach(b=>{const [,t]=vtBed(b.prov[1]);R.push(`<li><a href="vatten.html#bad=${esc(b.id)}"><b>${esc(b.n)}</b><span class="sub">Nytt badprov ${vtDag(b.prov[0])}: ${esc(t.toLowerCase())}</span></a></li>`)});
@@ -1963,6 +1992,15 @@ function miNytt(k){const box=$('#mi-nytt'),d=nyttHamta(),m=MI.omraden[k];$('#mi-
   $('#mi-nytt-h').textContent=`Nytt sedan ${dag(f)}`;$('#mi-nytt-s').textContent=R.length?`${R.length} ${R.length===1?'sak':'saker'} i ${m.namn}`:'';
   $('#mi-nytt-l').innerHTML=R.length?R.join(''):`<li class="small">Inget nytt i ${esc(m.namn)} sedan ${dag(f)} bland livsmedelskontroller, planer, badprov och busstidtabeller.</li>`;
   miKorta($('#mi-nytt-l'),5)}
+// Mina restauranger: de sparade med kommunens senaste kontroll (data ur gata.json)
+function miMina(){const box=$('#mi-mina');if(!box)return;const a=minaHamta();box.hidden=!a.length;if(!a.length)return;
+  const ul=$('#mi-mina-l');$('#mi-mina-s').textContent=`${a.length} ${a.length===1?'sparad':'sparade'}`;
+  if(!GATA){ul.innerHTML='<li class="small">Laddar …</li>';return}
+  const M=miRkMap(),rader=a.map(([id,n])=>({id,n,v:M.get(id)})).sort((x,y)=>(y.v?y.v[6]||'':'~').localeCompare(x.v?x.v[6]||'':'~'));
+  ul.innerHTML=rader.map(({id,n,v})=>{if(!v)return `<li><span class="mi-bt"><b>${esc(n)}</b><span class="sub">Finns inte längre i kommunens förteckning, till exempel efter ägarbyte eller nedläggning.</span></span><button type="button" class="akt-knapp" data-mina-bort="${esc(id)}">Ta bort</button></li>`;
+    const [c,txt]=v[6]?miStatus({p:v[8],avv:v[9]}):['vant','Ingen kontroll visas'];
+    return `<li><a href="restauranger.html#v=${esc(id)}"><b>${esc(v[1])}</b><span class="sub">${esc(v[2]||'adressen visas inte')} · ${esc(v[3])}${v[6]?` · ${esc(v[7])}, ${rkDatum(v[6])}`:''}</span></a><span class="mi-st mi-st-${c}">${txt}</span>${v[4]!=null?platsAkt(v[4],v[5],v[1]):''}</li>`}).join('');
+  miKorta(ul,5)}
 // korta listor: de första n syns, resten bakom "Visa fler"
 function miKorta(ul,n=3){if(!ul)return;const li=[...ul.children].filter(x=>!x.classList.contains('mi-ref')&&!x.classList.contains('mi-bu-not')&&!x.classList.contains('mi-fler')&&!x.classList.contains('small'));
   if(li.length<=n+1)return;li.slice(n).forEach(x=>x.hidden=true);
@@ -2002,7 +2040,8 @@ function renderMitt(){
   $('#mi-spara').hidden=!o||k===sparad;$('#mi-glom').hidden=!sparad;
   $('#mi-not').textContent=o&&k!==sparad?`Du tittar på ${o.namn}. Spara det som ditt område så visas det här och på startsidan nästa gång.`:
     sparad?'Ditt val sparas bara i den här webbläsaren. Vi får aldrig veta vilket område du har valt.':'Valet sparas bara i den här webbläsaren. Vi får aldrig veta vilket område du har valt.';
-  miKarta();
+  miKarta();miMina();
+  if(minaHamta().length&&!GATA)miRkData().then(()=>renderMitt()).catch(e=>console.error(e));
   $('#mi-kpis').hidden=!o;$('#mi-innehall').hidden=!o;$('#mi-kort-p').hidden=!o;if(!o)$('#mi-nytt').hidden=true;
   if(!o){{const gv=document.querySelector('main .genvagar');if(gv)gv.hidden=true}$('#mi-h').textContent='Ditt Örebro, samlat på ett ställe';
     $('#mi-lead').textContent='Välj området där du bor, så samlar vi det viktigaste nära dig: närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral med vägbeskrivning dit, och hur området ser ut. Resten av sidan ser ut som vanligt.';return}
@@ -2020,7 +2059,7 @@ function renderMitt(){
   const fR=miFran(k),GR=fR&&fR.gata&&GATA.rk;
   $('#mi-rk-s').textContent=GR?'närmast '+fR.gata+', fågelvägen':'restauranger, butiker, skolkök med mera';
   $('#mi-rk-sum').textContent=m.rk90?`Kommunen har gjort ${fmt(m.rk30)} ${m.rk30===1?'kontroll':'kontroller'} i området de senaste 30 dagarna och ${fmt(m.rk90)} de senaste 90 dagarna.`:'Kommunen har inte gjort några kontroller i området de senaste 90 dagarna.';
-  if(GR)$('#mi-rk').innerHTML=miNarmast(GATA.rk,fR,8,v=>[v[4],v[5]]).map(({p:v,m:mm})=>{const [c,txt]=miStatus({p:v[8],avv:v[9]});return `<li><a href="restauranger.html#v=${esc(v[0])}"><b>${esc(v[1])}</b><span class="sub">${esc(v[2])}${v[2]?' · ':''}${esc(v[3])} · ${esc(v[7])}, ${rkDatum(v[6])}</span></a><span class="mi-st mi-st-${c}">${txt}</span><span class="mi-avst">${esc(meter(mm))}</span>${platsAkt(v[4],v[5],v[1])}</li>`}).join('');
+  if(GR)$('#mi-rk').innerHTML=miNarmast(GATA.rk.filter(v=>v[4]!=null&&v[6]),fR,8,v=>[v[4],v[5]]).map(({p:v,m:mm})=>{const [c,txt]=miStatus({p:v[8],avv:v[9]});return `<li><a href="restauranger.html#v=${esc(v[0])}"><b>${esc(v[1])}</b><span class="sub">${esc(v[2])}${v[2]?' · ':''}${esc(v[3])} · ${esc(v[7])}, ${rkDatum(v[6])}</span></a><span class="mi-st mi-st-${c}">${txt}</span><span class="mi-avst">${esc(meter(mm))}</span>${platsAkt(v[4],v[5],v[1])}</li>`}).join('');
   else $('#mi-rk').innerHTML=m.rk.map(r=>{const [c,txt]=miStatus(r);return `<li><a href="restauranger.html#v=${esc(r.id)}"><b>${esc(r.n)}</b><span class="sub">${esc(r.a||'')}${r.a?' · ':''}${esc(r.r)}, ${rkDatum(r.d)}</span></a><span class="mi-st mi-st-${c}">${txt}</span>${platsAkt(r.x,r.y,r.n)}</li>`}).join('');
   $('#mi-rk-not').innerHTML=`${GR?'Verksamheterna närmast din gata och den senaste kontrollen hos var och en, med kommunens egna ord. Saknar kommunen en kartpunkt har vi placerat verksamheten ungefär efter gatan i adressen.':'Den senaste kontrollen för varje verksamhet i området, med kommunens egna ord.'} Kommunen kontrollerar alla som hanterar livsmedel, även skolor, förskolor och butiker. <a href="restauranger.html#omr=${k}">Alla verksamheter i området</a> · uppgifterna hämtades ${rkDatum(MI.rk_uppdaterad)}.`;
   // skolor
@@ -2068,7 +2107,9 @@ function initMitt(){
   $('#mi-sel').addEventListener('change',e=>{if(e.target.value)miValj(e.target.value)});
   $('#mi-form').addEventListener('submit',e=>e.preventDefault());
   $('#mi-spara').addEventListener('click',()=>{miSpara(miVisad);renderMitt()});
-  $('#mi-glom').addEventListener('click',()=>{miGlom();gataGlom();nyttGlom();miVisad=null;try{history.replaceState(null,'',location.pathname)}catch(e){}renderMitt()});
+  $('#mi-mina-tom').addEventListener('click',()=>{minaGlom();renderMitt()});
+  $('#mi-mina').addEventListener('click',e=>{const b=e.target.closest('[data-mina-bort]');if(!b)return;minaSpara(minaHamta().filter(x=>x[0]!==b.dataset.minaBort));renderMitt()});
+  $('#mi-glom').addEventListener('click',()=>{miGlom();gataGlom();nyttGlom();minaGlom();miVisad=null;try{history.replaceState(null,'',location.pathname)}catch(e){}renderMitt()});
   addEventListener('hashchange',()=>{const h=hashKod();if(miGiltig(h)){miVisad=h;renderMitt()}});
   initGata();miNyttBesok();renderMitt();
 }
@@ -2806,7 +2847,7 @@ let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEv
     break;
   case 'restauranger':
     try{[RK,OM]=await Promise.all([load('restauranger'),load('omraden').catch(()=>null)]);if(OM)omStad();
-      const h=hashKod();if(h.startsWith('omr=')&&RK.omraden[h.slice(4)]){rkOmr=h.slice(4);rkGrp='Alla'}
+      const h=hashKod();if(h.startsWith('omr=')&&RK.omraden[h.slice(4)]){rkOmr=h.slice(4);rkGrp='Alla'}if(h==='mina'&&minaHamta().length)rkMina=true;
       initRk();if(h.startsWith('v=')&&RK.verksamheter.some(v=>v.id===h.slice(2)))rkVal(h.slice(2),true)}catch(e){console.error(e);felText('#rk-lead','Kunde inte läsa in kontrollresultaten.')}
     break;
   case 'vader':
