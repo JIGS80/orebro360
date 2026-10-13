@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#008572">
 <link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/stil.css?v=b2ecff20">
+<link rel="stylesheet" href="assets/stil.css?v=3355bf69">
 </head>
 <body data-sida="mitt">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
@@ -90,7 +90,26 @@
             <button type="button" class="knapp-l" id="mi-glom" hidden>Glöm mitt val</button>
           </div>
           <p class="src" id="mi-not">Valet sparas bara i den här webbläsaren. Vi får aldrig veta vilket område du har valt.</p>
+          <div class="mi-gata" id="mi-gata-ruta">
+            <label for="mi-gata">Din gata <span class="mi-valfri">valfritt</span></label>
+            <div class="mi-gata-rad">
+              <input id="mi-gata" type="search" autocomplete="off" spellcheck="false" placeholder="Till exempel Poesigatan" role="combobox" aria-expanded="false" aria-controls="mi-gata-lista" aria-autocomplete="list" aria-describedby="mi-gata-not">
+              <button type="button" class="knapp-l" id="mi-gata-glom" hidden>Ta bort gatan</button>
+            </div>
+            <ul id="mi-gata-lista" class="sok-lista mi-gata-lista" role="listbox" aria-label="Gator" hidden></ul>
+            <p class="src" id="mi-gata-not">Skriv din gata så räknas avstånden därifrån i stället för från områdets mitt. Gatan sparas bara i den här webbläsaren och skickas aldrig till oss.</p>
+          </div>
         </form>
+        <div class="panel mi-nytt" id="mi-nytt" hidden>
+          <div class="panel-head"><h3 id="mi-nytt-h">Nytt sedan du var här</h3><span class="small" id="mi-nytt-s"></span></div>
+          <ul class="mi-lista" id="mi-nytt-l"></ul>
+        </div>
+        <div class="panel mi-kort" id="mi-kort-p" data-genvag="I korthet" hidden>
+          <div class="panel-head"><h3 id="mi-kort-h">Ditt område i korthet</h3><span class="small mi-fran">fågelvägen från områdets centrum</span></div>
+          <ul class="mi-kort-l" id="mi-kort"></ul>
+          <label class="mi-nytt-val"><input type="checkbox" id="mi-nytt-pa"> Visa vad som är nytt i området när jag kommer tillbaka</label>
+          <p class="src" id="mi-nytt-not">Om du kryssar i rutan minns webbläsaren vilken dag du senast tittade, så att vi kan visa nya kontroller, planer, badprov och busstidtabeller sedan dess. Det sparas bara här och skickas aldrig till oss.</p>
+        </div>
         <div class="stats mi-kpis" id="mi-kpis" hidden></div>
       </div>
       <div class="panel mi-kartpanel">
@@ -108,40 +127,30 @@
           <ul class="mi-lista" id="mi-bu"></ul>
           <p class="src" id="mi-bu-src"></p>
         </div>
-        <div class="panel" data-genvag="Trossamfund" id="mi-tf" hidden>
-          <div class="panel-head"><h3>Tro och gemenskap nära dig</h3><span class="small">kyrkor, moskéer och andra trossamfund</span></div>
-          <ul class="mi-lista" id="mi-tf-l"></ul>
-          <p class="src" id="mi-tf-src"></p>
-        </div>
-        <div class="panel" data-genvag="Planer" id="mi-pn" hidden>
-          <div class="panel-head"><h3 id="mi-pn-h">Det här föreslås i ditt område</h3><span class="small">kommunens pågående detaljplaner</span></div>
-          <ul class="mi-lista" id="mi-pn-l"></ul>
-          <p class="src" id="mi-pn-src"></p>
-        </div>
-        <div class="contents" id="mi-nm" hidden>
-          <div class="panel" data-genvag="Lek &amp; park" id="mi-lek-p">
-            <div class="panel-head"><h3>Lek och park nära dig</h3><span class="small">fågelvägen från områdets centrum</span></div>
-            <p class="small" id="mi-lek-sum"></p>
-            <ul class="mi-lista" id="mi-lek"></ul>
-            <p class="src" id="mi-lek-src"></p>
-          </div>
-          <div class="panel" data-genvag="Återvinning" id="mi-atv-p">
-            <div class="panel-head"><h3>Återvinning nära dig</h3><span class="small">fågelvägen från områdets centrum</span></div>
-            <p class="small" id="mi-atv-sum"></p>
-            <ul class="mi-lista" id="mi-atv"></ul>
-            <p class="src" id="mi-atv-src"></p>
-          </div>
-        </div>
         <div class="panel" id="mi-sk-p" data-genvag="Skolor">
           <div class="panel-head"><h3>Skolor nära dig</h3><span class="small">grundskolor</span></div>
           <ul class="mi-lista" id="mi-sk"></ul>
           <p class="small" id="mi-gy"></p>
-          <p class="src">Avstånden är fågelvägen från områdets centrum. Förskolor finns inte med eftersom de saknar adresser i den öppna datan.</p>
+          <p class="src"><span class="mi-fran-mening">Avstånden är fågelvägen från områdets centrum.</span> Förskolor finns inte med eftersom de saknar adresser i den öppna datan.</p>
         </div>
         <div class="panel" id="mi-vc-p" data-genvag="Vård">
           <div class="panel-head"><h3>Vårdcentraler nära dig</h3><span class="small" id="mi-vc-s"></span></div>
           <ul class="mi-lista" id="mi-vc"></ul>
           <p class="src">Du kan lista dig på vilken vårdcentral du vill i länet. Alla vårdcentraler finns på <a href="vard.html">sidan om vården</a>.</p>
+        </div>
+        <div class="contents" id="mi-nm" hidden>
+          <div class="panel" data-genvag="Lek &amp; park" id="mi-lek-p">
+            <div class="panel-head"><h3>Lek och park nära dig</h3><span class="small mi-fran">fågelvägen från områdets centrum</span></div>
+            <p class="small" id="mi-lek-sum"></p>
+            <ul class="mi-lista" id="mi-lek"></ul>
+            <p class="src" id="mi-lek-src"></p>
+          </div>
+          <div class="panel" data-genvag="Återvinning" id="mi-atv-p">
+            <div class="panel-head"><h3>Återvinning nära dig</h3><span class="small mi-fran">fågelvägen från områdets centrum</span></div>
+            <p class="small" id="mi-atv-sum"></p>
+            <ul class="mi-lista" id="mi-atv"></ul>
+            <p class="src" id="mi-atv-src"></p>
+          </div>
         </div>
         <div class="panel" id="mi-rk-p" data-genvag="Livsmedel">
           <div class="panel-head"><h3>Livsmedelskontroller nära dig</h3><span class="small" id="mi-rk-s"></span></div>
@@ -149,12 +158,22 @@
           <ul class="mi-lista" id="mi-rk"></ul>
           <p class="src" id="mi-rk-not"></p>
         </div>
-        <div class="panel" id="mi-bad-p">
-          <div class="panel-head"><h3>Närmaste badplatserna</h3><span class="small">fågelvägen från områdets centrum</span></div>
+        <div class="panel" data-genvag="Planer" id="mi-pn" hidden>
+          <div class="panel-head"><h3 id="mi-pn-h">Det här föreslås i ditt område</h3><span class="small">kommunens pågående detaljplaner</span></div>
+          <ul class="mi-lista" id="mi-pn-l"></ul>
+          <p class="src" id="mi-pn-src"></p>
+        </div>
+        <div class="panel" id="mi-bad-p" data-genvag="Bad">
+          <div class="panel-head"><h3>Närmaste badplatserna</h3><span class="small mi-fran">fågelvägen från områdets centrum</span></div>
           <ul class="mi-lista" id="mi-bad"></ul>
           <p class="src">Proverna tas under badsäsongen. Mer om badvattnet och ditt dricksvatten finns på <a href="vatten.html">sidan om vattnet</a>.</p>
         </div>
-        <div class="panel" id="mi-val-p">
+        <div class="panel" data-genvag="Trossamfund" id="mi-tf" hidden>
+          <div class="panel-head"><h3>Tro och gemenskap nära dig</h3><span class="small">kyrkor, moskéer och andra trossamfund</span></div>
+          <ul class="mi-lista" id="mi-tf-l"></ul>
+          <p class="src" id="mi-tf-src"></p>
+        </div>
+        <div class="panel" id="mi-val-p" data-genvag="Valet">
           <div class="panel-head"><h3>Så röstade ditt område</h3><span class="small">kommunvalet 2026</span></div>
           <p class="small" id="mi-val-sum"></p>
           <div id="mi-val"></div>
@@ -208,7 +227,7 @@
     <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
   </div>
 </footer>
-<script src="assets/app.js?v=c3e89e9e"></script>
+<script src="assets/app.js?v=fd16e4f8"></script>
 <script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>

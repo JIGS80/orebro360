@@ -1395,3 +1395,34 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 /* Direktlänk till valet om besöksräkningen (orebro360.se/om#gc-val) ska inte hamna under sidhuvudet */
 #gc-val{scroll-margin-top:96px}
 @media (max-width:760px){#gc-val{scroll-margin-top:124px}}
+/* Mitt Örebro (13 okt 2026): din gata, i korthet, nytt sedan sist och kortare listor */
+.mi-gata{position:relative;display:grid;gap:6px;margin-top:14px}
+.mi-gata label{font-weight:600}
+.mi-valfri{font-weight:400;font-size:.82rem;color:var(--muted);margin-left:4px}
+.mi-gata-rad{display:flex;gap:8px;flex-wrap:wrap}
+.mi-gata-rad input{flex:1 1 220px;min-width:0;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
+.mi-gata-rad input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.mi-gata-lista{top:auto;margin-top:0}
+.mi-gata-rad+.mi-gata-lista{position:absolute;top:calc(1.6rem + 48px)}
+.mi-gata-lista li[data-i]{display:grid;gap:1px;padding:8px 10px;border-radius:7px;cursor:pointer}
+.mi-gata-lista li[data-i]:hover,.mi-gata-lista li.akt{background:var(--accent-soft)}
+.mi-gata-lista .sub{font-size:.82rem;color:var(--muted)}
+.mi-gata-lista li.small{padding:8px 10px;color:var(--muted)}
+.mi-kort,.mi-nytt{margin-top:18px}
+.mi-intro .mi-kort,.mi-intro .mi-nytt{margin-bottom:4px}
+.mi-intro .mi-kort-l{grid-template-columns:minmax(0,1fr)}
+.mi-kort-l{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;border-top:1px solid var(--line)}
+.mi-kort-l li{border-bottom:1px solid var(--line)}
+.mi-kort-l a{display:grid;grid-template-columns:7.5rem minmax(0,1fr) auto;grid-template-areas:"typ namn m" "typ sub sub";gap:1px 10px;padding:10px 0;text-decoration:none;color:var(--ink)}
+.mi-kort-l a:hover b{color:var(--accent-text);text-decoration:underline}
+.mi-kort-typ{grid-area:typ;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.mi-kort-l b{grid-area:namn;min-width:0}
+.mi-kort-m{grid-area:m;font-size:.85rem;color:var(--ink2);white-space:nowrap}
+.mi-kort-l .sub{grid-area:sub;font-size:.85rem;color:var(--muted)}
+.mi-nytt-val{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-weight:600;cursor:pointer}
+.mi-nytt-val input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--accent);flex:none}
+#mi-nytt-not{margin-top:4px}
+.mi-nytt{border-left:4px solid var(--accent)}
+.mi-lista li.mi-fler{display:block;border-bottom:0;padding-top:10px}
+@media (max-width:760px){.mi-kort-l{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:420px){.mi-kort-l a{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"typ m" "namn namn" "sub sub"}.mi-kort-typ{padding-top:0}}
