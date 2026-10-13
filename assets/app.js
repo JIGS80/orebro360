@@ -2773,7 +2773,7 @@ function idagStart(I){const box=$('#idag');if(!box||!I)return;
   const rita=()=>{const n=idagNu();tal();
     $('#idag-kl').textContent=`kl. ${String(n.h).padStart(2,'0')}.${String(n.m).padStart(2,'0')}`;
     $('#idag-bage').style.strokeDasharray=`${(n.t/86400*1000).toFixed(1)} 1000`;
-    if(!lugn)$('#idag-sek').setAttribute('transform',`rotate(${n.s*6} 200 200)`);
+    if(!lugn)$('#idag-sek').style.transform=`rotate(${n.t*6}deg)`;   // n.t ökar hela dygnet, så visaren aldrig snurrar baklänges vid hel minut
     $('#idag-l').innerHTML=L.map(r=>`<li><a href="${r.l}">${idagTal(r,r.v(n))}${r.enh?' '+r.enh:''} ${esc(idagText(r,r.v(n)))}</a> (${esc(r.s)})</li>`).join('');
     const sek=(Date.now()-start.tid)/1000,se=$('#idag-sedan'),v=id=>{const r=L.find(x=>x.id===id);return r?r.v(n)-start.v[id]:null};
     if(sek>=3&&n.t>start.n.t){const d=[],kr=v('kr'),b=L.find(x=>x.id==='buss'),li=v('liter');if(kr!=null)d.push(`${fmt(Math.floor(kr))} kr`);
