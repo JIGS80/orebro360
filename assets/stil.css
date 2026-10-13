@@ -320,7 +320,7 @@ tr.detail > td{padding:0;background:var(--surface)}
 #om-map path.a:hover,#bu-karta path.a:hover{filter:brightness(1.08)}
 #om-map path.outline{fill:none;stroke:var(--ink2);stroke-width:1.2;vector-effect:non-scaling-stroke;pointer-events:none;opacity:.7}
 #om-map path.seloutline,#bu-karta path.seloutline{fill:none;stroke:var(--ink);stroke-width:3;vector-effect:non-scaling-stroke;pointer-events:none}
-#om-map circle.sk{fill:var(--surface);stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke;pointer-events:none}
+#om-map circle.sk{fill:var(--surface);stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke;cursor:pointer}
 #om-map text.lbl,#bu-karta text.lbl{font-family:var(--f-body);font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
 .om-legend{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:.8rem;color:var(--ink2);align-items:center}
 .om-legend .sw{width:22px;height:12px;border-radius:2px}
@@ -392,7 +392,7 @@ h3.va-sub{font-size:1.45rem;font-weight:700}
 .rk-list .more{padding:10px}
 #rk-map circle.rk-pt{fill:var(--accent);fill-opacity:.7;stroke:var(--surface);stroke-width:1;vector-effect:non-scaling-stroke;cursor:pointer}
 #rk-map circle.rk-pt:hover{fill-opacity:1}
-#rk-map circle.rk-sel{fill:var(--accent);stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;pointer-events:none}
+#rk-map circle.rk-sel{fill:var(--accent);stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;cursor:pointer}
 .rk-det{margin-top:18px;margin-bottom:18px}
 .rk-top{display:flex;gap:16px;justify-content:space-between;align-items:start;flex-wrap:wrap}
 .rk-top h3{margin:0;font-size:1.35rem}

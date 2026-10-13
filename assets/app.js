@@ -503,7 +503,8 @@ function renderOmMap(){
   if(M.dist)OM.omraden.forEach(o=>el('path',{d:o.svg,class:'outline','fill-rule':'evenodd'},svg));
   const s=OM.omraden.find(o=>o.kod===omSel);
   if(s){el('path',{d:s.svg,class:'seloutline','fill-rule':'evenodd'},svg);
-    OM.skolpos.filter(p=>s.skolor.includes(p[0])).forEach(p=>el('circle',{cx:p[1],cy:p[2],r:5*scale,class:'sk'},svg));
+    OM.skolpos.filter(p=>s.skolor.includes(p[0])).forEach(p=>{const c=el('circle',{cx:p[1],cy:p[2],r:5*scale,class:'sk'},svg);const sk=SK&&SK.skolor.find(x=>x.c===p[0]);
+      c.addEventListener('click',e=>kortVisa(host,tp,e,`<b>${esc(sk?sk.n:'Skola')}</b><br>skola i ${esc(s.namn)}<br><a class="akt-lank" href="skolor.html#s${esc(p[0])}">Om skolan</a> · ${hittaLank(p[1],p[2])}`))});
     const t=el('text',{x:s.lx,y:s.ly-9*scale,'text-anchor':'middle',class:'lbl',style:`font-size:${14*scale}px;stroke-width:${4*scale}px`},svg);t.textContent=s.namn}
   $('#om-map-title').textContent=M.l+(omAr(M.k)?' '+omAr(M.k):'');
   const lo=Math.min(...items.map(M.get).filter(v=>v!=null)),hi=Math.max(...items.map(M.get).filter(v=>v!=null));
@@ -1087,11 +1088,13 @@ function renderRkMap(rows){
   const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||500);const tp=tip(host);
   OM.omraden.forEach(o=>el('path',{d:o.svg,fill:'var(--surface)',stroke:'var(--mark-gray)','stroke-width':1,'vector-effect':'non-scaling-stroke','fill-rule':'evenodd'},svg));
   const g=el('g',{},svg);
+  const kort=(e,v)=>{const k=v.k[0],r=k?rkRes(k):[],avv=r.filter(x=>x.c==='A'||x.c==='K').length;
+    kortVisa(host,tp,e,`<b>${esc(v.n)}</b><br>${esc(v.a||'')}${k?`<br>senast kontrollerad ${rkDatum(k.d)}${k.p?', handläggning pågår':avv?`, ${avv} ${avv===1?'avvikelse':'avvikelser'}`:r.length?', utan anmärkning':''}`:''}${v.ca?'<br>läget är ungefärligt':''}<br><button type="button" class="akt-knapp" data-rk-visa="${esc(v.id)}">Visa kontrollerna</button> · ${hittaLank(v.x,v.y)}`)};
   rows.filter(v=>v.x!=null&&v.id!==rkSel).forEach(v=>{const c=el('circle',{cx:v.x,cy:v.y,r:4*sc,class:'rk-pt'},g);
     c.addEventListener('mousemove',e=>{const bb=host.getBoundingClientRect();tp.hidden=false;tp.innerHTML=`<b>${esc(v.n)}</b><br>${esc(v.a||'')}`;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'});
-    c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});c.addEventListener('click',()=>rkVal(v.id,true))});
+    c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});c.addEventListener('click',e=>kort(e,v))});
   const s=RK.verksamheter.find(v=>v.id===rkSel);
-  if(s&&s.x!=null){el('circle',{cx:s.x,cy:s.y,r:7*sc,class:'rk-sel'},svg);
+  if(s&&s.x!=null){el('circle',{cx:s.x,cy:s.y,r:7*sc,class:'rk-sel'},svg).addEventListener('click',e=>kort(e,s));
     const t=el('text',{x:s.x,y:s.y-11*sc,'text-anchor':'middle',style:`font:600 ${13*sc}px var(--f-body);fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:${4*sc}px;stroke-linejoin:round`},svg);t.textContent=s.n}
 }
 function rkVal(id,scroll){
@@ -1137,6 +1140,7 @@ function initRk(){
     c.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;rkOmr=b.dataset.o||null;c.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderRkList()})}
   let tmo;$('#rk-q').addEventListener('input',e=>{clearTimeout(tmo);tmo=setTimeout(()=>{rkQ=e.target.value;renderRkList()},120)});
   $('#rk-list').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)rkVal(b.dataset.id,true)});
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-rk-visa]');if(b)rkVal(b.dataset.rkVisa,true)});
   $('#rk-zoom').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;rkZoom=b.dataset.z;document.querySelectorAll('#rk-zoom .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderRkMap()});
   // vad kontrollerna hittar: antal avvikelser per kontrollpunkt
   const n={},kontr={};medRes.forEach(k=>rkRes(k).forEach(r=>{kontr[r.nr]=(kontr[r.nr]||0)+1;if(r.c==='A')n[r.nr]=(n[r.nr]||0)+1}));
@@ -1394,7 +1398,8 @@ function kartZoom(host,svg){
 }
 /* Stor karta: kartan fyller hela skärmen (mest för mobilen, där kartan annars är 320 px bred och prickarna i centrum ligger tätt).
    Där flyttar ett finger kartan och två fingrar zoomar. Stängs med knappen Stäng, Esc eller telefonens bakåt. Trycker man på något i kartan
-   som ändrar sidan utanför kartan (till exempel väljer en restaurang eller ett område) stängs den stora kartan så att man ser resultatet. */
+   Ett tryck på en prick visar alltid ett kort i kartan (namn, kort info, Hitta hit och ibland en knapp som Läs mer eller Visa kontrollerna).
+   Den stora kartan stängs bara med Stäng, Esc, bakåt eller kortets knapp (då visas det man valde på sidan). */
 let kzOppen=null;
 function kzStorText(host,b){const pa=host.classList.contains('kz-full');b.innerHTML=pa?'<span class="kz-x" aria-hidden="true">✕</span>Stäng':'<span class="kz-ram" aria-hidden="true"></span>Stor karta';b.setAttribute('aria-label',pa?'Stäng den stora kartan':'Visa kartan på hela skärmen');b.setAttribute('aria-pressed',pa)}
 function kzRitaOm(host){try{const f={'nm-karta':nmKarta,'pn-karta':pnKarta,'tf-karta':tfKarta,'bu-karta':buKarta}[host.id];if(f)f();else(RITA[SIDA]||(()=>{}))()}catch(e){console.error(e)}}
@@ -1405,28 +1410,29 @@ function kzStor(host,pa,auto){
     host.classList.add('kz-full');document.documentElement.classList.add('kz-las');kzOppen=host;
     try{history.pushState({kzStor:1},'')}catch(e){}
     let t=host.querySelector('.kz-tips');if(!t){t=document.createElement('div');t.className='kz-tips';host.appendChild(t)}
-    t.textContent=matchMedia('(pointer:coarse)').matches?'Dra med ett finger för att flytta, nyp med två för att zooma. Tryck på en prick för att välja den.':'Dra för att flytta, zooma med + och − eller Ctrl och hjulet.';t.hidden=false;clearTimeout(host._kzTt);host._kzTt=setTimeout(()=>{t.hidden=true},4500)}
+    t.textContent=matchMedia('(pointer:coarse)').matches?'Dra med ett finger för att flytta, nyp med två för att zooma. Tryck på en prick för att se vad det är.':'Dra för att flytta, zooma med + och − eller Ctrl och hjulet.';t.hidden=false;clearTimeout(host._kzTt);host._kzTt=setTimeout(()=>{t.hidden=true},4500)}
   else{host.classList.remove('kz-full');document.documentElement.classList.remove('kz-las');if(kzOppen===host)kzOppen=null;
     host._kzPh?.remove();host._kzPh=null;const t=host.querySelector('.kz-tips');if(t)t.hidden=true;
     if(!auto&&history.state&&history.state.kzStor){kzBakat=true;history.back()}}
   const b=host.querySelector('.kz-stor');if(b)kzStorText(host,b);
   kzRitaOm(host);   // prickar och namn ritas om för den nya storleken (inzoomningen behålls)
   const b2=host.querySelector('.kz-stor');if(b2){kzStorText(host,b2);if(!auto)b2.focus({preventScroll:true})}}
-let kzBakat=false;
-addEventListener('popstate',()=>{if(kzBakat){kzBakat=false;return}if(kzOppen)kzStor(kzOppen,false,true)});
+let kzBakat=false,kzEfter=null;
+const kzKorEfter=()=>{const f=kzEfter;kzEfter=null;if(f)setTimeout(f,0)};
+addEventListener('popstate',()=>{if(kzBakat){kzBakat=false;kzKorEfter();return}if(kzOppen)kzStor(kzOppen,false,true)});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&kzOppen)kzStor(kzOppen,false)});
-// efter ett tryck i stor karta: ändras sidan utanför kartan stängs den stora kartan
-function kzBevaka(host){const y=scrollY;let klar=false;
-  const mo=new MutationObserver(rec=>{if(klar)return;if(rec.some(r=>!host.contains(r.target)&&!(host._kzPh&&host._kzPh.contains(r.target))&&r.target!==document.documentElement)){klar=true;mo.disconnect();
-    setTimeout(()=>{const hoppade=Math.abs(scrollY-y)>2;if(history.state&&history.state.kzStor){kzBakat=true;history.back()}kzStor(host,false,true);if(!hoppade)host.scrollIntoView({block:'nearest'})},120)}});
-  mo.observe(document.body,{subtree:true,childList:true,characterData:true});setTimeout(()=>{if(!klar){klar=true;mo.disconnect()}},500)}
 function kartZoomLyss(host){   // händelserna läggs bara på en gång per karta; de använder den senast ritade kartan (host._kzS)
   const pek=new Map();let drag=null,drog=false;const S=()=>host._kzS;
   host.addEventListener('click',e=>{const b=e.target.closest('[data-kz]');if(b){e.stopPropagation();const s=S();s.synk();const t=b.dataset.kz;
       if(t==='stor'){kzStor(host,!host.classList.contains('kz-full'));return}
       if(t==='in')s.zooma(.6);else if(t==='ut')s.zooma(1/.6);else s.satt_(s.bas.slice());return}
     if(drog){e.stopPropagation();e.preventDefault();return}
-    if(host.classList.contains('kz-full'))kzBevaka(host)},true);
+    // knappen i ett kort (Läs mer, Visa kontrollerna ...): stäng den stora kartan först, så att sidan sedan kan visa det man valde
+    // (bakåt-steget återställer annars sidans läge och avbryter skrollningen, så knappens klick görs om när det är klart)
+    const kb=host.classList.contains('kz-full')&&e.target.closest('.tip .akt-knapp');
+    if(kb){e.stopPropagation();e.preventDefault();const kopia=kb.cloneNode(true);
+      kzEfter=()=>{kopia.hidden=true;document.body.appendChild(kopia);kopia.click();kopia.remove()};
+      kzStor(host,false,true);if(history.state&&history.state.kzStor){kzBakat=true;history.back()}else kzKorEfter()}},true);
   // två fingrar ska alltid zooma kartan (inte sidan), och i stor karta flyttar ett finger kartan
   host.addEventListener('touchmove',e=>{if(e.target.closest('.kz-knappar,.kz-stor'))return;if(e.touches.length>1||host.classList.contains('kz-full')||host.classList.contains('kz-in'))e.preventDefault()},{passive:false});
   host.addEventListener('pointerdown',e=>{if(e.target.closest('.kz-knappar,.tip'))return;const s=S();s.synk();pek.set(e.pointerId,{x:e.clientX,y:e.clientY});
@@ -1670,7 +1676,7 @@ function pnKarta(){const host=$('#pn-karta');if(!host)return;const W=OM.karta.w,
   PN.planer.filter(p=>p.svg).sort((a,b)=>ord[pnKlass(a)]-ord[pnKlass(b)]).forEach(p=>{const g=el('path',{d:p.svg,class:'pn-p pn-p-'+pnKlass(p)+(pnOppen===p.id?' pn-p-vald':''),'fill-rule':'evenodd'},svg);
     const pt=el('circle',{cx:p.x,cy:p.y,r:(pnKlass(p)==='oppen'?6:4)*sc,class:'pn-pt pn-p-'+pnKlass(p)},svg);
     [g,pt].forEach(x=>{x.addEventListener('mousemove',e=>show(e,`<b>${esc(p.kort)}</b><br>${esc(p.status)}${pnOpp(p)?' · '+pnKvar(p):''}`));x.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
-      x.addEventListener('click',e=>{e.stopPropagation();kortVisa(host,tp,e,`<b>${esc(p.kort)}</b><br>${esc(p.status)}${pnOpp(p)?` · sista dag ${pnDatum(p.till)}`:''}<br><button type="button" class="akt-knapp" data-pn-visa="${esc(p.id)}">Läs om planen</button>`)})})});
+      x.addEventListener('click',e=>{e.stopPropagation();kortVisa(host,tp,e,`<b>${esc(p.kort)}</b><br>${esc(p.status)}${pnOpp(p)?` · sista dag ${pnDatum(p.till)}`:''}<br><button type="button" class="akt-knapp" data-pn-visa="${esc(p.id)}">Läs om planen</button> · ${hittaLank(p.x,p.y)}`)})})});
   if(s){const t=el('text',{x:s.lx,y:s.ly-9*sc,'text-anchor':'middle',class:'lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=s.namn}
   fokusRita(svg,sc)}
 function pnValt(){const lista=$('#pn-omr-lista');const valda=pnSel?(PN.omraden[pnSel]||[]).map(id=>PN.planer.find(p=>p.id===id)).filter(Boolean):PN.planer.filter(pnOpp);
@@ -2512,7 +2518,7 @@ function vtKarta(){
     if(b.varning.length)el('circle',{cx:b.x,cy:b.y,r:15*sc,class:'vt-alg'},g);
     el('circle',{cx:b.x,cy:b.y,r:(b.id===vtSel?10:7.5)*sc,class:'vt-p-'+c},g);
     g.addEventListener('mousemove',e=>show(e,`<b>${esc(b.n)}</b><br>${esc(vtBed(b.prov[0]?.[1])[1])}${b.prov[0]?', '+vtDag(b.prov[0][0]):''}${b.varning.length?'<br>Varning: '+esc(b.varning[0].typ.toLowerCase()):''}`));
-    g.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});g.addEventListener('click',()=>{tp.hidden=true;vtVisa(b.id,true)});
+    g.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});g.addEventListener('click',e=>kortVisa(host,tp,e,`<b>${esc(b.n)}</b><br>${esc(vtBed(b.prov[0]?.[1])[1])}${b.prov[0]?', '+vtDag(b.prov[0][0]):''}${b.varning.length?'<br>Varning: '+esc(b.varning[0].typ.toLowerCase()):''}<br><button type="button" class="akt-knapp" data-vt-visa="${esc(b.id)}">Visa badplatsen</button> · ${hittaLank(b.x,b.y)}`));
     g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();vtVisa(b.id,true)}})});
   const s=P.find(b=>b.id===vtSel);if(s){const t=el('text',{x:s.x,y:s.y-16*sc,'text-anchor':'middle',class:'vt-lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=s.n}
 }
@@ -2606,6 +2612,7 @@ function initVatten(){
   $('#vt-legend').innerHTML=`<span><i class="vt-dot vt-p-ok"></i>Tjänligt</span><span><i class="vt-dot vt-p-anm"></i>Tjänligt med anmärkning</span><span><i class="vt-dot vt-p-ej"></i>Otjänligt</span><span><i class="vt-dot vt-algsw"></i>Varning för algblomning</span>`;
   vtLista();vtKarta();
   $('#vt-badlista').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)vtVisa(b.dataset.id,true)});
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-vt-visa]');if(b)vtVisa(b.dataset.vtVisa,true)});
   const orter=VT.dricks.orter.slice().sort((a,b)=>a[0].localeCompare(b[0],'sv'));
   $('#vt-ort').innerHTML=orter.map(o=>`<option${o[0]==='Örebro'?' selected':''}>${esc(o[0])}</option>`).join('');
   $('#vt-ort').addEventListener('change',vtOrt);vtOrt();
