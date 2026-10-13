@@ -1114,7 +1114,7 @@ function rkVal(id,scroll){
       <div class="rk-sen"><span class="label">Senast kontrollerad</span><span class="v num">${sen?rkDatum(sen.d):'–'}</span><span class="s">${sen?esc(sen.r):'Kommunen visar ingen kontroll ännu'}</span></div>
     </div>
     ${ktr||''}
-    <p class="src">${v.k.length?`${v.k.length} ${v.k.length===1?'kontroll':'kontroller'} visas. `:''}<a href="${esc(RK.sida+v.id)}" target="_blank" rel="noopener">Se verksamheten hos Örebro kommun</a>${v.h?'':' · '+delaLankKnapp('dela/r/'+v.id+'.html',v.n+' · Restaurangkollen')}${omr?` · Ligger i <a href="omrade.html#${v.o}">${esc(omr)}</a>`:''}</p>`;
+    <p class="src">${v.k.length?`${v.k.length} ${v.k.length===1?'kontroll':'kontroller'} visas. `:''}<a href="${esc(RK.sida+v.id)}" target="_blank" rel="noopener">Se verksamheten hos Örebro kommun</a>${v.h?'':' · '+delaLankKnapp('dela/r/'+v.id+'.html',v.n+' · Restaurangkollen')}${omr?` · Ligger i <a href="omrade.html#${v.o}">${esc(omr)}</a>`:''}${v.ca?' · Kommunens karta saknar en punkt för verksamheten, så vi har placerat den ungefär efter gatan i adressen.':''}</p>`;
   renderRkMap();
   if(scroll)$('#rk-det').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
@@ -1978,10 +1978,12 @@ function renderMitt(){
   if(o.val)t.push(tile('Röstade i valet',fmt(o.val.deltagande,1)+' %',`hela kommunen ${VAL?fmt(VAL.deltagande,1)+' %':'–'}`,'val'));
   $('#mi-kpis').innerHTML=t.join('');{const ip=$('#mi-kpis').nextElementSibling;if(ip&&ip.classList.contains('info-panel'))ip.remove()}
   // restauranger
-  $('#mi-rk-s').textContent='restauranger, butiker, skolkök med mera';
+  const fR=miFran(k),GR=fR&&fR.gata&&GATA.rk;
+  $('#mi-rk-s').textContent=GR?'närmast '+fR.gata+', fågelvägen':'restauranger, butiker, skolkök med mera';
   $('#mi-rk-sum').textContent=m.rk90?`Kommunen har gjort ${fmt(m.rk30)} ${m.rk30===1?'kontroll':'kontroller'} i området de senaste 30 dagarna och ${fmt(m.rk90)} de senaste 90 dagarna.`:'Kommunen har inte gjort några kontroller i området de senaste 90 dagarna.';
-  $('#mi-rk').innerHTML=m.rk.map(r=>{const [c,txt]=miStatus(r);return `<li><a href="restauranger.html#v=${esc(r.id)}"><b>${esc(r.n)}</b><span class="sub">${esc(r.a||'')}${r.a?' · ':''}${esc(r.r)}, ${rkDatum(r.d)}</span></a><span class="mi-st mi-st-${c}">${txt}</span>${platsAkt(r.x,r.y,r.n)}</li>`}).join('');
-  $('#mi-rk-not').innerHTML=`Den senaste kontrollen för varje verksamhet i området, med kommunens egna ord. Kommunen kontrollerar alla som hanterar livsmedel, även skolor, förskolor och butiker. <a href="restauranger.html#omr=${k}">Alla verksamheter i området</a> · uppgifterna hämtades ${rkDatum(MI.rk_uppdaterad)}.`;
+  if(GR)$('#mi-rk').innerHTML=miNarmast(GATA.rk,fR,8,v=>[v[4],v[5]]).map(({p:v,m:mm})=>{const [c,txt]=miStatus({p:v[8],avv:v[9]});return `<li><a href="restauranger.html#v=${esc(v[0])}"><b>${esc(v[1])}</b><span class="sub">${esc(v[2])}${v[2]?' · ':''}${esc(v[3])} · ${esc(v[7])}, ${rkDatum(v[6])}</span></a><span class="mi-st mi-st-${c}">${txt}</span><span class="mi-avst">${esc(meter(mm))}</span>${platsAkt(v[4],v[5],v[1])}</li>`}).join('');
+  else $('#mi-rk').innerHTML=m.rk.map(r=>{const [c,txt]=miStatus(r);return `<li><a href="restauranger.html#v=${esc(r.id)}"><b>${esc(r.n)}</b><span class="sub">${esc(r.a||'')}${r.a?' · ':''}${esc(r.r)}, ${rkDatum(r.d)}</span></a><span class="mi-st mi-st-${c}">${txt}</span>${platsAkt(r.x,r.y,r.n)}</li>`}).join('');
+  $('#mi-rk-not').innerHTML=`${GR?'Verksamheterna närmast din gata och den senaste kontrollen hos var och en, med kommunens egna ord. Saknar kommunen en kartpunkt har vi placerat verksamheten ungefär efter gatan i adressen.':'Den senaste kontrollen för varje verksamhet i området, med kommunens egna ord.'} Kommunen kontrollerar alla som hanterar livsmedel, även skolor, förskolor och butiker. <a href="restauranger.html#omr=${k}">Alla verksamheter i området</a> · uppgifterna hämtades ${rkDatum(MI.rk_uppdaterad)}.`;
   // skolor
   const SP=Object.fromEntries(OM.skolpos.map(p=>[p[0],p]));
   const f=miFran(k),G=f&&f.gata;
