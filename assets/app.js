@@ -1387,15 +1387,48 @@ function kartZoom(host,svg){
   const k=document.createElement('div');k.className='kz-knappar';k.setAttribute('role','group');k.setAttribute('aria-label','Zooma kartan');
   k.innerHTML='<button type="button" class="kz-k" data-kz="in" aria-label="Zooma in">+</button><button type="button" class="kz-k" data-kz="ut" aria-label="Zooma ut">−</button><button type="button" class="kz-k kz-reset" data-kz="hel" aria-label="Visa hela kartan igen" hidden>⤢</button>';
   host.appendChild(k);host._kzS=S;
+  const st=document.createElement('button');st.type='button';st.className='kz-stor';st.dataset.kz='stor';kzStorText(host,st);host.appendChild(st);
   if(!host._kzLyss){host._kzLyss=true;kartZoomLyss(host)}
   // ritas kartan om med samma utsnitt (t.ex. när man väljer ett område) behålls inzoomningen
   if(host._kz&&host._kz.bas===S.bas.join(' '))S.satt_(host._kz.vb);else{host._kz=null;S.skala()}
 }
+/* Stor karta: kartan fyller hela skärmen (mest för mobilen, där kartan annars är 320 px bred och prickarna i centrum ligger tätt).
+   Där flyttar ett finger kartan och två fingrar zoomar. Stängs med knappen Stäng, Esc eller telefonens bakåt. Trycker man på något i kartan
+   som ändrar sidan utanför kartan (till exempel väljer en restaurang eller ett område) stängs den stora kartan så att man ser resultatet. */
+let kzOppen=null;
+function kzStorText(host,b){const pa=host.classList.contains('kz-full');b.innerHTML=pa?'<span class="kz-x" aria-hidden="true">✕</span>Stäng':'<span class="kz-ram" aria-hidden="true"></span>Stor karta';b.setAttribute('aria-label',pa?'Stäng den stora kartan':'Visa kartan på hela skärmen');b.setAttribute('aria-pressed',pa)}
+function kzRitaOm(host){try{const f={'nm-karta':nmKarta,'pn-karta':pnKarta,'tf-karta':tfKarta,'bu-karta':buKarta}[host.id];if(f)f();else(RITA[SIDA]||(()=>{}))()}catch(e){console.error(e)}}
+function kzStor(host,pa,auto){
+  if(pa===host.classList.contains('kz-full'))return;
+  if(pa){if(kzOppen&&kzOppen!==host)kzStor(kzOppen,false,true);
+    const ph=document.createElement('div');ph.className='kz-plats';ph.style.height=host.offsetHeight+'px';ph.style.gridArea=getComputedStyle(host).gridArea;host.before(ph);host._kzPh=ph;
+    host.classList.add('kz-full');document.documentElement.classList.add('kz-las');kzOppen=host;
+    try{history.pushState({kzStor:1},'')}catch(e){}
+    let t=host.querySelector('.kz-tips');if(!t){t=document.createElement('div');t.className='kz-tips';host.appendChild(t)}
+    t.textContent=matchMedia('(pointer:coarse)').matches?'Dra med ett finger för att flytta, nyp med två för att zooma. Tryck på en prick för att välja den.':'Dra för att flytta, zooma med + och − eller Ctrl och hjulet.';t.hidden=false;clearTimeout(host._kzTt);host._kzTt=setTimeout(()=>{t.hidden=true},4500)}
+  else{host.classList.remove('kz-full');document.documentElement.classList.remove('kz-las');if(kzOppen===host)kzOppen=null;
+    host._kzPh?.remove();host._kzPh=null;const t=host.querySelector('.kz-tips');if(t)t.hidden=true;
+    if(!auto&&history.state&&history.state.kzStor){kzBakat=true;history.back()}}
+  const b=host.querySelector('.kz-stor');if(b)kzStorText(host,b);
+  kzRitaOm(host);   // prickar och namn ritas om för den nya storleken (inzoomningen behålls)
+  const b2=host.querySelector('.kz-stor');if(b2){kzStorText(host,b2);if(!auto)b2.focus({preventScroll:true})}}
+let kzBakat=false;
+addEventListener('popstate',()=>{if(kzBakat){kzBakat=false;return}if(kzOppen)kzStor(kzOppen,false,true)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&kzOppen)kzStor(kzOppen,false)});
+// efter ett tryck i stor karta: ändras sidan utanför kartan stängs den stora kartan
+function kzBevaka(host){const y=scrollY;let klar=false;
+  const mo=new MutationObserver(rec=>{if(klar)return;if(rec.some(r=>!host.contains(r.target)&&!(host._kzPh&&host._kzPh.contains(r.target))&&r.target!==document.documentElement)){klar=true;mo.disconnect();
+    setTimeout(()=>{const hoppade=Math.abs(scrollY-y)>2;if(history.state&&history.state.kzStor){kzBakat=true;history.back()}kzStor(host,false,true);if(!hoppade)host.scrollIntoView({block:'nearest'})},120)}});
+  mo.observe(document.body,{subtree:true,childList:true,characterData:true});setTimeout(()=>{if(!klar){klar=true;mo.disconnect()}},500)}
 function kartZoomLyss(host){   // händelserna läggs bara på en gång per karta; de använder den senast ritade kartan (host._kzS)
   const pek=new Map();let drag=null,drog=false;const S=()=>host._kzS;
   host.addEventListener('click',e=>{const b=e.target.closest('[data-kz]');if(b){e.stopPropagation();const s=S();s.synk();const t=b.dataset.kz;
+      if(t==='stor'){kzStor(host,!host.classList.contains('kz-full'));return}
       if(t==='in')s.zooma(.6);else if(t==='ut')s.zooma(1/.6);else s.satt_(s.bas.slice());return}
-    if(drog){e.stopPropagation();e.preventDefault()}},true);
+    if(drog){e.stopPropagation();e.preventDefault();return}
+    if(host.classList.contains('kz-full'))kzBevaka(host)},true);
+  // två fingrar ska alltid zooma kartan (inte sidan), och i stor karta flyttar ett finger kartan
+  host.addEventListener('touchmove',e=>{if(e.target.closest('.kz-knappar,.kz-stor'))return;if(e.touches.length>1||host.classList.contains('kz-full')||host.classList.contains('kz-in'))e.preventDefault()},{passive:false});
   host.addEventListener('pointerdown',e=>{if(e.target.closest('.kz-knappar,.tip'))return;const s=S();s.synk();pek.set(e.pointerId,{x:e.clientX,y:e.clientY});
     if(pek.size===1)drag={x:e.clientX,y:e.clientY,vb:s.vb.slice(),flytt:0};
     else if(pek.size===2){const [a,b]=[...pek.values()];drag={pinch:true,d0:Math.hypot(a.x-b.x,a.y-b.y)||1,vb:s.vb.slice(),p:s.punkt((a.x+b.x)/2,(a.y+b.y)/2)};drog=true}});
