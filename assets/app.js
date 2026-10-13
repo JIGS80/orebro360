@@ -2742,40 +2742,60 @@ let idagTimer=null,idagPaus=false;
 function idagNu(){const p=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:SOL_TZ,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23',weekday:'short'}).formatToParts(new Date()).map(x=>[x.type,x.value]));
   const h=+p.hour%24,m=+p.minute,s=+p.second;return {h,m,s,t:h*3600+m*60+s,dag:p.weekday==='Sat'?'lordag':p.weekday==='Sun'?'sondag':'vardag'}}
 const IDAG_DAG={vardag:'en vanlig vardag',lordag:'en vanlig lördag',sondag:'en vanlig söndag'};
-function idagVarden(I,n){const v={};
-  if(I.kr)v.kr=I.kr.ar/365.25/86400*n.t;
-  if(I.svartan)v.liter=I.svartan.m3s*1000*n.t;
-  if(I.buss){const T=I.buss.timmar[n.dag]||I.buss.timmar.vardag;let b=0;for(let i=0;i<n.h;i++)b+=T[i];v.buss=b+T[n.h]*(n.m*60+n.s)/3600}
-  if(I.rt){const T=I.rt.timme,tot=T.reduce((a,b)=>a+b,0);let w=0;for(let i=0;i<n.h;i++)w+=T[i];w+=T[n.h]*(n.m*60+n.s)/3600;v.rt=I.rt.antal/365.25*w/tot}
-  return v}
-function idagStart(I){const box=$('#idag');if(!box||!I||!(I.kr||I.buss||I.svartan))return;
+const idagAndel=(n,fran,till)=>Math.min(1,Math.max(0,(n.t-fran*3600)/((till-fran)*3600)));
+// alla räknare: [id, sida, enhet, text, undertext, värde(n), visas(n), avrunda]
+function idagLista(I,n){const vardag=n.dag==='vardag',L=[];
+  if(I.kr)L.push({id:'kr',l:'pengar.html',enh:'kr',t:'har kommunen betalat ut till leverantörer',s:'i snitt per dag de senaste 12 månaderna',v:n=>I.kr.ar/365.25/86400*n.t});
+  if(I.buss){const T=I.buss.timmar[n.dag]||I.buss.timmar.vardag;L.push({id:'buss',l:'buss.html',enh:'',t:'bussturer har startat i kommunen',t1:'busstur har startat i kommunen',s:`enligt tidtabellen för ${IDAG_DAG[n.dag]}`,v:n=>{let b=0;for(let i=0;i<n.h;i++)b+=T[i];return b+T[n.h]*(n.m*60+n.s)/3600}})}
+  if(I.svartan){const sv=I.svartan;L.push({id:'liter',l:'vatten.html#svartan',enh:'liter',t:'vatten har runnit genom Svartån',s:`${fmt(sv.m3s,1)} m³ i sekunden vid Karlslund ${rkDatum(sv.d)}${sv.prel?', preliminärt':''}`,v:n=>sv.m3s*1000*n.t})}
+  if(I.rt){const T=I.rt.timme,tot=T.reduce((a,b)=>a+b,0);L.push({id:'rt',l:'raddning.html',enh:'',t:'gånger har räddningstjänsten ryckt ut, ungefär',t1:'gång har räddningstjänsten ryckt ut, ungefär',s:`i snitt ${fmt(I.rt.antal/365.25,1)} om dagen ${I.rt.ar}`,rund:1,
+    v:n=>{let w=0;for(let i=0;i<n.h;i++)w+=T[i];w+=T[n.h]*(n.m*60+n.s)/3600;return I.rt.antal/365.25*w/tot}})}
+  if(I.skola)L.push({id:'skola',l:'skatt.html',enh:'kr',t:`har ${I.skola.n.toLowerCase()}n kostat`,s:`${I.skola.b}, i snitt per dag ${I.skola.kostnad_ar}`,v:n=>I.skola.ar/365.25/86400*n.t});
+  if(I.rk&&vardag&&n.t>=8.5*3600){const d=I.rk.ar/250;L.push({id:'rk',l:'restauranger.html',enh:'',t:'livsmedelskontroller har kommunen gjort, ungefär',t1:'livsmedelskontroll har kommunen gjort, ungefär',s:`i snitt ${fmt(d,1)} per vardag det senaste året`,rund:1,v:n=>d*idagAndel(n,8,17)})}
+  if(I.natur&&n.t>=7*3600){const d=I.natur.vecka/7;L.push({id:'natur',l:'natur.html',enh:'',t:'fynd av djur och växter har rapporterats, ungefär',s:`till Artportalen, i samma takt som vecka ${I.natur.nr}`,rund:1,v:n=>d*idagAndel(n,6,22)})}
+  if(I.bilar&&vardag&&n.t>=8.5*3600){const d=I.bilar.per_dag*365/250;L.push({id:'bilar',l:'handel.html',enh:'',t:'nya bilar har registrerats i kommunen, ungefär',t1:'ny bil har registrerats i kommunen, ungefär',s:`i snitt ${fmt(d,0)} per vardag i år, ${I.bilar.el} procent elbilar`,rund:1,v:n=>d*idagAndel(n,8,17)})}
+  return L}
+const idagTal=(r,x)=>fmt(r.rund?Math.round(x):Math.floor(x));
+const idagText=(r,x)=>r.t1&&idagTal(r,x)==='1'?r.t1:r.t;
+function idagStart(I){const box=$('#idag');if(!box||!I)return;
   // Svartån bara om mätningen är högst en vecka gammal
   if(I.svartan){const [y,m,d]=stockholmIdag(),i=Date.UTC(y,m-1,d),[sy,sm,sd]=I.svartan.d.split('-').map(Number);if((i-Date.UTC(sy,sm-1,sd))/864e5>7)I={...I,svartan:null}}
-  const n0=idagNu(),v0=idagVarden(I,n0),sv=I.svartan;
-  const rader=[
-    I.kr&&['kr','pengar.html','kr','har kommunen betalat ut till leverantörer','i snitt per dag de senaste 12 månaderna'],
-    I.buss&&['buss','buss.html','','bussturer har startat i kommunen',`enligt tidtabellen för ${IDAG_DAG[n0.dag]}`],
-    sv&&['liter','vatten.html#svartan','liter','vatten har runnit genom Svartån',`${fmt(sv.m3s,1)} m³ i sekunden vid Karlslund ${rkDatum(sv.d)}${sv.prel?', preliminärt':''}`],
-    I.rt&&['rt','raddning.html','','gånger har räddningstjänsten ryckt ut, ungefär',`i snitt ${fmt(I.rt.antal/365.25,1).replace('.',',')} om dagen ${I.rt.ar}`]].filter(Boolean);
-  $('#idag-l').innerHTML=rader.map(([k,l,enh,t,s])=>`<li><a href="${l}"><span class="idag-v num"><span data-idag="${k}"></span>${enh?`<span class="idag-enh"> ${enh}</span>`:''}</span><span class="idag-t">${esc(t)}</span><span class="idag-s">${esc(s)}</span></a></li>`).join('');
-  $('#idag-not').innerHTML=`Räknat från midnatt. Pengar och utryckningar är genomsnitt, inte realtid. <button type="button" class="akt-knapp" id="idag-dela">Dela</button>`;
-  box.hidden=false;
-  const lugn=matchMedia('(prefers-reduced-motion: reduce)').matches,start={v:v0,tid:Date.now()};
-  const sk=(k,x)=>{const e=box.querySelector(`[data-idag="${k}"]`);if(e)e.textContent=fmt(Math.floor(k==='rt'?Math.round(x):x))};
-  const rita=()=>{const n=idagNu(),v=idagVarden(I,n);Object.entries(v).forEach(([k,x])=>sk(k,x));
+  const n0=idagNu(),L=idagLista(I,n0);if(L.length<2)return;
+  const lugn=matchMedia('(prefers-reduced-motion: reduce)').matches,start={tid:Date.now(),n:n0,v:Object.fromEntries(L.map(r=>[r.id,r.v(n0)]))};
+  let akt=Math.floor(Math.random()*L.length),byt=null,hovra=false;
+  const mitt=$('#idag-mitt');
+  $('#idag-prickar').innerHTML=L.map((r,i)=>`<button type="button" class="idag-prick" data-i="${i}" aria-label="Visa ${esc(r.t.replace(/, ungefär$/,''))}"></button>`).join('');
+  $('#idag-not').innerHTML=`Räknat från midnatt. Pengar, kontroller, fynd och bilar är genomsnitt, inte realtid. <button type="button" class="akt-knapp" id="idag-dela">Dela</button>`;
+  const visa=i=>{akt=(i+L.length)%L.length;const r=L[akt];mitt.href=r.l;$('#idag-enh').textContent=r.enh?' '+r.enh:'';$('#idag-s').textContent=r.s;
+    box.querySelectorAll('.idag-prick').forEach((b,j)=>b.setAttribute('aria-pressed',j===akt));tal();
+    if(!lugn){mitt.classList.remove('idag-in');void mitt.offsetWidth;mitt.classList.add('idag-in')}};
+  const tal=()=>{const n=idagNu(),r=L[akt],t=idagTal(r,r.v(n));const e=$('#idag-v');e.textContent=t;$('#idag-t').textContent=idagText(r,r.v(n));mitt.classList.toggle('lang',t.length>9)};
+  const rita=()=>{const n=idagNu();tal();
     $('#idag-kl').textContent=`kl. ${String(n.h).padStart(2,'0')}.${String(n.m).padStart(2,'0')}`;
-    const sek=(Date.now()-start.tid)/1000,se=$('#idag-sedan');
-    if(sek>=3&&n.t>start.v._t){const d=[];if(v.kr!=null)d.push(`${fmt(Math.floor(v.kr-start.v.kr))} kr`);if(v.buss!=null){const b=Math.floor(v.buss)-Math.floor(start.v.buss);if(b>0)d.push(`${b} ${b===1?'busstur':'bussturer'}`)}
-      if(v.liter!=null){const l=v.liter-start.v.liter;d.push(l>=1e6?`${fmt(l/1e6,1).replace('.',',')} miljoner liter i Svartån`:`${fmt(Math.floor(l))} liter i Svartån`)}
-      se.textContent='Sedan du kom: '+d.join(' · ');se.hidden=false}};
-  start.v._t=n0.t;
-  const kor=()=>{clearInterval(idagTimer);idagTimer=null;if(!idagPaus&&!document.hidden)idagTimer=setInterval(rita,lugn?10000:1000)};
-  rita();kor();
+    $('#idag-bage').style.strokeDasharray=`${(n.t/86400*1000).toFixed(1)} 1000`;
+    if(!lugn)$('#idag-sek').setAttribute('transform',`rotate(${n.s*6} 200 200)`);
+    $('#idag-l').innerHTML=L.map(r=>`<li><a href="${r.l}">${idagTal(r,r.v(n))}${r.enh?' '+r.enh:''} ${esc(idagText(r,r.v(n)))}</a> (${esc(r.s)})</li>`).join('');
+    const sek=(Date.now()-start.tid)/1000,se=$('#idag-sedan'),v=id=>{const r=L.find(x=>x.id===id);return r?r.v(n)-start.v[id]:null};
+    if(sek>=3&&n.t>start.n.t){const d=[],kr=v('kr'),b=L.find(x=>x.id==='buss'),li=v('liter');if(kr!=null)d.push(`${fmt(Math.floor(kr))} kr`);
+      if(b){const k=Math.floor(b.v(n))-Math.floor(start.v.buss);if(k>0)d.push(`${k} ${k===1?'busstur':'bussturer'}`)}
+      if(li!=null)d.push(li>=1e6?`${fmt(li/1e6,1)} miljoner liter i Svartån`:`${fmt(Math.floor(li))} liter i Svartån`);
+      if(d.length){se.textContent='Sedan du kom: '+d.join(' · ');se.hidden=false}}};
+  let tick=null;const kor=()=>{clearInterval(tick);clearInterval(byt);tick=byt=null;if(idagPaus||document.hidden)return;
+    tick=setInterval(rita,lugn?10000:1000);if(!lugn)byt=setInterval(()=>{if(!hovra)visa(akt+1)},6000)};
+  box.hidden=false;const gd=box.parentElement.querySelector('.hero-dial');if(gd)gd.hidden=true;
+  visa(akt);rita();kor();
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)rita();kor()});
+  // byt själv: prickarna, piltangenterna och svep i sidled; rotationen vilar medan man pekar på eller fokuserar rutan
+  $('#idag-prickar').addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(!b)return;visa(+b.dataset.i);kor()});
+  $('#idag-prickar').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();visa(akt+(e.key==='ArrowRight'?1:-1));box.querySelectorAll('.idag-prick')[akt].focus();kor()});
+  box.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hovra=true});box.addEventListener('pointerleave',()=>{hovra=false});
+  box.addEventListener('focusin',()=>{hovra=true});box.addEventListener('focusout',e=>{if(!box.contains(e.relatedTarget))hovra=false});
+  let sx=null,sy=null;const k=$('#idag-kompass');
+  k.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+  k.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;sx=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.5){visa(akt+(dx<0?1:-1));kor()}},{passive:true});
   const pk=$('#idag-paus');pk.addEventListener('click',()=>{idagPaus=!idagPaus;pk.setAttribute('aria-pressed',idagPaus);pk.classList.toggle('stoppad',idagPaus);pk.setAttribute('aria-label',idagPaus?'Starta räknarna':'Pausa räknarna');if(!idagPaus)rita();kor()});
-  $('#idag-dela').addEventListener('click',()=>{const n=idagNu(),v=idagVarden(I,n),kl=`${String(n.h).padStart(2,'0')}.${String(n.m).padStart(2,'0')}`;
-    if(v.kr!=null)delaOppna({etikett:`Örebro i dag, kl. ${kl}`,varde:`${fmt(Math.floor(v.kr))} kr`,text:'har Örebro kommun betalat ut till leverantörer hittills i dag, räknat på snittet för de senaste 12 månaderna.',kalla:'Örebro kommun, leverantörsreskontra',lank:''});
-    else delaOppna({etikett:`Örebro i dag, kl. ${kl}`,varde:`${fmt(Math.floor(v.liter||0))} liter`,text:'vatten har runnit genom Svartån hittills i dag.',kalla:'SMHI',lank:''})})}
+  $('#idag-dela').addEventListener('click',()=>{const n=idagNu(),r=L[akt],kl=`${String(n.h).padStart(2,'0')}.${String(n.m).padStart(2,'0')}`;
+    delaOppna({etikett:`Örebro i dag, kl. ${kl}`,varde:`${idagTal(r,r.v(n))}${r.enh?' '+r.enh:''}`,text:`${idagText(r,r.v(n))} hittills i dag (${r.s}).`,kalla:'',lank:''})})}
 function renderStart(S){
   document.querySelectorAll('[data-tema]').forEach(a=>{const t=S.teman[a.dataset.tema]||(S.extra||{})[a.dataset.tema];if(!t)return;
     a.querySelector('.v').textContent=t.v;a.querySelector('.s').textContent=t.s});
