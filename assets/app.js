@@ -2735,10 +2735,51 @@ function utfTyck(till){const d=new Date(),i=`${d.getFullYear()}-${String(d.getMo
   const o=till.filter(x=>x>=i).sort();if(!o.length)return'Inga planer är öppna för synpunkter just nu. Se vad som är på gång där du bor.';
   const s=o[0],dag=s===i?'i dag':`${+s.slice(8)} ${MANAD[+s.slice(5,7)-1]}`;
   return `${o.length===1?'En plan går':o.length+' planer går'} att tycka till om just nu. Nästa sista dag: ${dag}.`}
+/* ===== Örebro i dag, hittills (13 okt 2026): räknare från midnatt (Stockholmstid) som tickar medan man tittar.
+   Pengar och utryckningar är snitt per dag (utryckningarna fördelade efter tid på dygnet), bussarna följer tidtabellens
+   turer per timme för vardag, lördag och söndag, och Svartån är det senaste uppmätta flödet. Allt räknas i webbläsaren. */
+let idagTimer=null,idagPaus=false;
+function idagNu(){const p=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:SOL_TZ,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23',weekday:'short'}).formatToParts(new Date()).map(x=>[x.type,x.value]));
+  const h=+p.hour%24,m=+p.minute,s=+p.second;return {h,m,s,t:h*3600+m*60+s,dag:p.weekday==='Sat'?'lordag':p.weekday==='Sun'?'sondag':'vardag'}}
+const IDAG_DAG={vardag:'en vanlig vardag',lordag:'en vanlig lördag',sondag:'en vanlig söndag'};
+function idagVarden(I,n){const v={};
+  if(I.kr)v.kr=I.kr.ar/365.25/86400*n.t;
+  if(I.svartan)v.liter=I.svartan.m3s*1000*n.t;
+  if(I.buss){const T=I.buss.timmar[n.dag]||I.buss.timmar.vardag;let b=0;for(let i=0;i<n.h;i++)b+=T[i];v.buss=b+T[n.h]*(n.m*60+n.s)/3600}
+  if(I.rt){const T=I.rt.timme,tot=T.reduce((a,b)=>a+b,0);let w=0;for(let i=0;i<n.h;i++)w+=T[i];w+=T[n.h]*(n.m*60+n.s)/3600;v.rt=I.rt.antal/365.25*w/tot}
+  return v}
+function idagStart(I){const box=$('#idag');if(!box||!I||!(I.kr||I.buss||I.svartan))return;
+  // Svartån bara om mätningen är högst en vecka gammal
+  if(I.svartan){const [y,m,d]=stockholmIdag(),i=Date.UTC(y,m-1,d),[sy,sm,sd]=I.svartan.d.split('-').map(Number);if((i-Date.UTC(sy,sm-1,sd))/864e5>7)I={...I,svartan:null}}
+  const n0=idagNu(),v0=idagVarden(I,n0),sv=I.svartan;
+  const rader=[
+    I.kr&&['kr','pengar.html','kr','har kommunen betalat ut till leverantörer','i snitt per dag de senaste 12 månaderna'],
+    I.buss&&['buss','buss.html','','bussturer har startat i kommunen',`enligt tidtabellen för ${IDAG_DAG[n0.dag]}`],
+    sv&&['liter','vatten.html#svartan','liter','vatten har runnit genom Svartån',`${fmt(sv.m3s,1)} m³ i sekunden vid Karlslund ${rkDatum(sv.d)}${sv.prel?', preliminärt':''}`],
+    I.rt&&['rt','raddning.html','','gånger har räddningstjänsten ryckt ut, ungefär',`i snitt ${fmt(I.rt.antal/365.25,1).replace('.',',')} om dagen ${I.rt.ar}`]].filter(Boolean);
+  $('#idag-l').innerHTML=rader.map(([k,l,enh,t,s])=>`<li><a href="${l}"><span class="idag-v num"><span data-idag="${k}"></span>${enh?`<span class="idag-enh"> ${enh}</span>`:''}</span><span class="idag-t">${esc(t)}</span><span class="idag-s">${esc(s)}</span></a></li>`).join('');
+  $('#idag-not').innerHTML=`Räknat från midnatt. Pengar och utryckningar är genomsnitt, inte realtid. <button type="button" class="akt-knapp" id="idag-dela">Dela</button>`;
+  box.hidden=false;
+  const lugn=matchMedia('(prefers-reduced-motion: reduce)').matches,start={v:v0,tid:Date.now()};
+  const sk=(k,x)=>{const e=box.querySelector(`[data-idag="${k}"]`);if(e)e.textContent=fmt(Math.floor(k==='rt'?Math.round(x):x))};
+  const rita=()=>{const n=idagNu(),v=idagVarden(I,n);Object.entries(v).forEach(([k,x])=>sk(k,x));
+    $('#idag-kl').textContent=`kl. ${String(n.h).padStart(2,'0')}.${String(n.m).padStart(2,'0')}`;
+    const sek=(Date.now()-start.tid)/1000,se=$('#idag-sedan');
+    if(sek>=3&&n.t>start.v._t){const d=[];if(v.kr!=null)d.push(`${fmt(Math.floor(v.kr-start.v.kr))} kr`);if(v.buss!=null){const b=Math.floor(v.buss)-Math.floor(start.v.buss);if(b>0)d.push(`${b} ${b===1?'busstur':'bussturer'}`)}
+      if(v.liter!=null){const l=v.liter-start.v.liter;d.push(l>=1e6?`${fmt(l/1e6,1).replace('.',',')} miljoner liter i Svartån`:`${fmt(Math.floor(l))} liter i Svartån`)}
+      se.textContent='Sedan du kom: '+d.join(' · ');se.hidden=false}};
+  start.v._t=n0.t;
+  const kor=()=>{clearInterval(idagTimer);idagTimer=null;if(!idagPaus&&!document.hidden)idagTimer=setInterval(rita,lugn?10000:1000)};
+  rita();kor();
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)rita();kor()});
+  const pk=$('#idag-paus');pk.addEventListener('click',()=>{idagPaus=!idagPaus;pk.setAttribute('aria-pressed',idagPaus);pk.classList.toggle('stoppad',idagPaus);pk.setAttribute('aria-label',idagPaus?'Starta räknarna':'Pausa räknarna');if(!idagPaus)rita();kor()});
+  $('#idag-dela').addEventListener('click',()=>{const n=idagNu(),v=idagVarden(I,n),kl=`${String(n.h).padStart(2,'0')}.${String(n.m).padStart(2,'0')}`;
+    if(v.kr!=null)delaOppna({etikett:`Örebro i dag, kl. ${kl}`,varde:`${fmt(Math.floor(v.kr))} kr`,text:'har Örebro kommun betalat ut till leverantörer hittills i dag, räknat på snittet för de senaste 12 månaderna.',kalla:'Örebro kommun, leverantörsreskontra',lank:''});
+    else delaOppna({etikett:`Örebro i dag, kl. ${kl}`,varde:`${fmt(Math.floor(v.liter||0))} liter`,text:'vatten har runnit genom Svartån hittills i dag.',kalla:'SMHI',lank:''})})}
 function renderStart(S){
   document.querySelectorAll('[data-tema]').forEach(a=>{const t=S.teman[a.dataset.tema]||(S.extra||{})[a.dataset.tema];if(!t)return;
     a.querySelector('.v').textContent=t.v;a.querySelector('.s').textContent=t.s});
-  nuRad(S);
+  nuRad(S);idagStart(S.idag);
   document.querySelectorAll('[data-utf]').forEach(a=>{const t=(S.utforska||{})[a.dataset.utf];if(!t)return;a.querySelector('.utf-v').textContent=typeof t==='string'?t:utfTyck(t.till||[])});
   const sel=$('#hitta-omr');if(!sel)return;
   sel.innerHTML='<option value="">Välj ditt område</option>'+S.omraden.map(([k,n])=>`<option value="${k}">${esc(n)}</option>`).join('');
