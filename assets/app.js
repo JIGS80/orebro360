@@ -2680,7 +2680,7 @@ function initForeningar(){const A=FO.antal;FO_GN=Object.fromEntries(FO.grupper.m
   $('#fo-lead').textContent=`${fmt(A.visade)} föreningar i Örebro kommun för idrott, musik, natur, kultur och gemenskap. Börja med vad du vill göra, så visar vi föreningarna och länkar till deras egna sidor.`;
   const tile=(l,v,s)=>`<div class="stat"><span class="label"><span class="lt">${esc(l)}</span></span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
   $('#fo-kpis').innerHTML=[tile('Föreningar',fmt(A.visade),'i kommunens föreningsregister'),tile('Med stadsdel',fmt(A.omrade),`har angett var de finns, ${fmt(A.hela)} är verksamma i hela Örebro`),
-    tile('Fritidskortet',fmt(A.fritidskort),'föreningar har angett att de är med').replace('<div class="stat">','<div class="stat stat-klick" data-dela-lank="foreningar.html#fk=1">').replace('</span></div>',`</span><a class="stat-lank" href="foreningar.html#fk=1" data-fo-fk>Visa alla ${fmt(A.fritidskort)} <span aria-hidden="true">→</span></a></div>`),tile('Hämtat',vtDag(FO.uppdaterad),'registret hämtas varje vecka')].join('');
+    tile('Fritidskortet',fmt(A.fritidskort),'föreningar har angett att de är med').replace('<div class="stat">','<div class="stat stat-klick" data-dela-lank="foreningar.html#fk=1">').replace('är med</span></div>',`är med <a class="stat-lank" href="foreningar.html#fk=1" data-fo-fk>Visa alla ${fmt(A.fritidskort)} <span aria-hidden="true">→</span></a></span></div>`),tile('Hämtat',vtDag(FO.uppdaterad),'registret hämtas varje vecka')].join('');
   $('#fo-grupper').innerHTML=`<button type="button" class="chip" data-g="" aria-pressed="true">Alla</button>`+FO.grupper.filter(g=>g[2]>0).map(([id,n,c])=>`<button type="button" class="chip" data-g="${id}" aria-pressed="false">${esc(n)} <span class="fo-c">${fmt(c)}</span></button>`).join('');
   $('#fo-omr').insertAdjacentHTML('beforeend',OM.omraden.slice().sort((a,b)=>a.namn.localeCompare(b.namn,'sv')).map(o=>`<option value="${o.kod}">${esc(o.namn)}</option>`).join(''));
   $('#fo-grupper').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)foSatt('g',b.dataset.g)});
@@ -2889,7 +2889,7 @@ function hopEnheter(rot){if(!rot)return;if(rot.nodeType===3){if(ENHET_RE.test(ro
 function initDela(){
   document.addEventListener('click',e=>{const b=e.target.closest('[data-dela-url]');if(b){e.preventDefault();delaLank(b)}});
   document.addEventListener('click',e=>{const b=e.target.closest('.dela-knapp');if(!b)return;e.preventDefault();const s=b.closest('.stat');
-    const tx=q=>(s.querySelector(q)?.textContent||'').trim();const sida=document.querySelector('h1.sida-h')?.textContent.trim()||'';
+    const tx=q=>{const e=s.querySelector(q);if(!e)return '';const c=e.cloneNode(true);c.querySelectorAll('.stat-lank').forEach(x=>x.remove());return c.textContent.trim()};const sida=document.querySelector('h1.sida-h')?.textContent.trim()||'';
     const et=etikett(s.querySelector('.label')),tema=(document.querySelector('.sec-head .label')?.textContent||'').trim();
     delaOppna({etikett:SIDA==='mitt'&&miVisad?(OM.omraden.find(o=>o.kod===miVisad)?.namn+' · '+et):tema&&tema.toLowerCase()!==et.toLowerCase()?tema+' · '+et:et,varde:tx('.v'),text:tx('.s')||sida,kalla:DELA_KALLA[SIDA]||'',lank:s.dataset.delaLank||(SIDA==='mitt'&&miVisad?'mitt.html#'+miVisad:'')})});
   delaKnappar();
