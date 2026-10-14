@@ -2613,6 +2613,7 @@ function initForeningar(){const A=FO.antal;FO_GN=Object.fromEntries(FO.grupper.m
   if(h.get('g')&&FO_GN[h.get('g')])FO_F.g=h.get('g');
   if(h.get('omr')&&OM.omraden.some(o=>o.kod===h.get('omr'))){FO_F.omr=h.get('omr');$('#fo-omr').value=FO_F.omr}
   if(h.get('fk')==='1'){FO_F.fk=true;$('#fo-fk').checked=true}
+  if(h.get('q')){FO_F.q=h.get('q').slice(0,60);$('#fo-q').value=FO_F.q}
   const fid=+h.get('f');
   if(fid){const i=FO.foreningar.findIndex(f=>f.i===fid);if(i>=0)foVisa=Math.max(40,i+1)}
   foLista();
@@ -3032,6 +3033,17 @@ function idagStart(I){const box=$('#idag');if(!box||!I)return;
   const pk=$('#idag-paus');pk.addEventListener('click',()=>{idagPaus=!idagPaus;pk.setAttribute('aria-pressed',idagPaus);pk.classList.toggle('stoppad',idagPaus);pk.setAttribute('aria-label',idagPaus?'Starta räknarna':'Pausa räknarna');if(!idagPaus)rita();kor()});
   $('#idag-dela').addEventListener('click',()=>{const n=idagNu(),r=L[akt],kl=`${String(n.h).padStart(2,'0')}.${String(n.m).padStart(2,'0')}`;
     delaOppna({etikett:`Örebro i dag, kl. ${kl}`,varde:`${idagTal(r,r.v(n))}${r.enh?' '+r.enh:''}`,text:`${idagText(r,r.v(n))} hittills i dag (${r.s}).`,kalla:'',lank:''})})}
+/* Förstasidans frågerad (14 okt 2026): en fråga i taget som sidan har svar på, ny var fjärde sekund. Stannar när man
+   pekar på eller tabbar till länken och när fliken inte syns. Med reducerad rörelse står en slumpad fråga stilla. */
+const HERO_FR=[['Finns det en klätterklubb?','foreningar.html#q=klättring'],['När kontrollerades restaurangen?','restauranger.html'],['Var är närmaste lekplats?','narmiljo.html'],
+  ['Hur ofta går bussen där jag bor?','buss.html'],['Vad byggs där jag bor?','planer.html'],['Vart går min skatt?','skatt.html'],['Hur hårt är dricksvattnet?','vatten.html'],
+  ['Hur gick valet i mitt område?','valet.html'],['Vilka fåglar har setts i veckan?','natur.html'],['Hur är det på min skola?','skolor.html'],
+  ['Finns det en förening för mitt barn?','foreningar.html#g=unga'],['Var sopsaltas cykelvägen?','cykla.html']];
+function heroFragor(){const a=$('#hero-fr-a');if(!a)return;let i=0,paus=false;
+  const satt=j=>{i=(j+HERO_FR.length)%HERO_FR.length;const [t,h]=HERO_FR[i];a.firstChild.textContent=t+' ';a.href=h};
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){satt(Math.floor(Math.random()*HERO_FR.length));return}
+  ['mouseenter','focus'].forEach(e=>a.addEventListener(e,()=>{paus=true}));['mouseleave','blur'].forEach(e=>a.addEventListener(e,()=>{paus=false}));
+  setInterval(()=>{if(paus||document.hidden)return;a.classList.add('ut');setTimeout(()=>{satt(i+1);a.classList.remove('ut')},350)},4000)}
 function renderStart(S){
   document.querySelectorAll('[data-tema]').forEach(a=>{const t=S.teman[a.dataset.tema]||(S.extra||{})[a.dataset.tema];if(!t)return;
     a.querySelector('.v').textContent=t.v;a.querySelector('.s').textContent=t.s});
@@ -3044,7 +3056,7 @@ function renderStart(S){
   // Glöm: gatan hör till området och glöms med det (14 okt 2026)
   rs.addEventListener('click',e=>{const b=e.target.closest('button[data-g]');if(!b)return;
     if(b.dataset.g==='glom'){miGlom();gataGlom();miRemsa(S)}else location.href='mitt.html'});
-  miRemsa(S);initSok();
+  miRemsa(S);initSok();heroFragor();
 }
 
 /* Har besökaren själv skrollat eller tryckt sedan sidan öppnades? Då flyttar vi inte sidan efteråt. */
