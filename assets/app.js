@@ -1375,6 +1375,10 @@ function miKarta(){
   const nm=NM&&NM.omraden[o.kod];
   [['lek','Lekplats'],['park','Park'],['avs','Återvinningsstation']].forEach(([t,l])=>{const q=nm&&nm[t];const vis=!!(q&&q.m<=3000);$('#mi-leg-'+t).hidden=!vis;
     if(vis)pt(q.x,q.y,t,5,`<b>${esc(nmNamn(t,q))}</b><br>${esc(l.toLowerCase())}, ${esc(meter(q.m))}`)});
+  // närmaste offentliga toalett och cykelpump, från din gata eller områdets centrum, bara inom 2 km (14 okt 2026)
+  {const f=miFran(o.kod);[['toa','offentlig toalett'],['pump','cykelpump']].forEach(([t,l])=>{const q=NM&&f?miNarmast(NM.platser.filter(p=>p[0]===t),f,1,p=>[p[4],p[5]])[0]:null;
+    const vis=!!(q&&q.m<=2000);$('#mi-leg-'+t).hidden=!vis;
+    if(vis)pt(q.p[4],q.p[5],t,5,`<b>${esc(nmPNamn(q.p))}</b><br>${l}, ${esc(meter(q.m))}${t==='toa'&&q.p[2]?'<br>'+esc(q.p[2].toLowerCase()):''}`)})}
   const t=el('text',{x:o.lx,y:o.ly,'text-anchor':'middle',class:'mi-lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=o.namn;
   fokusRita(svg,sc);
 }

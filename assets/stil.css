@@ -580,9 +580,9 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 @media (max-width:520px){#lok-top-kom .hbar,#lok-top-ut .hbar{grid-template-columns:minmax(0,1fr) 5.6rem}}
 
 /* ===== Utforska: din skatt, 100 personer, månaden ===== */
-:root{--c1:#008572;--c2:#C0842A;--c3:#4F6FA8;--c4:#A8432A;--c5:#6E8F2E;--c6:#8A63A8}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}}
-:root[data-theme="dark"]{--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}
+:root{--toa:#1F78B4;--pump:#B0477E;--c1:#008572;--c2:#C0842A;--c3:#4F6FA8;--c4:#A8432A;--c5:#6E8F2E;--c6:#8A63A8}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--toa:#5FA8DA;--pump:#E07BAA;--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}}
+:root[data-theme="dark"]{--toa:#5FA8DA;--pump:#E07BAA;--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}
 
 /* förstasidans utforska-kort */
 .utforska{padding-block:4px 8px}
@@ -712,6 +712,7 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .mi-karta path.mi-a:hover{fill:var(--accent-soft)}
 .mi-karta path.mi-a-sel,.mi-karta path.mi-a-sel:hover{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2.5;cursor:default}
 .mi-karta circle{stroke:var(--surface);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.mi-pt-toa{fill:var(--surface)}.mi-karta circle.mi-pt-toa{stroke:var(--ink);stroke-width:3}.mi-pt-pump{fill:var(--pump)}.legend .mi-pt-toa{background:var(--surface);box-shadow:inset 0 0 0 2.5px var(--ink)}.legend .mi-pt-pump{background:var(--pump)}
 .mi-pt-lek{fill:var(--c5)}.mi-pt-park{fill:var(--c1)}.mi-pt-avs{fill:var(--c7,var(--ink2))}.mi-pt-rk{fill:var(--c2)}.mi-pt-sk{fill:var(--c3)}.mi-pt-vc{fill:var(--c4)}.mi-pt-bu{fill:var(--c6);stroke:var(--surface);stroke-width:1.5px}
 .mi-karta text.mi-lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round;pointer-events:none}
 .mi-sw-omr{background:var(--accent-soft);border:2px solid var(--accent)}
