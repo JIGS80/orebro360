@@ -1664,3 +1664,15 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .gi-steg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .gi-reglage-rad + .gi-skala{padding-inline:54px}
 .pl-siffra .gi-tal{font-size:2rem}
+/* Större träffyta på små knappar (14 okt 2026): prickarna i kompassen och rutan för Fritidskortet (info-knappen har redan en större yta) */
+.idag-prick{position:relative}
+.idag-prick::after{content:"";position:absolute;inset:-9px 0}
+.fo-fk{min-height:44px}
+.fo-fk input{width:22px;height:22px}
+/* Mellan spelen (14 okt 2026): nedräkning till nya platser och en länk vidare till det andra spelet */
+.pl-nedrakn{margin:2px 0 12px;font-weight:600}
+.pl-nasta-spel{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:6px 0 16px;padding:12px 14px;border-radius:10px;background:var(--accent-soft);color:var(--ink);text-decoration:none;border:1px solid transparent}
+.pl-nasta-spel:hover{border-color:var(--accent)}
+.pl-nasta-spel:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pl-nasta-spel span:first-child{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.pl-nasta-spel b{color:var(--accent-text)}

@@ -1274,8 +1274,11 @@ async function renderLadda(){
   h.addEventListener('click',()=>nav.scrollBy({left:nav.clientWidth*.7}));
   nav.addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);
   const akt=nav.querySelector('[aria-current="page"]');
-  if(akt){const l=akt.offsetLeft-nav.offsetLeft;if(l+akt.offsetWidth>nav.clientWidth-40)nav.scrollLeft=l-nav.clientWidth/2+akt.offsetWidth/2}
-  upd();if(document.fonts)document.fonts.ready.then(upd);
+  // aktuell sida mitt i menyraden. Räknas igen när typsnitten har laddats (bredderna ändras), om man inte själv har skrollat menyn.
+  let rord=false;nav.addEventListener('pointerdown',()=>{rord=true},{passive:true});nav.addEventListener('wheel',()=>{rord=true},{passive:true});
+  const centrera=()=>{if(!akt||rord)return;const r=akt.getBoundingClientRect(),n=nav.getBoundingClientRect(),l=r.left-n.left+nav.scrollLeft;
+    nav.scrollLeft=l+r.width>nav.clientWidth-40?l-nav.clientWidth/2+r.width/2:0;upd()};
+  centrera();upd();if(document.fonts)document.fonts.ready.then(()=>{centrera();upd()});
 })();
 
 /* ===== Alla ämnen: utfällbar panel med hela sidan ===== */
@@ -2482,13 +2485,23 @@ function plVisaSlut(){const t=plTillst,tot=t.svar.reduce((a,s)=>a+s.p,0);$('#pl-
     ${t.lage==='dag'&&plSiffraFraga(t.datum)?'<div class="pl-siffra" id="pl-siffra" tabindex="-1"></div>':''}
     ${t.lage==='dag'?`<div class="pl-dela-rad"><button type="button" class="knapp" id="pl-dela">Dela resultat</button><span class="small" id="pl-dela-svar" role="status"></span></div>
     <textarea class="pl-dela-text" id="pl-dela-text" readonly hidden rows="3"></textarea>
-    <p class="small">Delningen visar datum och poäng men inte platserna, och länken utmanar den du skickar till. Nya platser kommer vid midnatt, ${esc(plDatumText(PL_MOTOR.datum(morgon)))}.</p>`:''}
+    <p class="small">Delningen visar datum och poäng men inte platserna, och länken utmanar den du skickar till.</p>
+    <p class="pl-nedrakn"><span id="pl-nedrakn">Nya platser vid midnatt</span>, ${esc(plDatumText(PL_MOTOR.datum(morgon)))}.</p>
+    <a class="pl-nasta-spel" href="gissa.html"><span>Nästa</span> <b>Fem frågor i Gissa siffran</b> <span aria-hidden="true">→</span></a>`:''}
     <button type="button" class="knapp-l" id="pl-ova">${t.lage==='ovning'?'Öva igen med tre nya platser':'Öva med tre andra platser'}</button>
     ${plHistHtml(plHist(plLas()))}`;
-  if(t.lage==='dag')plSiffraRita(t);plHistKoppla();
+  if(t.lage==='dag')plSiffraRita(t);plHistKoppla();plNedrakning();
   if(t.lage==='dag')$('#pl-dela').addEventListener('click',()=>plDela(t.datum,t.svar.map(s=>s.p)));
   $('#pl-ova').addEventListener('click',plNyOvning);
   $('#pl-steg').textContent=t.lage==='ovning'?'Övning':'Klart för i dag';$('#pl-namn').textContent=`${fmt(tot)} poäng`;$('#pl-ledtrad').textContent='';plProg()}
+// tid kvar till midnatt i svensk tid, uppdateras varje halvminut så länge slutvyn syns
+let plNedT=null;
+function plNedrakning(){clearInterval(plNedT);const sp=$('#pl-nedrakn');if(!sp)return;
+  const kvar=()=>{try{const f=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Stockholm',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+    const g=k=>+f.find(x=>x.type===k).value;return 86400-(g('hour')*3600+g('minute')*60+g('second'))}catch(e){return null}};
+  const visa=()=>{if(!sp.isConnected){clearInterval(plNedT);return}const s=kvar();if(s==null)return;
+    const mm=Math.ceil(s/60),hh=Math.floor(mm/60),mi=mm%60;sp.textContent='Nya platser om '+(hh?`${hh} h `:'')+`${mi} min`};
+  visa();plNedT=setInterval(visa,30000)}
 function plSiffraRita(t){const box=$('#pl-siffra'),q=plSiffraFraga(t.datum);if(!box||!q)return;const d=plLas(),s=d.siffra&&d.siffra.datum===t.datum&&d.siffra.id===q.id?d.siffra:null;
   box.innerHTML=plSiffraHtml(q,s);if(s)return;
   const varde=giReglageKoppla(q,'pl-sf');
@@ -2775,6 +2788,8 @@ function giSumma(){
   $('#gi-kort').innerHTML=`<span class="label">${giLage==='manad'?'Ditt resultat, '+esc(GI.namn):'Ditt resultat, extrafrågor'}</span>
     <div class="gi-total"><span class="gi-p num">${tot}<small> av ${max} poäng</small></span><span class="gi-omdome">${esc(omd)}</span></div>
     <ul class="gi-sum">${lista.map(q=>{const p=giPoang(q,giSvar[q.id]);return `<li><span>${esc(q.fraga)}<span class="sub">Du: ${giFmt(q,giSvar[q.id])} · Svar: ${giFmt(q,q.svar)}</span></span><b class="num">${p}</b></li>`}).join('')}</ul>
+    ${(()=>{let d={};try{d=plLas()}catch(e){}const ds=PL_MOTOR.datum(),klar=d.resultat&&d.resultat[ds];
+      return `<a class="pl-nasta-spel" href="platsen.html"><span>Nästa</span> <b>${klar?'Se ditt resultat i Var ligger platsen?':'Dagens tre platser och en siffra'}</b> <span aria-hidden="true">→</span></a>`})()}
     <div class="gi-knappar"><button type="button" class="knapp" id="gi-dela">Dela ditt resultat</button>${GI.extra.length?`<button type="button" class="knapp-l" id="gi-fler">Fem frågor till</button>`:''}<button type="button" class="knapp-l" id="gi-om">Börja om</button></div>
     <p class="src">${(()=>{const sed=giSedda(),alla=[...GI.fragor,...GI.extra],n=alla.filter(q=>sed[q.id]).length;return `Du har gissat på ${n} av ${alla.length} frågor. `+(n>=alla.length?'Du har klarat alla! Siffrorna uppdateras, så svaren kan ha ändrats när du spelar dem igen. ':'')})()}${giLage==='manad'?'Nya frågor kommer i början av nästa månad.':'Extrafrågorna är frågor från tidigare och kommande månader.'}</p>`;
   $('#gi-dela').addEventListener('click',()=>delaOppna({etikett:'Gissa siffran · '+GI.namn,varde:`${tot} av ${max}`,text:`Så många poäng fick jag på frågor om Örebro i siffror. Hur bra känner du Örebro?`,kalla:'',lank:'gissa.html'}));
