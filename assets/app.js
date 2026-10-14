@@ -2420,7 +2420,9 @@ function plKartHandelser(){
 }
 
 /* --- flödet --- */
-function plProg(){const t=plTillst,ut=[];for(let i=0;i<3;i++){const s=t&&t.svar[i];ut.push(`<span class="pl-pr${s?' klar':''}${t&&i===t.steg&&!s?' nu':''}">${s?`${fmt(s.p)}`:i+1}</span>`)}$('#pl-prog').innerHTML=ut.join('')}
+function plProg(){const t=plTillst,ut=[];for(let i=0;i<3;i++){const s=t&&t.svar[i];ut.push(`<span class="pl-pr${s?' klar':''}${t&&i===t.steg&&!s?' nu':''}">${s?`${fmt(s.p)}`:i+1}</span>`)}
+  if((!t||t.lage==='dag')&&GI){const ds=t&&t.datum||plDagensDatum(),sf=(plLas().siffra||{});const s=sf.datum===ds?sf:null;ut.push(`<span class="pl-pr pl-pr-s${s?' klar':''}" title="Dagens siffra">${s?s.p:'#'}</span>`)}
+  $('#pl-prog').innerHTML=ut.join('')}
 const plMobil=()=>matchMedia('(max-width:900px)').matches;
 const plRulla=el=>{if(!el)return;el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})};
 function plVisaFraga(){const t=plTillst,p=plPlats(t.ids[t.steg]);plLast=false;plNal=null;
@@ -2453,10 +2455,12 @@ function plLasGissning(){if(!plNal||plLast)return;const t=plTillst,p=plPlats(t.i
   t.svar[t.steg]={x:Math.round(plNal.x*10)/10,y:Math.round(plNal.y*10)/10,d:Math.round(d),p:poang};plSparaTillst();plVisaSvar()}
 function plSparaTillst(){const d=plLas();const t=plTillst;
   if(t.lage==='dag'){d.dag={datum:t.datum,ver:PL.version,ids:t.ids,svar:t.svar,steg:t.steg};
-    if(t.svar.length===3&&t.svar.every(Boolean)){d.resultat=d.resultat||{};if(!d.resultat[t.datum])d.resultat[t.datum]={p:t.svar.reduce((a,s)=>a+s.p,0),rundor:t.svar.map(s=>s.p)}}}
+    if(t.svar.length===3&&t.svar.every(Boolean)){d.resultat=d.resultat||{};if(!d.resultat[t.datum])d.resultat[t.datum]={p:t.svar.reduce((a,s)=>a+s.p,0),rundor:t.svar.map(s=>s.p)};
+      if(d.siffra&&d.siffra.datum===t.datum&&d.resultat[t.datum].s==null)d.resultat[t.datum].s=d.siffra.p}}
   else d.ovning={ids:t.ids,svar:t.svar,steg:t.steg};
   plSpara(d)}
-function plDelaText(datum,rundor){const tot=rundor.reduce((a,b)=>a+b,0);return `Var ligger platsen? ${plDatumText(datum)}\n${rundor.map(PL_MOTOR.ruta).join('')} ${fmt(tot)} av 3 000 poäng\nhttps://orebro360.se/platsen.html`}
+function plDelaText(datum,rundor){const tot=rundor.reduce((a,b)=>a+b,0),r=(plLas().resultat||{})[datum],s=r&&r.s!=null?r.s:null;
+  return `Dagens Örebro ${plDatumText(datum)}\n📍 ${rundor.map(PL_MOTOR.ruta).join('')} ${fmt(tot)} av 3 000\n`+(s!=null?`🔢 ${s} av 100\n`:'')+`Kan du slå mig? https://${DELA_DOMAN}/platsen.html#u=${datum}_${tot}${s!=null?'_'+s:''}`}
 function plVisaSlut(){const t=plTillst,tot=t.svar.reduce((a,s)=>a+s.p,0);$('#pl-svar').hidden=true;$('#pl-vidare').hidden=true;$('#pl-om-lank').hidden=true;$('#pl-las').hidden=true;$('#pl-slut').hidden=false;$('#pl-intro').hidden=true;
   const d=plLas(),dagRes=d.resultat&&d.resultat[plDagensDatum()];
   const rader=t.ids.map((id,i)=>{const p=plPlats(id),s=t.svar[i];return `<li><span class="pl-sr-namn">${esc(p.n)}</span><span class="pl-sr-d">${esc(plAvst(s.d))}</span><span class="pl-sr-p">${fmt(s.p)}</span></li>`}).join('');
@@ -2465,17 +2469,73 @@ function plVisaSlut(){const t=plTillst,tot=t.svar.reduce((a,s)=>a+s.p,0);$('#pl-
     <p class="pl-total"><b>${fmt(tot)}</b> av 3 000 poäng</p>
     ${t.lage==='ovning'&&dagRes?`<p class="small">Ditt resultat i dagens omgång är fortfarande ${fmt(dagRes.p)} poäng. Övningen räknas inte.</p>`:''}
     <ol class="pl-sammanfattning">${rader}</ol>
+    ${t.lage==='dag'?plUtmJmf(tot,(d.siffra&&d.siffra.datum===t.datum)?d.siffra.p:null):''}
+    ${t.lage==='dag'&&plSiffraFraga(t.datum)?'<div class="pl-siffra" id="pl-siffra" tabindex="-1"></div>':''}
     ${t.lage==='dag'?`<div class="pl-dela-rad"><button type="button" class="knapp" id="pl-dela">Dela resultat</button><span class="small" id="pl-dela-svar" role="status"></span></div>
     <textarea class="pl-dela-text" id="pl-dela-text" readonly hidden rows="3"></textarea>
-    <p class="small">Delningen visar datum och poäng men inte platserna. Nya platser kommer vid midnatt, ${esc(plDatumText(PL_MOTOR.datum(morgon)))}.</p>`:''}
-    <button type="button" class="knapp-l" id="pl-ova">${t.lage==='ovning'?'Öva igen med tre nya platser':'Öva med tre andra platser'}</button>`;
+    <p class="small">Delningen visar datum och poäng men inte platserna, och länken utmanar den du skickar till. Nya platser kommer vid midnatt, ${esc(plDatumText(PL_MOTOR.datum(morgon)))}.</p>`:''}
+    <button type="button" class="knapp-l" id="pl-ova">${t.lage==='ovning'?'Öva igen med tre nya platser':'Öva med tre andra platser'}</button>
+    ${plHistHtml(plHist(plLas()))}`;
+  if(t.lage==='dag')plSiffraRita(t);plHistKoppla();
   if(t.lage==='dag')$('#pl-dela').addEventListener('click',()=>plDela(t.datum,t.svar.map(s=>s.p)));
   $('#pl-ova').addEventListener('click',plNyOvning);
   $('#pl-steg').textContent=t.lage==='ovning'?'Övning':'Klart för i dag';$('#pl-namn').textContent=`${fmt(tot)} poäng`;$('#pl-ledtrad').textContent='';plProg()}
+function plSiffraRita(t){const box=$('#pl-siffra'),q=plSiffraFraga(t.datum);if(!box||!q)return;const d=plLas(),s=d.siffra&&d.siffra.datum===t.datum&&d.siffra.id===q.id?d.siffra:null;
+  box.innerHTML=plSiffraHtml(q,s);if(s)return;
+  const r=$('#pl-sf-r'),upd=()=>{$('#pl-sf-v').textContent=giFmt(q,+r.value);r.style.setProperty('--p',((r.value-q.min)/(q.max-q.min)*100)+'%')};upd();r.addEventListener('input',upd);
+  $('#pl-sf-gissa').addEventListener('click',()=>{const g=+r.value,p=giPoang(q,g),dd=plLas();dd.siffra={datum:t.datum,id:q.id,g,p};
+    if(dd.resultat&&dd.resultat[t.datum])dd.resultat[t.datum].s=p;plSpara(dd);try{giMarkera(q.id)}catch(e){}
+    plVisaSlut();const b=$('#pl-siffra');if(b){b.focus({preventScroll:true});b.scrollIntoView({behavior:'smooth',block:'nearest'})}})}
 async function plDela(datum,rundor){const text=plDelaText(datum,rundor),svar=$('#pl-dela-svar');
   try{if(navigator.share){await navigator.share({text});return}}catch(e){if(e&&e.name==='AbortError')return}
   try{await navigator.clipboard.writeText(text);svar.textContent='Kopierat! Klistra in var du vill.';return}catch(e){}
   const ta=$('#pl-dela-text');ta.hidden=false;ta.value=text;ta.focus();ta.select();svar.textContent='Markera och kopiera texten.'}
+/* ===== Dagens Örebro (14 okt 2026): tre platser och dagens siffra, din svit och historik, och utmaning med länk.
+   Allt sparas bara i webbläsaren (orebro360.platsen.v1). En utmaningslänk innehåller bara datum och poäng. ===== */
+let PL_UTM=null;   // {datum,p,s} från en utmaningslänk (#u=ÅÅÅÅ-MM-DD_poäng_siffra)
+const plDs=nr=>new Date(nr*864e5).toISOString().slice(0,10);
+// dagens siffra: en fråga ur Gissa siffrans bank, samma för alla samma dag; hela banken går igenom innan något upprepas
+function plSiffraFraga(ds){if(!GI)return null;const alla=[...GI.fragor,...GI.extra].filter(q=>!q.bonus&&q.max>q.min);if(!alla.length)return null;
+  const ids=alla.map(q=>q.id).sort(),nr=PL_MOTOR.dagNr(ds),n=ids.length,ord=v=>PL_MOTOR.blanda(ids,PL_MOTOR.hash('siffra|'+v));
+  const o=ord(Math.floor(nr/n));if(n>1&&nr%n===0&&o[0]===ord(Math.floor(nr/n)-1)[n-1])[o[0],o[1]]=[o[1],o[0]];
+  return alla.find(q=>q.id===o[nr%n])}
+function plSvit(R,ds){const nr=PL_MOTOR.dagNr(ds);let i=R[ds]?0:1,n=0;while(R[plDs(nr-i)]){n++;i++}return n}
+function plHist(d){const R=d.resultat||{},ds=plDagensDatum(),nr=PL_MOTOR.dagNr(ds),dagar=Object.keys(R).sort();
+  if(!dagar.length)return null;const pts=dagar.map(k=>R[k].p),sen=dagar.slice(-30).map(k=>R[k].p);
+  return {svit:plSvit(R,ds),idag:!!R[ds],spelade:dagar.length,bast:Math.max(...pts),snitt:Math.round(sen.reduce((a,b)=>a+b,0)/sen.length),
+    staplar:Array.from({length:14},(_,i)=>{const k=plDs(nr-13+i);return {k,r:R[k]||null}})}}
+function plHistHtml(h){if(!h)return '';const dag=k=>{const [,m,dd]=k.split('-');return `${+dd}/${+m}`};
+  const st=h.staplar.map(({k,r})=>`<span class="pl-st${r?'':' tom'}${k===plDagensDatum()?' idag':''}" style="--h:${r?Math.max(4,Math.round(r.p/30)):0}%" title="${dag(k)}: ${r?fmt(r.p)+' poäng':'inte spelat'}"></span>`).join('');
+  const lbl='Poäng de senaste 14 dagarna: '+h.staplar.map(({k,r})=>`${dag(k)} ${r?fmt(r.p):'inte spelat'}`).join(', ');
+  return `<section class="pl-hist" aria-labelledby="pl-hist-h"><h3 class="pl-hist-h" id="pl-hist-h">Din historik</h3>
+    <div class="pl-hist-tal"><span><b class="num">${fmt(h.svit)}</b> ${h.svit===1?'dag':'dagar'} i rad</span><span><b class="num">${fmt(h.spelade)}</b> ${h.spelade===1?'spelad dag':'spelade dagar'}</span><span><b class="num">${fmt(h.bast)}</b> bästa</span><span><b class="num">${fmt(h.snitt)}</b> snitt</span></div>
+    <div class="pl-staplar" role="img" aria-label="${esc(lbl)}">${st}</div><div class="pl-st-skala small" aria-hidden="true"><span>${dag(h.staplar[0].k)}</span><span>i dag</span></div>
+    <p class="small">Platsernas poäng, högst 3 000 per dag. Historiken sparas bara i den här webbläsaren. <button type="button" class="akt-knapp" id="pl-radera">Radera min historik</button></p></section>`}
+function plHistKoppla(){const b=$('#pl-radera');if(!b)return;let sak=false;b.addEventListener('click',()=>{
+  if(!sak){sak=true;b.textContent='Tryck igen för att radera allt';return}
+  plMinne=null;try{localStorage.removeItem(PL_NYCKEL)}catch(e){}location.reload()})}
+function plUtmLas(){const m=/(?:^|[#&])u=(\d{4}-\d\d-\d\d)_(\d{1,4})(?:_(\d{1,3}))?/.exec(location.hash);if(!m)return null;
+  const p=+m[2],s=m[3]!=null?+m[3]:null;if(p>3000||(s!=null&&s>100))return null;return {datum:m[1],p,s}}
+function plUtmText(){const u=PL_UTM;if(!u)return '';const ds=plDagensDatum(),idag=u.datum===ds;
+  return `<div class="pl-utm" role="note"><b>Du har blivit utmanad!</b> ${fmt(u.p)} poäng på platserna${u.s!=null?` och ${u.s} av 100 på siffran`:''}, ${esc(plDatumText(u.datum))}. `+
+    (idag?'Det är dagens platser, så du spelar samma. Kan du slå det?':'Det var en annan dag, så du får andra platser i dag, men du kan jämföra poängen.')+'</div>'}
+function plUtmJmf(tot,s){const u=PL_UTM;if(!u)return '';const vann=tot>u.p,lika=tot===u.p;
+  return `<p class="pl-utm-res">${vann?'Du slog utmaningen':lika?'Lika med utmaningen':'Utmanaren vann den här gången'}: du ${fmt(tot)}, utmanaren ${fmt(u.p)} poäng${u.datum!==plDagensDatum()?` (${esc(plDatumText(u.datum))})`:''}.${s!=null&&u.s!=null?` Siffran: du ${s}, utmanaren ${u.s}.`:''}</p>`}
+function plSiffraHtml(q,s){
+  if(!s){const start=q.min+Math.round((q.max-q.min)/2/q.steg)*q.steg;
+    return `<span class="label">Dagens siffra${q.amne?' · '+esc(q.amne):''}</span><h3 class="gi-fraga pl-sf-fraga">${esc(q.fraga)}</h3>
+      <output class="gi-varde num" id="pl-sf-v" for="pl-sf-r">${giFmt(q,start)}</output>
+      <input type="range" class="gi-reglage" id="pl-sf-r" min="${q.min}" max="${q.max}" step="${q.steg}" value="${start}" aria-label="Din gissning">
+      <div class="gi-skala num"><span>${giFmt(q,q.min)}</span><span>${giFmt(q,q.max)}</span></div>
+      <div class="gi-knappar"><button type="button" class="knapp" id="pl-sf-gissa">Gissa</button></div>`}
+  const g=s.g,p=s.p,pos=v=>Math.max(0,Math.min(100,(v-q.min)/(q.max-q.min)*100));
+  return `<span class="label">Dagens siffra${q.amne?' · '+esc(q.amne):''}</span><h3 class="gi-fraga pl-sf-fraga">${esc(q.fraga)}</h3>
+    <div class="gi-res"><span class="gi-omdome">${giOmdome(p)}</span><span class="gi-p num">${p}<small> av 100 poäng</small></span></div>
+    <div class="gi-linje" aria-hidden="true"><span class="gi-spann" style="left:${Math.min(pos(g),pos(q.svar))}%;width:${Math.abs(pos(g)-pos(q.svar))}%"></span>
+      <span class="gi-m gi-du" style="left:${pos(g)}%"><i></i><b>Du: ${giFmt(q,g)}</b></span><span class="gi-m gi-ratt" style="left:${pos(q.svar)}%"><i></i><b>Svar: ${giFmt(q,q.svar)}</b></span></div>
+    <p class="gi-svar">Rätt svar är <b class="num">${giFmt(q,q.svar)}</b>. ${esc(giSkillnad(q,g))}</p><p>${esc(q.text)}</p>
+    <p class="src">Källa: ${esc(q.kalla)} · <a href="${esc(q.lank)}">Mer om det här</a> · <a href="gissa.html">Fler frågor i Gissa siffran</a></p>`}
+
 function plDagensDatum(){return PL_MOTOR.datum()}
 function plNyOvning(){const d=plLas(),idag=(d.dag&&d.dag.datum===plDagensDatum())?d.dag.ids:[];
   const kvar=PL.platser.filter(p=>!idag.includes(p.id)),r=PL_MOTOR.rng(Date.now()&0xffffffff);
@@ -2495,7 +2555,12 @@ function initPlatsen(){
   $('#pl-las').addEventListener('click',plLasGissning);
   $('#pl-start').addEventListener('click',()=>{plStartaDagens();if(!$('#pl-slut').hidden)plRulla($('#pl-panel'));else if(plMobil())plRulla($('.pl-kartpanel'));else $('#pl-karta').scrollIntoView({behavior:'smooth',block:'center'})});
   const ds=plDagensDatum(),d=plLas();
-  $('#pl-lead').textContent=`Tre platser i Örebro kommun varje dag, i dag ${plDatumText(ds)}. Sätt ut en nål där du tror att platsen ligger och se hur nära du kom.`;
+  $('#pl-lead').textContent=`Tre platser och en siffra om Örebro varje dag, i dag ${plDatumText(ds)}. Sätt ut en nål där du tror att platsen ligger, gissa dagens siffra och se hur nära du kom.`;
+  PL_UTM=plUtmLas();
+  {const h=plHist(d),m=$('#pl-min');if(m){const R=d.resultat||{};let sv='';
+    if(h&&!h.idag&&h.svit>0)sv=`<p class="pl-svit"><b>${h.svit} ${h.svit===1?'dag':'dagar'} i rad.</b> Spela i dag för att hålla sviten.</p>`;
+    else if(h&&h.idag)sv=`<p class="pl-svit"><b>Klart i dag:</b> ${fmt(R[ds].p)} poäng${h.svit>1?` · ${h.svit} dagar i rad`:''}.</p>`;
+    m.innerHTML=plUtmText()+sv}}
   // fortsätt där man var: en pågående eller avslutad dagsomgång, annars introduktionen
   if(d.dag&&d.dag.datum===ds&&(d.dag.svar||[]).some(Boolean))plStartaDagens();
   else{$('#pl-steg').textContent=plDatumText(ds);$('#pl-namn').textContent='Dagens tre platser';$('#pl-ledtrad').textContent='en lätt, en medel och en svår';plProg()}
@@ -3052,6 +3117,12 @@ function renderStart(S){
   // Mitt Örebro-kortet: har besökaren valt område (bara i webbläsaren) står det namnet i stället
   {const k=miHamta(),o=k&&(S.omraden||[]).find(r=>r[0]===k),a=document.querySelector('[data-utf="mitt"]');
     if(a&&o){a.querySelector('.utf-v').textContent=`Ditt område: ${o[1]}`;a.querySelector('.utf-pil').textContent='Se ditt område →'}}
+  // Var ligger platsen?-kortet: dagens status och sviten, räknat i webbläsaren
+  {const a=document.querySelector('[data-utf="platsen"]');if(a){const d=plLas(),ds=PL_MOTOR.datum(),R=d.resultat||{},sv=plSvit(R,ds),pg=d.dag&&d.dag.datum===ds?(d.dag.svar||[]).filter(Boolean).length:0;let t=null;
+    if(R[ds])t=`Klart i dag: ${fmt(R[ds].p)} poäng`+(sv>1?` · ${sv} dagar i rad`:'')+'.';
+    else if(pg)t=`${3-pg} av 3 platser kvar i dag`+(sv?` · ${sv} ${sv===1?'dag':'dagar'} i rad`:'')+'.';
+    else if(sv)t=`${sv} ${sv===1?'dag':'dagar'} i rad. Spela i dag för att hålla sviten.`;
+    if(t){a.querySelector('.utf-v').textContent=t;a.querySelector('.utf-pil').textContent=R[ds]?'Se resultatet →':'Spela →'}}}
   const rs=$('#mi-remsa');if(!rs)return;
   // Glöm: gatan hör till området och glöms med det (14 okt 2026)
   rs.addEventListener('click',e=>{const b=e.target.closest('button[data-g]');if(!b)return;
@@ -3086,7 +3157,7 @@ let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEv
     try{[OM,NM]=await Promise.all([load('omraden'),load('narmiljo')]);initNarmiljo()}catch(e){console.error(e);felText('#nm-lead','Kunde inte läsa in datan om lekplatser och återvinning.')}
     break;
   case 'platsen':
-    try{[OM,PL]=await Promise.all([load('omraden'),load('spel')]);initPlatsen()}catch(e){console.error(e);felText('#pl-karta','Kunde inte läsa in spelet. Ladda om sidan.')}
+    try{[OM,PL,GI]=await Promise.all([load('omraden'),load('spel'),load('gissa').catch(()=>null)]);initPlatsen()}catch(e){console.error(e);felText('#pl-karta','Kunde inte läsa in spelet. Ladda om sidan.')}
     break;
   case 'buss':
     try{[OM,KT]=await Promise.all([load('omraden'),load('kollektiv')]);ktTillOm();initBuss()}catch(e){console.error(e);felText('#bu-lead','Kunde inte läsa in bussdatan.')}

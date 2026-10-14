@@ -1619,3 +1619,27 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
   .hero-text{gap:12px}
   .hero .hero-fr{order:5;margin:0}
 }
+/* Dagens Örebro i Var ligger platsen? (14 okt 2026): dagens siffra, svit, historik och utmaning */
+.pl-pr-s{border-style:dashed}
+.pl-pr-s.klar{border-style:solid}
+.pl-siffra{margin:18px 0;padding:16px;border-radius:12px;background:var(--bg);border:1px solid var(--line);outline:none}
+.pl-siffra .gi-fraga.pl-sf-fraga{font-size:1.15rem;margin:6px 0 10px}
+.pl-siffra .gi-varde{font-size:2rem}
+.pl-utm{margin:0 0 14px;padding:11px 14px;border-radius:10px;background:var(--accent-soft);line-height:1.5}
+.pl-utm-res{margin:4px 0 12px;padding:10px 14px;border-radius:10px;background:var(--accent-soft);font-weight:600}
+.pl-svit{margin:0 0 12px;padding:9px 13px;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+.pl-hist{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.pl-hist-h{font-size:1.05rem;margin:0 0 10px}
+.pl-hist-tal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.pl-hist-tal span{display:grid;font-size:.82rem;color:var(--ink2);line-height:1.3}
+.pl-hist-tal b{font-family:var(--f-display);font-size:1.45rem;color:var(--ink)}
+.pl-staplar{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:4px;align-items:end;height:72px;border-bottom:1px solid var(--line)}
+.pl-st{display:block;height:var(--h);min-height:3px;border-radius:3px 3px 0 0;background:var(--accent)}
+.pl-st.tom{background:transparent;border-bottom:3px dotted var(--line);min-height:0;height:0}
+.pl-st.idag{background:var(--accent-text)}
+.pl-st-skala{display:flex;justify-content:space-between;margin:4px 0 6px;color:var(--muted)}
+.pl-hist .akt-knapp{margin:0;font-size:inherit}
+@media (max-width:480px){.pl-hist-tal{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* rätt svar i Gissa siffran: mörk text på den ljusare gröna i mörkt läge (kontrast) */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .gi-ratt b{color:#0F1615}}
+:root[data-theme="dark"] .gi-ratt b{color:#0F1615}
