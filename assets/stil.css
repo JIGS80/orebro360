@@ -1611,3 +1611,11 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 @media (prefers-reduced-motion:reduce){.hero-fr a{transition:none}}
 @media (max-width:820px){.hero .hero-fr{order:3}}   /* bara där hero-texten ordnas om (display:contents) */
 @media (max-width:600px){.hero .hero-fr{display:grid;gap:2px;font-size:1rem}.hero-fr a{white-space:nowrap;justify-self:start}}
+/* Mobilen (14 okt 2026): hela kompassen ska synas direkt. Kortare text, mindre luft och "Till exempel" under kompassen, ovanför sökrutan */
+.lead-kort{display:none}
+@media (max-width:640px){
+  .lead-lang{display:none}.lead-kort{display:inline}
+  .hero{padding-block:14px 18px}
+  .hero-text{gap:12px}
+  .hero .hero-fr{order:5;margin:0}
+}
