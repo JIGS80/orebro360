@@ -1391,12 +1391,74 @@ function miKarta(){
    ovanför områdenas fyllning men under gränslinjer, linjer och prickar, så att man ser var man är. Laddas en gång. */
 let KB=null,kbLaddar=null;
 function kartBakgrund(svg){
-  if(!KB){if(!kbLaddar)kbLaddar=load('bakgrund').then(d=>{KB=d;document.querySelectorAll('.kz-host').forEach(h=>{const s=h._kzS&&h._kzS.svg;if(s&&s.isConnected)kartBakgrund(s)})}).catch(e=>{console.error(e)});return}
+  if(!KB){if(!kbLaddar)kbLaddar=load('bakgrund').then(d=>{KB=d;document.querySelectorAll('.kz-host').forEach(h=>{const S=h._kzS;if(S&&S.svg.isConnected)kartExtra(S)})}).catch(e=>{console.error(e)});return}
   if(!svg.isConnected||svg.querySelector(':scope>g.kb'))return;
   let efter=null;for(const k of svg.children){if(k.tagName==='path'&&!k.classList.contains('seloutline')&&!k.classList.contains('outline')&&getComputedStyle(k).fill!=='none'){efter=k;continue}break}
   const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('class','kb');g.setAttribute('aria-hidden','true');
   [['sjoar','kb-sjo'],['aar','kb-a'],['vagar2','kb-v2'],['vagar','kb-v']].forEach(([k,c])=>{if(!KB[k])return;const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',KB[k]);p.setAttribute('class',c);g.appendChild(p)});
   if(efter)efter.after(g);else svg.prepend(g)}
+/* Namn och "här" i kartorna (14 okt 2026). Zoomar man in (eller öppnar stor karta) syns områdenas namn och några kända platser,
+   så många som får plats utan att krocka med varandra eller kartans egna etiketter. Har du sparat din gata i Mitt Örebro visas den
+   som "Din gata" i alla kartor. Knappen ⌖ frågar webbläsaren var du är och visar det som "Du är här": läget räknas om till kartans
+   koordinater i webbläsaren, finns bara kvar tills du lämnar sidan och sparas eller skickas aldrig någonstans. */
+let HAR=null;
+function kartExtra(S){kartBakgrund(S.svg);kartLager(S);S.skala()}
+const SVGNS='http://www.w3.org/2000/svg';
+function svgEl(tag,a,p){const e=document.createElementNS(SVGNS,tag);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function kartLager(S){if(!KB||!S.svg.isConnected)return;const svg=S.svg;
+  if(!S.kl){S.kl=svgEl('g',{class:'kl','aria-hidden':'true'});const kb=svg.querySelector(':scope>g.kb');if(kb)kb.after(S.kl);else svg.prepend(S.kl);S.namn=[];
+    (KB.platser||[]).forEach(([n,x,y,niv])=>{const e=svgEl('text',{x,y,'text-anchor':'middle',class:'kx kl-p'},S.kl);e.textContent=n;S.namn.push({e,x,y,n,typ:'p',niv,px:11.5,b:.55})});
+    (KB.omr||[]).forEach(([n,x,y])=>{const N=n.toLocaleUpperCase('sv');const e=svgEl('text',{x,y,'text-anchor':'middle',class:'kx kl-o'},S.kl);e.textContent=N;S.namn.push({e,x,y,n:N,typ:'o',niv:1,px:10.5,b:.74})})}
+  if(S.kh)S.kh.remove();S.kh=svgEl('g',{class:'kh','aria-hidden':'true'},svg);S.har=[];
+  const g=typeof gataHamta==='function'?gataHamta():null;
+  if(g)S.har.push({x:g.x,y:g.y,typ:'gata',t:'Din gata'});
+  if(HAR)S.har.push({x:HAR.x,y:HAR.y,acc:HAR.acc,typ:'pos',t:'Du är här'});
+  S.har.forEach(h=>{if(h.typ==='pos'){h.ring=svgEl('circle',{cx:h.x,cy:h.y,class:'kx kh-acc'},S.kh);h.pt=svgEl('circle',{cx:h.x,cy:h.y,class:'kx kh-pos'},S.kh)}
+    else h.pt=svgEl('path',{class:'kx kh-gata'},S.kh);
+    h.e=svgEl('text',{x:h.x,y:h.y,class:'kx kh-lbl'},S.kh);h.e.textContent=h.t});
+  S.klNyckel=null}
+function kartNamnSkala(S){const svg=S.svg;if(!svg.isConnected)return;const u=kartSc(svg,S.vb),host=S.host;
+  if(S.kh&&S.kh.nextSibling)svg.appendChild(S.kh);   // alltid överst, även om kartan ritat prickar efteråt
+  // din gata och du är här: samma storlek på skärmen oavsett zoom
+  (S.har||[]).forEach(h=>{if(h.typ==='pos'){h.pt.setAttribute('r',7*u);h.ring.setAttribute('r',Math.max(h.acc||0,16*u))}
+      else{const r=7*u;h.pt.setAttribute('d',`M${h.x} ${h.y-r}L${h.x+r} ${h.y}L${h.x} ${h.y+r}L${h.x-r} ${h.y}Z`)}
+    h.e.setAttribute('x',h.x+11*u);h.e.setAttribute('y',h.y+4.5*u);h.e.setAttribute('style',`font-size:${13*u}px;stroke-width:${4*u}px`)});
+  const visa=host.classList.contains('kz-in')||host.classList.contains('kz-full');
+  const nyckel=u.toFixed(4)+visa;if(S.klNyckel===nyckel)return;S.klNyckel=nyckel;
+  // hinder: kartans egna etiketter och våra här-etiketter (rutor i kartans enheter)
+  const lag=[];const ruta=(x0,y0,x1,y1)=>({x0,y0,x1,y1}),krock=r=>lag.some(q=>r.x0<q.x1&&r.x1>q.x0&&r.y0<q.y1&&r.y1>q.y0);
+  const finns=new Set();
+  svg.querySelectorAll('text').forEach(t=>{if(t.closest('.kl'))return;finns.add((t.textContent||'').trim().toLocaleUpperCase('sv'));try{const b=t.getBBox();if(b.width)lag.push(ruta(b.x-2*u,b.y-2*u,b.x+b.width+2*u,b.y+b.height+2*u))}catch(e){}});
+  // prickarna: namnen ska inte hamna under dem (hoppas över om kartan har väldigt många)
+  const pr=svg.querySelectorAll('circle:not(.kx)');if(pr.length<=600)pr.forEach(c=>{const r=+c.getAttribute('r')||0;if(r>0){const x=+c.getAttribute('cx'),y=+c.getAttribute('cy');lag.push(ruta(x-r,y-r,x+r,y+r))}});
+  (S.har||[]).forEach(h=>lag.push(ruta(h.x-9*u,h.y-9*u,h.x+(15+h.t.length*7.4)*u,h.y+9*u)));
+  S.namn.forEach(m=>{const grans=m.typ==='p'?(m.niv===2?3.2:9):9;
+    let syns=visa&&u<grans&&!finns.has(m.n.toLocaleUpperCase('sv'));
+    if(syns){const fs=m.px*u,w=m.n.length*m.b*fs+6*u,r=ruta(m.x-w/2,m.y-fs*.95,m.x+w/2,m.y+fs*.35);if(krock(r))syns=false;else lag.push(r)}
+    m.e.style.display=syns?'':'none';if(syns)m.e.setAttribute('style',`font-size:${m.px*u}px;stroke-width:${3.5*u}px`)})}
+// WGS 84 (lat, lon) till SWEREF 99 TM (N, E), Lantmäteriets formler för Gauss–Krüger
+function sweref(lat,lon){const a=6378137,f=1/298.257222101,e2=f*(2-f),n=f/(2-f),ah=a/(1+n)*(1+n*n/4+n**4/64),k0=.9996,R=Math.PI/180;
+  const A=e2,B=(5*e2*e2-e2**3)/6,C=(104*e2**3-45*e2**4)/120,D=1237*e2**4/1260,p=lat*R,s=Math.sin(p);
+  const ps=p-s*Math.cos(p)*(A+B*s*s+C*s**4+D*s**6),dl=lon*R-15*R,xi=Math.atan(Math.tan(ps)/Math.cos(dl)),eta=Math.atanh(Math.cos(ps)*Math.sin(dl));
+  const b=[n/2-2*n*n/3+5*n**3/16+41*n**4/180,13*n*n/48-3*n**3/5+557*n**4/1440,61*n**3/240-103*n**4/140,49561*n**4/161280];
+  let N=xi,E=eta;b.forEach((v,i)=>{const j=2*(i+1);N+=v*Math.sin(j*xi)*Math.cosh(j*eta);E+=v*Math.cos(j*xi)*Math.sinh(j*eta)});
+  return [k0*ah*N,500000+k0*ah*E]}
+function kzMedd(host,txt){let m=host.querySelector('.kz-medd');if(!m){m=document.createElement('div');m.className='kz-medd';m.setAttribute('role','status');host.appendChild(m)}
+  m.textContent=txt;m.hidden=false;clearTimeout(host._kzMt);host._kzMt=setTimeout(()=>{m.hidden=true},7000)}
+async function harHamta(host,knapp){if(!navigator.geolocation)return;knapp.setAttribute('aria-busy','true');knapp.classList.add('kz-vantar');
+  try{if(!KB)KB=await(kbLaddar||(kbLaddar=load('bakgrund')))}catch(e){}
+  const klar=()=>{knapp.removeAttribute('aria-busy');knapp.classList.remove('kz-vantar')};
+  navigator.geolocation.getCurrentPosition(pos=>{klar();const K=KB&&KB.karta;if(!K)return;
+    const [N,E]=sweref(pos.coords.latitude,pos.coords.longitude),x=(E-K.x0)/10,y=(K.y0-N)/10;
+    if(!(x>=0&&y>=0&&x<=K.w&&y<=K.h)){kzMedd(host,'Du verkar vara utanför Örebro kommun, så kartan kan inte visa var du är.');return}
+    HAR={x,y,acc:Math.min(pos.coords.accuracy||0,3000)/10};
+    document.querySelectorAll('.kz-host').forEach(h=>{const S=h._kzS;if(S&&S.svg.isConnected){kartLager(S);S.skala()}});
+    const S=host._kzS;if(!S)return;S.synk();const B=S.bas;
+    if(x<B[0]||y<B[1]||x>B[0]+B[2]||y>B[1]+B[3]){kzMedd(host,'Du är utanför den här kartans utsnitt. Visa hela kommunen för att se var du är.');return}
+    const w=Math.min(B[2],Math.max(B[2]/5,250)),h=w*B[3]/B[2];S.satt_([x-w/2,y-h/2,w,h]);
+    kzMedd(host,'Du är här (blå pricken)'+(pos.coords.accuracy>150?`, ungefär (inom ${Math.round(pos.coords.accuracy/10)*10} m)`:'')+'. Läget sparas inte.')},
+  err=>{klar();kzMedd(host,err&&err.code===1?'Sidan fick inte se var du är. Du kan tillåta det i webbläsarens inställningar för sidan.':'Det gick inte att ta reda på var du är just nu.')},
+  {enableHighAccuracy:true,timeout:15000,maximumAge:60000})}
 // kartans enheter per skärmpixel för utsnittet vb: med preserveAspectRatio "meet" styr den sida som räcker först (i stor karta oftast höjden)
 function kartSc(svg,vb){const r=svg.getBoundingClientRect(),w=Math.max(280,r.width||svg.parentElement?.clientWidth||600),h=r.height>40?r.height:w*vb[3]/vb[2];return Math.max(vb[2]/w,vb[3]/h)}
 // prickarna: lite större på pekskärm (lättare att träffa) och de växer något när man zoomar in, men inte lika mycket som kartan
@@ -1404,14 +1466,14 @@ const KZ_PEK=matchMedia('(pointer:coarse)').matches?1.35:1;
 function kartZoom(host,svg){
   if(!host||!svg)return;host.classList.add('kz-host');
   const tal=v=>(v||'').split(/[\s,]+/).map(Number);
-  const S={svg,bas:tal(svg.getAttribute('viewBox')),satt:svg.getAttribute('viewBox')};S.vb=S.bas.slice();
+  const S={host,svg,bas:tal(svg.getAttribute('viewBox')),satt:svg.getAttribute('viewBox')};S.vb=S.bas.slice();
   S.synk=()=>{const nu=svg.getAttribute('viewBox');if(nu!==S.satt){S.bas=tal(nu);S.vb=S.bas.slice();S.satt=nu;host._kz=null;S.skala()}};   // kartan har själv bytt utsnitt
   S.inne=()=>S.vb[2]<S.bas[2]*.999;
   S.skala=()=>{const k=S.vb[2]/S.bas[2];
-    const kr=Math.pow(k,.6)*KZ_PEK;svg.querySelectorAll('circle').forEach(c=>{if(c.dataset.kzr==null)c.dataset.kzr=c.getAttribute('r')||'';if(c.dataset.kzr)c.setAttribute('r',(+c.dataset.kzr*kr).toFixed(3))});
-    svg.querySelectorAll('text').forEach(t=>{if(t.dataset.kzs==null)t.dataset.kzs=t.getAttribute('style')||'';const st=t.dataset.kzs;if(st)t.setAttribute('style',st.replace(/([\d.]+)px/g,(_,v)=>(+v*k).toFixed(3)+'px'));
+    const kr=Math.pow(k,.6)*KZ_PEK;svg.querySelectorAll('circle:not(.kx)').forEach(c=>{if(c.dataset.kzr==null)c.dataset.kzr=c.getAttribute('r')||'';if(c.dataset.kzr)c.setAttribute('r',(+c.dataset.kzr*kr).toFixed(3))});
+    svg.querySelectorAll('text:not(.kx)').forEach(t=>{if(t.dataset.kzs==null)t.dataset.kzs=t.getAttribute('style')||'';const st=t.dataset.kzs;if(st)t.setAttribute('style',st.replace(/([\d.]+)px/g,(_,v)=>(+v*k).toFixed(3)+'px'));
       if(t.dataset.kzf==null)t.dataset.kzf=t.getAttribute('font-size')||'';if(t.dataset.kzf)t.setAttribute('font-size',(+t.dataset.kzf*k).toFixed(3))});
-    host.classList.toggle('kz-in',S.inne());const r=host.querySelector('.kz-reset');if(r)r.hidden=!S.inne()};
+    host.classList.toggle('kz-in',S.inne());const r=host.querySelector('.kz-reset');if(r)r.hidden=!S.inne();if(S.kl)kartNamnSkala(S)};
   S.satt_=n=>{const B=S.bas;let [x,y,w,h]=n;const minW=B[2]/12;if(w<minW){const f=minW/w;x-=(w*f-w)/2;y-=(h*f-h)/2;w*=f;h*=f}
     if(w>=B[2]){x=B[0];y=B[1];w=B[2];h=B[3]}
     x=Math.min(Math.max(x,B[0]),B[0]+B[2]-w);y=Math.min(Math.max(y,B[1]),B[1]+B[3]-h);
@@ -1419,13 +1481,14 @@ function kartZoom(host,svg){
   S.punkt=(cx,cy)=>{const m=svg.getScreenCTM();if(!m)return {x:S.vb[0]+S.vb[2]/2,y:S.vb[1]+S.vb[3]/2};const p=svg.createSVGPoint();p.x=cx;p.y=cy;return p.matrixTransform(m.inverse())};
   S.zooma=(f,p,fran=S.vb)=>{p=p||{x:fran[0]+fran[2]/2,y:fran[1]+fran[3]/2};S.satt_([p.x-(p.x-fran[0])*f,p.y-(p.y-fran[1])*f,fran[2]*f,fran[3]*f])};
   const k=document.createElement('div');k.className='kz-knappar';k.setAttribute('role','group');k.setAttribute('aria-label','Zooma kartan');
-  k.innerHTML='<button type="button" class="kz-k" data-kz="in" aria-label="Zooma in">+</button><button type="button" class="kz-k" data-kz="ut" aria-label="Zooma ut">−</button><button type="button" class="kz-k kz-reset" data-kz="hel" aria-label="Visa hela kartan igen" hidden>⤢</button>';
+  k.innerHTML='<button type="button" class="kz-k" data-kz="in" aria-label="Zooma in">+</button><button type="button" class="kz-k" data-kz="ut" aria-label="Zooma ut">−</button><button type="button" class="kz-k kz-reset" data-kz="hel" aria-label="Visa hela kartan igen" hidden>⤢</button>'+
+    ('geolocation' in navigator?'<button type="button" class="kz-k kz-har" data-kz="har" aria-label="Visa var du är på kartan" title="Var är jag?"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 8a4 4 0 1 1 0 8a4 4 0 1 1 0-8z" fill="currentColor"/><path d="M12 4.5a7.5 7.5 0 1 1 0 15a7.5 7.5 0 1 1 0-15z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 1v3.5M12 19.5V23M1 12h3.5M19.5 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>':'');
   host.appendChild(k);host._kzS=S;
   const st=document.createElement('button');st.type='button';st.className='kz-stor';st.dataset.kz='stor';kzStorText(host,st);host.appendChild(st);
   if(!host._kzLyss){host._kzLyss=true;kartZoomLyss(host)}
   // ritas kartan om med samma utsnitt (t.ex. när man väljer ett område) behålls inzoomningen
   if(host._kz&&host._kz.bas===S.bas.join(' '))S.satt_(host._kz.vb);else{host._kz=null;S.skala()}
-  requestAnimationFrame(()=>{if(host._kzS===S){S.skala();kartBakgrund(svg)}});   // prickarna ritas efter kartZoom; skala dem och lägg bakgrunden när de finns
+  requestAnimationFrame(()=>{if(host._kzS===S)kartExtra(S)});   // prickarna ritas efter kartZoom; lägg bakgrund, namn och din gata och skala allt när de finns
   if(host.classList.contains('kz-full'))kzVal(host);
 }
 /* I stor karta: kartans val (lager, utsnitt) och teckenförklaring följer med in i den stora kartan. Det är kopior;
@@ -1465,6 +1528,7 @@ function kartZoomLyss(host){   // händelserna läggs bara på en gång per kart
   const pek=new Map();let drag=null,drog=false;const S=()=>host._kzS;
   host.addEventListener('click',e=>{const b=e.target.closest('[data-kz]');if(b){e.stopPropagation();const s=S();s.synk();const t=b.dataset.kz;
       if(t==='stor'){kzStor(host,!host.classList.contains('kz-full'));return}
+      if(t==='har'){harHamta(host,b);return}
       if(t==='in')s.zooma(.6);else if(t==='ut')s.zooma(1/.6);else s.satt_(s.bas.slice());return}
     if(drog){e.stopPropagation();e.preventDefault();return}
     // knappen i ett kort (Läs mer, Visa kontrollerna ...): stäng den stora kartan först, så att sidan sedan kan visa det man valde

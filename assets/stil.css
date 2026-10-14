@@ -581,8 +581,8 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 
 /* ===== Utforska: din skatt, 100 personer, månaden ===== */
 :root{--grans:#CDD6D3;--kb-sjo:#D7E9F3;--kb-a:#8CBBD6;--kb-v:#C2B9AB;--toa:#1F78B4;--pump:#B0477E;--c1:#008572;--c2:#C0842A;--c3:#4F6FA8;--c4:#A8432A;--c5:#6E8F2E;--c6:#8A63A8}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--grans:#2F3D3A;--kb-sjo:#17313D;--kb-a:#3B7593;--kb-v:#5B554C;--toa:#5FA8DA;--pump:#E07BAA;--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}}
-:root[data-theme="dark"]{--grans:#2F3D3A;--kb-sjo:#17313D;--kb-a:#3B7593;--kb-v:#5B554C;--toa:#5FA8DA;--pump:#E07BAA;--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--grans:#2F3D3A;--har:#5B9BF2;--kb-sjo:#17313D;--kb-a:#3B7593;--kb-v:#5B554C;--toa:#5FA8DA;--pump:#E07BAA;--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}}
+:root[data-theme="dark"]{--grans:#2F3D3A;--har:#5B9BF2;--kb-sjo:#17313D;--kb-a:#3B7593;--kb-v:#5B554C;--toa:#5FA8DA;--pump:#E07BAA;--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}
 
 /* förstasidans utforska-kort */
 .utforska{padding-block:4px 8px}
@@ -1537,3 +1537,25 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .kb path.kb-a{stroke:var(--kb-a);stroke-width:2}
 .kb path.kb-v{stroke:var(--kb-v);stroke-width:2.2}
 .kb path.kb-v2{stroke:var(--kb-v);stroke-width:1.2;opacity:.85}
+/* Namn och "här" i kartorna (14 okt 2026): områdesnamn och kända platser när man zoomar in, din gata och du är här */
+.kl,.kh{pointer-events:none}
+.kl text{font-family:var(--f-body);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round}
+.kl text.kl-o{font-weight:600;fill:var(--muted);letter-spacing:.06em}
+.kl text.kl-p{font-weight:600;font-style:italic;fill:var(--ink2)}
+.kh .kh-gata{fill:var(--ink);stroke:var(--surface);stroke-width:2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.kh .kh-pos{fill:var(--har);stroke:#FFFFFF;stroke-width:2.5;vector-effect:non-scaling-stroke}
+.kh .kh-acc{fill:var(--har);fill-opacity:.13;stroke:var(--har);stroke-opacity:.4;stroke-width:1;vector-effect:non-scaling-stroke}
+.kh text.kh-lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round}
+:root{--har:#1A6FE0}
+.kz-har svg{display:block;margin:auto}
+.kz-vantar svg{animation:kz-puls 1s ease-in-out infinite}
+@keyframes kz-puls{50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.kz-vantar svg{animation:none;opacity:.5}}
+.kz-medd{position:absolute;left:8px;bottom:8px;max-width:calc(100% - 66px);z-index:3;padding:8px 12px;border-radius:9px;background:var(--ink);color:var(--surface);font:500 .85rem/1.35 var(--f-body);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.kz-medd[hidden]{display:none}
+.kz-full .kz-medd{left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);max-width:calc(100% - 32px)}
+/* Större kartor på dator (14 okt 2026): kartans kolumn får mer plats än texten bredvid */
+@media (min-width:901px){
+  :is(.om-grid,.grid2,.mi-top,.vt-badgrid,.tf-grid,.vd-grid):has(> :first-child .kz-host){grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+  :is(.om-grid,.grid2,.mi-top,.vt-badgrid,.tf-grid,.vd-grid):has(> :last-child .kz-host):not(:has(> :first-child .kz-host)){grid-template-columns:minmax(0,1fr) minmax(0,1.55fr)}
+}
