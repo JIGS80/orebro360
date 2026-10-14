@@ -2637,7 +2637,7 @@ let FO=null,foVisa=40,foStart='',foHelaAlla=false;const FO_F={g:'',omr:'',q:'',f
 const foNorm=s=>(s||'').toLocaleLowerCase('sv');
 function foGrupp(f,g){return g==='unga'?(f.g.includes('unga')||!!f.fk):f.g.includes(g)}
 function foMatch(f,utanOmr){if(FO_F.g&&!foGrupp(f,FO_F.g))return false;if(FO_F.fk&&!f.fk)return false;
-  if(FO_F.q){if(f._s==null)f._s=foNorm([f.n,f.k||'',...f.v,...(f.s||[])].join(' '));if(!f._s.includes(foNorm(FO_F.q)))return false}
+  if(FO_F.q){if(f._s==null)f._s=foNorm([f.n,f.k||'',...f.v,...(f.s||[]),f.fk?'fritidskortet fritidskort':''].join(' '));if(!f._s.includes(foNorm(FO_F.q)))return false}
   if(!utanOmr&&FO_F.omr&&!f.o.includes(FO_F.omr))return false;return true}
 const FO_KAT={'Idrottsföreningar':'Idrottsförening','Idéföreningar':'Idéförening','Kulturföreningar':'Kulturförening','Etniska föreningar':'Etnisk förening','Sociala föreningar':'Social förening','Hembygdsföreningar':'Hembygdsförening','Övriga föreningar':'Förening','Pensionärsorganisationer':'Pensionärsorganisation','Studentföreningar':'Studentförening'};
 function foRad(f){const k=FO_KAT[f.k]||f.k,sd=f.h?'verksam i hela Örebro':f.s?f.s.join(', '):'';
@@ -2680,7 +2680,7 @@ function initForeningar(){const A=FO.antal;FO_GN=Object.fromEntries(FO.grupper.m
   $('#fo-lead').textContent=`${fmt(A.visade)} föreningar i Örebro kommun för idrott, musik, natur, kultur och gemenskap. Börja med vad du vill göra, så visar vi föreningarna och länkar till deras egna sidor.`;
   const tile=(l,v,s)=>`<div class="stat"><span class="label"><span class="lt">${esc(l)}</span></span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
   $('#fo-kpis').innerHTML=[tile('Föreningar',fmt(A.visade),'i kommunens föreningsregister'),tile('Med stadsdel',fmt(A.omrade),`har angett var de finns, ${fmt(A.hela)} är verksamma i hela Örebro`),
-    tile('Fritidskortet',fmt(A.fritidskort),'föreningar har angett att de är med'),tile('Hämtat',vtDag(FO.uppdaterad),'registret hämtas varje vecka')].join('');
+    tile('Fritidskortet',fmt(A.fritidskort),'föreningar har angett att de är med').replace('<div class="stat">','<div class="stat stat-klick" data-dela-lank="foreningar.html#fk=1">').replace('</span></div>',`</span><a class="stat-lank" href="foreningar.html#fk=1" data-fo-fk>Visa alla ${fmt(A.fritidskort)} <span aria-hidden="true">→</span></a></div>`),tile('Hämtat',vtDag(FO.uppdaterad),'registret hämtas varje vecka')].join('');
   $('#fo-grupper').innerHTML=`<button type="button" class="chip" data-g="" aria-pressed="true">Alla</button>`+FO.grupper.filter(g=>g[2]>0).map(([id,n,c])=>`<button type="button" class="chip" data-g="${id}" aria-pressed="false">${esc(n)} <span class="fo-c">${fmt(c)}</span></button>`).join('');
   $('#fo-omr').insertAdjacentHTML('beforeend',OM.omraden.slice().sort((a,b)=>a.namn.localeCompare(b.namn,'sv')).map(o=>`<option value="${o.kod}">${esc(o.namn)}</option>`).join(''));
   $('#fo-grupper').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)foSatt('g',b.dataset.g)});
@@ -2692,11 +2692,17 @@ function initForeningar(){const A=FO.antal;FO_GN=Object.fromEntries(FO.grupper.m
   $('#fo-hela-fler').addEventListener('click',()=>{foHelaAlla=true;foLista();const f=$('#fo-hela').children[12];if(f){const a=f.querySelector('a');if(a)a.focus()}});
   $('#fo-fler').addEventListener('click',()=>{const n=foVisa;foVisa+=60;foLista();const f=$('#fo-lista').children[n];if(f){const a=f.querySelector('a');if(a)a.focus({preventScroll:false})}});
   document.querySelector('.fo-val').addEventListener('click',e=>{const b=e.target.closest('.fo-valk');if(b)foValj(b.dataset.start)});
+  // Fritidskortet-rutan: visar alla som är med, utan andra filter
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-fo-fk]');if(!b)return;e.preventDefault();
+    Object.assign(FO_F,{g:'',omr:'',q:'',fk:true});$('#fo-q').value='';$('#fo-omr').value='';$('#fo-fk').checked=true;foVisa=40;foStart='';
+    document.querySelectorAll('.fo-valk').forEach(x=>x.setAttribute('aria-pressed','false'));
+    foTips('Föreningar som har angett i kommunens register att de är med i <b>Fritidskortet</b>, statens stöd till barns och ungas fritidsaktiviteter. Fråga föreningen om åldrar och hur du använder kortet. Mer om kortet på <a href="https://fritidskortet.se/" target="_blank" rel="noopener">fritidskortet.se ↗</a>.');
+    foLista();$('#g-lista').scrollIntoView({behavior:'smooth',block:'start'})});
   $('#fo-tips').addEventListener('click',e=>{const b=e.target.closest('[data-fo-g]');if(b){foSatt('g',b.dataset.foG);$('#g-lista').scrollIntoView({behavior:'smooth',block:'start'})}});
   const h=new URLSearchParams(location.hash.slice(1));
   if(h.get('g')&&FO_GN[h.get('g')])FO_F.g=h.get('g');
   if(h.get('omr')&&OM.omraden.some(o=>o.kod===h.get('omr'))){FO_F.omr=h.get('omr');$('#fo-omr').value=FO_F.omr}
-  if(h.get('fk')==='1'){FO_F.fk=true;$('#fo-fk').checked=true}
+  if(h.get('fk')==='1'){FO_F.fk=true;$('#fo-fk').checked=true;foTips('Föreningar som har angett i kommunens register att de är med i <b>Fritidskortet</b>, statens stöd till barns och ungas fritidsaktiviteter. Fråga föreningen om åldrar och hur du använder kortet. Mer om kortet på <a href="https://fritidskortet.se/" target="_blank" rel="noopener">fritidskortet.se ↗</a>.')}
   if(h.get('q')){FO_F.q=h.get('q').slice(0,60);$('#fo-q').value=FO_F.q}
   const fid=+h.get('f');
   if(fid){const i=FO.foreningar.findIndex(f=>f.i===fid);if(i>=0)foVisa=Math.max(40,i+1)}
@@ -2810,7 +2816,7 @@ function initGissa(){
 }
 
 /* ===== Delbara bildkort: en bild (1080 × 1080) med siffran, Örebro360 och länken, ritad i webbläsaren ===== */
-const DELA_KALLA={cykla:'Örebro kommuns webbkarta',narmiljo:'Örebro kommuns webbkarta',vatten:'Havs- och vattenmyndigheten, Örebro kommun och SMHI',befolkning:'SCB',restauranger:'Örebro kommun',skolor:'Skolverket och Kolada',vard:'1177 och Kolada',vader:'SMHI',valet:'Valmyndigheten',pengar:'Örebro kommun',
+const DELA_KALLA={foreningar:'Örebro kommuns föreningsregister',cykla:'Örebro kommuns webbkarta',narmiljo:'Örebro kommuns webbkarta',vatten:'Havs- och vattenmyndigheten, Örebro kommun och SMHI',befolkning:'SCB',restauranger:'Örebro kommun',skolor:'Skolverket och Kolada',vard:'1177 och Kolada',vader:'SMHI',valet:'Valmyndigheten',pengar:'Örebro kommun',
   handel:'Kolada och SCB',jamfor:'Kolada',omrade:'SCB och Valmyndigheten',mitt:'SCB, Örebro kommun, Skolverket och 1177',skatt:'Kolada',hundra:'SCB och Valmyndigheten',manaden:'SCB, SMHI, Örebro kommun och 1177'};
 const DELA_DOMAN=location.hostname.endsWith('github.io')?location.hostname+'/orebro360':'orebro360.se';
 function delaUrl(lank){try{return new URL(lank||location.pathname.split('/').pop()||'index.html',location.href).href}catch(e){return lank}}
@@ -2885,7 +2891,7 @@ function initDela(){
   document.addEventListener('click',e=>{const b=e.target.closest('.dela-knapp');if(!b)return;e.preventDefault();const s=b.closest('.stat');
     const tx=q=>(s.querySelector(q)?.textContent||'').trim();const sida=document.querySelector('h1.sida-h')?.textContent.trim()||'';
     const et=etikett(s.querySelector('.label')),tema=(document.querySelector('.sec-head .label')?.textContent||'').trim();
-    delaOppna({etikett:SIDA==='mitt'&&miVisad?(OM.omraden.find(o=>o.kod===miVisad)?.namn+' · '+et):tema&&tema.toLowerCase()!==et.toLowerCase()?tema+' · '+et:et,varde:tx('.v'),text:tx('.s')||sida,kalla:DELA_KALLA[SIDA]||'',lank:SIDA==='mitt'&&miVisad?'mitt.html#'+miVisad:''})});
+    delaOppna({etikett:SIDA==='mitt'&&miVisad?(OM.omraden.find(o=>o.kod===miVisad)?.namn+' · '+et):tema&&tema.toLowerCase()!==et.toLowerCase()?tema+' · '+et:et,varde:tx('.v'),text:tx('.s')||sida,kalla:DELA_KALLA[SIDA]||'',lank:s.dataset.delaLank||(SIDA==='mitt'&&miVisad?'mitt.html#'+miVisad:'')})});
   delaKnappar();
   try{new MutationObserver(m=>{if(m.some(r=>r.addedNodes.length)){delaKnappar();m.forEach(r=>r.addedNodes.forEach(n=>hopEnheter(n)))}}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true})}catch(e){}
   hopEnheter(document.body);
