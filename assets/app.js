@@ -2380,8 +2380,16 @@ function plRitaKarta(){
 }
 function plRitaNal(){const g=plSvg.querySelector('#pl-lager');g.innerHTML='';if(!plNal)return;
   const n=el('g',{class:'pl-nal'+(plLast?' last':'')},g);el('circle',{cx:plNal.x,cy:plNal.y,'data-r':9,class:'pl-nal-yta'},n);el('circle',{cx:plNal.x,cy:plNal.y,'data-r':3.5,class:'pl-nal-pkt'},n);plSkala()}
-function plVisaFacit(p,svar){const g=plSvg.querySelector('#pl-lager');g.innerHTML='';
-  el('line',{x1:svar.x,y1:svar.y,x2:p.x,y2:p.y,class:'pl-linje'},g);
+const plLugn=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+// räknar upp en siffra (bara när man precis har låst en gissning)
+function plRakna(elm,till){if(!elm)return;if(plLugn()){elm.textContent=fmt(till);return}const t0=performance.now(),T=700;
+  const steg=n=>{const k=Math.min(1,(n-t0)/T),e=1-Math.pow(1-k,3);elm.textContent=fmt(Math.round(till*e));if(k<1)requestAnimationFrame(steg)};elm.textContent='0';requestAnimationFrame(steg)}
+function plVisaFacit(p,svar,anim){const g=plSvg.querySelector('#pl-lager');g.innerHTML='';
+  const ln=el('line',{x1:svar.x,y1:svar.y,x2:p.x,y2:p.y,class:'pl-linje'},g);
+  // linjen dras från nålen till rätt plats, sedan dyker platsen upp
+  if(anim&&!plLugn()){g.classList.add('pl-anim');const t0=performance.now(),T=550;ln.setAttribute('x2',svar.x);ln.setAttribute('y2',svar.y);
+    const steg=n=>{const k=Math.min(1,(n-t0)/T),e=1-Math.pow(1-k,3);ln.setAttribute('x2',svar.x+(p.x-svar.x)*e);ln.setAttribute('y2',svar.y+(p.y-svar.y)*e);if(k<1)requestAnimationFrame(steg)};requestAnimationFrame(steg)}
+  else g.classList.remove('pl-anim');
   const n=el('g',{class:'pl-nal last'},g);el('circle',{cx:svar.x,cy:svar.y,'data-r':9,class:'pl-nal-yta'},n);el('circle',{cx:svar.x,cy:svar.y,'data-r':3.5,class:'pl-nal-pkt'},n);
   const f=el('g',{class:'pl-facit'},g);el('circle',{cx:p.x,cy:p.y,'data-r':11,class:'pl-facit-ring'},f);el('circle',{cx:p.x,cy:p.y,'data-r':5,class:'pl-facit-pkt'},f);
   const t=el('text',{x:p.x,y:p.y,'data-fs':14,'data-dy':-17,'text-anchor':'middle',class:'pl-facit-lbl'},f);t.textContent=p.n;
@@ -2431,10 +2439,10 @@ function plVisaFraga(){const t=plTillst,p=plPlats(t.ids[t.steg]);plLast=false;pl
   $('#pl-las').disabled=true;$('#pl-las').hidden=false;$('#pl-vidare').hidden=true;$('#pl-om-lank').hidden=true;$('#pl-intro').hidden=true;$('#pl-slut').hidden=true;
   $('#pl-svar').hidden=false;$('#pl-svar').innerHTML=`<p class="pl-uppmaning"><b>Var ligger ${esc(p.n)}?</b> Tryck på kartan där du tror att platsen ligger. Du kan flytta nålen tills du låser.</p>`;
   plStart('hela');plRitaNal();plProg()}
-function plVisaSvar(){const t=plTillst,p=plPlats(t.ids[t.steg]),s=t.svar[t.steg];plLast=true;plNal={x:s.x,y:s.y};
+function plVisaSvar(anim){const t=plTillst,p=plPlats(t.ids[t.steg]),s=t.svar[t.steg];plLast=true;plNal={x:s.x,y:s.y};
   $('#pl-steg').textContent=(t.lage==='ovning'?'Övning · ':'')+`Plats ${t.steg+1} av 3 · ${['lätt','medel','svår'][p.sv-1]}`;
   $('#pl-namn').textContent=p.n;$('#pl-ledtrad').innerHTML=`<b class="pl-kort-res">${esc(plOmdome(s.p).replace(/!$/,''))}: ${fmt(s.p)}\u00a0poäng</b> · ${s.d<10?'rätt på':esc(plAvst(s.d))+' bort'}`;$('#pl-las').hidden=true;$('#pl-intro').hidden=true;
-  plVisaFacit(p,s);
+  plVisaFacit(p,s,anim);
   const sista=t.steg>=2,ext=/^https?:/.test(p.lank);
   $('#pl-svar').hidden=false;$('#pl-svar').innerHTML=`<div class="pl-res" role="status">
       <span class="pl-omdome">${esc(plOmdome(s.p))}</span>
@@ -2449,10 +2457,11 @@ function plVisaSvar(){const t=plTillst,p=plPlats(t.ids[t.steg]),s=t.svar[t.steg]
   $('#pl-nasta').addEventListener('click',vidare);
   // på mobilen ligger rutan med fakta under kartan; knappen bredvid kartan gör att man slipper skrolla
   const v=$('#pl-vidare');v.textContent=sista?'Se resultatet':'Nästa plats';v.hidden=false;v.onclick=vidare;$('#pl-om-lank').hidden=false;
-  (plMobil()?v:$('#pl-nasta')).focus({preventScroll:true});plProg()}
+  (plMobil()?v:$('#pl-nasta')).focus({preventScroll:true});plProg();
+  if(anim){plRakna($('#pl-svar .pl-poang b'),s.p);if(s.p>=800&&!plLugn()&&navigator.vibrate)try{navigator.vibrate(s.p>=950?[30,60,30]:30)}catch(e){}}}
 function plLasGissning(){if(!plNal||plLast)return;const t=plTillst,p=plPlats(t.ids[t.steg]),ll=kartLL(plNal.x,plNal.y);
   const d=PL_MOTOR.avstand(ll[0],ll[1],p.lat,p.lon),poang=PL_MOTOR.poang(d);
-  t.svar[t.steg]={x:Math.round(plNal.x*10)/10,y:Math.round(plNal.y*10)/10,d:Math.round(d),p:poang};plSparaTillst();plVisaSvar()}
+  t.svar[t.steg]={x:Math.round(plNal.x*10)/10,y:Math.round(plNal.y*10)/10,d:Math.round(d),p:poang};plSparaTillst();plVisaSvar(true)}
 function plSparaTillst(){const d=plLas();const t=plTillst;
   if(t.lage==='dag'){d.dag={datum:t.datum,ver:PL.version,ids:t.ids,svar:t.svar,steg:t.steg};
     if(t.svar.length===3&&t.svar.every(Boolean)){d.resultat=d.resultat||{};if(!d.resultat[t.datum])d.resultat[t.datum]={p:t.svar.reduce((a,s)=>a+s.p,0),rundor:t.svar.map(s=>s.p)};
@@ -2482,8 +2491,8 @@ function plVisaSlut(){const t=plTillst,tot=t.svar.reduce((a,s)=>a+s.p,0);$('#pl-
   $('#pl-steg').textContent=t.lage==='ovning'?'Övning':'Klart för i dag';$('#pl-namn').textContent=`${fmt(tot)} poäng`;$('#pl-ledtrad').textContent='';plProg()}
 function plSiffraRita(t){const box=$('#pl-siffra'),q=plSiffraFraga(t.datum);if(!box||!q)return;const d=plLas(),s=d.siffra&&d.siffra.datum===t.datum&&d.siffra.id===q.id?d.siffra:null;
   box.innerHTML=plSiffraHtml(q,s);if(s)return;
-  const r=$('#pl-sf-r'),upd=()=>{$('#pl-sf-v').textContent=giFmt(q,+r.value);r.style.setProperty('--p',((r.value-q.min)/(q.max-q.min)*100)+'%')};upd();r.addEventListener('input',upd);
-  $('#pl-sf-gissa').addEventListener('click',()=>{const g=+r.value,p=giPoang(q,g),dd=plLas();dd.siffra={datum:t.datum,id:q.id,g,p};
+  const varde=giReglageKoppla(q,'pl-sf');
+  $('#pl-sf-gissa').addEventListener('click',()=>{const g=varde(),p=giPoang(q,g),dd=plLas();dd.siffra={datum:t.datum,id:q.id,g,p};
     if(dd.resultat&&dd.resultat[t.datum])dd.resultat[t.datum].s=p;plSpara(dd);try{giMarkera(q.id)}catch(e){}
     plVisaSlut();const b=$('#pl-siffra');if(b){b.focus({preventScroll:true});b.scrollIntoView({behavior:'smooth',block:'nearest'})}})}
 async function plDela(datum,rundor){const text=plDelaText(datum,rundor),svar=$('#pl-dela-svar');
@@ -2522,12 +2531,8 @@ function plUtmText(){const u=PL_UTM;if(!u)return '';const ds=plDagensDatum(),ida
 function plUtmJmf(tot,s){const u=PL_UTM;if(!u)return '';const vann=tot>u.p,lika=tot===u.p;
   return `<p class="pl-utm-res">${vann?'Du slog utmaningen':lika?'Lika med utmaningen':'Utmanaren vann den här gången'}: du ${fmt(tot)}, utmanaren ${fmt(u.p)} poäng${u.datum!==plDagensDatum()?` (${esc(plDatumText(u.datum))})`:''}.${s!=null&&u.s!=null?` Siffran: du ${s}, utmanaren ${u.s}.`:''}</p>`}
 function plSiffraHtml(q,s){
-  if(!s){const start=q.min+Math.round((q.max-q.min)/2/q.steg)*q.steg;
-    return `<span class="label">Dagens siffra${q.amne?' · '+esc(q.amne):''}</span><h3 class="gi-fraga pl-sf-fraga">${esc(q.fraga)}</h3>
-      <output class="gi-varde num" id="pl-sf-v" for="pl-sf-r">${giFmt(q,start)}</output>
-      <input type="range" class="gi-reglage" id="pl-sf-r" min="${q.min}" max="${q.max}" step="${q.steg}" value="${start}" aria-label="Din gissning">
-      <div class="gi-skala num"><span>${giFmt(q,q.min)}</span><span>${giFmt(q,q.max)}</span></div>
-      <div class="gi-knappar"><button type="button" class="knapp" id="pl-sf-gissa">Gissa</button></div>`}
+  if(!s)return `<span class="label">Dagens siffra${q.amne?' · '+esc(q.amne):''}</span><h3 class="gi-fraga pl-sf-fraga">${esc(q.fraga)}</h3>
+      ${giReglageHtml(q,'pl-sf')}<div class="gi-knappar"><button type="button" class="knapp" id="pl-sf-gissa">Gissa</button></div>`;
   const g=s.g,p=s.p,pos=v=>Math.max(0,Math.min(100,(v-q.min)/(q.max-q.min)*100));
   return `<span class="label">Dagens siffra${q.amne?' · '+esc(q.amne):''}</span><h3 class="gi-fraga pl-sf-fraga">${esc(q.fraga)}</h3>
     <div class="gi-res"><span class="gi-omdome">${giOmdome(p)}</span><span class="gi-p num">${p}<small> av 100 poäng</small></span></div>
@@ -2557,6 +2562,7 @@ function initPlatsen(){
   const ds=plDagensDatum(),d=plLas();
   $('#pl-lead').textContent=`Tre platser och en siffra om Örebro varje dag, i dag ${plDatumText(ds)}. Sätt ut en nål där du tror att platsen ligger, gissa dagens siffra och se hur nära du kom.`;
   PL_UTM=plUtmLas();
+  if(d.resultat&&Object.keys(d.resultat).length)$('#pl-intro').classList.add('pl-van');
   {const h=plHist(d),m=$('#pl-min');if(m){const R=d.resultat||{};let sv='';
     if(h&&!h.idag&&h.svit>0)sv=`<p class="pl-svit"><b>${h.svit} ${h.svit===1?'dag':'dagar'} i rad.</b> Spela i dag för att hålla sviten.</p>`;
     else if(h&&h.idag)sv=`<p class="pl-svit"><b>Klart i dag:</b> ${fmt(R[ds].p)} poäng${h.svit>1?` · ${h.svit} dagar i rad`:''}.</p>`;
@@ -2696,6 +2702,32 @@ function giSedda(){try{return JSON.parse(localStorage.getItem(GI_SEDDA)||'{}')}c
 function giMarkera(id){const s=giSedda();if(!s[id])s[id]=new Date().toISOString().slice(0,10);giSeddaMinne=s;try{localStorage.setItem(GI_SEDDA,JSON.stringify(s))}catch(e){}}
 function giFmt(q,v){const d=q.enhet==='st'||q.enhet==='kr'?0:q.dec;const t=fmt(v,d);
   return q.enhet==='st'?t:q.enhet==='p'?t+' poäng':q.enhet==='%'?t+' %':t+' '+q.enhet}
+/* Reglaget (14 okt 2026): − och + bredvid, siffran går att skriva in, och reglaget börjar på en slumpad plats i en skala
+   med lite marginal på båda sidor, så att mitten och ändpunkterna inte avslöjar svaret. Poängen räknas som förut på frågans
+   egen skala (q.min–q.max). Skalan och startpunkten bestäms en gång per fråga och visning. */
+const GI_SK={};
+function giEnhet(q){return q.enhet==='st'?'':q.enhet==='p'?'poäng':q.enhet}
+function giRund(q,v){const d=Math.max(0,(String(q.steg).split('.')[1]||'').length);return +(Math.round(v/q.steg)*q.steg).toFixed(d)}
+function giSkala(q){if(GI_SK[q.id])return GI_SK[q.id];const span=q.max-q.min,r=Math.random;
+  let lo=q.min-span*(.05+r()*.15),hi=q.max+span*(.05+r()*.15);if(q.min>=0)lo=Math.max(0,lo);if(q.enhet==='%')hi=Math.min(100,hi);
+  lo=Math.min(q.min,giRund(q,lo));hi=Math.max(q.max,giRund(q,hi));const start=giRund(q,lo+(hi-lo)*(.15+r()*.7));return GI_SK[q.id]={lo,hi,start}}
+function giTalText(q,v){return fmt(v,q.enhet==='st'||q.enhet==='kr'?0:q.dec)}
+function giReglageHtml(q,id){const s=giSkala(q),e=giEnhet(q);
+  return `<div class="gi-varde-rad"><input type="text" inputmode="decimal" autocomplete="off" class="gi-varde gi-tal num" id="${id}-t" value="${giTalText(q,s.start)}" aria-label="Din gissning${e?' i '+esc(e):''}, skriv in eller använd reglaget">${e?`<span class="gi-enhet">${esc(e)}</span>`:''}</div>
+    <div class="gi-reglage-rad"><button type="button" class="gi-steg" data-d="-1" aria-label="Minska">−</button>
+      <input type="range" class="gi-reglage" id="${id}-r" min="${s.lo}" max="${s.hi}" step="${q.steg}" value="${s.start}" aria-label="Din gissning">
+      <button type="button" class="gi-steg" data-d="1" aria-label="Öka">+</button></div>
+    <div class="gi-skala num" aria-hidden="true"><span>${giFmt(q,s.lo)}</span><span>${giFmt(q,s.hi)}</span></div>`}
+// kopplar reglage, knappar och textruta; returnerar en funktion som ger det gissade värdet
+function giReglageKoppla(q,id){const s=giSkala(q),r=$('#'+id+'-r'),tx=$('#'+id+'-t');
+  const bredd=()=>{tx.style.width=Math.max(2.5,tx.value.length+.6)+'ch'};tx.addEventListener('input',bredd);
+  const satt=(v,fran)=>{v=Math.min(s.hi,Math.max(s.lo,giRund(q,v)));r.value=v;r.style.setProperty('--p',((v-s.lo)/(s.hi-s.lo)*100)+'%');if(fran!=='text')tx.value=giTalText(q,v);bredd()};
+  satt(s.start);r.addEventListener('input',()=>satt(+r.value,'reglage'));
+  r.parentElement.querySelectorAll('.gi-steg').forEach(b=>b.addEventListener('click',()=>satt(+r.value+(+b.dataset.d)*q.steg)));
+  const las=()=>{const v=parseFloat(tx.value.replace(/\s|\u00a0/g,'').replace(',','.'));return isFinite(v)?v:null};
+  tx.addEventListener('input',()=>{const v=las();if(v!=null&&v>=s.lo&&v<=s.hi)satt(v,'text')});
+  tx.addEventListener('change',()=>{const v=las();satt(v!=null?v:+r.value)});tx.addEventListener('focus',()=>tx.select());
+  return ()=>{const v=las();if(v!=null)satt(v);return +r.value}}
 function giPoang(q,g){const span=q.max-q.min;return Math.max(0,Math.round(100*(1-Math.abs(g-q.svar)/(span*.5))))}
 function giOmdome(p){return p>=95?'Mitt i prick!':p>=80?'Riktigt nära!':p>=50?'Inte så långt ifrån.':'Där överraskade Örebro dig.'}
 function giSkillnad(q,g){const d=Math.abs(g-q.svar);if(d<q.steg/2)return 'Du gissade exakt rätt.';
@@ -2718,14 +2750,10 @@ function giVisa(){
   const q=giLista[giI],g=giSvar[q.id];const forut=g==null&&giSedda()[q.id];
   const rubrik=`<span class="label">${q.bonus?'Bonusfråga om ditt område':`Fråga ${giI+1} av ${giLista.filter(x=>!x.bonus).length}`}${q.amne?' · '+esc(q.amne):''}</span><h2 class="gi-fraga">${esc(q.fraga)}</h2>${forut?`<p class="small gi-forut">Den här frågan har du gissat på förut, ${vtDag(forut)}. Svaret kan ha ändrats sedan dess.</p>`:''}`;
   if(g==null){
-    const start=q.min+Math.round((q.max-q.min)/2/q.steg)*q.steg;
-    kort.innerHTML=`${rubrik}<output class="gi-varde num" id="gi-v" for="gi-r">${giFmt(q,start)}</output>
-      <input type="range" class="gi-reglage" id="gi-r" min="${q.min}" max="${q.max}" step="${q.steg}" value="${start}" aria-label="Din gissning">
-      <div class="gi-skala num"><span>${giFmt(q,q.min)}</span><span>${giFmt(q,q.max)}</span></div>
-      <div class="gi-knappar"><button type="button" class="knapp" id="gi-gissa">Gissa</button><span class="small">Dra i reglaget eller använd piltangenterna.</span></div>`;
-    const r=$('#gi-r');const upd=()=>{$('#gi-v').textContent=giFmt(q,+r.value);r.style.setProperty('--p',((r.value-q.min)/(q.max-q.min)*100)+'%')};upd();
-    r.addEventListener('input',upd);
-    $('#gi-gissa').addEventListener('click',()=>{giSvar[q.id]=+r.value;giSkriv();giMarkera(q.id);giVisa();$('#gi-kort').focus({preventScroll:true})});
+    kort.innerHTML=`${rubrik}${giReglageHtml(q,'gi')}
+      <div class="gi-knappar"><button type="button" class="knapp" id="gi-gissa">Gissa</button><span class="small">Dra i reglaget, tryck på − och + eller skriv in din siffra.</span></div>`;
+    const varde=giReglageKoppla(q,'gi');
+    $('#gi-gissa').addEventListener('click',()=>{giSvar[q.id]=varde();giSkriv();giMarkera(q.id);giVisa();$('#gi-kort').focus({preventScroll:true})});
     return;
   }
   const p=giPoang(q,g);const pos=v=>Math.max(0,Math.min(100,(v-q.min)/(q.max-q.min)*100));

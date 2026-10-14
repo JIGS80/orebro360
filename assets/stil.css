@@ -1643,3 +1643,24 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 /* rätt svar i Gissa siffran: mörk text på den ljusare gröna i mörkt läge (kontrast) */
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .gi-ratt b{color:#0F1615}}
 :root[data-theme="dark"] .gi-ratt b{color:#0F1615}
+/* Spelen (14 okt 2026): kortare start i Var ligger platsen?, levande svar och ett reglage med − och + och inskrivning */
+.pl-kort-regler{margin:0 0 10px}
+.pl-poanginfo{margin:0 0 14px}
+.pl-poanginfo summary{cursor:pointer;font-weight:600;color:var(--accent-text);font-size:.95rem}
+.pl-poanginfo[open] summary{margin-bottom:6px}
+.pl-van .pl-h,.pl-van .pl-kort-regler{display:none}
+.pl-anim .pl-facit{transform-box:fill-box;transform-origin:center;animation:pl-in .4s .5s both cubic-bezier(.2,1.4,.4,1)}
+@keyframes pl-in{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.pl-anim .pl-facit{animation:none}}
+.gi-varde-rad{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.gi-tal{font-family:var(--f-display);font-weight:700;font-size:clamp(2.2rem,7vw,3.4rem);letter-spacing:-.02em;color:var(--accent-text);background:transparent;border:0;border-bottom:2px dashed var(--line);border-radius:0;padding:0 2px;margin:0;width:8ch;min-width:2.5ch;field-sizing:content;line-height:1.05}
+.gi-tal:hover{border-bottom-color:var(--accent)}
+.gi-tal:focus{outline:none;border-bottom:2px solid var(--accent);background:var(--accent-soft)}
+.gi-enhet{font-size:1.25rem;font-weight:600;color:var(--ink2)}
+.gi-reglage-rad{display:flex;align-items:center;gap:10px;margin-top:10px}
+.gi-reglage-rad .gi-reglage{margin:0;flex:1;min-width:0}
+.gi-steg{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 1.45rem/1 var(--f-body);cursor:pointer;padding:0;touch-action:manipulation}
+.gi-steg:hover{border-color:var(--accent);color:var(--accent-text)}
+.gi-steg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.gi-reglage-rad + .gi-skala{padding-inline:54px}
+.pl-siffra .gi-tal{font-size:2rem}
