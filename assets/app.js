@@ -1411,7 +1411,7 @@ function kartLager(S){if(!KB||!S.svg.isConnected)return;const svg=S.svg;
     (KB.omr||[]).forEach(([n,x,y])=>{const N=n.toLocaleUpperCase('sv');const e=svgEl('text',{x,y,'text-anchor':'middle',class:'kx kl-o'},S.kl);e.textContent=N;S.namn.push({e,x,y,n:N,typ:'o',niv:1,px:10.5,b:.74})})}
   if(S.kh)S.kh.remove();S.kh=svgEl('g',{class:'kh','aria-hidden':'true'},svg);S.har=[];
   const g=typeof gataHamta==='function'?gataHamta():null;
-  if(g)S.har.push({x:g.x,y:g.y,typ:'gata',t:'Din gata'});
+  if(g&&g.k===miHamta())S.har.push({x:g.x,y:g.y,typ:'gata',t:'Din gata'});
   if(HAR)S.har.push({x:HAR.x,y:HAR.y,acc:HAR.acc,typ:'pos',t:'Du är här'});
   S.har.forEach(h=>{if(h.typ==='pos'){h.ring=svgEl('circle',{cx:h.x,cy:h.y,class:'kx kh-acc'},S.kh);h.pt=svgEl('circle',{cx:h.x,cy:h.y,class:'kx kh-pos'},S.kh)}
     else h.pt=svgEl('path',{class:'kx kh-gata'},S.kh);
@@ -2087,7 +2087,9 @@ const minaGlom=()=>minaSpara([]);
 const minaHar=id=>minaHamta().some(x=>x[0]===id);
 function minaVaxla(id,n){let a=minaHamta();if(a.some(x=>x[0]===id))a=a.filter(x=>x[0]!==id);else{if(a.length>=MI_RK_MAX)return false;a=[[id,n],...a]}minaSpara(a);return true}
 let gataMinne=null,nyttMinne=null,GATA=null,HPL=null,miGataLaddar=null,miNyttKlar=false,miRkLaddar=null;
-function gataHamta(){try{const v=localStorage.getItem(MI_GATA);if(v){const g=JSON.parse(v);if(g&&typeof g.n==='string'&&/^1880R\d{3}$/.test(g.k)&&isFinite(g.x)&&isFinite(g.y))return g}}catch(e){}return gataMinne}
+function gataHamta(){let g=null;try{const v=localStorage.getItem(MI_GATA);if(v){const d=JSON.parse(v);if(d&&typeof d.n==='string'&&/^1880R\d{3}$/.test(d.k)&&isFinite(d.x)&&isFinite(d.y))g=d}}catch(e){}g=g||gataMinne;
+  // en gata utan sparat område blev kvar när Glöm på startsidan bara glömde området (rättat 14 okt 2026); den tas bort här
+  if(g&&!miHamta()){gataGlom();return null}return g}
 function gataSpara(g){gataMinne={n:g.n,k:g.k,x:g.x,y:g.y};try{localStorage.setItem(MI_GATA,JSON.stringify(gataMinne))}catch(e){}}
 function gataGlom(){gataMinne=null;try{localStorage.removeItem(MI_GATA)}catch(e){}}
 function nyttHamta(){try{const v=localStorage.getItem(MI_NYTT);if(v){const d=JSON.parse(v);if(d&&/^\d{4}-\d\d-\d\d$/.test(d.forra)&&/^\d{4}-\d\d-\d\d$/.test(d.nu))return d}}catch(e){}return nyttMinne}
@@ -2964,8 +2966,9 @@ function renderStart(S){
   nuRad(S);idagStart(S.idag);
   document.querySelectorAll('[data-utf]').forEach(a=>{const t=(S.utforska||{})[a.dataset.utf];if(!t)return;a.querySelector('.utf-v').textContent=typeof t==='string'?t:utfTyck(t.till||[])});
   const rs=$('#mi-remsa');if(!rs)return;
+  // Glöm: gatan hör till området och glöms med det (14 okt 2026)
   rs.addEventListener('click',e=>{const b=e.target.closest('button[data-g]');if(!b)return;
-    if(b.dataset.g==='glom'){miGlom();miRemsa(S)}else location.href='mitt.html'});
+    if(b.dataset.g==='glom'){miGlom();gataGlom();miRemsa(S)}else location.href='mitt.html'});
   miRemsa(S);initSok();
 }
 
