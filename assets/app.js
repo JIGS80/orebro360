@@ -492,7 +492,7 @@ function renderOmMap(){
   const cls=v=>v==null?null:1+br.filter(b=>v>b).length;
   const vb=omZoom==='stad'?omBox.stad:[0,0,W,H];
   host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över Örebros områden färgade efter '+M.l},host);kartZoom(host,svg);
-  const tp=tip(host);const scale=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||600);
+  const tp=tip(host);const scale=kartSc(svg,vb);
   const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
   items.forEach(it=>{const v=M.get(it);const c=cls(v);
     const p=el('path',{d:it.svg,class:'a',fill:c?`var(--q${c})`:'var(--line)','fill-rule':'evenodd'},svg);
@@ -780,7 +780,7 @@ function renderHdMap(){
   const H=HD.handelsomraden;const bx=H.map(h=>pathBox(h.svg));const cx=[Math.min(...bx.map(b=>b[0])),Math.min(...bx.map(b=>b[1])),Math.max(...bx.map(b=>b[2])),Math.max(...bx.map(b=>b[3]))];
   const pad=Math.max(cx[2]-cx[0],cx[3]-cx[1])*.12;let vb=[cx[0]-pad,cx[1]-pad,cx[2]-cx[0]+2*pad,cx[3]-cx[1]+2*pad];if(vb[2]<vb[3]){vb[0]-=(vb[3]-vb[2])/2;vb[2]=vb[3]}else{vb[1]-=(vb[2]-vb[3])/2;vb[3]=vb[2]}
   const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över handelsområdena i Örebro'},host);kartZoom(host,svg);svg.style.overflow='hidden';
-  const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||400);const tp=tip(host);
+  const sc=kartSc(svg,vb);const tp=tip(host);
   OM.omraden.forEach(o=>el('path',{d:o.svg,fill:'var(--surface)',stroke:'var(--mark-gray)','stroke-width':1,'vector-effect':'non-scaling-stroke','fill-rule':'evenodd'},svg));
   H.forEach(h=>{const p=el('path',{d:h.svg,fill:'var(--accent)',stroke:'var(--accent)','stroke-width':2,'vector-effect':'non-scaling-stroke','fill-rule':'evenodd'},svg);
     p.addEventListener('mousemove',e=>{const bb=host.getBoundingClientRect();tp.hidden=false;tp.innerHTML=`<b>${esc(h.omr_namn||h.kod)}</b><br>${fmt(h.anstallda)} anställda i handeln<br>${fmt(h.arbetsstallen)} arbetsställen · ${fmt(h.hektar)} hektar`;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'});
@@ -1086,7 +1086,7 @@ function renderRkMap(rows){
   rows=rows||rkFilter();
   const vb=rkZoom==='stad'&&omBox.stad?omBox.stad:[0,0,OM.karta.w,OM.karta.h];
   const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över livsmedelsverksamheterna'},host);kartZoom(host,svg);svg.style.overflow='hidden';
-  const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||500);const tp=tip(host);
+  const sc=kartSc(svg,vb);const tp=tip(host);
   OM.omraden.forEach(o=>el('path',{d:o.svg,fill:'var(--surface)',stroke:'var(--mark-gray)','stroke-width':1,'vector-effect':'non-scaling-stroke','fill-rule':'evenodd'},svg));
   const g=el('g',{},svg);
   const kort=(e,v)=>{const k=v.k[0],r=k?rkRes(k):[],avv=r.filter(x=>x.c==='A'||x.c==='K').length;
@@ -1357,7 +1357,7 @@ function miKarta(){
   if(o&&FOKUS&&!iVb(vb,FOKUS.x,FOKUS.y)){const pad=Math.max(vb[2],vb[3])*.08;let x0=Math.min(vb[0],FOKUS.x-pad),y0=Math.min(vb[1],FOKUS.y-pad),x1=Math.max(vb[0]+vb[2],FOKUS.x+pad),y1=Math.max(vb[1]+vb[3],FOKUS.y+pad),W=x1-x0,H=y1-y0;
     if(W/H<1.25){const nw=H*1.25;x0-=(nw-W)/2;W=nw}else{const nh=W/1.25;y0-=(nh-H)/2;H=nh}vb=[x0,y0,W,H]}
   const svg=el('svg',{viewBox:vb.map(Math.round).join(' '),role:'img','aria-label':o?'Karta över '+o.namn+' med skolor, vårdcentraler och kontrollerade restauranger':'Karta över Örebros områden. Klicka på ditt område.'},host);kartZoom(host,svg);
-  const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||480);
+  const sc=kartSc(svg,vb);
   const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
   OM.omraden.forEach(a=>{const p=el('path',{d:a.svg,class:'mi-a'+(o&&a.kod===o.kod?' mi-a-sel':''),'fill-rule':'evenodd'},svg);
     p.addEventListener('mousemove',e=>show(e,`<b>${esc(a.namn)}</b>${o&&a.kod===o.kod?'':'<br>Klicka för att välja'}`));p.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
@@ -1383,6 +1383,10 @@ function miKarta(){
 /* ===== Zoom och panorering i kartorna. Mobil: nyp med två fingrar och dra med ett finger när kartan är inzoomad
    (utan inzoomning skrollar ett finger sidan som vanligt). Dator: knapparna, Ctrl + hjul (eller nyp på styrplattan) och dra.
    Prickar och namn behåller sin storlek på skärmen. Kartfunktionerna anropar kartZoom(host,svg) efter att svg skapats. ===== */
+// kartans enheter per skärmpixel för utsnittet vb: med preserveAspectRatio "meet" styr den sida som räcker först (i stor karta oftast höjden)
+function kartSc(svg,vb){const r=svg.getBoundingClientRect(),w=Math.max(280,r.width||svg.parentElement?.clientWidth||600),h=r.height>40?r.height:w*vb[3]/vb[2];return Math.max(vb[2]/w,vb[3]/h)}
+// prickarna: lite större på pekskärm (lättare att träffa) och de växer något när man zoomar in, men inte lika mycket som kartan
+const KZ_PEK=matchMedia('(pointer:coarse)').matches?1.35:1;
 function kartZoom(host,svg){
   if(!host||!svg)return;host.classList.add('kz-host');
   const tal=v=>(v||'').split(/[\s,]+/).map(Number);
@@ -1390,7 +1394,7 @@ function kartZoom(host,svg){
   S.synk=()=>{const nu=svg.getAttribute('viewBox');if(nu!==S.satt){S.bas=tal(nu);S.vb=S.bas.slice();S.satt=nu;host._kz=null;S.skala()}};   // kartan har själv bytt utsnitt
   S.inne=()=>S.vb[2]<S.bas[2]*.999;
   S.skala=()=>{const k=S.vb[2]/S.bas[2];
-    svg.querySelectorAll('circle').forEach(c=>{if(c.dataset.kzr==null)c.dataset.kzr=c.getAttribute('r')||'';if(c.dataset.kzr)c.setAttribute('r',(+c.dataset.kzr*k).toFixed(3))});
+    const kr=Math.pow(k,.6)*KZ_PEK;svg.querySelectorAll('circle').forEach(c=>{if(c.dataset.kzr==null)c.dataset.kzr=c.getAttribute('r')||'';if(c.dataset.kzr)c.setAttribute('r',(+c.dataset.kzr*kr).toFixed(3))});
     svg.querySelectorAll('text').forEach(t=>{if(t.dataset.kzs==null)t.dataset.kzs=t.getAttribute('style')||'';const st=t.dataset.kzs;if(st)t.setAttribute('style',st.replace(/([\d.]+)px/g,(_,v)=>(+v*k).toFixed(3)+'px'));
       if(t.dataset.kzf==null)t.dataset.kzf=t.getAttribute('font-size')||'';if(t.dataset.kzf)t.setAttribute('font-size',(+t.dataset.kzf*k).toFixed(3))});
     host.classList.toggle('kz-in',S.inne());const r=host.querySelector('.kz-reset');if(r)r.hidden=!S.inne()};
@@ -1407,7 +1411,17 @@ function kartZoom(host,svg){
   if(!host._kzLyss){host._kzLyss=true;kartZoomLyss(host)}
   // ritas kartan om med samma utsnitt (t.ex. när man väljer ett område) behålls inzoomningen
   if(host._kz&&host._kz.bas===S.bas.join(' '))S.satt_(host._kz.vb);else{host._kz=null;S.skala()}
+  requestAnimationFrame(()=>{if(host._kzS===S)S.skala()});   // prickarna ritas efter kartZoom; skala dem när de finns
+  if(host.classList.contains('kz-full'))kzVal(host);
 }
+/* I stor karta: kartans val (lager, utsnitt) och teckenförklaring följer med in i den stora kartan. Det är kopior;
+   ett tryck på en kopierad knapp trycker på originalet, och kopiorna görs om när kartan ritas om. */
+function kzVal(host){host.querySelector('.kz-val')?.remove();const pan=host.closest('.panel')||host.parentElement;if(!pan)return;
+  const kallor=[...pan.querySelectorAll('.chips,.legend,.om-legend')].filter(e=>!host.contains(e)&&!e.hidden&&e.textContent.trim());
+  if(!kallor.length)return;const box=document.createElement('div');box.className='kz-val';box.setAttribute('role','group');box.setAttribute('aria-label','Kartans val');
+  kallor.forEach(src=>{const c=src.cloneNode(true);c.removeAttribute('id');c.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id'));
+    const orig=[...src.querySelectorAll('button')],kop=[...c.querySelectorAll('button')];kop.forEach((b,i)=>b.addEventListener('click',e=>{e.stopPropagation();orig[i]?.click()}));box.appendChild(c)});
+  host.appendChild(box)}
 /* Stor karta: kartan fyller hela skärmen (mest för mobilen, där kartan annars är 320 px bred och prickarna i centrum ligger tätt).
    Där flyttar ett finger kartan och två fingrar zoomar. Stängs med knappen Stäng, Esc eller telefonens bakåt. Trycker man på något i kartan
    Ett tryck på en prick visar alltid ett kort i kartan (namn, kort info, Hitta hit och ibland en knapp som Läs mer eller Visa kontrollerna).
@@ -1424,7 +1438,7 @@ function kzStor(host,pa,auto){
     let t=host.querySelector('.kz-tips');if(!t){t=document.createElement('div');t.className='kz-tips';host.appendChild(t)}
     t.textContent=matchMedia('(pointer:coarse)').matches?'Dra med ett finger för att flytta, nyp med två för att zooma. Tryck på en prick för att se vad det är.':'Dra för att flytta, zooma med + och − eller Ctrl och hjulet.';t.hidden=false;clearTimeout(host._kzTt);host._kzTt=setTimeout(()=>{t.hidden=true},4500)}
   else{host.classList.remove('kz-full');document.documentElement.classList.remove('kz-las');if(kzOppen===host)kzOppen=null;
-    host._kzPh?.remove();host._kzPh=null;const t=host.querySelector('.kz-tips');if(t)t.hidden=true;
+    host._kzPh?.remove();host._kzPh=null;const t=host.querySelector('.kz-tips');if(t)t.hidden=true;host.querySelector('.kz-val')?.remove();
     if(!auto&&history.state&&history.state.kzStor){kzBakat=true;history.back()}}
   const b=host.querySelector('.kz-stor');if(b)kzStorText(host,b);
   kzRitaOm(host);   // prickar och namn ritas om för den nya storleken (inzoomningen behålls)
@@ -1537,7 +1551,7 @@ function cyNarmast(L,f,pts=l=>l){let b=null;L.forEach((l,i)=>{const P=pts(l);for
   return b?{m:Math.round(b.d)*10,x:Math.round(b.x),y:Math.round(b.y),i:b.i}:null}
 // raderna för cykel och toalett från en punkt (områdets centrum eller din gata); dar = text för "i området"
 function cyRader(f,k,dar){const R=[],nm=NM&&NM.platser,xy=p=>[p[4],p[5]];
-  if(CY){const s=cyNarmast(CY.salt,f,l=>l[1]);if(s)R.push(miRad('Sopsaltad cykelled',s.m<=30?'du är nära en led som sopsaltas på vintern':'närmaste cykelleden som sopsaltas på vintern',s.m,s.x,s.y));
+  if(CY){const s=cyNarmast(CY.salt,f,l=>l[1]);if(s)R.push(miRad('Sopsaltad cykelled',(s.m<=30?'du är nära en led som sopsaltas på vintern':'närmaste cykelleden som sopsaltas på vintern')+': snön sopas bort och leden saltas, så att det blir barmark',s.m,s.x,s.y));
     const h=cyNarmast(CY.strak,f,l=>l[2]);if(h){const n=CY.strak[h.i][0];R.push(miRad(n||'Huvudcykelstråk','närmaste huvudcykelstråket',h.m,h.x,h.y))}}
   if(nm){const pu=miNarmast(nm.filter(p=>p[0]==='pump'),f,1,xy)[0];if(pu)R.push(miRad(nmPNamn(pu.p),['närmaste cykelpumpen',pu.p[3]===k?dar:''].filter(Boolean).join(' · '),pu.m,pu.p[4],pu.p[5]));
     const t=miNarmast(nm.filter(p=>p[0]==='toa'),f,1,xy)[0];if(t)R.push(miRad(nmPNamn(t.p),['närmaste offentliga toaletten',t.p[2]?t.p[2].toLowerCase():'',t.p[3]===k?dar:''].filter(Boolean).join(' · '),t.m,t.p[4],t.p[5]))}
@@ -1549,7 +1563,7 @@ let cySel=null,cyZoom='stad';const cyVisa={salt:true,strak:true,pl:false,pump:tr
 function cySattZoom(z){cyZoom=z;document.querySelectorAll('#cy-zoom .chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.z===z))}
 function cyKarta(){const host=$('#cy-karta');if(!host||!CY)return;const W=OM.karta.w,H=OM.karta.h;const vb=cyZoom==='stad'?omBox.stad:[0,0,W,H];
   host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över Örebro med huvudcykelstråk, cykelleder som sopsaltas och cykelpumpar'},host);kartZoom(host,svg);
-  const tp=tip(host);const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||600);
+  const tp=tip(host);const sc=kartSc(svg,vb);
   const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
   const ut=()=>{if(tipFri(tp))tp.hidden=true};
   OM.omraden.forEach(o=>{const p=el('path',{d:o.svg,class:'nm-a'+(o.kod===cySel?' nm-a-sel':''),'fill-rule':'evenodd'},svg);
@@ -1617,7 +1631,7 @@ function nmHash(){const h=hashKod(),q=new URLSearchParams(h.replace(/&amp;/g,'&'
 function nmKarta(){
   const host=$('#nm-karta');const W=OM.karta.w,H=OM.karta.h;const vb=nmZoom==='stad'?omBox.stad:[0,0,W,H];
   host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över Örebros områden med kommunens '+NM_TYP[nmTyp][0].toLowerCase()},host);kartZoom(host,svg);
-  const tp=tip(host);const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||600);
+  const tp=tip(host);const sc=kartSc(svg,vb);
   const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
   OM.omraden.forEach(o=>{const p=el('path',{d:o.svg,class:'nm-a'+(o.kod===nmSel?' nm-a-sel':''),'fill-rule':'evenodd'},svg);
     const a=NM.omraden[o.kod];
@@ -1750,7 +1764,7 @@ function pnKort(p){return `<article class="pn-kort pn-k-${pnKlass(p)}" id="pk-${
     ${pnDetalj(p,true)}</article>`}
 function pnKarta(){const host=$('#pn-karta');if(!host)return;const W=OM.karta.w,H=OM.karta.h;const vb=pnZoom==='stad'?omBox.stad:[0,0,W,H];
   host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över Örebros områden med kommunens pågående detaljplaner'},host);kartZoom(host,svg);
-  const tp=tip(host);const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||600);
+  const tp=tip(host);const sc=kartSc(svg,vb);
   const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
   OM.omraden.forEach(o=>{const n=(PN.omraden[o.kod]||[]).length;const p=el('path',{d:o.svg,class:'pn-a'+(o.kod===pnSel?' pn-a-sel':''),'fill-rule':'evenodd'},svg);
     p.addEventListener('mousemove',e=>show(e,`<b>${esc(o.namn)}</b><br>${n?`${n} ${n===1?'plan':'planer'}`:'inga pågående planer'}`));p.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
@@ -1837,7 +1851,7 @@ function tfMatch(p){const f=TF_F;
   return true}
 function tfKarta(){const host=$('#tf-karta');if(!host)return;const W=OM.karta.w,H=OM.karta.h;const vb=tfZoom==='stad'?omBox.stad:[0,0,W,H];
   host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över Örebros områden med kyrkor, moskéer och andra platser för trossamfund'},host);kartZoom(host,svg);
-  const tp=tip(host);const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||600);
+  const tp=tip(host);const sc=kartSc(svg,vb);
   const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
   OM.omraden.forEach(o=>{const n=(TF.omraden[o.kod]||{}).antal||0;const p=el('path',{d:o.svg,class:'nm-a'+(o.kod===TF_F.omr?' nm-a-sel':''),'fill-rule':'evenodd'},svg);
     p.addEventListener('mousemove',e=>show(e,`<b>${esc(o.namn)}</b><br>${n?`${n} ${n===1?'plats':'platser'}`:'inga platser i förteckningen'}`));p.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
@@ -1918,7 +1932,7 @@ function buKarta(){
   const host=$('#bu-karta');const W=OM.karta.w,H=OM.karta.h;const vals=OM.omraden.map(o=>o.buss);const br=quantBreaks(vals);
   const cls=v=>v==null?null:1+br.filter(b=>v>b).length;const vb=buZoom==='stad'?omBox.stad:[0,0,W,H];
   host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över Örebros områden färgade efter bussturer per 1 000 invånare'},host);kartZoom(host,svg);
-  const tp=tip(host);const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||600);
+  const tp=tip(host);const sc=kartSc(svg,vb);
   const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
   OM.omraden.forEach(o=>{const c=cls(o.buss);const p=el('path',{d:o.svg,class:'a',fill:c?`var(--q${c})`:'var(--line)','fill-rule':'evenodd'},svg);
     p.addEventListener('mousemove',e=>show(e,`<b>${esc(o.namn)}</b><br>${fmt(o.buss)} bussturer per 1 000 invånare`));p.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
@@ -2625,7 +2639,7 @@ function vtKarta(){
   const P=VT.bad.platser.filter(b=>b.x!=null);
   const xs=P.map(b=>b.x),ys=P.map(b=>b.y);let x0=Math.min(...xs)-350,x1=Math.max(...xs)+350,y0=Math.min(...ys)-350,y1=Math.max(...ys)+350;
   const W=x1-x0,H=y1-y0;const svg=el('svg',{viewBox:`${x0} ${y0} ${W} ${H}`,role:'group','aria-label':'Karta över badplatserna i Örebro kommun'},host);kartZoom(host,svg);
-  const sc=W/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||500);const tp=tip(host);
+  const sc=kartSc(svg,[0,0,W,H]);const tp=tip(host);
   OM.omraden.forEach(o=>el('path',{d:o.svg,class:'vt-omr','fill-rule':'evenodd'},svg));
   const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
   P.forEach(b=>{const [c]=vtBed(b.prov[0]?.[1]);const g=el('g',{class:'vt-pt'+(b.id===vtSel?' sel':''),tabindex:'0',role:'button','aria-label':b.n},svg);
