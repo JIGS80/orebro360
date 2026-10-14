@@ -1087,7 +1087,7 @@ function renderRkMap(rows){
   const vb=rkZoom==='stad'&&omBox.stad?omBox.stad:[0,0,OM.karta.w,OM.karta.h];
   const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över livsmedelsverksamheterna'},host);kartZoom(host,svg);svg.style.overflow='hidden';
   const sc=kartSc(svg,vb);const tp=tip(host);
-  OM.omraden.forEach(o=>el('path',{d:o.svg,fill:'var(--surface)',stroke:'var(--mark-gray)','stroke-width':1,'vector-effect':'non-scaling-stroke','fill-rule':'evenodd'},svg));
+  OM.omraden.forEach(o=>el('path',{d:o.svg,fill:'var(--surface)',stroke:'var(--grans)','stroke-width':1,'vector-effect':'non-scaling-stroke','fill-rule':'evenodd'},svg));
   const g=el('g',{},svg);
   const kort=(e,v)=>{const k=v.k[0],r=k?rkRes(k):[],avv=r.filter(x=>x.c==='A'||x.c==='K').length;
     kortVisa(host,tp,e,`<b>${esc(v.n)}</b><br>${esc(v.a||'')}${k?`<br>senast kontrollerad ${rkDatum(k.d)}${k.p?', handläggning pågår':avv?`, ${avv} ${avv===1?'avvikelse':'avvikelser'}`:r.length?', utan anmärkning':''}`:''}${v.ca?'<br>läget är ungefärligt':''}<br><button type="button" class="akt-knapp" data-rk-visa="${esc(v.id)}">Visa kontrollerna</button> · ${hittaLank(v.x,v.y)}`)};
@@ -1387,6 +1387,16 @@ function miKarta(){
 /* ===== Zoom och panorering i kartorna. Mobil: nyp med två fingrar och dra med ett finger när kartan är inzoomad
    (utan inzoomning skrollar ett finger sidan som vanligt). Dator: knapparna, Ctrl + hjul (eller nyp på styrplattan) och dra.
    Prickar och namn behåller sin storlek på skärmen. Kartfunktionerna anropar kartZoom(host,svg) efter att svg skapats. ===== */
+/* Kartbakgrund (14 okt 2026): sjöar, åar och större vägar från OpenStreetMap (bakgrund.json, samma som i spelet) i alla kartor,
+   ovanför områdenas fyllning men under gränslinjer, linjer och prickar, så att man ser var man är. Laddas en gång. */
+let KB=null,kbLaddar=null;
+function kartBakgrund(svg){
+  if(!KB){if(!kbLaddar)kbLaddar=load('bakgrund').then(d=>{KB=d;document.querySelectorAll('.kz-host').forEach(h=>{const s=h._kzS&&h._kzS.svg;if(s&&s.isConnected)kartBakgrund(s)})}).catch(e=>{console.error(e)});return}
+  if(!svg.isConnected||svg.querySelector(':scope>g.kb'))return;
+  let efter=null;for(const k of svg.children){if(k.tagName==='path'&&!k.classList.contains('seloutline')&&!k.classList.contains('outline')&&getComputedStyle(k).fill!=='none'){efter=k;continue}break}
+  const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('class','kb');g.setAttribute('aria-hidden','true');
+  [['sjoar','kb-sjo'],['aar','kb-a'],['vagar2','kb-v2'],['vagar','kb-v']].forEach(([k,c])=>{if(!KB[k])return;const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',KB[k]);p.setAttribute('class',c);g.appendChild(p)});
+  if(efter)efter.after(g);else svg.prepend(g)}
 // kartans enheter per skärmpixel för utsnittet vb: med preserveAspectRatio "meet" styr den sida som räcker först (i stor karta oftast höjden)
 function kartSc(svg,vb){const r=svg.getBoundingClientRect(),w=Math.max(280,r.width||svg.parentElement?.clientWidth||600),h=r.height>40?r.height:w*vb[3]/vb[2];return Math.max(vb[2]/w,vb[3]/h)}
 // prickarna: lite större på pekskärm (lättare att träffa) och de växer något när man zoomar in, men inte lika mycket som kartan
@@ -1415,7 +1425,7 @@ function kartZoom(host,svg){
   if(!host._kzLyss){host._kzLyss=true;kartZoomLyss(host)}
   // ritas kartan om med samma utsnitt (t.ex. när man väljer ett område) behålls inzoomningen
   if(host._kz&&host._kz.bas===S.bas.join(' '))S.satt_(host._kz.vb);else{host._kz=null;S.skala()}
-  requestAnimationFrame(()=>{if(host._kzS===S)S.skala()});   // prickarna ritas efter kartZoom; skala dem när de finns
+  requestAnimationFrame(()=>{if(host._kzS===S){S.skala();kartBakgrund(svg)}});   // prickarna ritas efter kartZoom; skala dem och lägg bakgrunden när de finns
   if(host.classList.contains('kz-full'))kzVal(host);
 }
 /* I stor karta: kartans val (lager, utsnitt) och teckenförklaring följer med in i den stora kartan. Det är kopior;

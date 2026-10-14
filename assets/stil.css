@@ -580,9 +580,9 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 @media (max-width:520px){#lok-top-kom .hbar,#lok-top-ut .hbar{grid-template-columns:minmax(0,1fr) 5.6rem}}
 
 /* ===== Utforska: din skatt, 100 personer, månaden ===== */
-:root{--toa:#1F78B4;--pump:#B0477E;--c1:#008572;--c2:#C0842A;--c3:#4F6FA8;--c4:#A8432A;--c5:#6E8F2E;--c6:#8A63A8}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--toa:#5FA8DA;--pump:#E07BAA;--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}}
-:root[data-theme="dark"]{--toa:#5FA8DA;--pump:#E07BAA;--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}
+:root{--grans:#CDD6D3;--kb-sjo:#D7E9F3;--kb-a:#8CBBD6;--kb-v:#C2B9AB;--toa:#1F78B4;--pump:#B0477E;--c1:#008572;--c2:#C0842A;--c3:#4F6FA8;--c4:#A8432A;--c5:#6E8F2E;--c6:#8A63A8}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--grans:#2F3D3A;--kb-sjo:#17313D;--kb-a:#3B7593;--kb-v:#5B554C;--toa:#5FA8DA;--pump:#E07BAA;--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}}
+:root[data-theme="dark"]{--grans:#2F3D3A;--kb-sjo:#17313D;--kb-a:#3B7593;--kb-v:#5B554C;--toa:#5FA8DA;--pump:#E07BAA;--c1:#1FA08B;--c2:#D39A45;--c3:#7C9AD6;--c4:#E27C5F;--c5:#98BA55;--c6:#B394D0}
 
 /* förstasidans utforska-kort */
 .utforska{padding-block:4px 8px}
@@ -708,7 +708,7 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 @media (max-width:520px){.mi-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .mi-kpis .stat .v{font-size:clamp(1.3rem,2.6vw,1.7rem)}
 .mi-karta svg{overflow:hidden;touch-action:manipulation}
-.mi-karta path.mi-a{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
+.mi-karta path.mi-a{fill:var(--surface);stroke:var(--grans);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
 .mi-karta path.mi-a:hover{fill:var(--accent-soft)}
 .mi-karta path.mi-a-sel,.mi-karta path.mi-a-sel:hover{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2.5;cursor:default}
 .mi-karta circle{stroke:var(--surface);stroke-width:1.5;vector-effect:non-scaling-stroke}
@@ -855,7 +855,7 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .vt-badgrid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px}
 @media (max-width:900px){.vt-badgrid{grid-template-columns:minmax(0,1fr)}}
 .vt-karta svg{overflow:hidden}
-.vt-karta path.vt-omr{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke}
+.vt-karta path.vt-omr{fill:var(--surface);stroke:var(--grans);stroke-width:1;vector-effect:non-scaling-stroke}
 .vt-pt{cursor:pointer}
 .vt-pt circle{stroke:var(--surface);stroke-width:2;vector-effect:non-scaling-stroke}
 .vt-pt circle.vt-alg{fill:none;stroke:var(--second);stroke-width:2.5;stroke-dasharray:3 3}
@@ -1033,7 +1033,7 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 
 /* ===== Sidan Lek, park och återvinning ===== */
 #nm-karta svg{display:block;width:100%;height:auto;touch-action:manipulation;overflow:hidden}
-#nm-karta path.nm-a{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
+#nm-karta path.nm-a{fill:var(--surface);stroke:var(--grans);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
 #nm-karta path.nm-a:hover{fill:var(--accent-soft)}
 #nm-karta path.nm-a-sel{fill:var(--accent-soft)}
 #nm-karta path.seloutline{fill:none;stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;pointer-events:none}
@@ -1045,7 +1045,7 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 .om-legend .nm-lg-toa{background:var(--c3)}.om-legend .nm-lg-pump{background:var(--c2)}
 /* Cykla i Örebro (14 okt 2026) */
 .cy-karta svg{display:block;width:100%;height:auto;touch-action:manipulation;overflow:hidden}
-#cy-karta path.nm-a{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
+#cy-karta path.nm-a{fill:var(--surface);stroke:var(--grans);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
 #cy-karta path.nm-a:hover,#cy-karta path.nm-a-sel{fill:var(--accent-soft)}
 #cy-karta path.seloutline{fill:none;stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;pointer-events:none}
 #cy-karta text.lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round;pointer-events:none}
@@ -1374,7 +1374,7 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .pn-rad .sub{font-size:.85rem;color:var(--ink2)}
 .pn-ndat{font-size:.8rem;font-weight:700;color:var(--ink2)}
 .pn-nytt{margin:18px 0}
-#pn-karta path.pn-a{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
+#pn-karta path.pn-a{fill:var(--surface);stroke:var(--grans);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
 #pn-karta path.pn-a-sel{fill:var(--accent-soft)}
 #pn-karta path.seloutline{fill:none;stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;pointer-events:none}
 #pn-karta .pn-p{stroke-width:1.5;vector-effect:non-scaling-stroke;cursor:pointer;fill-opacity:.45}
@@ -1428,7 +1428,7 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 @media (min-width:1000px){.tema-grid.rest1{grid-template-columns:repeat(6,minmax(0,1fr))}.tema-grid.rest1>.tema{grid-column:span 2}.tema-grid.rest1>.tema:nth-last-child(-n+4){grid-column:span 3}}
 /* Trossamfund (8 okt 2026): filter, karta och lista. Färgerna skiljer traditionerna åt; namnet står alltid i text bredvid. */
 .tf-t0{--tf:var(--c1)}.tf-t1{--tf:var(--c3)}.tf-t2{--tf:var(--c4)}.tf-t3{--tf:var(--c6)}.tf-t4{--tf:var(--c5)}.tf-t5{--tf:var(--c2)}.tf-km{--tf:var(--surface)}
-#tf-karta path.nm-a{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
+#tf-karta path.nm-a{fill:var(--surface);stroke:var(--grans);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
 #tf-karta path.nm-a:hover,#tf-karta path.nm-a-sel{fill:var(--accent-soft)}
 #tf-karta path.seloutline{fill:none;stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;pointer-events:none}
 #tf-karta text.lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round;pointer-events:none}
@@ -1530,3 +1530,10 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .mi-lista li.mi-fler{display:block;border-bottom:0;padding-top:10px}
 @media (max-width:760px){.mi-kort-l{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:420px){.mi-kort-l a{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"typ m" "namn namn" "sub sub"}.mi-kort-typ{padding-top:0}}
+
+/* kartbakgrund i alla kartor: sjöar, åar och större vägar (OpenStreetMap) */
+.kb path{fill:none;vector-effect:non-scaling-stroke;pointer-events:none;stroke-linecap:round;stroke-linejoin:round}
+.kb path.kb-sjo{fill:var(--kb-sjo);stroke:var(--kb-a);stroke-width:.6}
+.kb path.kb-a{stroke:var(--kb-a);stroke-width:2}
+.kb path.kb-v{stroke:var(--kb-v);stroke-width:2.2}
+.kb path.kb-v2{stroke:var(--kb-v);stroke-width:1.2;opacity:.85}
