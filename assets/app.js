@@ -1445,7 +1445,10 @@ function sweref(lat,lon){const a=6378137,f=1/298.257222101,e2=f*(2-f),n=f/(2-f),
   return [k0*ah*N,500000+k0*ah*E]}
 function kzMedd(host,txt){let m=host.querySelector('.kz-medd');if(!m){m=document.createElement('div');m.className='kz-medd';m.setAttribute('role','status');host.appendChild(m)}
   m.textContent=txt;m.hidden=false;clearTimeout(host._kzMt);host._kzMt=setTimeout(()=>{m.hidden=true},7000)}
+const HAR_ENHET=()=>matchMedia('(pointer:coarse)').matches?'din telefon':'din dator';
 async function harHamta(host,knapp){if(!navigator.geolocation)return;knapp.setAttribute('aria-busy','true');knapp.classList.add('kz-vantar');
+  // visas samtidigt som webbläsarens fråga om platsen, så att man vet vad som händer med läget innan man svarar
+  kzMedd(host,`Ditt läge stannar i ${HAR_ENHET()}. Det sparas inte och skickas inte till oss eller någon annan.`);
   try{if(!KB)KB=await(kbLaddar||(kbLaddar=load('bakgrund')))}catch(e){}
   const klar=()=>{knapp.removeAttribute('aria-busy');knapp.classList.remove('kz-vantar')};
   navigator.geolocation.getCurrentPosition(pos=>{klar();const K=KB&&KB.karta;if(!K)return;
@@ -1456,7 +1459,7 @@ async function harHamta(host,knapp){if(!navigator.geolocation)return;knapp.setAt
     const S=host._kzS;if(!S)return;S.synk();const B=S.bas;
     if(x<B[0]||y<B[1]||x>B[0]+B[2]||y>B[1]+B[3]){kzMedd(host,'Du är utanför den här kartans utsnitt. Visa hela kommunen för att se var du är.');return}
     const w=Math.min(B[2],Math.max(B[2]/5,250)),h=w*B[3]/B[2];S.satt_([x-w/2,y-h/2,w,h]);
-    kzMedd(host,'Du är här (blå pricken)'+(pos.coords.accuracy>150?`, ungefär (inom ${Math.round(pos.coords.accuracy/10)*10} m)`:'')+'. Läget sparas inte.')},
+    kzMedd(host,'Du är här (blå pricken)'+(pos.coords.accuracy>150?`, ungefär (inom ${Math.round(pos.coords.accuracy/10)*10} m)`:'')+`. Läget stannar i ${HAR_ENHET()} och sparas inte.`)},
   err=>{klar();kzMedd(host,err&&err.code===1?'Sidan fick inte se var du är. Du kan tillåta det i webbläsarens inställningar för sidan.':'Det gick inte att ta reda på var du är just nu.')},
   {enableHighAccuracy:true,timeout:15000,maximumAge:60000})}
 // kartans enheter per skärmpixel för utsnittet vb: med preserveAspectRatio "meet" styr den sida som räcker först (i stor karta oftast höjden)
