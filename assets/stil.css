@@ -1591,3 +1591,14 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .fo-tro{margin:18px 0 0}
 @media (max-width:760px){.fo-val{grid-template-columns:minmax(0,1fr)}.fo-falt{grid-template-columns:minmax(0,1fr)}.fo-valk{padding:12px 14px}}
 .fo-rensa{padding:6px 12px;font-size:.9rem}
+/* Förstasidan (14 okt 2026): "I vardagen" först med tre kort, sedan "Spela och upptäck" med fem mindre kort i en rad på datorn */
+.utforska + .utforska{padding-top:14px}
+@media (min-width:1000px){
+  .utf-spel{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  .utf-spel .utf{padding:16px;gap:6px}
+  .utf-spel .utf-namn{font-size:1.12rem}
+  .utf-spel .utf-v{font-size:.9rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .utf-spel .utf-text{display:none}
+}
+@media (min-width:601px) and (max-width:999px){.utf-spel{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:601px){.utf-vardag{grid-template-columns:repeat(3,minmax(0,1fr))}}

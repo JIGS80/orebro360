@@ -3037,6 +3037,9 @@ function renderStart(S){
     a.querySelector('.v').textContent=t.v;a.querySelector('.s').textContent=t.s});
   nuRad(S);idagStart(S.idag);
   document.querySelectorAll('[data-utf]').forEach(a=>{const t=(S.utforska||{})[a.dataset.utf];if(!t)return;a.querySelector('.utf-v').textContent=typeof t==='string'?t:utfTyck(t.till||[])});
+  // Mitt Örebro-kortet: har besökaren valt område (bara i webbläsaren) står det namnet i stället
+  {const k=miHamta(),o=k&&(S.omraden||[]).find(r=>r[0]===k),a=document.querySelector('[data-utf="mitt"]');
+    if(a&&o){a.querySelector('.utf-v').textContent=`Ditt område: ${o[1]}`;a.querySelector('.utf-pil').textContent='Se ditt område →'}}
   const rs=$('#mi-remsa');if(!rs)return;
   // Glöm: gatan hör till området och glöms med det (14 okt 2026)
   rs.addEventListener('click',e=>{const b=e.target.closest('button[data-g]');if(!b)return;
