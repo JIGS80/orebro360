@@ -2504,9 +2504,9 @@ function initPlatsen(){
 
 /* ===== Sök på allt (startsidan). Indexet sok.json laddas först när man börjar skriva. ===== */
 let SOK=null,sokLaddar=null,sokAktiv=-1,sokTraffar=[];
-const SOK_TYP={g:'Trossamfund',q:'Plan',j:'Hundlekplats',y:'Lekplats',p:'Park',u:'Utegym',c:'Återvinning',k:'Hållplats',b:'Badplats',w:'Dricksvatten',t:'Ämne',o:'Område',r:'Livsmedel',s:'Skola',f:'Förskola',v:'Vårdcentral',a:'Äldreboende',h:'Hemtjänst',l:'Leverantör',d:'Valdistrikt'};
-const SOK_PRIO={q:3,t:0,o:1,k:5,j:5,y:5,p:4,u:5,c:4,b:2,s:2,v:3,r:4,f:5,w:5,a:6,h:7,d:8,l:9};
-const SOK_LANK={g:r=>'trossamfund.html#plats='+encodeURIComponent(r[3]),q:r=>'planer.html#plan='+encodeURIComponent(r[3]),j:r=>'narmiljo.html#omr='+r[3]+'&t=hund',y:r=>'narmiljo.html#omr='+r[3]+'&t=lek',p:r=>'narmiljo.html#omr='+r[3]+'&t=park',u:r=>'narmiljo.html#omr='+r[3]+'&t=utegym',c:r=>'narmiljo.html#omr='+r[3]+'&t=avs',k:r=>'buss.html#omr='+r[3],b:r=>'vatten.html#bad='+r[3],w:r=>'vatten.html#ort='+encodeURIComponent(r[3]),t:r=>r[3],o:r=>'omrade.html#'+r[3],r:r=>'restauranger.html#v='+r[3],s:r=>'skolor.html#s'+r[3],f:r=>'skolor.html#f'+r[3],
+const SOK_TYP={n:'Förening',g:'Trossamfund',q:'Plan',j:'Hundlekplats',y:'Lekplats',p:'Park',u:'Utegym',c:'Återvinning',k:'Hållplats',b:'Badplats',w:'Dricksvatten',t:'Ämne',o:'Område',r:'Livsmedel',s:'Skola',f:'Förskola',v:'Vårdcentral',a:'Äldreboende',h:'Hemtjänst',l:'Leverantör',d:'Valdistrikt'};
+const SOK_PRIO={n:5,q:3,t:0,o:1,k:5,j:5,y:5,p:4,u:5,c:4,b:2,s:2,v:3,r:4,f:5,w:5,a:6,h:7,d:8,l:9};
+const SOK_LANK={n:r=>'foreningar.html#f='+r[3],g:r=>'trossamfund.html#plats='+encodeURIComponent(r[3]),q:r=>'planer.html#plan='+encodeURIComponent(r[3]),j:r=>'narmiljo.html#omr='+r[3]+'&t=hund',y:r=>'narmiljo.html#omr='+r[3]+'&t=lek',p:r=>'narmiljo.html#omr='+r[3]+'&t=park',u:r=>'narmiljo.html#omr='+r[3]+'&t=utegym',c:r=>'narmiljo.html#omr='+r[3]+'&t=avs',k:r=>'buss.html#omr='+r[3],b:r=>'vatten.html#bad='+r[3],w:r=>'vatten.html#ort='+encodeURIComponent(r[3]),t:r=>r[3],o:r=>'omrade.html#'+r[3],r:r=>'restauranger.html#v='+r[3],s:r=>'skolor.html#s'+r[3],f:r=>'skolor.html#f'+r[3],
   v:r=>'vard.html#vc='+encodeURIComponent(r[1]),a:r=>'vard.html#sabo='+r[3],h:r=>'vard.html#hemtjanst='+r[3],d:r=>'valet.html#vd='+r[3],l:r=>'pengar.html#lev='+encodeURIComponent(r[1])};
 function sokLadda(){if(!sokLaddar)sokLaddar=load('sok').then(d=>{SOK=d.rader.map(r=>({r,n:rkNorm(r[1]),s:rkNorm(r[2])}));return SOK}).catch(e=>{sokLaddar=null;throw e});return sokLaddar}
 function sokSok(q){
@@ -2545,6 +2545,78 @@ function initSok(){
 }
 // en träff som man kommer till via sökningen lyses upp en kort stund
 function traffMarkera(el){if(!el)return;const dt=el.closest('details');if(dt)dt.open=true;el.classList.add('sok-traff');el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>el.classList.remove('sok-traff'),4000)}
+
+/* ===== Föreningar (14 okt 2026): kommunens föreningsregister efter intresse, område och Fritidskortet.
+   Vi visar namn, verksamhet, stadsdel och webbplats, aldrig adress, telefon eller e-post. Området från Mitt Örebro
+   används bara i webbläsaren, och står bara i adressen om man själv väljer det i listan. ===== */
+let FO=null,foVisa=40,foStart='',foHelaAlla=false;const FO_F={g:'',omr:'',q:'',fk:false};let FO_GN={};
+const foNorm=s=>(s||'').toLocaleLowerCase('sv');
+function foGrupp(f,g){return g==='unga'?(f.g.includes('unga')||!!f.fk):f.g.includes(g)}
+function foMatch(f,utanOmr){if(FO_F.g&&!foGrupp(f,FO_F.g))return false;if(FO_F.fk&&!f.fk)return false;
+  if(FO_F.q){if(f._s==null)f._s=foNorm([f.n,f.k||'',...f.v,...(f.s||[])].join(' '));if(!f._s.includes(foNorm(FO_F.q)))return false}
+  if(!utanOmr&&FO_F.omr&&!f.o.includes(FO_F.omr))return false;return true}
+const FO_KAT={'Idrottsföreningar':'Idrottsförening','Idéföreningar':'Idéförening','Kulturföreningar':'Kulturförening','Etniska föreningar':'Etnisk förening','Sociala föreningar':'Social förening','Hembygdsföreningar':'Hembygdsförening','Övriga föreningar':'Förening','Pensionärsorganisationer':'Pensionärsorganisation','Studentföreningar':'Studentförening'};
+function foRad(f){const k=FO_KAT[f.k]||f.k,sd=f.h?'verksam i hela Örebro':f.s?f.s.join(', '):'';
+  const v=f.v.slice(0,6).map(x=>`<li>${esc(x)}</li>`).join('')+(f.v.length>6?`<li class="fo-tag-fler">+${f.v.length-6} till</li>`:'');
+  const lank=f.w?`<a class="akt-knapp" href="${esc(f.w)}" target="_blank" rel="noopener">Föreningens webbplats ↗<span class="sr-only"> (${esc(f.n)}, öppnas i ny flik)</span></a>`
+    :`<a class="akt-knapp" href="${esc(FO.kalla)}" target="_blank" rel="noopener">Sök föreningen i kommunens register ↗<span class="sr-only"> (öppnas i ny flik)</span></a>`;
+  return `<li class="fo-k" id="fo-${f.i}"><h3 class="fo-namn">${esc(f.n)}</h3>${k||sd?`<p class="small fo-meta">${esc([k,sd].filter(Boolean).join(' · '))}</p>`:''}`+
+    `${f.v.length?`<ul class="fo-taggar" aria-label="Verksamhet">${v}</ul>`:''}${f.fk?'<p class="fo-fkm"><span aria-hidden="true">✓</span> Med i Fritidskortet</p>':''}<div class="fo-akt">${lank}</div></li>`}
+function foHash(){try{const q=[];if(FO_F.g)q.push('g='+FO_F.g);if(FO_F.omr)q.push('omr='+FO_F.omr);if(FO_F.fk)q.push('fk=1');
+  history.replaceState(null,'',q.length?'#'+q.join('&'):location.pathname)}catch(e){}}
+function foLista(){const A=FO.foreningar;let L=A.filter(f=>foMatch(f));
+  if(FO_F.g==='unga')L=L.slice().sort((a,b)=>(b.fk||0)-(a.fk||0));
+  $('#fo-lista').innerHTML=L.slice(0,foVisa).map(foRad).join('');
+  const fl=$('#fo-fler');fl.hidden=L.length<=foVisa;fl.textContent=`Visa fler (${fmt(L.length-foVisa)} till)`;
+  const H=FO_F.omr?A.filter(f=>f.h&&foMatch(f,true)):[];
+  $('#fo-hela-wrap').hidden=!H.length;$('#fo-hela').innerHTML=(foHelaAlla?H:H.slice(0,12)).map(foRad).join('');
+  const hf=$('#fo-hela-fler');hf.hidden=foHelaAlla||H.length<=12;hf.textContent=`Visa alla ${fmt(H.length)} som är verksamma i hela Örebro`;
+  $('#fo-tom').hidden=!!(L.length||H.length);
+  const on=FO_F.omr&&OM.omraden.find(o=>o.kod===FO_F.omr),gn=FO_F.g?FO_GN[FO_F.g]:'';
+  $('#fo-lista-h').textContent=on?`Föreningar i ${on.namn}`:(gn||'Alla föreningar');
+  $('#fo-n').textContent=`${fmt(L.length)} ${L.length===1?'förening':'föreningar'}`+(on?` i ${on.namn}`+(H.length?` och ${fmt(H.length)} i hela Örebro`:''):'')+(gn&&on?` · ${gn}`:'')+(FO_F.fk?' · med i Fritidskortet':'');
+  $('#fo-rensa').hidden=!(FO_F.g||FO_F.omr||FO_F.q||FO_F.fk);
+  document.querySelectorAll('#fo-grupper .chip').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.g===FO_F.g)));
+  foHash()}
+function foSatt(k,v){FO_F[k]=v;foVisa=40;foHelaAlla=false;const m={omr:'#fo-omr',q:'#fo-q'}[k];if(m&&$(m).value!==v)$(m).value=v;if(k==='fk')$('#fo-fk').checked=!!v;foLista()}
+function foTips(t){const p=$('#fo-tips');p.hidden=!t;p.innerHTML=t||''}
+function foValj(s){foStart=foStart===s?'':s;document.querySelectorAll('.fo-valk').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.start===foStart)));
+  if(!foStart){foTips('');return}
+  // varje ingång börjar från en tom lista med sitt eget filter
+  Object.assign(FO_F,{g:'',omr:'',q:'',fk:false});$('#fo-q').value='';$('#fo-omr').value='';$('#fo-fk').checked=false;foVisa=40;
+  if(s==='nytt'){foTips('Välj ett intresse här nedanför, eller sök på något du vill prova, till exempel <i>klättring</i>, <i>kör</i> eller <i>schack</i>.');
+    FO_F.fk=false;$('#fo-fk').checked=false;foSatt('g','');const c=document.querySelector('#fo-grupper .chip[data-g="lag"]');if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.focus({preventScroll:true})}}
+  else if(s==='barn'){foSatt('g','unga');
+    foTips('Här är föreningar för barn och unga, och de som är med i <b>Fritidskortet</b> står först. Registret säger inte vilka åldrar en förening tar emot eller om det finns plats, så fråga föreningen. Många idrottsföreningar har också barn- och ungdomslag: titta under <button type="button" class="akt-knapp" data-fo-g="lag">Lagsport</button> och <button type="button" class="akt-knapp" data-fo-g="idrott">Träna och tävla</button>.');
+    $('#g-lista').scrollIntoView({behavior:'smooth',block:'start'})}
+  else if(s==='omrade'){const k=miHamta(),o=k&&OM.omraden.find(x=>x.kod===k);
+    if(o){foSatt('omr',k);foTips(`Föreningar som har angett att de finns i <b>${esc(o.namn)}</b> (ditt område i Mitt Örebro), och under dem de som är verksamma i hela Örebro. Byt område i listan här nedanför.`);$('#g-lista').scrollIntoView({behavior:'smooth',block:'start'})}
+    else{foTips('Välj ditt område i listan här nedanför. Har du valt område i <a href="mitt.html">Mitt Örebro</a> väljs det automatiskt.');$('#fo-omr').focus()}}}
+function initForeningar(){const A=FO.antal;FO_GN=Object.fromEntries(FO.grupper.map(g=>[g[0],g[1]]));
+  $('#fo-lead').textContent=`${fmt(A.visade)} föreningar i Örebro kommun för idrott, musik, natur, kultur och gemenskap. Börja med vad du vill göra, så visar vi föreningarna och länkar till deras egna sidor.`;
+  const tile=(l,v,s)=>`<div class="stat"><span class="label"><span class="lt">${esc(l)}</span></span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
+  $('#fo-kpis').innerHTML=[tile('Föreningar',fmt(A.visade),'i kommunens föreningsregister'),tile('Med stadsdel',fmt(A.omrade),`har angett var de finns, ${fmt(A.hela)} är verksamma i hela Örebro`),
+    tile('Fritidskortet',fmt(A.fritidskort),'föreningar har angett att de är med'),tile('Hämtat',vtDag(FO.uppdaterad),'registret hämtas varje vecka')].join('');
+  $('#fo-grupper').innerHTML=`<button type="button" class="chip" data-g="" aria-pressed="true">Alla</button>`+FO.grupper.filter(g=>g[2]>0).map(([id,n,c])=>`<button type="button" class="chip" data-g="${id}" aria-pressed="false">${esc(n)} <span class="fo-c">${fmt(c)}</span></button>`).join('');
+  $('#fo-omr').insertAdjacentHTML('beforeend',OM.omraden.slice().sort((a,b)=>a.namn.localeCompare(b.namn,'sv')).map(o=>`<option value="${o.kod}">${esc(o.namn)}</option>`).join(''));
+  $('#fo-grupper').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)foSatt('g',b.dataset.g)});
+  $('#fo-omr').addEventListener('change',e=>foSatt('omr',e.target.value));$('#fo-fk').addEventListener('change',e=>foSatt('fk',e.target.checked));
+  let t;$('#fo-q').addEventListener('input',e=>{clearTimeout(t);t=setTimeout(()=>foSatt('q',e.target.value.trim()),150)});
+  const rensa=()=>{Object.assign(FO_F,{g:'',omr:'',q:'',fk:false});$('#fo-q').value='';$('#fo-omr').value='';$('#fo-fk').checked=false;foVisa=40;foStart='';
+    document.querySelectorAll('.fo-valk').forEach(b=>b.setAttribute('aria-pressed','false'));foTips('');foLista()};
+  $('#fo-rensa').addEventListener('click',rensa);$('#fo-tom-rensa').addEventListener('click',rensa);
+  $('#fo-hela-fler').addEventListener('click',()=>{foHelaAlla=true;foLista();const f=$('#fo-hela').children[12];if(f){const a=f.querySelector('a');if(a)a.focus()}});
+  $('#fo-fler').addEventListener('click',()=>{const n=foVisa;foVisa+=60;foLista();const f=$('#fo-lista').children[n];if(f){const a=f.querySelector('a');if(a)a.focus({preventScroll:false})}});
+  document.querySelector('.fo-val').addEventListener('click',e=>{const b=e.target.closest('.fo-valk');if(b)foValj(b.dataset.start)});
+  $('#fo-tips').addEventListener('click',e=>{const b=e.target.closest('[data-fo-g]');if(b){foSatt('g',b.dataset.foG);$('#g-lista').scrollIntoView({behavior:'smooth',block:'start'})}});
+  const h=new URLSearchParams(location.hash.slice(1));
+  if(h.get('g')&&FO_GN[h.get('g')])FO_F.g=h.get('g');
+  if(h.get('omr')&&OM.omraden.some(o=>o.kod===h.get('omr'))){FO_F.omr=h.get('omr');$('#fo-omr').value=FO_F.omr}
+  if(h.get('fk')==='1'){FO_F.fk=true;$('#fo-fk').checked=true}
+  const fid=+h.get('f');
+  if(fid){const i=FO.foreningar.findIndex(f=>f.i===fid);if(i>=0)foVisa=Math.max(40,i+1)}
+  foLista();
+  if(fid)setTimeout(()=>traffMarkera(document.getElementById('fo-'+fid)),50)}
 
 /* ===== Gissa siffran ===== */
 let GI=null,giLista=[],giSvar={},giI=0,giLage='manad';
@@ -3050,6 +3122,9 @@ let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEv
       const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}
       addEventListener('hashchange',()=>{const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}});
     }catch(e){console.error(e);felText('#om-lead','Kunde inte läsa in områdesdatan.')}
+    break;
+  case 'foreningar':
+    try{[OM,FO]=await Promise.all([load('omraden'),load('foreningar')]);initForeningar()}catch(e){console.error(e);felText('#fo-lead','Kunde inte läsa in föreningarna.')}
     break;
   case 'trossamfund':
     try{[OM,TF]=await Promise.all([load('omraden'),load('trossamfund')]);initTrossamfund()}catch(e){console.error(e);felText('#tf-lista','Kunde inte läsa in förteckningen över trossamfund.')}
