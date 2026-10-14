@@ -1040,6 +1040,23 @@ footer.site{margin-top:56px;border-top:1px solid var(--line);padding-block:28px 
 #nm-karta circle.nm-pt{stroke:var(--surface);stroke-width:1.2;vector-effect:non-scaling-stroke;cursor:pointer}
 .nm-pt-lek{fill:var(--c5)}.nm-pt-park{fill:var(--c1)}.nm-pt-utegym{fill:var(--c3)}.nm-pt-hund{fill:var(--c2)}.nm-pt-avs{fill:var(--ink2)}.nm-pt-avc{fill:var(--c4)}
 #nm-karta circle.nm-pt-tg{fill:var(--c6)}
+.nm-pt-toa{fill:var(--c3)}.nm-pt-pump{fill:var(--c2)}
+.om-legend .nm-lg-toa{background:var(--c3)}.om-legend .nm-lg-pump{background:var(--c2)}
+/* Cykla i Örebro (14 okt 2026) */
+.cy-karta svg{display:block;width:100%;height:auto;touch-action:manipulation;overflow:hidden}
+#cy-karta path.nm-a{fill:var(--surface);stroke:var(--mark-gray);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
+#cy-karta path.nm-a:hover,#cy-karta path.nm-a-sel{fill:var(--accent-soft)}
+#cy-karta path.seloutline{fill:none;stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;pointer-events:none}
+#cy-karta text.lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round;pointer-events:none}
+.cy-karta path.cy-salt{fill:none;stroke:var(--c3);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;pointer-events:none}
+.cy-karta path.cy-strak{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;pointer-events:none}
+.cy-karta path.cy-pl{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:4 4;opacity:.75;vector-effect:non-scaling-stroke;pointer-events:none}
+.cy-karta path.cy-hit{fill:none;stroke:transparent;stroke-width:14;vector-effect:non-scaling-stroke;cursor:pointer;pointer-events:stroke}
+.cy-karta circle.cy-pump{fill:var(--c2);stroke:var(--surface);stroke-width:1.2;vector-effect:non-scaling-stroke;cursor:pointer}
+.cy-lager .chip{display:inline-flex;align-items:center;gap:7px}
+.cy-lg{display:inline-block;width:16px;height:4px;border-radius:2px}
+.cy-lg-salt{background:var(--c3);height:5px}.cy-lg-strak{background:var(--accent)}.cy-lg-pl{background:repeating-linear-gradient(90deg,var(--accent) 0 4px,transparent 4px 7px)}.cy-lg-pump{width:10px;height:10px;border-radius:50%;background:var(--c2)}
+.cy-lager .chip[aria-pressed="false"] .cy-lg{opacity:.4}
 #nm-karta circle.nm-pt-st{stroke:var(--ink);stroke-width:2.5}
 .om-legend .nm-lg-lek{background:var(--c5)}.om-legend .nm-lg-park{background:var(--c1)}.om-legend .nm-lg-utegym{background:var(--c3)}.om-legend .nm-lg-hund{background:var(--c2)}.om-legend .nm-lg-avs{background:var(--ink2)}.om-legend .nm-lg-avc{background:var(--c4)}.om-legend .nm-lg-tg{background:var(--c6)}
 .om-legend .nm-lg-st{background:var(--surface);box-shadow:inset 0 0 0 2px var(--ink)}

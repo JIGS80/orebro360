@@ -1414,7 +1414,7 @@ function kartZoom(host,svg){
    Den stora kartan stängs bara med Stäng, Esc, bakåt eller kortets knapp (då visas det man valde på sidan). */
 let kzOppen=null;
 function kzStorText(host,b){const pa=host.classList.contains('kz-full');b.innerHTML=pa?'<span class="kz-x" aria-hidden="true">✕</span>Stäng':'<span class="kz-ram" aria-hidden="true"></span>Stor karta';b.setAttribute('aria-label',pa?'Stäng den stora kartan':'Visa kartan på hela skärmen');b.setAttribute('aria-pressed',pa)}
-function kzRitaOm(host){try{const f={'nm-karta':nmKarta,'pn-karta':pnKarta,'tf-karta':tfKarta,'bu-karta':buKarta}[host.id];if(f)f();else(RITA[SIDA]||(()=>{}))()}catch(e){console.error(e)}}
+function kzRitaOm(host){try{const f={'nm-karta':nmKarta,'pn-karta':pnKarta,'tf-karta':tfKarta,'bu-karta':buKarta,'cy-karta':cyKarta}[host.id];if(f)f();else(RITA[SIDA]||(()=>{}))()}catch(e){console.error(e)}}
 function kzStor(host,pa,auto){
   if(pa===host.classList.contains('kz-full'))return;
   if(pa){if(kzOppen&&kzOppen!==host)kzStor(kzOppen,false,true);
@@ -1498,13 +1498,14 @@ document.addEventListener('click',e=>{
     if(SIDA==='mitt'){miKarta();host=$('#mi-karta')}
     else if(SIDA==='buss'){if(!iVb(omBox.stad,x,y))buSattZoom('hela');buKarta();host=$('#bu-karta')}
     else if(SIDA==='narmiljo'){if(!iVb(omBox.stad,x,y))nmSattZoom('hela');nmKarta();host=$('#nm-karta')}
+    else if(SIDA==='cykla'){if(!iVb(omBox.stad,x,y))cySattZoom('hela');cyKarta();host=$('#cy-karta')}
     else if(SIDA==='trossamfund'){if(!iVb(omBox.stad,x,y))tfSattZoom('hela');tfKarta();host=$('#tf-karta')}
     if(host)host.scrollIntoView({behavior:'smooth',block:'center'});return}
-  const o=e.target.closest('[data-valj-omr]');if(o&&SIDA==='narmiljo'){nmValj(o.dataset.valjOmr)}});
+  const o=e.target.closest('[data-valj-omr]');if(o&&SIDA==='narmiljo'){nmValj(o.dataset.valjOmr)}if(o&&SIDA==='cykla'){cyValj(o.dataset.valjOmr)}});
 
 /* ===== Lek, park och återvinning nära dig (Örebro kommuns webbkarta) ===== */
 let NM=null;
-const NM_ORD={lek:'Lekplats',park:'Park',avs:'Återvinningsstation',avc:'Återvinningscentral',utegym:'Utegym',hund:'Hundlekplats'};
+const NM_ORD={lek:'Lekplats',park:'Park',avs:'Återvinningsstation',avc:'Återvinningscentral',utegym:'Utegym',hund:'Hundlekplats',toa:'Toalett',pump:'Cykelpump'};
 const nmNamn=(t,q)=>q.n||NM_ORD[t==='lek_t'?'lek':t];
 const nmDag=d=>{const p=(d||'').split('-');return p.length===3?`${+p[2]} ${['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december'][+p[1]-1]} ${p[0]}`:''};
 const nmAntal=(n,en,fl)=>n===0?'inga '+fl:n===1?'en '+en:fmt(n)+' '+fl;
@@ -1517,13 +1518,85 @@ function nmRader(nm,iOmr){   // raderna för "Lek och park" och "Återvinning" f
     +rad('park',nm.park,['närmaste stadsdelsparken',dar(nm.park)].filter(Boolean).join(' · '))
     +rad('utegym',nm.utegym,['närmaste utegymmet, öppet dygnet runt',dar(nm.utegym)].filter(Boolean).join(' · '))
     +rad('hund',nm.hund,['närmaste hundlekplatsen, inhägnad',dar(nm.hund)].filter(Boolean).join(' · '));
-  if(langt.length){const ord={lek_t:'tillgänglighetsanpassad lekplats',park:'stadsdelspark',utegym:'utegym',hund:'hundlekplats'};const l=langt.map(t=>ord[t]);
+  if(langt.length){const ord={lek_t:'tillgänglighetsanpassad lekplats',park:'stadsdelspark',utegym:'utegym',hund:'hundlekplats',toa:'toalett',pump:'cykelpump'};const l=langt.map(t=>ord[t]);
     lek+=`<li class="mi-bu-not"><span class="sub">Närmaste ${l.length>1?l.slice(0,-1).join(', ')+' och '+l[l.length-1]:l[0]} ligger mer än 5 km bort, i staden.</span></li>`}
   const av=nm.avs;let atv='';
   if(av){const avEndast=/endast/i.test(av.a||''),avPlats=(av.a||'').replace(/\s*\(endast[^)]*\)/i,'').trim();
     atv+=rad('avs',{...av,n:'Återvinningsstation'+(avPlats?(/^(vid|nära) /.test(avPlats)?' ':', ')+avPlats:'')},[avEndast?'närmaste återvinningsstationen, bara glas och batterier':'närmaste återvinningsstationen: förpackningar, tidningar, batterier och textil, dygnet runt',av.i?iOmr:''].filter(Boolean).join(' · '))}
   if(nm.avc)atv+=rad('avc',nm.avc,['närmaste återvinningscentralen: grovsopor, trädgårdsavfall, elavfall och farligt avfall',nm.avc.i?iOmr:''].filter(Boolean).join(' · '));
-  return {lek,atv}}
+  // toalett och cykelpump: visas alltid, även långt bort, med avståndet
+  const rad2=(q,namn,txt)=>q?`<li><span class="mi-bt"><b>${esc(namn)}</b><span class="sub">${esc(txt)}</span></span><span class="mi-avst">${esc(meter(q.m))}</span>${platsAkt(q.x,q.y,namn)}</li>`:'';
+  const prakt=rad2(nm.toa,nm.toa?'Toalett, '+nm.toa.n:'',['närmaste offentliga toaletten',nm.toa&&nm.toa.a?nm.toa.a.toLowerCase():'',nm.toa&&nm.toa.i?iOmr:''].filter(Boolean).join(' · '))
+    +rad2(nm.pump,nm.pump?'Cykelpump'+(nm.pump.a?', '+nm.pump.a:''):'',['närmaste cykelpumpen',nm.pump&&nm.pump.i?iOmr:''].filter(Boolean).join(' · '));
+  return {lek,atv,prakt}}
+/* ===== Cykla i Örebro (kommunens webbkarta: huvudcykelstråk, sopsaltade cykelleder, cykelpumpar), 14 okt 2026 ===== */
+let CY=null;
+// närmaste punkt på en samling linjer (kartans 10 m-rutor) från f = {x,y}: {m (meter), x, y, i (linjens index)}
+function cyNarmast(L,f,pts=l=>l){let b=null;L.forEach((l,i)=>{const P=pts(l);for(let j=1;j<P.length;j++){const [x1,y1]=P[j-1],[x2,y2]=P[j],dx=x2-x1,dy=y2-y1;
+  const t=Math.max(0,Math.min(1,((f.x-x1)*dx+(f.y-y1)*dy)/(dx*dx+dy*dy||1))),x=x1+t*dx,y=y1+t*dy,d=Math.hypot(f.x-x,f.y-y);if(!b||d<b.d)b={d,x,y,i}}});
+  return b?{m:Math.round(b.d)*10,x:Math.round(b.x),y:Math.round(b.y),i:b.i}:null}
+// raderna för cykel och toalett från en punkt (områdets centrum eller din gata); dar = text för "i området"
+function cyRader(f,k,dar){const R=[],nm=NM&&NM.platser,xy=p=>[p[4],p[5]];
+  if(CY){const s=cyNarmast(CY.salt,f,l=>l[1]);if(s)R.push(miRad('Sopsaltad cykelled',s.m<=30?'du är nära en led som sopsaltas på vintern':'närmaste cykelleden som sopsaltas på vintern',s.m,s.x,s.y));
+    const h=cyNarmast(CY.strak,f,l=>l[2]);if(h){const n=CY.strak[h.i][0];R.push(miRad(n||'Huvudcykelstråk','närmaste huvudcykelstråket',h.m,h.x,h.y))}}
+  if(nm){const pu=miNarmast(nm.filter(p=>p[0]==='pump'),f,1,xy)[0];if(pu)R.push(miRad(nmPNamn(pu.p),['närmaste cykelpumpen',pu.p[3]===k?dar:''].filter(Boolean).join(' · '),pu.m,pu.p[4],pu.p[5]));
+    const t=miNarmast(nm.filter(p=>p[0]==='toa'),f,1,xy)[0];if(t)R.push(miRad(nmPNamn(t.p),['närmaste offentliga toaletten',t.p[2]?t.p[2].toLowerCase():'',t.p[3]===k?dar:''].filter(Boolean).join(' · '),t.m,t.p[4],t.p[5]))}
+  return R.join('')}
+function miCykel(k){const box=$('#mi-cy');if(!box)return;const f=miFran(k);box.hidden=!(f&&(CY||NM));if(box.hidden)return;
+  $('#mi-cy-l').innerHTML=cyRader(f,k,'i ditt område');
+  $('#mi-cy-src').innerHTML=`${CY?`Kommunen sopsaltar ${fmt(CY.km.salt,1)} km cykelleder och har ${fmt(CY.antal.pump)} cykelpumpar. `:''}${NM?`Kommunens ${fmt(NM.kommun.toa||0)} offentliga toaletter finns med; toaletter i butiker och köpcentrum finns inte i kommunens karta. `:''}<a href="cykla.html#omr=${k}">Cykelkartan</a> · <a href="narmiljo.html#omr=${k}&t=toa">Toaletterna på kartan</a>`}
+let cySel=null,cyZoom='stad';const cyVisa={salt:true,strak:true,pl:false,pump:true};
+function cySattZoom(z){cyZoom=z;document.querySelectorAll('#cy-zoom .chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.z===z))}
+function cyKarta(){const host=$('#cy-karta');if(!host||!CY)return;const W=OM.karta.w,H=OM.karta.h;const vb=cyZoom==='stad'?omBox.stad:[0,0,W,H];
+  host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över Örebro med huvudcykelstråk, cykelleder som sopsaltas och cykelpumpar'},host);kartZoom(host,svg);
+  const tp=tip(host);const sc=vb[2]/Math.max(280,svg.getBoundingClientRect().width||host.clientWidth||600);
+  const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
+  const ut=()=>{if(tipFri(tp))tp.hidden=true};
+  OM.omraden.forEach(o=>{const p=el('path',{d:o.svg,class:'nm-a'+(o.kod===cySel?' nm-a-sel':''),'fill-rule':'evenodd'},svg);
+    p.addEventListener('mousemove',e=>show(e,`<b>${esc(o.namn)}</b>`));p.addEventListener('mouseleave',ut);p.addEventListener('click',()=>{tp.hidden=true;cyValj(o.kod)})});
+  const s=OM.omraden.find(o=>o.kod===cySel);if(s)el('path',{d:s.svg,class:'seloutline','fill-rule':'evenodd'},svg);
+  const d=P=>'M'+P.map(q=>q[0]+' '+q[1]).join('L');
+  const linje=(P,kl,kort,tips)=>{const g=el('g',{class:'cy-l'},svg);el('path',{d:d(P),class:kl},g);const hit=el('path',{d:d(P),class:'cy-hit'},g);
+    hit.addEventListener('mousemove',e=>show(e,tips));hit.addEventListener('mouseleave',ut);hit.addEventListener('click',e=>kortVisa(host,tp,e,kort))};
+  if(cyVisa.pl)CY.strak_pl.forEach(([n,m,P])=>linje(P,'cy-pl',`<b>${esc(n||'Planerat huvudcykelstråk')}</b><br>planerat huvudcykelstråk`,`<b>${esc(n||'Planerat stråk')}</b><br>planerat`));
+  if(cyVisa.salt)CY.salt.forEach(([m,P])=>linje(P,'cy-salt','<b>Cykelled som sopsaltas</b><br>sopas och saltas på vintern','<b>Sopsaltas</b>'));
+  if(cyVisa.strak)CY.strak.forEach(([n,m,P])=>linje(P,'cy-strak',`<b>${esc(n||'Huvudcykelstråk')}</b><br>huvudcykelstråk`,`<b>${esc(n||'Huvudcykelstråk')}</b>`));
+  if(cyVisa.pump)CY.pump.forEach(([a,o,x,y])=>{const c=el('circle',{cx:x,cy:y,r:4.6*sc,class:'cy-pump'},svg);const n='Cykelpump'+(a?', '+a:'');
+    c.addEventListener('mousemove',e=>show(e,`<b>${esc(n)}</b>`));c.addEventListener('mouseleave',ut);
+    c.addEventListener('click',e=>kortVisa(host,tp,e,`<b>${esc(n)}</b><br>${esc(nmOnamn(o))}<br>${hittaLank(x,y)}`))});
+  if(s){const t=el('text',{x:s.lx,y:s.ly-9*sc,'text-anchor':'middle',class:'lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=s.namn}
+  fokusRita(svg,sc)}
+function cyValt(){const o=OM.omraden.find(x=>x.kod===cySel),c=o&&CY.omraden[o.kod];
+  if(!c){$('#cy-namn').textContent='Välj ett område';$('#cy-sum').textContent='Klicka på kartan.';$('#cy-valt').innerHTML='';$('#cy-mitt').innerHTML='';return}
+  const g=gataHamta(),gata=g&&g.k===o.kod?g:null,f=gata?{x:gata.x,y:gata.y,gata:gata.n}:{x:c.cx,y:c.cy};
+  $('#cy-valt-l').textContent=gata?'Från din gata':'Valt område';$('#cy-namn').textContent=gata?gata.n:o.namn;
+  $('#cy-sum').textContent=(gata?o.namn+' · ':'')+(c.pump_i?`${nmAntal(c.pump_i,'cykelpump','cykelpumpar')} i området`:'ingen cykelpump i området')+` · avstånden är fågelvägen från ${gata?'gatan':'områdets centrum'}`;
+  $('#cy-valt').innerHTML=cyRader(f,o.kod,'i området');
+  $('#cy-mitt').innerHTML=miHamta()===o.kod?`${miTag('Ditt område')} <a href="mitt.html">Se allt om ditt område i Mitt Örebro</a>`:`<a href="mitt.html#${o.kod}">Se allt om ${esc(o.namn)} i Mitt Örebro</a>`}
+function cyValj(k,rulla){FOKUS=null;cySel=k;try{history.replaceState(null,'','#omr='+k)}catch(e){}cyKarta();cyValt();
+  if(rulla!==false&&matchMedia('(max-width:900px)').matches)$('#cy-namn').scrollIntoView({behavior:'smooth',block:'center'})}
+function initCykla(){OM.omraden.forEach(o=>o._box=pathBox(o.svg));omStad();
+  const km=v=>fmt(v,1)+' km',K=CY.km,A=CY.antal;
+  $('#cy-lead').textContent=`Örebro kommun sopsaltar ${km(K.salt)} cykelleder på vintern och har ${km(K.strak)} huvudcykelstråk och ${fmt(A.pump)} publika cykelpumpar. Se vad som ligger närmast där du bor.`;
+  const tile=(l,v,s_)=>`<div class="stat"><span class="label"><span class="lt">${esc(l)}</span></span><span class="v num">${v}</span><span class="s">${esc(s_)}</span></div>`;
+  $('#cy-kpis').innerHTML=[tile('Sopsaltas',km(K.salt),'cykelleder som sopas och saltas på vintern'),tile('Huvudcykelstråk',km(K.strak),`${fmt(A.strak)} namngivna leder; ${km(K.strak_pl)} planeras`),
+    tile('Cykelpumpar',fmt(A.pump),'publika pumpar som kommunen sköter'),tile('Cykelräknare',fmt(A.raknare),'räknar cyklister, men siffrorna är inte öppna')].join('');
+  $('#cy-rak-n').textContent=fmt(A.raknare);
+  // stråken: samma namn kan ha flera delar
+  const st={};CY.strak.forEach(([n,m])=>{if(n)st[n]=(st[n]||0)+m});
+  const SR=Object.entries(st).sort((a,b)=>b[1]-a[1]);
+  $('#cy-strak-n').textContent=`${SR.length} leder`;
+  $('#cy-strak').innerHTML=SR.map(([n,m])=>{const l=CY.strak.filter(x=>x[0]===n).sort((a,b)=>b[1]-a[1])[0][2],mid=l[Math.floor(l.length/2)];
+    return `<li><span class="mi-bt"><b>${esc(n)}</b><span class="sub">huvudcykelstråk</span></span><span class="mi-avst">${esc(km(m/1000))}</span><span class="mi-akt"><button type="button" class="akt-knapp" data-visa="${Math.round(mid[0])},${Math.round(mid[1])}" data-n="${esc(n)}">Visa på karta</button></span></li>`}).join('');
+  const PU=CY.pump.slice().sort((a,b)=>nmOnamn(a[1]).localeCompare(nmOnamn(b[1]),'sv')||a[0].localeCompare(b[0],'sv'));
+  $('#cy-pump-n').textContent=`${fmt(PU.length)} st`;
+  $('#cy-pump').innerHTML=PU.map(([a,o,x,y])=>`<li><span class="mi-bt"><b>${esc(a||'Cykelpump')}</b><span class="sub">${esc(nmOnamn(o))}</span></span>${platsAkt(x,y,'Cykelpump'+(a?', '+a:''))}</li>`).join('');
+  miKorta($('#cy-pump'),6);
+  $('#cy-zoom').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;cySattZoom(b.dataset.z);cyKarta()});
+  $('#cy-lager').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;const l=b.dataset.l;cyVisa[l]=!cyVisa[l];b.setAttribute('aria-pressed',cyVisa[l]);cyKarta()});
+  const h=hashKod(),m=/omr=(1880R\d{3})/.exec(h),g=gataHamta();cySel=m&&CY.omraden[m[1]]?m[1]:(miHamta()&&CY.omraden[miHamta()]?miHamta():null);
+  cyKarta();cyValt();
+  addEventListener('hashchange',()=>{const m2=/omr=(1880R\d{3})/.exec(hashKod());if(m2&&m2[1]!==cySel&&CY.omraden[m2[1]])cyValj(m2[1],false)})}
 function miNarmiljo(k){const box=$('#mi-nm');const nm=NM&&NM.omraden[k];box.hidden=!nm;if(!nm)return;
   const a=nm.antal,f=miFran(k),g=f&&f.gata?miNmGata(k,f):null,r=g||nmRader(nm,'i ditt område'),l5=g?g.lek500:nm.lek500;
   $('#mi-lek-sum').textContent=`I området finns ${nmAntal(a.lek,'kommunal lekplats','kommunala lekplatser')} och ${nmAntal(a.park,'av kommunens stadsdelsparker','av kommunens stadsdelsparker')}. ${l5===0?'Ingen lekplats ligger':l5===1?'En lekplats ligger':fmt(l5)+' lekplatser ligger'} inom 500 meter från ${g?esc(f.gata):'områdets centrum'}.`;
@@ -1536,10 +1609,10 @@ function miNarmiljo(k){const box=$('#mi-nm');const nm=NM&&NM.omraden[k];box.hidd
 
 /* ===== Sidan Lek, park och återvinning ===== */
 let nmSel=null,nmZoom='stad',nmTyp='lek',nmSort={k:'lek_per1000',dir:-1};
-const NM_TYP={lek:['Lekplatser','lekplats'],park:['Parker','park'],utegym:['Utegym','utegym'],hund:['Hundlekplatser','hundlekplats'],avs:['Återvinningsstationer och återvinningscentraler','återvinning']};
+const NM_TYP={lek:['Lekplatser','lekplats'],park:['Parker','park'],utegym:['Utegym','utegym'],hund:['Hundlekplatser','hundlekplats'],avs:['Återvinningsstationer och återvinningscentraler','återvinning'],toa:['Offentliga toaletter','toalett'],pump:['Cykelpumpar','cykelpump']};
 const nmOnamn=k=>(OM.omraden.find(o=>o.kod===k)||{}).namn||'';
 function nmPlatser(t){return NM.platser.filter(p=>t==='avs'?(p[0]==='avs'||p[0]==='avc'):p[0]===t)}
-function nmPNamn(p){if(p[0]==='avs'){const a=(p[2]||'').replace(/\s*\(endast[^)]*\)/i,'').trim();return 'Återvinningsstation'+(a?(/^(vid|nära) /.test(a)?' ':', ')+a:'')}return p[1]||(NM_ORD[p[0]]+(p[2]&&/^(vid|nära) /.test(p[2])?' '+p[2]:''))}
+function nmPNamn(p){if(p[0]==='toa')return 'Toalett, '+p[1];if(p[0]==='pump')return 'Cykelpump'+(p[2]?', '+p[2]:'');if(p[0]==='avs'){const a=(p[2]||'').replace(/\s*\(endast[^)]*\)/i,'').trim();return 'Återvinningsstation'+(a?(/^(vid|nära) /.test(a)?' ':', ')+a:'')}return p[1]||(NM_ORD[p[0]]+(p[2]&&/^(vid|nära) /.test(p[2])?' '+p[2]:''))}
 function nmHash(){const h=hashKod(),q=new URLSearchParams(h.replace(/&amp;/g,'&'));return {omr:q.get('omr'),t:q.get('t')}}
 function nmKarta(){
   const host=$('#nm-karta');const W=OM.karta.w,H=OM.karta.h;const vb=nmZoom==='stad'?omBox.stad:[0,0,W,H];
@@ -1570,7 +1643,7 @@ function nmValt(){
   const a=nm.antal,r=nmRader(nm,'i området');
   $('#nm-namn').textContent=o.namn;
   $('#nm-sum').textContent=`${nmAntal(a.lek,'kommunal lekplats','kommunala lekplatser')}${nm.lek_per1000!=null?` (${fmt(nm.lek_per1000,1)} per 1 000 barn 0–9 år)`:''} · ${nmAntal(a.park,'stadsdelspark','stadsdelsparker')} · ${nmAntal(a.avs,'återvinningsstation','återvinningsstationer')}`;
-  $('#nm-valt').innerHTML=r.lek+r.atv;
+  $('#nm-valt').innerHTML=r.lek+r.atv+r.prakt;
   $('#nm-mitt').innerHTML=miHamta()===o.kod?`${miTag('Ditt område')} <a href="mitt.html">Se allt om ditt område i Mitt Örebro</a>`:`<a href="mitt.html#${o.kod}">Se allt om ${esc(o.namn)} i Mitt Örebro</a>`;
 }
 const NM_KOL=[['namn','Område',1],['lek','Lekplatser'],['lek_per1000','Per 1 000 barn'],['m_lek','Närmaste lekplats'],['m_park','Närmaste park'],['avs','Återvinnings­stationer'],['m_avs','Närmaste återvinning']];
@@ -2085,7 +2158,7 @@ function renderMitt(){
     $('#mi-val').innerHTML=`<div class="pbar small" style="color:var(--muted)"><span></span><span></span><span class="v">Område</span><span class="v d">Kommun</span></div>`+rows.map(r=>`<div class="pbar" title="${esc(r.n)}: ${fmt(r.v,1)} % i området, ${r.kk!=null?fmt(r.kk,1):'–'} % i hela kommunen"><span><span class="lng">${esc(r.n)}</span><span class="krt">${esc(r.k)}</span></span><span class="tr"><span class="f" style="width:${r.v/mx*100}%;background:${r.f}"></span>${r.kk!=null?`<span class="k" style="left:${r.kk/mx*100}%"></span>`:''}</span><span class="v">${fmt(r.v,1)}</span><span class="v d">${r.kk!=null?fmt(r.kk,1):'–'}</span></div>`).join('');
   }else{$('#mi-val-sum').textContent='Inget valdistrikt ligger huvudsakligen i det här området, så vi kan inte visa hur det röstade.';$('#mi-val').innerHTML=''}
   // badplatser
-  miBuss(o.kod);miPlaner(o.kod);miNarmiljo(o.kod);miTro(o.kod);
+  miBuss(o.kod);miPlaner(o.kod);miNarmiljo(o.kod);miCykel(o.kod);miTro(o.kod);
   const bad=G?miNarmast(GATA.bad,f,2,b=>[b[2],b[3]]).map(({p:b,m:mm})=>({id:b[0],n:b[1],x:b[2],y:b[3],prov:b[4],klass:b[5],varning:b[6],_m:mm})):(m.bad||[]);$('#mi-bad-p').hidden=!bad.length;
   $('#mi-bad').innerHTML=bad.map(b=>{const [c,t]=vtBed(b.prov?.[1]);return `<li><a href="vatten.html#bad=${esc(b.id)}"><b>${esc(b.n)}</b><span class="sub">${b.prov?`Senaste prov ${vtDag(b.prov[0])}: ${esc(t.toLowerCase())}`:'Inga prov'}${b.klass?` · ${esc(b.klass[1].toLowerCase())} ${b.klass[0]}`:''}${b.varning?' · varning för algblomning':''}</span></a><span class="mi-avst">${esc(b._m!=null?meter(b._m):miAvst(b))}</span>${platsAkt(b.x,b.y,b.n)}</li>`}).join('');
   // varifrån avstånden räknas, i korthet, nytt sedan sist och kortare listor
@@ -2459,7 +2532,7 @@ function initGissa(){
 }
 
 /* ===== Delbara bildkort: en bild (1080 × 1080) med siffran, Örebro360 och länken, ritad i webbläsaren ===== */
-const DELA_KALLA={vatten:'Havs- och vattenmyndigheten, Örebro kommun och SMHI',befolkning:'SCB',restauranger:'Örebro kommun',skolor:'Skolverket och Kolada',vard:'1177 och Kolada',vader:'SMHI',valet:'Valmyndigheten',pengar:'Örebro kommun',
+const DELA_KALLA={cykla:'Örebro kommuns webbkarta',narmiljo:'Örebro kommuns webbkarta',vatten:'Havs- och vattenmyndigheten, Örebro kommun och SMHI',befolkning:'SCB',restauranger:'Örebro kommun',skolor:'Skolverket och Kolada',vard:'1177 och Kolada',vader:'SMHI',valet:'Valmyndigheten',pengar:'Örebro kommun',
   handel:'Kolada och SCB',jamfor:'Kolada',omrade:'SCB och Valmyndigheten',mitt:'SCB, Örebro kommun, Skolverket och 1177',skatt:'Kolada',hundra:'SCB och Valmyndigheten',manaden:'SCB, SMHI, Örebro kommun och 1177'};
 const DELA_DOMAN=location.hostname.endsWith('github.io')?location.hostname+'/orebro360':'orebro360.se';
 function delaUrl(lank){try{return new URL(lank||location.pathname.split('/').pop()||'index.html',location.href).href}catch(e){return lank}}
@@ -2701,7 +2774,7 @@ const RITA={
   vader:()=>{if(VE){renderVeStripes();renderVeCharts()}},
   vard:()=>{if(VA){renderVaVC();vaCmp('va-r',VA.region,vaR,VA.regioner,'0018');vaCmp('va-k',VA.kommun,vaK,VA.kommuner,'1880')}},
   skolor:()=>{if(SK){renderSkCmp();if(skF!=='fo')renderSkCharts();renderSkTable()}},
-  restauranger:()=>RK&&renderRkMap(), mitt:()=>OM&&MI&&miKarta(), vatten:()=>{if(VT){vtKarta();vtSvartan()}}
+  restauranger:()=>RK&&renderRkMap(),cykla:()=>CY&&OM&&cyKarta(), mitt:()=>OM&&MI&&miKarta(), vatten:()=>{if(VT){vtKarta();vtSvartan()}}
 };
 addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{(RITA[SIDA]||(()=>{}))()},200)});
 const felText=(sel,t)=>{const e=$(sel);if(e)e.textContent=t};
@@ -2819,7 +2892,10 @@ let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEv
     try{[GI,OM]=await Promise.all([load('gissa'),miHamta()?load('omraden').catch(()=>null):null]);initGissa()}catch(e){console.error(e);felText('#gi-kort','Kunde inte läsa in frågorna. Ladda om sidan.')}
     break;
   case 'mitt':
-    try{[OM,MI,VAL,KT,NM]=await Promise.all([load('omraden'),load('mitt'),load('val').catch(()=>null),load('kollektiv').catch(()=>null),load('narmiljo').catch(()=>null)]);PN=await load('planer').catch(()=>null);TF=await load('trossamfund').catch(()=>null);ktTillOm();initMitt()}catch(e){console.error(e);felText('#mi-karta','Kunde inte läsa in datan för Mitt Örebro. Ladda om sidan.')}
+    try{[OM,MI,VAL,KT,NM,CY]=await Promise.all([load('omraden'),load('mitt'),load('val').catch(()=>null),load('kollektiv').catch(()=>null),load('narmiljo').catch(()=>null),load('cykel').catch(()=>null)]);PN=await load('planer').catch(()=>null);TF=await load('trossamfund').catch(()=>null);ktTillOm();initMitt()}catch(e){console.error(e);felText('#mi-karta','Kunde inte läsa in datan för Mitt Örebro. Ladda om sidan.')}
+    break;
+  case 'cykla':
+    try{[OM,CY,NM]=await Promise.all([load('omraden'),load('cykel'),load('narmiljo').catch(()=>null)]);initCykla()}catch(e){console.error(e);felText('#cy-lead','Kunde inte läsa in cykeldatan.')}
     break;
   case 'narmiljo':
     try{[OM,NM]=await Promise.all([load('omraden'),load('narmiljo')]);initNarmiljo()}catch(e){console.error(e);felText('#nm-lead','Kunde inte läsa in datan om lekplatser och återvinning.')}
