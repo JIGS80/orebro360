@@ -1783,3 +1783,27 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .meny a.mitt-lank[aria-current="page"].har-val::after{background:#fff}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .meny a.mitt-lank[aria-current="page"]{color:var(--bg)}:root:not([data-theme="light"]) .meny a.mitt-lank[aria-current="page"].har-val::after{background:var(--bg)}}
 :root[data-theme="dark"] .meny a.mitt-lank[aria-current="page"]{color:var(--bg)}:root[data-theme="dark"] .meny a.mitt-lank[aria-current="page"].har-val::after{background:var(--bg)}
+
+/* Toppen på mobilen (15 okt 2026): ingen flikrad; loggan, Mitt Örebro och Meny ▾ som öppnar listan med alla ämnen. På datorn som förut, men knappen heter Alla ämnen ▾ */
+.mitt-knapp{display:none}
+.aa-txt-k{display:none}
+.aa-pil{width:12px!important;height:12px!important;margin-left:-1px;transition:transform .15s}
+.aa-knapp[aria-expanded="true"] .aa-pil{transform:rotate(180deg)}
+.aa-omr{font-weight:500;color:var(--ink2);font-size:.88em}
+@media (max-width:760px){
+  .site-rad{flex-wrap:nowrap;gap:8px;padding-block:10px}
+  .meny-ram{display:none}
+  .mitt-knapp{display:inline-flex;align-items:center;order:1;flex:none;min-height:36px;padding:5px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent-text);font:600 .86rem var(--f-body);text-decoration:none;white-space:nowrap}
+  .mitt-knapp:hover{background:color-mix(in srgb,var(--accent) 24%,var(--surface));color:var(--ink)}
+  .mitt-knapp:focus-visible,.aa-knapp:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .mitt-knapp[aria-current="page"]{background:var(--accent);color:#fff}
+  .mitt-knapp.har-val::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);margin-left:6px}
+  .mitt-knapp[aria-current="page"].har-val::after{background:#fff}
+  .aa-knapp{order:2;min-height:36px;background:var(--surface);color:var(--ink);border-color:var(--line)}
+  .aa-knapp:hover,.aa-knapp[aria-expanded="true"]{filter:none;background:var(--accent-soft);border-color:var(--accent)}
+  .aa-txt-l{display:none}.aa-txt-k{display:inline}
+}
+@media (max-width:760px) and (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mitt-knapp[aria-current="page"]{color:var(--bg)}:root:not([data-theme="light"]) .mitt-knapp[aria-current="page"].har-val::after{background:var(--bg)}}
+@media (max-width:760px){:root[data-theme="dark"] .mitt-knapp[aria-current="page"]{color:var(--bg)}:root[data-theme="dark"] .mitt-knapp[aria-current="page"].har-val::after{background:var(--bg)}}
+@media (max-width:370px){.brand-ord{font-size:1.12rem}.brand .ikon{width:22px;height:22px}.site-rad{gap:6px}.mitt-knapp,.aa-knapp{padding-inline:9px}}
+@media (max-width:370px){.aa-knapp>svg:first-child{display:none}.aa-knapp{gap:4px}.brand-ord{font-size:1.05rem}.brand{gap:6px}.mitt-knapp{font-size:.84rem}}

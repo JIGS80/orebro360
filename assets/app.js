@@ -1359,7 +1359,7 @@ const MI_NYCKEL='orebro360.omrade';let miMinne=null,MI=null,miVisad=null;
 function miHamta(){try{const v=localStorage.getItem(MI_NYCKEL);if(v)return v}catch(e){}return miMinne}
 function miSpara(k){miMinne=k;try{localStorage.setItem(MI_NYCKEL,k)}catch(e){}miMeny()}
 function miGlom(){miMinne=null;try{localStorage.removeItem(MI_NYCKEL)}catch(e){}miMeny()}
-function miMeny(){const a=document.querySelector('.meny a.mitt-lank');if(a)a.classList.toggle('har-val',!!miHamta())}
+function miMeny(){document.querySelectorAll('.meny a.mitt-lank,.mitt-knapp').forEach(a=>a.classList.toggle('har-val',!!miHamta()))}
 async function miData(){if(!MI)MI=await load('mitt');return MI}
 const miGiltig=k=>!!(k&&MI&&MI.omraden[k]);
 const miAvst=x=>x.i?'i ditt område':x.km<1?'under 1 km':'ca '+fmt(x.km,x.km<10?1:0)+' km';
@@ -3315,7 +3315,9 @@ function renderStart(S){
 let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEventListener(t,()=>{hashRorts=true},{once:true,passive:true}));
 (async()=>{
   miMeny();initDela();initGenvagar();initSnabb();ingressKort();
-  try{const S=await load('start');['#fot-datum','#fot-datum2'].forEach(id=>{const f=$(id);if(f)f.textContent=datumText(S.uppdaterad)});if(SIDA==='start')renderStart(S)}catch(e){console.error(e)}
+  try{const S=await load('start');['#fot-datum','#fot-datum2'].forEach(id=>{const f=$(id);if(f)f.textContent=datumText(S.uppdaterad)});
+    // listan Alla ämnen: Mitt Örebro visar ditt sparade område (namnet ur start.json; koden finns bara i webbläsaren)
+    {const k=miHamta(),o=k&&(S.omraden||[]).find(x=>x[0]===k);if(o)document.querySelectorAll('#alla-amnen a[href="mitt.html"] b').forEach(b=>b.insertAdjacentHTML('beforeend',`<small class="aa-omr"> · ${esc(o[1])}</small>`))}if(SIDA==='start')renderStart(S)}catch(e){console.error(e)}
   renderLadda();
   switch(SIDA){
   case 'vatten':
