@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#008572">
 <link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/stil.css?v=eec54168">
+<link rel="stylesheet" href="assets/stil.css?v=381ed87b">
 </head>
 <body data-sida="foreningar">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
@@ -106,9 +106,14 @@
 
     <div class="panel" id="g-lista" data-genvag="Föreningarna">
       <div class="panel-head"><h2 class="fo-h2" id="fo-lista-h">Alla föreningar</h2></div>
+      <div class="fo-ingen" id="fo-ingen" role="status" hidden></div>
       <ul class="fo-lista" id="fo-lista"></ul>
       <p class="tf-tom" id="fo-tom" hidden>Inga föreningar stämmer med sökningen. <button type="button" class="akt-knapp" id="fo-tom-rensa">Visa alla</button></p>
       <button type="button" class="knapp-l fo-fler" id="fo-fler" hidden>Visa fler</button>
+      <div id="fo-nara-wrap" hidden>
+        <h3 class="fo-h3" id="fo-nara-h">I närliggande områden</h3>
+        <ul class="fo-lista" id="fo-nara"></ul>
+      </div>
       <div id="fo-hela-wrap" hidden>
         <h3 class="fo-h3" id="fo-hela-h">Verksamma i hela Örebro</h3>
         <ul class="fo-lista" id="fo-hela"></ul>
@@ -123,7 +128,7 @@
         <li>Föreningarna kommer från <a href="https://orebro.ibgo.se/AssociationRegister/" target="_blank" rel="noopener">Örebro kommuns föreningsregister ↗</a> i kommunens boknings- och bidragssystem Interbook GO. Där finns de föreningar som har registrerat sig hos kommunen, till exempel för att boka lokaler eller söka bidrag. <b>Alla föreningar i Örebro finns inte med.</b></li>
         <li>Verksamhet, stadsdel och Fritidskortet är det föreningen själv har angett i registret. Registret säger inget om åldrar, provträningar, avgifter eller lediga platser. Fråga föreningen.</li>
         <li>Intressena är våra egna grupper av registrets verksamheter, så att det blir lättare att hitta. En förening kan stå under flera.</li>
-        <li>Stadsdelarna är registrets egna. Vi har kopplat dem till våra 36 områden, så att du kan välja ditt område. Föreningar som har angett hela Örebro eller många stadsdelar står under <b>Verksamma i hela Örebro</b>. Föreningar som inte har angett någon stadsdel visas när du inte har valt område.</li>
+        <li>Stadsdelarna är registrets egna. Vi har kopplat dem till våra 36 områden, så att du kan välja ditt område. Föreningar som har angett hela Örebro eller många stadsdelar står under <b>Verksamma i hela Örebro</b>. Föreningar som inte har angett någon stadsdel visas när du inte har valt område. Finns inget i ditt område som stämmer med ditt val visar vi föreningar i de närmaste områdena, och säger det.</li>
         <li>Vi visar bara föreningens namn, verksamhet och webbplats. Adresser, telefonnummer och e-postadresser i registret är ofta en styrelseledamots egna, så dem visar vi inte. Kontakta föreningen via dess webbplats eller via kommunens register.</li>
         <li><b>Politiska organisationer</b> visas inte, och inte heller partiernas ungdoms- och studentförbund. <b>Församlingar och trossamfund</b> finns på sidan <a href="trossamfund.html">Trossamfund</a>. Samfällighetsföreningar visas inte.</li>
         <li>Registret hämtas varje vecka, och vi kontrollerar samtidigt att föreningarnas webbplatser svarar. En webbplats som inte svarade vid senaste kontrollen visas inte.</li>
@@ -176,7 +181,7 @@
     <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
   </div>
 </footer>
-<script src="assets/app.js?v=c136b898"></script>
+<script src="assets/app.js?v=89b91972"></script>
 <script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>

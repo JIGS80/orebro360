@@ -1683,3 +1683,23 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 /* Dela-knappen när man pekar på den i mörkt läge: mörk text på den ljusare gröna (kontrast) */
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dela-knapp:hover,:root:not([data-theme="light"]) .dela-knapp:focus-visible{color:#0F1615}}
 :root[data-theme="dark"] .dela-knapp:hover,:root[data-theme="dark"] .dela-knapp:focus-visible{color:#0F1615}
+.fo-ingen{margin:0 0 14px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);line-height:1.55}
+.fo-ingen p{margin:0}
+.fo-ingen .akt-knapp{margin:0;color:var(--accent-text)}
+.fo-grupper .chip[aria-pressed="true"] .fo-c{color:inherit}
+/* Förstasidan på mobilen (15 okt 2026): "Var bor du?" leder till samma sak som Mitt Örebro-kortet direkt under, så den döljs där */
+@media (max-width:640px){.hero .hero-mitt{display:none}.utforska{padding-top:18px}}
+/* Mitt Örebro på mobilen (15 okt 2026): ihopfällda rutor */
+.mi-vik{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:4px;min-height:36px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--accent-text);font:600 .88rem var(--f-body);cursor:pointer}
+.mi-vik i{font-style:normal;transition:transform .2s}
+.mi-vik[aria-expanded="true"] i{transform:rotate(180deg)}
+.mi-vik:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mi-ihop>:not(.panel-head){display:none!important}
+.mi-ihop .panel-head{margin-bottom:0;cursor:pointer}
+.mi-ihop .panel-head .small{display:none}
+.mi-ihop .panel-head{flex-wrap:nowrap;align-items:center}.mi-ihop .panel-head h3{min-width:0;flex:1}
+/* Kortare ingress på mobilen (15 okt 2026) */
+@media (max-width:640px){
+  .lead.lead-kort3:not(.oppen){display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .lead-mer{margin:-6px auto 0 0;justify-self:start;align-self:start;width:max-content;min-height:32px;font-size:.95rem;font-weight:600;color:var(--accent-text)}
+}

@@ -1308,8 +1308,27 @@ function initGenvagar(){
   nav.innerHTML='<span>Hoppa till</span>'+lankar.map(([id,n])=>`<a href="#${id}">${esc(n)}</a>`).join('');
   (document.querySelector('main form.snabb')||document.querySelector('main .sec-head')).after(nav);
   nav.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();const t=document.getElementById(a.getAttribute('href').slice(1));
-    if(t)t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})});
+    if(t){if(t.classList.contains('mi-ihop'))miVik(t,true);t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}});
 }
+/* Kortare ingress på mobilen (15 okt 2026): ämnessidornas ingress visas med högst tre rader och knappen "Läs mer".
+   Texten finns kvar i sin helhet (också för skärmläsare); det är bara utseendet som kortas. */
+function ingressKort(){const l=document.querySelector('main .sec-head .lead');if(!l||!matchMedia('(max-width:640px)').matches)return;
+  l.classList.add('lead-kort3');let b=null;
+  const kolla=()=>{if(l.classList.contains('oppen'))return;const lang=l.scrollHeight>l.clientHeight+4;
+    if(lang&&!b){b=document.createElement('button');b.type='button';b.className='akt-knapp lead-mer';b.textContent='Läs mer';b.setAttribute('aria-label','Visa hela ingressen');
+      b.addEventListener('click',()=>{l.classList.add('oppen');b.remove();b=null});l.after(b)}
+    else if(!lang&&b){b.remove();b=null}};
+  kolla();setTimeout(kolla,900);setTimeout(kolla,2500);if(document.fonts)document.fonts.ready.then(kolla);
+  try{new MutationObserver(kolla).observe(l,{childList:true,characterData:true,subtree:true})}catch(e){}}
+/* Mitt Örebro på mobilen (15 okt 2026): de mindre använda rutorna är ihopfällda, så att sidan blir kortare. Rubriken
+   och knappen Visa fäller ut dem. På större skärmar är allt utfällt som förut. */
+const MI_VIK=['mi-cy','mi-rk-p','mi-pn','mi-bad-p','mi-tf','mi-val-p'];
+function miVik(p,oppna){const b=p.querySelector('.mi-vik');p.classList.toggle('mi-ihop',!oppna);if(b){b.setAttribute('aria-expanded',String(oppna));b.querySelector('span').textContent=oppna?'Dölj':'Visa'}}
+function miVikStart(){if(!matchMedia('(max-width:640px)').matches)return;
+  MI_VIK.forEach(id=>{const p=document.getElementById(id);if(!p||p.querySelector('.mi-vik'))return;const head=p.querySelector('.panel-head');if(!head)return;
+    const b=document.createElement('button');b.type='button';b.className='mi-vik';b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls',id);
+    b.innerHTML='<span>Visa</span> <i aria-hidden="true">▾</i>';head.appendChild(b);p.classList.add('mi-ihop');
+    head.addEventListener('click',e=>{if(e.target.closest('a'))return;miVik(p,p.classList.contains('mi-ihop'))})})}
 
 /* ===== Snabbsök överst: "Hitta din skola" och "Hitta din vårdcentral" ===== */
 function snabbSvar(f,t){const p=f.querySelector('.snabb-svar');p.textContent=t||'';p.hidden=!t}
@@ -2273,7 +2292,7 @@ function renderMitt(){
     ['skatt.html','Vart går din skatt?','Skriv in din lön och se vad kommunalskatten går till.'],['manaden.html','Månadens Örebro','Det senaste i siffror, varje månad.']];
   $('#mi-vidare').innerHTML=L.map(([h,n,s])=>`<a class="mi-v" href="${h}"><b>${esc(n)}</b><span>${esc(s)}</span></a>`).join('');
 }
-function initMitt(){
+function initMitt(){miVikStart();
   OM.omraden.forEach(o=>o._box=pathBox(o.svg));omStad();
   $('#mi-sel').innerHTML='<option value="">Välj ditt område</option>'+OM.omraden.slice().sort((a,b)=>a.namn.localeCompare(b.namn,'sv')).map(o=>`<option value="${o.kod}">${esc(o.namn)}</option>`).join('');
   const h=hashKod(),s=miHamta();miVisad=miGiltig(h)?h:miGiltig(s)?s:null;
@@ -2635,7 +2654,7 @@ function traffMarkera(el){if(!el)return;const dt=el.closest('details');if(dt)dt.
    används bara i webbläsaren, och står bara i adressen om man själv väljer det i listan. ===== */
 let FO=null,foVisa=40,foStart='',foHelaAlla=false;const FO_F={g:'',omr:'',q:'',fk:false};let FO_GN={};
 const foNorm=s=>(s||'').toLocaleLowerCase('sv');
-function foGrupp(f,g){return g==='unga'?(f.g.includes('unga')||!!f.fk):f.g.includes(g)}
+function foGrupp(f,g){return g==='unga'?(f.g.includes('unga')||!!f.fk):g==='idrottalla'?(f.g.includes('lag')||f.g.includes('idrott')):f.g.includes(g)}
 function foMatch(f,utanOmr){if(FO_F.g&&!foGrupp(f,FO_F.g))return false;if(FO_F.fk&&!f.fk)return false;
   if(FO_F.q){if(f._s==null)f._s=foNorm([f.n,f.k||'',...f.v,...(f.s||[]),f.fk?'fritidskortet fritidskort':''].join(' '));if(!f._s.includes(foNorm(FO_F.q)))return false}
   if(!utanOmr&&FO_F.omr&&!f.o.includes(FO_F.omr))return false;return true}
@@ -2655,7 +2674,20 @@ function foLista(){const A=FO.foreningar;let L=A.filter(f=>foMatch(f));
   const H=FO_F.omr?A.filter(f=>f.h&&foMatch(f,true)):[];
   $('#fo-hela-wrap').hidden=!H.length;$('#fo-hela').innerHTML=(foHelaAlla?H:H.slice(0,12)).map(foRad).join('');
   const hf=$('#fo-hela-fler');hf.hidden=foHelaAlla||H.length<=12;hf.textContent=`Visa alla ${fmt(H.length)} som är verksamma i hela Örebro`;
-  $('#fo-tom').hidden=!!(L.length||H.length);
+  // tomt i valt område: säg det, ge andra vägar och visa föreningar i de närmaste områdena (14 okt 2026)
+  const ing=$('#fo-ingen'),nw=$('#fo-nara-wrap');ing.hidden=true;nw.hidden=true;let N=[];
+  if(FO_F.omr&&!L.length){const o=OM.omraden.find(x=>x.kod===FO_F.omr),iOmr=A.filter(f=>f.o.includes(FO_F.omr));
+    const filt=FO_F.g||FO_F.q||FO_F.fk;let h=`<p><b>${filt&&iOmr.length?`Inga föreningar i ${esc(o.namn)} stämmer med ditt val.`:`Inga föreningar i kommunens register har angett ${esc(o.namn)} som sin stadsdel.`}</b>`;
+    const alt=[];
+    if(FO_F.g==='unga'){const n=iOmr.filter(f=>foGrupp(f,'idrottalla')).length;if(n)alt.push(`<button type="button" class="akt-knapp" data-fo-g="idrottalla">Visa ${fmt(n)} ${n===1?'idrottsförening':'idrottsföreningar'} i ${esc(o.namn)}</button>; många har barn- och ungdomslag.`)}
+    if(filt&&iOmr.length)alt.push(`<button type="button" class="akt-knapp" data-fo-alla>Visa alla ${fmt(iOmr.length)} föreningar i ${esc(o.namn)}</button>.`);
+    // närmaste områden (fågelvägen mellan områdenas mittpunkter) som har något som stämmer, högst två
+    const nara=OM.omraden.filter(x=>x.kod!==o.kod).map(x=>({x,d:Math.hypot(x.lx-o.lx,x.ly-o.ly)})).sort((a,b)=>a.d-b.d);const valda=[];
+    for(const {x} of nara){const m=A.filter(f=>f.o.includes(x.kod)&&foMatch(f,true)&&!f.h);if(m.length){valda.push(x);m.forEach(f=>{if(!N.includes(f))N.push(f)})}if(valda.length>=2)break}
+    if(valda.length)alt.push(`Här under: föreningar i närliggande ${valda.length===1?'området':'områdena'} ${valda.map(x=>esc(x.namn)).join(' och ')}.`);
+    ing.innerHTML=h+(alt.length?' '+alt.join(' '):'')+'</p>';ing.hidden=false;
+    if(N.length){nw.hidden=false;$('#fo-nara-h').textContent=`I närliggande områden: ${valda.map(x=>x.namn).join(' och ')}`;$('#fo-nara').innerHTML=N.slice(0,24).map(foRad).join('')}}
+  $('#fo-tom').hidden=!!(L.length||H.length||N.length);
   const on=FO_F.omr&&OM.omraden.find(o=>o.kod===FO_F.omr),gn=FO_F.g?FO_GN[FO_F.g]:'';
   $('#fo-lista-h').textContent=on?`Föreningar i ${on.namn}`:(gn||'Alla föreningar');
   $('#fo-n').textContent=`${fmt(L.length)} ${L.length===1?'förening':'föreningar'}`+(on?` i ${on.namn}`+(H.length?` och ${fmt(H.length)} i hela Örebro`:''):'')+(gn&&on?` · ${gn}`:'')+(FO_F.fk?' · med i Fritidskortet':'');
@@ -2676,7 +2708,7 @@ function foValj(s){foStart=foStart===s?'':s;document.querySelectorAll('.fo-valk'
   else if(s==='omrade'){const k=miHamta(),o=k&&OM.omraden.find(x=>x.kod===k);
     if(o){foSatt('omr',k);foTips(`Föreningar som har angett att de finns i <b>${esc(o.namn)}</b> (ditt område i Mitt Örebro), och under dem de som är verksamma i hela Örebro. Byt område i listan här nedanför.`);$('#g-lista').scrollIntoView({behavior:'smooth',block:'start'})}
     else{foTips('Välj ditt område i listan här nedanför. Har du valt område i <a href="mitt.html">Mitt Örebro</a> väljs det automatiskt.');$('#fo-omr').focus()}}}
-function initForeningar(){const A=FO.antal;FO_GN=Object.fromEntries(FO.grupper.map(g=>[g[0],g[1]]));
+function initForeningar(){const A=FO.antal;FO_GN=Object.fromEntries(FO.grupper.map(g=>[g[0],g[1]]));FO_GN.idrottalla='Idrott';
   $('#fo-lead').textContent=`${fmt(A.visade)} föreningar i Örebro kommun för idrott, musik, natur, kultur och gemenskap. Börja med vad du vill göra, så visar vi föreningarna och länkar till deras egna sidor.`;
   const tile=(l,v,s)=>`<div class="stat"><span class="label"><span class="lt">${esc(l)}</span></span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
   $('#fo-kpis').innerHTML=[tile('Föreningar',fmt(A.visade),'i kommunens föreningsregister'),tile('Med stadsdel',fmt(A.omrade),`har angett var de finns, ${fmt(A.hela)} är verksamma i hela Örebro`),
@@ -2698,6 +2730,9 @@ function initForeningar(){const A=FO.antal;FO_GN=Object.fromEntries(FO.grupper.m
     document.querySelectorAll('.fo-valk').forEach(x=>x.setAttribute('aria-pressed','false'));
     foTips('Föreningar som har angett i kommunens register att de är med i <b>Fritidskortet</b>, statens stöd till barns och ungas fritidsaktiviteter. Fråga föreningen om åldrar och hur du använder kortet. Mer om kortet på <a href="https://fritidskortet.se/" target="_blank" rel="noopener">fritidskortet.se ↗</a>.');
     foLista();$('#g-lista').scrollIntoView({behavior:'smooth',block:'start'})});
+  $('#fo-ingen').addEventListener('click',e=>{const b=e.target.closest('[data-fo-g],[data-fo-alla]');if(!b)return;
+    if(b.dataset.foG){foSatt('g',b.dataset.foG)}else{Object.assign(FO_F,{g:'',q:'',fk:false});$('#fo-q').value='';$('#fo-fk').checked=false;foVisa=40;foLista()}
+    $('#g-lista').scrollIntoView({behavior:'smooth',block:'start'})});
   $('#fo-tips').addEventListener('click',e=>{const b=e.target.closest('[data-fo-g]');if(b){foSatt('g',b.dataset.foG);$('#g-lista').scrollIntoView({behavior:'smooth',block:'start'})}});
   const h=new URLSearchParams(location.hash.slice(1));
   if(h.get('g')&&FO_GN[h.get('g')])FO_F.g=h.get('g');
@@ -3182,7 +3217,7 @@ function renderStart(S){
 /* Har besökaren själv skrollat eller tryckt sedan sidan öppnades? Då flyttar vi inte sidan efteråt. */
 let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEventListener(t,()=>{hashRorts=true},{once:true,passive:true}));
 (async()=>{
-  miMeny();initDela();initGenvagar();initSnabb();
+  miMeny();initDela();initGenvagar();initSnabb();ingressKort();
   try{const S=await load('start');['#fot-datum','#fot-datum2'].forEach(id=>{const f=$(id);if(f)f.textContent=datumText(S.uppdaterad)});if(SIDA==='start')renderStart(S)}catch(e){console.error(e)}
   renderLadda();
   switch(SIDA){
