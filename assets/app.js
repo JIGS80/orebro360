@@ -3317,7 +3317,7 @@ let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEv
   miMeny();initDela();initGenvagar();initSnabb();ingressKort();
   try{const S=await load('start');['#fot-datum','#fot-datum2'].forEach(id=>{const f=$(id);if(f)f.textContent=datumText(S.uppdaterad)});
     // listan Alla ämnen: Mitt Örebro visar ditt sparade område (namnet ur start.json; koden finns bara i webbläsaren)
-    {const k=miHamta(),o=k&&(S.omraden||[]).find(x=>x[0]===k);if(o)document.querySelectorAll('#alla-amnen a[href="mitt.html"] b').forEach(b=>b.insertAdjacentHTML('beforeend',`<small class="aa-omr"> · ${esc(o[1])}</small>`))}if(SIDA==='start')renderStart(S)}catch(e){console.error(e)}
+    {const k=miHamta(),o=k&&(S.omraden||[]).find(x=>x[0]===k);if(o)document.querySelectorAll('#alla-amnen a[href="mitt.html"] b').forEach(b=>b.insertAdjacentHTML('beforeend',`<small class="aa-omr">Ditt område: ${esc(o[1])}</small>`))}if(SIDA==='start')renderStart(S)}catch(e){console.error(e)}
   renderLadda();
   switch(SIDA){
   case 'vatten':
