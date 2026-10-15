@@ -1660,7 +1660,7 @@ const nmDag=d=>{const p=(d||'').split('-');return p.length===3?`${+p[2]} ${['jan
 const nmAntal=(n,en,fl)=>n===0?'inga '+fl:n===1?'en '+en:fmt(n)+' '+fl;
 function nmRader(nm,iOmr){   // raderna för "Lek och park" och "Återvinning" för ett område; iOmr = 'i ditt område' eller 'i området'
   const LANGT=5000,langt=[];
-  const rad=(t,q,txt)=>q&&q.m>LANGT&&t!=='lek'&&t!=='avs'&&t!=='avc'?(langt.push(t),''):q?`<li><span class="mi-bt"><b>${esc(nmNamn(t,q))}</b><span class="sub">${esc(txt)}</span></span><span class="mi-avst">${esc(meter(q.m))}</span>${platsAkt(q.x,q.y,nmNamn(t,q))}${(o=>o?spKnapp(o,1):'')(spNm(t==='lek_t'?'lek':t,q.x,q.y,nmNamn(t,q),q.a))}</li>`:'';
+  const rad=(t,q,txt)=>q&&q.m>LANGT&&t!=='lek'&&t!=='avs'&&t!=='avc'?(langt.push(t),''):q?`<li><span class="mi-bt"><b>${esc(nmNamn(t,q))}</b><span class="sub">${esc(txt)}</span></span><span class="mi-avst">${esc(meter(q.m))}</span>${(o=>{const a=platsAkt(q.x,q.y,nmNamn(t,q));return o&&a?a.replace(/<\/span>$/,spKnapp(o,1)+'</span>'):a})(spNm(t==='lek_t'?'lek':t,q.x,q.y,nmNamn(t,q),q.a))}</li>`:'';
   const dar=q=>[q.i?iOmr:'',q.a].filter(Boolean).join(' · ');
   let lek=rad('lek',nm.lek,['närmaste lekplatsen',dar(nm.lek)].filter(Boolean).join(' · '))
     +(nm.lek_t&&!(nm.lek.tg)?rad('lek_t',nm.lek_t,['närmaste tillgänglighetsanpassade lekplatsen',dar(nm.lek_t)].filter(Boolean).join(' · ')):'')
@@ -2192,7 +2192,7 @@ function miBussGata(k,f){const b=KT.omraden[k],c=b.centrum||{},h=miGataHpl(f),R=
   return R.join('')}
 function miNmGata(k,f){const P=t=>NM.platser.filter(p=>t==='avs'?p[0]==='avs':p[0]===t),R={lek:'',atv:''},xy=p=>[p[4],p[5]];
   const dar=p=>[p[3]===k?'i ditt område':'',p[0]!=='avs'?p[2]:''].filter(Boolean).join(' · ');
-  const rad=(q,txt)=>{const h=miRad(nmPNamn(q.p),[txt,dar(q.p)].filter(Boolean).map(esc).join(' · '),q.m,q.p[4],q.p[5]),o=spNm(q.p[0],q.p[4],q.p[5],nmPNamn(q.p),nmOnamn(q.p[3]));return o?h.replace(/<\/li>$/,spKnapp(o,1)+'</li>'):h};
+  const rad=(q,txt)=>{const h=miRad(nmPNamn(q.p),[txt,dar(q.p)].filter(Boolean).map(esc).join(' · '),q.m,q.p[4],q.p[5]),o=spNm(q.p[0],q.p[4],q.p[5],nmPNamn(q.p),nmOnamn(q.p[3]));return o?h.replace(/<\/span><\/li>$/,spKnapp(o,1)+'</span></li>'):h};
   miNarmast(P('lek'),f,3,xy).forEach((q,i)=>R.lek+=rad(q,i===0?'lekplatsen närmast din gata':(q.p[6]?'tillgänglighetsanpassad lekplats':'lekplats')));
   [['park','närmaste stadsdelsparken'],['utegym','närmaste utegymmet, öppet dygnet runt'],['hund','närmaste hundlekplatsen, inhägnad']].forEach(([t,txt])=>{const q=miNarmast(P(t),f,1,xy)[0];if(q&&q.m<=5000)R.lek+=rad(q,txt)});
   miNarmast(P('avs'),f,2,xy).forEach((q,i)=>R.atv+=rad(q,i===0?'återvinningsstationen närmast din gata':'återvinningsstation'));

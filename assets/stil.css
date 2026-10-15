@@ -1771,3 +1771,7 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 /* kontrast: vald badplats och klassningen (15 okt 2026) */
 #vt-badlista button[aria-pressed="true"] .sub,#vt-badlista button[aria-pressed="true"] .vt-st{color:var(--ink)}
 .vt-k b{color:var(--ink)}
+/* Mitt Örebro på dator: vänsterspalten (nytt, valet, i korthet, sparat) är mycket längre än kartan, så kartan följer med när man skrollar (15 okt 2026) */
+@media (min-width:901px) and (min-height:700px){.mi-kartpanel{position:sticky;top:72px}}
+.mi-akt .spara-kort{min-height:28px;padding:1px 9px;font-size:.9rem;margin-left:auto}
+@media (min-width:901px){.mi-intro .mi-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
