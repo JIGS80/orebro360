@@ -1776,3 +1776,10 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .mi-akt .spara-kort{min-height:28px;padding:1px 9px;font-size:.9rem;margin-left:auto}
 @media (min-width:901px){.mi-intro .mi-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .lbl-dold{display:none}
+/* Mitt Örebro sticker ut i menyn: egen ruta med kant, och accentfärgad (inte svart) när man är där (15 okt 2026) */
+.meny a.mitt-lank{background:var(--accent-soft);box-shadow:inset 0 0 0 1.5px var(--accent);margin-right:10px}
+.meny a.mitt-lank:hover{background:color-mix(in srgb,var(--accent) 24%,var(--surface));color:var(--ink)}
+.meny a.mitt-lank[aria-current="page"]{background:var(--accent);color:#fff;box-shadow:none}
+.meny a.mitt-lank[aria-current="page"].har-val::after{background:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .meny a.mitt-lank[aria-current="page"]{color:var(--bg)}:root:not([data-theme="light"]) .meny a.mitt-lank[aria-current="page"].har-val::after{background:var(--bg)}}
+:root[data-theme="dark"] .meny a.mitt-lank[aria-current="page"]{color:var(--bg)}:root[data-theme="dark"] .meny a.mitt-lank[aria-current="page"].har-val::after{background:var(--bg)}
