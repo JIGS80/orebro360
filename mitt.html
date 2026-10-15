@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#008572">
 <link rel="icon" href="assets/ikon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/stil.css?v=321cbba7">
+<link rel="stylesheet" href="assets/stil.css?v=06f7fa98">
 </head>
 <body data-sida="mitt">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
@@ -84,6 +84,17 @@
           <h1 class="sida-h" id="mi-h">Ditt Örebro, samlat på ett ställe</h1>
           <p class="lead" id="mi-lead">Välj området där du bor, så samlar vi det viktigaste nära dig: närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral med vägbeskrivning dit, och hur området ser ut. Resten av sidan ser ut som vanligt.</p>
         </div>
+        <div class="panel mi-nytt" id="mi-nytt" tabindex="-1" hidden>
+          <div class="panel-head"><h3 id="mi-nytt-h">Nytt sedan du var här</h3><span class="small" id="mi-nytt-s"></span></div>
+          <ul class="mi-lista" id="mi-nytt-l"></ul>
+          <p class="src mi-nytt-fot"><span id="mi-nytt-uppd">Vi hämtar ny data varje måndag.</span> <button type="button" class="akt-knapp" id="mi-nytt-av">Sluta visa förändringar</button></p>
+        </div>
+        <div class="panel mi-erbj" id="mi-erbj" hidden>
+          <h3 id="mi-erbj-h">Vill du se vad som förändras i ditt område?</h3>
+          <p>Nästa gång du kommer hit börjar sidan med det som är nytt sedan sist: livsmedelskontroller, planer, badprov och busstidtabeller, med datum och länk. Har inget hänt säger vi det.</p>
+          <button type="button" class="knapp" id="mi-nytt-ja">Ja, visa förändringarna</button>
+          <p class="src">Webbläsaren minns bara vilken dag du senast tittade. Det sparas här och skickas aldrig till oss.</p>
+        </div>
         <form class="hitta mi-val" id="mi-form">
           <label for="mi-sel">Ditt område</label>
           <div class="hitta-rad">
@@ -102,20 +113,15 @@
             <p class="src" id="mi-gata-not">Skriv din gata så räknas avstånden därifrån i stället för från områdets mitt. Gatan sparas bara i den här webbläsaren och skickas aldrig till oss.</p>
           </div>
         </form>
-        <div class="panel mi-nytt" id="mi-nytt" hidden>
-          <div class="panel-head"><h3 id="mi-nytt-h">Nytt sedan du var här</h3><span class="small" id="mi-nytt-s"></span></div>
-          <ul class="mi-lista" id="mi-nytt-l"></ul>
-        </div>
         <div class="panel mi-kort" id="mi-kort-p" data-genvag="I korthet" hidden>
           <div class="panel-head"><h3 id="mi-kort-h">Ditt område i korthet</h3><span class="small mi-fran">fågelvägen från områdets centrum</span></div>
           <ul class="mi-kort-l" id="mi-kort"></ul>
-          <label class="mi-nytt-val"><input type="checkbox" id="mi-nytt-pa"> Visa vad som är nytt i området när jag kommer tillbaka</label>
-          <p class="src" id="mi-nytt-not">Om du kryssar i rutan minns webbläsaren vilken dag du senast tittade, så att vi kan visa nya kontroller, planer, badprov och busstidtabeller sedan dess. Det sparas bara här och skickas aldrig till oss.</p>
         </div>
-        <div class="panel mi-mina" id="mi-mina" data-genvag="Mina restauranger" hidden>
-          <div class="panel-head"><h3>Mina restauranger</h3><span class="small" id="mi-mina-s"></span></div>
-          <ul class="mi-lista" id="mi-mina-l"></ul>
-          <p class="src">De du har sparat i <a href="restauranger.html#mina">Restaurangkollen</a>, med kommunens senaste kontroll. Listan sparas bara i den här webbläsaren och skickas aldrig till oss. <button type="button" class="akt-knapp" id="mi-mina-tom">Töm listan</button></p>
+        <div class="panel mi-mina" id="mi-mina" data-genvag="Sparat" hidden>
+          <div class="panel-head"><h3>Sparat</h3><span class="small" id="mi-mina-s"></span></div>
+          <div id="mi-sp-rk" hidden><h4 class="mi-sp-h">Restauranger</h4><ul class="mi-lista" id="mi-mina-l"></ul></div>
+          <div id="mi-sp"></div>
+          <p class="src">Det du har sparat med <b>☆ Spara</b> i <a href="restauranger.html#mina">Restaurangkollen</a>, bland <a href="foreningar.html">föreningarna</a>, i <a href="narmiljo.html">Lek och park</a> och bland <a href="vatten.html">badplatserna</a>. Sparat är ett minne för dig, ingen bevakning: vi säger inte till när något sparat ändras. Listan sparas bara i den här webbläsaren och skickas aldrig till oss. <button type="button" class="akt-knapp" id="mi-mina-tom">Töm listan</button></p>
         </div>
         <div class="stats mi-kpis" id="mi-kpis" hidden></div>
       </div>
@@ -234,12 +240,12 @@
   <path d="M40 190h120M200 190h90M330 190h160M520 190h80" stroke-width="1.5" opacity=".55"/>
   <path d="M100 200h70M240 200h130M420 200h90" stroke-width="1.5" opacity=".35"/>
 </svg></div>
-    <div class="fot-brand"><span class="brand-ord">Örebro<b>360</b></span><span class="small">Örebro i siffror</span></div>
+    <div class="fot-brand"><span class="brand-ord">Örebro<b>360</b></span><span class="small">Ditt Örebro, på riktigt</span></div>
     <p class="small">En fristående sida med öppen data om Örebro kommun. Den är inte en tjänst från Örebro kommun. Uppgifterna uppdaterades senast <span id="fot-datum">–</span>.</p>
     <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
   </div>
 </footer>
-<script src="assets/app.js?v=3cf6911b"></script>
+<script src="assets/app.js?v=3dcd1881"></script>
 <script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>

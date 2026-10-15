@@ -1711,3 +1711,63 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .kz-flera-k span{display:block;font-weight:400;font-size:.76rem;opacity:.85}
 .kz-tb{margin-top:6px;padding:6px 0;font-weight:600;text-decoration:underline;text-underline-offset:2px}
 .kz-flera-k:focus-visible,.kz-tb:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+
+/* föreningar: siffrorna på en rad, Fritidskortet som genväg bland valen (15 okt 2026) */
+.fo-fakta{display:flex;flex-wrap:wrap;gap:4px 0;margin:10px 0 0;color:var(--ink2);font-size:.92rem}
+.fo-fakta>span:not(:last-child)::after{content:"·";margin:0 .55em;color:var(--ink3,var(--ink2))}
+.fo-fakta b{color:var(--ink)}
+.fo-fkg{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;margin-top:12px;padding:10px 14px;border:1px solid var(--line);border-radius:12px}
+.fo-fkg-l{display:flex;align-items:center;gap:12px;flex:1 1 260px;color:var(--ink);text-decoration:none;min-height:44px}
+.fo-fkg-l:hover b{text-decoration:underline}
+.fo-fkg-l:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.fo-fkg-n{font-size:1.6rem;font-weight:700;color:var(--accent-text);line-height:1}
+.fo-fkg-l>span:last-child{display:grid;gap:2px}
+.fo-fkg-l>span:last-child>span{font-size:.88rem;color:var(--ink2)}
+
+/* Mitt Örebro: förändringarna först, och ett tydligt erbjudande när det inte är påslaget (15 okt 2026) */
+.mi-intro .mi-nytt,.mi-intro .mi-erbj{margin:16px 0 18px}
+.mi-nytt:focus{outline:none}
+.mi-nytt:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.mi-nytt-fot{margin-top:10px}
+.mi-erbj{border-left:4px solid var(--accent);background:var(--accent-soft)}
+.mi-erbj h3{margin:0 0 6px}
+.mi-erbj p{margin:0 0 12px;line-height:1.5}
+.mi-erbj .src{margin:10px 0 0}
+
+/* Sparat (15 okt 2026) */
+.spara-k{appearance:none;font:inherit;font-weight:600;font-size:.9rem;color:var(--accent-text);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;min-height:36px;cursor:pointer;white-space:nowrap}
+.spara-k:hover{border-color:var(--accent)}
+.spara-k:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.spara-k[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.spara-kort{padding:4px 9px;min-width:36px;font-size:1rem;line-height:1}
+.tip.fast .spara-k{margin-top:6px;color:var(--ink);background:var(--bg);border-color:transparent}
+.tip.fast .spara-k[aria-pressed="true"]{background:var(--accent-soft);color:var(--ink)}
+.fo-akt{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.vt-spara{margin:4px 0 10px}
+.mi-sp-h{margin:14px 0 4px;font-size:.95rem;color:var(--ink2)}
+.mi-sp-h:first-child{margin-top:4px}
+.mi-sp-bort{font-weight:400;font-size:.85rem;color:var(--ink2)}
+
+/* föreningar: handplockade länkar vidare (15 okt 2026) */
+.fo-vidare{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 4px}
+.fo-vidare-l{font-size:.8rem;font-weight:600;color:var(--ink2);margin-right:2px}
+.fo-vk{display:inline-flex;align-items:center;min-height:36px;padding:5px 11px;border-radius:999px;background:var(--accent-soft);color:var(--accent-text);font-weight:600;font-size:.88rem;text-decoration:none}
+.fo-vk:hover{text-decoration:underline}
+.fo-vk:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* Veckans Örebro (15 okt 2026) */
+.veckan{padding-block:24px 4px}
+.veckan-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.veckan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
+.veckan-k{display:grid;align-content:start;gap:5px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);text-decoration:none}
+.veckan-k:hover{border-color:var(--accent)}
+.veckan-k:hover b{text-decoration:underline}
+.veckan-k:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.veckan-typ{font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-text)}
+.veckan-k b{font-size:1.05rem;line-height:1.3}
+.veckan-t{font-size:.9rem;color:var(--ink2);line-height:1.45}
+@media (max-width:760px){.veckan-grid{grid-template-columns:minmax(0,1fr);gap:8px}.veckan-k{padding:12px 14px}}
+.mi-erbj .src{color:var(--ink)}
+/* kontrast: vald badplats och klassningen (15 okt 2026) */
+#vt-badlista button[aria-pressed="true"] .sub,#vt-badlista button[aria-pressed="true"] .vt-st{color:var(--ink)}
+.vt-k b{color:var(--ink)}
