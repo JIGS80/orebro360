@@ -1807,3 +1807,10 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 @media (max-width:760px){:root[data-theme="dark"] .mitt-knapp[aria-current="page"]{color:var(--bg)}:root[data-theme="dark"] .mitt-knapp[aria-current="page"].har-val::after{background:var(--bg)}}
 @media (max-width:370px){.brand-ord{font-size:1.12rem}.brand .ikon{width:22px;height:22px}.site-rad{gap:6px}.mitt-knapp,.aa-knapp{padding-inline:9px}}
 @media (max-width:370px){.aa-knapp>svg:first-child{display:none}.aa-knapp{gap:4px}.brand-ord{font-size:1.05rem}.brand{gap:6px}.mitt-knapp{font-size:.84rem}}
+/* Startsidan på mobilen: loggan visar redan Örebro360, så den stora rubriken döljs visuellt (finns kvar för skärmläsare och sökmotorer)
+   och Ditt Örebro, på riktigt blir den synliga rubriken (15 okt 2026) */
+@media (max-width:760px){
+  .hero .wordmark{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .hero .tagline{font-size:2.05rem;line-height:1.05;font-weight:700;letter-spacing:-.03em;margin:0}
+}
+@media (max-width:370px){.hero .tagline{font-size:1.75rem}}
