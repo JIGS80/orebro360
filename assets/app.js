@@ -1479,8 +1479,15 @@ async function harHamta(host,knapp){if(!navigator.geolocation)return;knapp.setAt
     HAR={x,y,acc:Math.min(pos.coords.accuracy||0,3000)/10};
     document.querySelectorAll('.kz-host').forEach(h=>{const S=h._kzS;if(S&&S.svg.isConnected){kartLager(S);S.skala()}});
     const S=host._kzS;if(!S)return;S.synk();const B=S.bas;
-    if(x<B[0]||y<B[1]||x>B[0]+B[2]||y>B[1]+B[3]){kzMedd(host,'Du är utanför den här kartans utsnitt. Visa hela kommunen för att se var du är.');return}
-    const w=Math.min(B[2],Math.max(B[2]/5,250)),h=w*B[3]/B[2];S.satt_([x-w/2,y-h/2,w,h]);
+    const B0=S.bas0||B;
+    if(x<B0[0]||y<B0[1]||x>B0[0]+B0[2]||y>B0[1]+B0[3]){
+      // utanför kartans utsnitt: kartan zoomar ut så att både utsnittet och du syns; ⤢ går tillbaka (15 okt 2026)
+      const m=Math.max(B0[2],B0[3])*.08+60,x0=Math.min(B0[0],x-m),y0=Math.min(B0[1],y-m),x1=Math.max(B0[0]+B0[2],x+m),y1=Math.max(B0[1]+B0[3],y+m),ar=B0[3]/B0[2];
+      let w=x1-x0,h=y1-y0,cx=(x0+x1)/2,cy=(y0+y1)/2;if(h/w<ar)h=w*ar;else w=h/ar;
+      const U=[cx-w/2,cy-h/2,w,h];if(!S.bas0)S.bas0=B0;S.bas=U;S.satt_(U.slice());
+      kzMedd(host,'Kartan har zoomat ut så att du syns (blå pricken). Tryck på ⤢ för att gå tillbaka.'+(pos.coords.accuracy>150?` Läget är ungefärligt (inom ${Math.round(pos.coords.accuracy/10)*10} m).`:''));return}
+    if(S.bas0){S.bas=S.bas0;S.bas0=null}
+    const w=Math.min(B0[2],Math.max(B0[2]/5,250)),h=w*B0[3]/B0[2];S.satt_([x-w/2,y-h/2,w,h]);
     kzMedd(host,'Du är här (blå pricken)'+(pos.coords.accuracy>150?`, ungefär (inom ${Math.round(pos.coords.accuracy/10)*10} m)`:'')+`. Läget stannar i ${HAR_ENHET()} och sparas inte.`)},
   err=>{klar();kzMedd(host,err&&err.code===1?'Sidan fick inte se var du är. Du kan tillåta det i webbläsarens inställningar för sidan.':'Det gick inte att ta reda på var du är just nu.')},
   {enableHighAccuracy:true,timeout:15000,maximumAge:60000})}
@@ -1514,9 +1521,9 @@ function kartZoom(host,svg){
   if(!host||!svg)return;host.classList.add('kz-host');
   const tal=v=>(v||'').split(/[\s,]+/).map(Number);
   const S={host,svg,bas:tal(svg.getAttribute('viewBox')),satt:svg.getAttribute('viewBox')};S.vb=S.bas.slice();
-  S.synk=()=>{const nu=svg.getAttribute('viewBox');if(nu!==S.satt){S.bas=tal(nu);S.vb=S.bas.slice();S.satt=nu;host._kz=null;S.skala()}};   // kartan har själv bytt utsnitt
-  S.inne=()=>S.vb[2]<S.bas[2]*.999;S.minW=()=>Math.min(S.bas[2],Math.max(S.bas[2]/30,30));S.kanIn=()=>S.vb[2]>S.minW()*1.01;
-  S.skala=()=>{const k=S.vb[2]/S.bas[2];
+  S.synk=()=>{const nu=svg.getAttribute('viewBox');if(nu!==S.satt){S.bas=tal(nu);S.bas0=null;S.vb=S.bas.slice();S.satt=nu;host._kz=null;S.skala()}};   // kartan har själv bytt utsnitt
+  S.inne=()=>S.vb[2]<S.bas[2]*.999||!!S.bas0;S.minW=()=>{const B=S.bas0||S.bas;return Math.min(B[2],Math.max(B[2]/30,30))};S.kanIn=()=>S.vb[2]>S.minW()*1.01;
+  S.skala=()=>{const k=S.vb[2]/(S.bas0||S.bas)[2];
     const kr=Math.pow(k,.92)*KZ_PEK;svg.querySelectorAll('circle:not(.kx)').forEach(c=>{if(c.dataset.kzr==null)c.dataset.kzr=c.getAttribute('r')||'';if(c.dataset.kzr)c.setAttribute('r',(+c.dataset.kzr*kr).toFixed(3))});
     svg.querySelectorAll('text:not(.kx)').forEach(t=>{if(t.dataset.kzs==null)t.dataset.kzs=t.getAttribute('style')||'';const st=t.dataset.kzs;if(st)t.setAttribute('style',st.replace(/([\d.]+)px/g,(_,v)=>(+v*k).toFixed(3)+'px'));
       if(t.dataset.kzf==null)t.dataset.kzf=t.getAttribute('font-size')||'';if(t.dataset.kzf)t.setAttribute('font-size',(+t.dataset.kzf*k).toFixed(3))});
@@ -1524,7 +1531,7 @@ function kartZoom(host,svg){
   S.satt_=n=>{const B=S.bas;let [x,y,w,h]=n;const minW=S.minW();if(w<minW){const f=minW/w;x-=(w*f-w)/2;y-=(h*f-h)/2;w*=f;h*=f}
     if(w>=B[2]){x=B[0];y=B[1];w=B[2];h=B[3]}
     x=Math.min(Math.max(x,B[0]),B[0]+B[2]-w);y=Math.min(Math.max(y,B[1]),B[1]+B[3]-h);
-    S.vb=[x,y,w,h];S.satt=S.vb.map(v=>+v.toFixed(2)).join(' ');svg.setAttribute('viewBox',S.satt);host._kz=S.inne()?{bas:B.join(' '),vb:S.vb.slice()}:null;S.skala()};
+    S.vb=[x,y,w,h];S.satt=S.vb.map(v=>+v.toFixed(2)).join(' ');svg.setAttribute('viewBox',S.satt);host._kz=S.inne()?{bas:(S.bas0||B).join(' '),ut:S.bas0?B.slice():null,vb:S.vb.slice()}:null;S.skala()};
   S.punkt=(cx,cy)=>{const m=svg.getScreenCTM();if(!m)return {x:S.vb[0]+S.vb[2]/2,y:S.vb[1]+S.vb[3]/2};const p=svg.createSVGPoint();p.x=cx;p.y=cy;return p.matrixTransform(m.inverse())};
   S.zooma=(f,p,fran=S.vb)=>{p=p||{x:fran[0]+fran[2]/2,y:fran[1]+fran[3]/2};S.satt_([p.x-(p.x-fran[0])*f,p.y-(p.y-fran[1])*f,fran[2]*f,fran[3]*f])};
   const k=document.createElement('div');k.className='kz-knappar';k.setAttribute('role','group');k.setAttribute('aria-label','Zooma kartan');
@@ -1534,7 +1541,7 @@ function kartZoom(host,svg){
   const st=document.createElement('button');st.type='button';st.className='kz-stor';st.dataset.kz='stor';kzStorText(host,st);host.appendChild(st);
   if(!host._kzLyss){host._kzLyss=true;kartZoomLyss(host)}
   // ritas kartan om med samma utsnitt (t.ex. när man väljer ett område) behålls inzoomningen
-  if(host._kz&&host._kz.bas===S.bas.join(' '))S.satt_(host._kz.vb);else{host._kz=null;S.skala()}
+  if(host._kz&&host._kz.bas===S.bas.join(' ')){if(host._kz.ut){S.bas0=S.bas;S.bas=host._kz.ut}S.satt_(host._kz.vb)}else{host._kz=null;S.skala()}
   requestAnimationFrame(()=>{if(host._kzS===S)kartExtra(S)});   // prickarna ritas efter kartZoom; lägg bakgrund, namn och din gata och skala allt när de finns
   if(host.classList.contains('kz-full'))kzVal(host);
 }
@@ -1576,7 +1583,7 @@ function kartZoomLyss(host){   // händelserna läggs bara på en gång per kart
   host.addEventListener('click',e=>{const b=e.target.closest('[data-kz]');if(b){e.stopPropagation();const s=S();s.synk();const t=b.dataset.kz;
       if(t==='stor'){kzStor(host,!host.classList.contains('kz-full'));return}
       if(t==='har'){harHamta(host,b);return}
-      if(t==='in')s.zooma(.6);else if(t==='ut')s.zooma(1/.6);else s.satt_(s.bas.slice());return}
+      if(t==='in')s.zooma(.6);else if(t==='ut')s.zooma(1/.6);else{if(s.bas0){s.bas=s.bas0;s.bas0=null}s.satt_(s.bas.slice())}return}
     if(drog){e.stopPropagation();e.preventDefault();return}
     // knappen i ett kort (Läs mer, Visa kontrollerna ...): stäng den stora kartan först, så att sidan sedan kan visa det man valde
     // (bakåt-steget återställer annars sidans läge och avbryter skrollningen, så knappens klick görs om när det är klart)
@@ -1632,7 +1639,10 @@ function fokusRita(svg,sc){if(!FOKUS)return;const g=el('g',{class:'fokus'},svg);
   // etiketten vänds så att den inte klipps vid kartans kant
   const vb=(svg.getAttribute('viewBox')||'0 0 1 1').split(' ').map(Number),rel=(FOKUS.x-vb[0])/vb[2],relY=(FOKUS.y-vb[1])/vb[3];
   const anc=rel>.62?'end':rel<.38?'start':'middle',dx=anc==='end'?8*sc:anc==='start'?-8*sc:0;
-  const t=el('text',{x:FOKUS.x+dx,y:relY<.15?FOKUS.y+30*sc:FOKUS.y-19*sc,'text-anchor':anc,class:'fokus-lbl',style:`font-size:${13*sc}px;stroke-width:${4*sc}px`},g);t.textContent=FOKUS.n}
+  const t=el('text',{x:FOKUS.x+dx,y:relY<.15?FOKUS.y+30*sc:FOKUS.y-19*sc,'text-anchor':anc,class:'fokus-lbl',style:`font-size:${13*sc}px;stroke-width:${4*sc}px`},g);t.textContent=FOKUS.n;
+  // ett områdesnamn som ligger under etiketten eller pricken viker undan (rubriken säger ändå vilket område det är) (15 okt 2026)
+  try{const a=t.getBBox(),p=14*sc,F=[[a.x,a.y,a.x+a.width,a.y+a.height],[FOKUS.x-p,FOKUS.y-p,FOKUS.x+p,FOKUS.y+p]];
+    svg.querySelectorAll('text.lbl,text.mi-lbl').forEach(l=>{const b=l.getBBox();if(b.width&&F.some(f=>b.x<f[2]&&b.x+b.width>f[0]&&b.y<f[3]&&b.y+b.height>f[1]))l.classList.add('lbl-dold')})}catch(e){}}
 function kortVisa(host,tp,e,html){if(KZ_FANGA){KZ_FANGA.push(html);e.stopPropagation();return}const bb=host.getBoundingClientRect();tp.hidden=false;tp.classList.add('fast');tp.innerHTML=html+'<button type="button" class="tip-stang" aria-label="Stäng">×</button>';
   tp.style.left=Math.max(90,Math.min(bb.width-90,e.clientX-bb.left))+'px';tp.style.top=(e.clientY-bb.top-10)+'px';
   // kortet hamnar ovanför trycket, eller under om det får mer plats där; en lång lista får rulla inom kartan
