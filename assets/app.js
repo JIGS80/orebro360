@@ -2536,7 +2536,8 @@ async function plDela(datum,rundor){const text=plDelaText(datum,rundor),svar=$('
 let PL_UTM=null;   // {datum,p,s} från en utmaningslänk (#u=ÅÅÅÅ-MM-DD_poäng_siffra)
 const plDs=nr=>new Date(nr*864e5).toISOString().slice(0,10);
 // dagens siffra: en fråga ur Gissa siffrans bank, samma för alla samma dag; hela banken går igenom innan något upprepas
-function plSiffraFraga(ds){if(!GI)return null;const alla=[...GI.fragor,...GI.extra].filter(q=>!q.bonus&&q.max>q.min);if(!alla.length)return null;
+function plSiffraFraga(ds){if(!GI)return null;const sp=(plLas().siffra||{});if(sp.datum===ds){const q=[...GI.fragor,...GI.extra].find(x=>x.id===sp.id);if(q)return q}
+  const idag=giDagens(ds).map(q=>q.id),alla=giBank().filter(q=>!idag.includes(q.id));if(!alla.length)return null;
   const ids=alla.map(q=>q.id).sort(),nr=PL_MOTOR.dagNr(ds),n=ids.length,ord=v=>PL_MOTOR.blanda(ids,PL_MOTOR.hash('siffra|'+v));
   const o=ord(Math.floor(nr/n));if(n>1&&nr%n===0&&o[0]===ord(Math.floor(nr/n)-1)[n-1])[o[0],o[1]]=[o[1],o[0]];
   return alla.find(q=>q.id===o[nr%n])}
@@ -2746,7 +2747,16 @@ function initForeningar(){const A=FO.antal;FO_GN=Object.fromEntries(FO.grupper.m
 
 /* ===== Gissa siffran ===== */
 let GI=null,giLista=[],giSvar={},giI=0,giLage='manad';
-const giNyckel=()=>'orebro360.gissa.'+GI.utgava;
+/* Fem nya frågor varje dag (15 okt 2026; förut fem i månaden). Alla får samma fem samma dag, valda ur hela banken (fragor + extra)
+   i en fast blandad ordning som går runt, så att en fråga kommer tillbaka först efter ungefär två veckor. Svaren sparas per dag. */
+const giDag=()=>PL_MOTOR.datum();
+const giNyckel=()=>'orebro360.gissa.d.'+giDag();
+function giBank(){return [...GI.fragor,...GI.extra].filter(q=>!q.bonus&&q.max>q.min)}
+function giDagens(ds,antal=5){const alla=giBank();if(!alla.length)return [];const ids=alla.map(q=>q.id).sort(),n=ids.length,nr=PL_MOTOR.dagNr(ds);
+  // en fast blandad ordning som går runt: varje fråga kommer tillbaka först efter n/5 dagar (ungefär 15)
+  const o=PL_MOTOR.blanda(ids,PL_MOTOR.hash('gissa|'+n)),ut=[];
+  for(let i=nr*antal;ut.length<Math.min(antal,n);i++){const id=o[i%n];if(!ut.includes(id))ut.push(id)}
+  return ut.map(id=>alla.find(q=>q.id===id))}
 function giLas(){try{return JSON.parse(localStorage.getItem(giNyckel())||'{}')}catch(e){return {}}}
 function giSkriv(){try{localStorage.setItem(giNyckel(),JSON.stringify(giSvar))}catch(e){}}
 // Vilka frågor besökaren redan har gissat på, med datum. Sparas bara i hennes egen webbläsare, så att "Fem frågor till"
@@ -2791,7 +2801,7 @@ function giBonus(){ // en extra fråga om besökarens eget område, om hon har v
   const M=[['hyres','Hur stor andel av lägenheterna i {n} är hyresrätter?','%',0,100,1,0],['barnfam','Hur stor andel av hushållen i {n} är barnfamiljer?','%',0,100,1,0],
     ['aldre','Hur stor andel av invånarna i {n} är 65 år eller äldre?','%',0,60,1,0],['inkomst','Vilken ekonomisk standard har invånarna i {n} i median, i tusen kronor per person och år?','tkr',100,500,5,0],
     ['hogskola','Hur stor andel av 25–65-åringarna i {n} har läst vidare efter gymnasiet?','%',0,100,1,0],['bilar','Hur många bilar finns det per 1 000 invånare i {n}?','st',100,800,10,0]];
-  const [y,m]=GI.utgava.split('-').map(Number);const val=M.filter(x=>o[x[0]]!=null);if(!val.length)return null;const x=val[(y*12+m)%val.length];
+  const val=M.filter(x=>o[x[0]]!=null);if(!val.length)return null;const x=val[PL_MOTOR.dagNr(giDag())%val.length];
   const d=OMAT.find(z=>z.k===x[0]);
   return {id:'bonus_'+x[0],bonus:true,fraga:x[1].replace('{n}',o.namn),enhet:x[2],min:x[3],max:x[4],steg:x[5],dec:x[6],svar:o[x[0]],
     text:`${o.namn}: ${omFmt(d,o[x[0]])}. Hela kommunen: ${omFmt(d,OM.kommun[x[0]])}. ${d.s.charAt(0).toUpperCase()+d.s.slice(1)}${omAr(x[0])?', '+omAr(x[0]):''}.`,lank:'mitt.html',kalla:'SCB'}
@@ -2826,27 +2836,27 @@ function giSumma(){
   const lista=giLista.filter(q=>giSvar[q.id]!=null);const tot=lista.reduce((s,q)=>s+giPoang(q,giSvar[q.id]),0),max=lista.length*100;
   const andel=max?tot/max:0;const omd=andel>=.85?'Du känner Örebro utan och innan.':andel>=.65?'Du har bra koll på Örebro.':andel>=.4?'Du vet en hel del, och nu vet du lite till.':'Örebro har överraskat dig. Det är ju det som är det roliga.';
   $('#gi-prog').innerHTML='';
-  $('#gi-kort').innerHTML=`<span class="label">${giLage==='manad'?'Ditt resultat, '+esc(GI.namn):'Ditt resultat, extrafrågor'}</span>
+  $('#gi-kort').innerHTML=`<span class="label">${giLage==='manad'?'Ditt resultat i dag, '+esc(plDatumText(giDag())):'Ditt resultat, extrafrågor'}</span>
     <div class="gi-total"><span class="gi-p num">${tot}<small> av ${max} poäng</small></span><span class="gi-omdome">${esc(omd)}</span></div>
     <ul class="gi-sum">${lista.map(q=>{const p=giPoang(q,giSvar[q.id]);return `<li><span>${esc(q.fraga)}<span class="sub">Du: ${giFmt(q,giSvar[q.id])} · Svar: ${giFmt(q,q.svar)}</span></span><b class="num">${p}</b></li>`}).join('')}</ul>
     ${(()=>{let d={};try{d=plLas()}catch(e){}const ds=PL_MOTOR.datum(),klar=d.resultat&&d.resultat[ds];
       return `<a class="pl-nasta-spel" href="platsen.html"><span>Nästa</span> <b>${klar?'Se ditt resultat i Var ligger platsen?':'Dagens tre platser och en siffra'}</b> <span aria-hidden="true">→</span></a>`})()}
     <div class="gi-knappar"><button type="button" class="knapp" id="gi-dela">Dela ditt resultat</button>${GI.extra.length?`<button type="button" class="knapp-l" id="gi-fler">Fem frågor till</button>`:''}<button type="button" class="knapp-l" id="gi-om">Börja om</button></div>
-    <p class="src">${(()=>{const sed=giSedda(),alla=[...GI.fragor,...GI.extra],n=alla.filter(q=>sed[q.id]).length;return `Du har gissat på ${n} av ${alla.length} frågor. `+(n>=alla.length?'Du har klarat alla! Siffrorna uppdateras, så svaren kan ha ändrats när du spelar dem igen. ':'')})()}${giLage==='manad'?'Nya frågor kommer i början av nästa månad.':'Extrafrågorna är frågor från tidigare och kommande månader.'}</p>`;
-  $('#gi-dela').addEventListener('click',()=>delaOppna({etikett:'Gissa siffran · '+GI.namn,varde:`${tot} av ${max}`,text:`Så många poäng fick jag på frågor om Örebro i siffror. Hur bra känner du Örebro?`,kalla:'',lank:'gissa.html'}));
+    <p class="src">${(()=>{const sed=giSedda(),alla=[...GI.fragor,...GI.extra],n=alla.filter(q=>sed[q.id]).length;return `Du har gissat på ${n} av ${alla.length} frågor. `+(n>=alla.length?'Du har klarat alla! Siffrorna uppdateras, så svaren kan ha ändrats när du spelar dem igen. ':'')})()}${giLage==='manad'?'Fem nya frågor kommer vid midnatt.':'Extrafrågorna är andra frågor ur banken, först de du inte har sett.'}</p>`;
+  $('#gi-dela').addEventListener('click',()=>delaOppna({etikett:'Gissa siffran · '+plDatumText(giDag()),varde:`${tot} av ${max}`,text:`Så många poäng fick jag på frågor om Örebro i siffror. Hur bra känner du Örebro?`,kalla:'',lank:'gissa.html'}));
   const fl=$('#gi-fler');if(fl)fl.addEventListener('click',()=>{giLage='extra';
     // först frågor besökaren aldrig har sett (i den ordning datan anger), sedan de hon såg för längst sedan
-    const sed=giSedda();const nya=GI.extra.filter(q=>!sed[q.id]);const gamla=GI.extra.filter(q=>sed[q.id]).sort((a,b)=>sed[a.id].localeCompare(sed[b.id]));
+    const sed=giSedda();const idag=giDagens(giDag()).map(q=>q.id),ext=giBank().filter(q=>!idag.includes(q.id));const nya=ext.filter(q=>!sed[q.id]);const gamla=ext.filter(q=>sed[q.id]).sort((a,b)=>sed[a.id].localeCompare(sed[b.id]));
     giLista=[...nya,...gamla].slice(0,5);giLista.forEach(q=>delete giSvar[q.id]);giI=0;giVisa();$('#gi-kort').scrollIntoView({behavior:'smooth',block:'nearest'})});
   $('#gi-om').addEventListener('click',()=>{giLage='manad';giSvar={};giSkriv();giStart()});
 }
 function giStart(){
-  giLista=GI.fragor.slice();const b=giBonus();if(b)giLista.push(b);
+  giLista=giDagens(giDag());const b=giBonus();if(b)giLista.push(b);
   const i=giLista.findIndex(q=>giSvar[q.id]==null);giI=i<0?giLista.length:i;giVisa();
 }
 function initGissa(){
   const ORD=['Noll','En','Två','Tre','Fyra','Fem','Sex','Sju'];
-  $('#gi-lead').textContent=`${ORD[GI.fragor.length]||GI.fragor.length} av ${[...GI.fragor,...GI.extra].length} frågor om Örebro i siffror för ${GI.namn}. Dra i reglaget, gissa och se hur nära du kom. Nya frågor kommer varje månad.`;
+  $('#gi-lead').textContent=`Fem frågor om Örebro i siffror varje dag, i dag ${plDatumText(giDag())}. Dra i reglaget, gissa och se hur nära du kom. Nya frågor kommer vid midnatt.`;
   giSvar=giLas();giStart();
 }
 
