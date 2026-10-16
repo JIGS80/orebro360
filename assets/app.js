@@ -2956,7 +2956,7 @@ async function delaRita(d){
   const M=88;
   x.textBaseline='alphabetic';x.font='700 54px "Bricolage Grotesque", sans-serif';x.fillStyle=INK;x.fillText('Örebro',M,M+50);
   const w1=x.measureText('Örebro').width;x.font='500 54px "IBM Plex Mono", monospace';x.fillStyle=AC;x.fillText('360',M+w1+4,M+50);
-  x.font='500 26px "IBM Plex Mono", monospace';x.fillStyle=INK2;x.textAlign='right';x.fillText('Upptäck mer av ditt Örebro',W-M,M+46);x.textAlign='left';
+  x.font='500 26px "IBM Plex Mono", monospace';x.fillStyle=INK2;x.textAlign='right';x.fillText('Mer av Örebro',W-M,M+46);x.textAlign='left';
   // etikett
   let y=330;x.font='600 34px "Source Sans 3", sans-serif';x.fillStyle=AC;
   const et=(d.etikett||'').toUpperCase();x.fillText(et.length>48?et.slice(0,46)+'…':et,M,y);
