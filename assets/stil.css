@@ -1832,3 +1832,4 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 @media (max-width:760px){.site-rad{gap:8px;padding-block:10px}.mitt-knapp,.aa-knapp{min-height:36px;padding:5px 12px;font-size:.86rem}.aa-knapp{padding-left:10px}}
 @media (max-width:370px){.site-rad{gap:6px}.mitt-knapp,.aa-knapp{padding-inline:9px}.mitt-knapp{font-size:.84rem}}
 .aa-omr{display:block;font-weight:500;font-size:.8rem;color:var(--ink2);margin-top:1px}
+@media (max-width:760px){.hero .tagline{text-wrap:balance}}
