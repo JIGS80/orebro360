@@ -1832,7 +1832,3 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 @media (max-width:760px){.site-rad{gap:8px;padding-block:10px}.mitt-knapp,.aa-knapp{min-height:36px;padding:5px 12px;font-size:.86rem}.aa-knapp{padding-left:10px}}
 @media (max-width:370px){.site-rad{gap:6px}.mitt-knapp,.aa-knapp{padding-inline:9px}.mitt-knapp{font-size:.84rem}}
 .aa-omr{display:block;font-weight:500;font-size:.8rem;color:var(--ink2);margin-top:1px}
-/* Rubriken på mobilen: Ö som i kompassen (grön rund markering med vitt Ö) (15 okt 2026) */
-@media (max-width:760px){
-  .hero .tagline .tag-o{display:inline-grid;place-items:center;width:1.12em;height:1.12em;margin:0 .04em 0 .02em;border-radius:50%;background:var(--accent);color:#fff;font-size:.86em;line-height:1;vertical-align:.06em;letter-spacing:0;padding-top:.08em;box-sizing:border-box}
-}
