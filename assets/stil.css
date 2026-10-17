@@ -1838,3 +1838,10 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 /* Mobilen (17 okt 2026): "Till exempel" och frågorna står över kompassen, direkt under ingressen */
 @media (max-width:640px){.hero .hero-fr{order:3;margin:-2px 0 2px}}
 @media (max-width:640px){.hero .hero-fr-l{display:none}}   /* bara frågorna på mobilen (17 okt 2026) */
+/* Mitt Örebro-knappen överst: mörkgrön med vit text, som Ö:et i kompassen (17 okt 2026). På Mitt Örebro får den en ring runt sig */
+.mitt-knapp,.mitt-knapp[aria-current="page"]{background:var(--accent-strong,var(--accent));color:#fff}
+.mitt-knapp:hover{background:var(--accent-strong,var(--accent));color:#fff;filter:brightness(.9)}
+.mitt-knapp.har-val::after,.mitt-knapp[aria-current="page"].har-val::after{background:#fff}
+.mitt-knapp[aria-current="page"]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--accent-strong,var(--accent))}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mitt-knapp[aria-current="page"]{color:#fff}:root:not([data-theme="light"]) .mitt-knapp[aria-current="page"].har-val::after{background:#fff}}
+:root[data-theme="dark"] .mitt-knapp[aria-current="page"]{color:#fff}:root[data-theme="dark"] .mitt-knapp[aria-current="page"].har-val::after{background:#fff}
