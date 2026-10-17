@@ -1835,3 +1835,5 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 @media (max-width:760px){.hero .tagline{text-wrap:balance}}
 /* den stora rubriken: bokstavens egen luft till vänster syns i stor storlek; dra in den så att Ö:et linjerar med texten under (16 okt 2026) */
 .hero .wordmark{margin-left:-.025em}
+/* Mobilen (17 okt 2026): "Till exempel" och frågorna står över kompassen, direkt under ingressen */
+@media (max-width:640px){.hero .hero-fr{order:3;margin:-2px 0 2px}}
