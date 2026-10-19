@@ -1845,3 +1845,18 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .mitt-knapp[aria-current="page"]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--accent-strong,var(--accent))}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mitt-knapp[aria-current="page"]{color:#fff}:root:not([data-theme="light"]) .mitt-knapp[aria-current="page"].har-val::after{background:#fff}}
 :root[data-theme="dark"] .mitt-knapp[aria-current="page"]{color:#fff}:root[data-theme="dark"] .mitt-knapp[aria-current="page"].har-val::after{background:#fff}
+
+/* Nytt sedan förra veckan (19 okt 2026): raden i toppen (bara datorn) och korten, som på mobilen sveps i sidled */
+.hero .hero-nytt{margin:-8px 0 16px;font-size:.98rem}
+.hero-nytt a{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--accent-soft)}
+.hero-nytt a b{color:var(--accent-text)}
+.hero-nytt a:hover,.hero-nytt a:focus-visible{border-bottom-color:var(--accent)}
+.veckan-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+@media (max-width:820px){.hero .hero-nytt{order:3}}
+@media (max-width:640px){.hero .hero-nytt{display:none}}
+@media (max-width:760px){
+  .veckan-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:6px;margin-inline:-16px;padding-inline:16px;scrollbar-width:none;overscroll-behavior-x:contain}
+  .veckan-grid::-webkit-scrollbar{display:none}
+  .veckan-k{flex:0 0 78%;scroll-snap-align:start}
+}
+@media (max-width:760px){.veckan-grid{scroll-padding-inline:16px}.veckan-head{flex-wrap:wrap;gap:2px 12px}.veckan-head .small{white-space:nowrap}}

@@ -3284,10 +3284,12 @@ function heroFragor(){const a=$('#hero-fr-a');if(!a)return;let i=0,paus=false;
   if(matchMedia('(prefers-reduced-motion:reduce)').matches){satt(Math.floor(Math.random()*HERO_FR.length));return}
   ['mouseenter','focus'].forEach(e=>a.addEventListener(e,()=>{paus=true}));['mouseleave','blur'].forEach(e=>a.addEventListener(e,()=>{paus=false}));
   setInterval(()=>{if(paus||document.hidden)return;a.classList.add('ut');setTimeout(()=>{satt(i+1);a.classList.remove('ut')},350)},4000)}
-// Veckans Örebro: tre tips som byggs varje måndag (start.json); döljs om de är äldre än tio dagar
+// Nytt sedan förra veckan (19 okt 2026, ersätter Veckans Örebro): korten byggs varje måndag (start.json); döljs om de är äldre än tio dagar.
+// På datorn finns också en rad i toppen som pekar hit.
 function veckanVisa(V){const box=$('#veckan');if(!box)return;const [y,m,d]=stockholmIdag(),i=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
   if(!V||!V.tips||V.tips.length<2||i>V.giltig){box.hidden=true;return}
-  $('#veckan-v').textContent=`vecka ${V.vecka}`;
+  $('#veckan-v').textContent=V.datum?`uppdaterat ${plDatumText(V.datum).replace(/ \d{4}$/,'')}`:`vecka ${V.vecka}`;
+  const hn=$('#hero-nytt');if(hn&&V.kort&&V.kort.length){$('#hero-nytt-a').innerHTML=`<b>Nytt sedan förra veckan:</b> ${V.kort.map(esc).join(' · ')} <span aria-hidden="true">→</span>`;hn.hidden=false}
   $('#veckan-l').innerHTML=V.tips.map(t=>`<a class="veckan-k veckan-${esc(t.typ)}" href="${esc(t.lank)}"><span class="veckan-typ">${esc(t.rubrik)}</span><b>${esc(t.titel)}</b><span class="veckan-t">${esc(t.text)}</span></a>`).join('');
   box.hidden=false}
 function renderStart(S){
