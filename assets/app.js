@@ -1658,6 +1658,7 @@ document.addEventListener('click',e=>{
     else if(SIDA==='buss'){if(!iVb(omBox.stad,x,y))buSattZoom('hela');buKarta();host=$('#bu-karta')}
     else if(SIDA==='narmiljo'){if(!iVb(omBox.stad,x,y))nmSattZoom('hela');nmKarta();host=$('#nm-karta')}
     else if(SIDA==='cykla'){if(!iVb(omBox.stad,x,y))cySattZoom('hela');cyKarta();host=$('#cy-karta')}
+    else if(SIDA==='fika'){if(!iVb(omBox.stad,x,y)){fkZoom='hela';document.querySelectorAll('#fk-zoom .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.z==='hela'))}fkKarta();host=$('#fk-karta')}
     else if(SIDA==='trossamfund'){if(!iVb(omBox.stad,x,y))tfSattZoom('hela');tfKarta();host=$('#tf-karta')}
     if(host)host.scrollIntoView({behavior:'smooth',block:'center'});return}
   const o=e.target.closest('[data-valj-omr]');if(o&&SIDA==='narmiljo'){nmValj(o.dataset.valjOmr)}if(o&&SIDA==='cykla'){cyValj(o.dataset.valjOmr)}});
@@ -1759,7 +1760,7 @@ function initCykla(){OM.omraden.forEach(o=>o._box=pathBox(o.svg));omStad();
 function miNarmiljo(k){const box=$('#mi-nm');const nm=NM&&NM.omraden[k];box.hidden=!nm;if(!nm)return;
   const a=nm.antal,f=miFran(k),g=f&&f.gata?miNmGata(k,f):null,r=g||nmRader(nm,'i ditt område'),l5=g?g.lek500:nm.lek500;
   $('#mi-lek-sum').textContent=`I området finns ${nmAntal(a.lek,'kommunal lekplats','kommunala lekplatser')} och ${nmAntal(a.park,'av kommunens stadsdelsparker','av kommunens stadsdelsparker')}. ${l5===0?'Ingen lekplats ligger':l5===1?'En lekplats ligger':fmt(l5)+' lekplatser ligger'} inom 500 meter från ${g?esc(f.gata):'områdets centrum'}.`;
-  $('#mi-lek').innerHTML=r.lek;
+  $('#mi-lek').innerHTML=r.lek+(f?miFik(f,g?f.gata:nmOnamn(k)):'');
   $('#mi-lek-src').innerHTML=`Örebro kommuns ${fmt(NM.kommun.lek)} lekplatser (${fmt(NM.kommun.lek_t)} tillgänglighetsanpassade), ${fmt(NM.kommun.park)} stadsdelsparker och ${fmt(NM.kommun.utegym)} utegym enligt kommunens webbkarta, hämtad ${nmDag(NM.uppdaterad)}. Lekplatser på skol- och bostadsgårdar finns inte med. <a href="narmiljo.html#omr=${k}">Alla lekplatser och parker på sidan Lek, park och återvinning</a>.`;
   $('#mi-atv-sum').textContent=`I området finns ${nmAntal(a.avs,'återvinningsstation','återvinningsstationer')}${a.avc?` och ${nmAntal(a.avc,'återvinningscentral','återvinningscentraler')}`:''}.`;
   $('#mi-atv').innerHTML=r.atv;
@@ -1767,6 +1768,9 @@ function miNarmiljo(k){const box=$('#mi-nm');const nm=NM&&NM.omraden[k];box.hidd
 }
 
 /* ===== Sidan Lek, park och återvinning ===== */
+// Fik i närheten: bara på lek- och parkkort, och bara när ett fik ligger inom 500 m (fågelvägen)
+function nmFik(p){if(!['lek','park'].includes(p[0]))return '';const q=fkNarmast(p[4],p[5],500);if(!q)return '';
+  return `<br><a class="akt-lank" href="${fkLank(p[4],p[5],nmPNamn(p))}">Fik i närheten: ${esc(q.f.n)}, ${esc(meter(q.a))}</a>`}
 let nmSel=null,nmZoom='stad',nmTyp='lek',nmSort={k:'lek_per1000',dir:-1};
 const NM_TYP={lek:['Lekplatser','lekplats'],park:['Parker','park'],utegym:['Utegym','utegym'],hund:['Hundlekplatser','hundlekplats'],avs:['Återvinningsstationer och återvinningscentraler','återvinning'],toa:['Offentliga toaletter','toalett'],pump:['Cykelpumpar','cykelpump']};
 const nmOnamn=k=>(OM.omraden.find(o=>o.kod===k)||{}).namn||'';
@@ -1789,7 +1793,7 @@ function nmKarta(){
     const c=el('circle',{cx:p[4],cy:p[5],r:(p[0]==='avc'?6:st?6:3.8)*sc,class:'nm-pt nm-pt-'+p[0]+(p[6]?' nm-pt-tg':'')+(st?' nm-pt-st':'')},svg);
     c.addEventListener('mousemove',e=>show(e,`<b>${esc(nmPNamn(p))}</b><br>${esc([p[0]==='avs'?'':p[2],nmOnamn(p[3]),p[6]?'tillgänglighetsanpassad':''].filter(Boolean).join(' · '))}`));
     c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
-    c.addEventListener('click',e=>kortVisa(host,tp,e,`<b>${esc(nmPNamn(p))}</b><br>${esc([p[0]==='avs'||/^(vid|nära) /.test(p[2]||'')?'':p[2],nmOnamn(p[3])].filter(Boolean).join(' · '))}<br>${hittaLank(p[4],p[5])}${p[3]!==nmSel?` · <button type="button" class="akt-knapp" data-valj-omr="${p[3]}">Välj området</button>`:''}${(o=>o?'<br>'+spKnapp(o):'')(spNm(p[0],p[4],p[5],nmPNamn(p),nmOnamn(p[3])))}`))});
+    c.addEventListener('click',e=>kortVisa(host,tp,e,`<b>${esc(nmPNamn(p))}</b><br>${esc([p[0]==='avs'||/^(vid|nära) /.test(p[2]||'')?'':p[2],nmOnamn(p[3])].filter(Boolean).join(' · '))}${nmFik(p)}<br>${hittaLank(p[4],p[5])}${p[3]!==nmSel?` · <button type="button" class="akt-knapp" data-valj-omr="${p[3]}">Välj området</button>`:''}${(o=>o?'<br>'+spKnapp(o):'')(spNm(p[0],p[4],p[5],nmPNamn(p),nmOnamn(p[3])))}`))});
   if(s){const t=el('text',{x:s.lx,y:s.ly-9*sc,'text-anchor':'middle',class:'lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=s.namn}
   fokusRita(svg,sc);
   $('#nm-karta-h').textContent=NM_TYP[nmTyp][0];
@@ -2149,7 +2153,7 @@ const MI_RK='orebro360.rk',MI_RK_MAX=20;let rkMinne=null;
    Bara i webbläsaren (orebro360.sparat = [{t,id,n,s,x,y,w}], senast sparad först, högst 40). Skickas aldrig och står aldrig i adressen.
    Sparat är ett minne, ingen bevakning: sidan säger inte till när något sparat ändras. Restaurangerna har sin egen lista ovan (orebro360.rk). */
 const SP_KEY='orebro360.sparat',SP_MAX=40;let spMinne=null;
-const SP_TYP={for:['Förening','Föreningar'],lek:['Lekplats','Lekplatser'],park:['Park','Parker'],utegym:['Utegym','Utegym'],hund:['Hundlekplats','Hundlekplatser'],bad:['Badplats','Badplatser']};
+const SP_TYP={for:['Förening','Föreningar'],lek:['Lekplats','Lekplatser'],park:['Park','Parker'],utegym:['Utegym','Utegym'],hund:['Hundlekplats','Hundlekplatser'],bad:['Badplats','Badplatser'],fik:['Fikaställe','Fikaställen']};
 function spHamta(){let a=null;try{const v=localStorage.getItem(SP_KEY);if(v)a=JSON.parse(v)}catch(e){}if(!Array.isArray(a))a=spMinne||[];
   return a.filter(o=>o&&SP_TYP[o.t]&&typeof o.id==='string'&&o.id.length<=60&&typeof o.n==='string'&&o.n.length<=120&&(o.s==null||typeof o.s==='string'&&o.s.length<=160)
     &&(o.x==null||(isFinite(o.x)&&isFinite(o.y)))&&(o.w==null||/^https?:\/\/[^\s"'<>]{3,200}$/.test(o.w))).slice(0,SP_MAX)}
@@ -2186,6 +2190,9 @@ function miGataData(){if(GATA&&HPL)return Promise.resolve();
 function miRkData(){if(GATA)return Promise.resolve();if(!miRkLaddar)miRkLaddar=load('gata').then(g=>{GATA=GATA||g}).catch(e=>{miRkLaddar=null;throw e});return miRkLaddar}
 const miRkMap=()=>GATA._rk||(GATA._rk=new Map(GATA.rk.map(v=>[v[0],v])));
 // varifrån avstånden räknas: din gata om den ligger i området som visas (och datan har laddats), annars områdets centrum
+// närmaste fikat i Mitt Örebro, högst 3 km bort; namnet leder till Fika i Örebro räknat från samma punkt
+function miFik(f,fran){const q=fkNarmast(f.x,f.y,3000);if(!q)return '';const c=q.f;
+  return miRad(c.n,esc(['närmaste fikat',FK_TYPNAMN[c.typ].toLowerCase(),c.a].filter(Boolean).join(' · ')),q.a,c.x,c.y,fkLank(f.x,f.y,fran||''))}
 function miFran(k){const g=gataHamta(),m=MI&&MI.omraden[k];if(g&&g.k===k&&GATA&&HPL)return {x:g.x,y:g.y,gata:g.n};return m?{x:m.cx,y:m.cy,gata:null}:null}
 const miM=(f,x,y)=>Math.round(Math.hypot(x-f.x,y-f.y))*10;   // kartans enhet är 10 m
 const miFranText=f=>f&&f.gata?`fågelvägen från ${f.gata}`:'fågelvägen från områdets centrum';
@@ -3178,7 +3185,91 @@ function initGc(){
 const SIDA=document.body.dataset.sida;
 async function load(name){const r=await fetch('data/'+name+'.json');if(!r.ok)throw new Error(name);return r.json()}
 const datumText=d=>{const [y,m,dd]=d.split('-');return `${+dd} ${MANAD[+m-1]} ${y}`};
+/* ===== Fika i Örebro (19 okt 2026): kaféer, konditorier och bagerier ur kommunens livsmedelsregister, öppettider ur OpenStreetMap.
+   Närmast räknas från: en plats i adressen (#nara=x,y,namn, från t.ex. en park), Var är jag? (bara i minnet), din gata eller ditt område
+   i Mitt Örebro, eller ett område du väljer här. Inget av det skickas någonstans. ===== */
+let FK=null,fkFran=null,fkTyp='',fkOppet=false,fkVisa=12,fkZoom='stad';
+const FK_DAG=['Mo','Tu','We','Th','Fr','Sa','Su'],FK_DAGNAMN=['måndag','tisdag','onsdag','torsdag','fredag','lördag','söndag'];
+// OSM opening_hours i de vanligaste formerna (dagar, dagintervall, flera tider, off, 24/7). Annat ger null = okänt, så vi gissar aldrig.
+function fkTider(oh){if(!oh)return null;oh=oh.trim();if(/^24\/7$/.test(oh))return Array.from({length:7},()=>[[0,1440]]);
+  const V=Array.from({length:7},()=>[]);let ok=false;
+  for(let r of oh.split(';')){r=r.trim();if(!r)continue;
+    const m=r.match(/^((?:Mo|Tu|We|Th|Fr|Sa|Su|PH)(?:-(?:Mo|Tu|We|Th|Fr|Sa|Su))?(?:\s*,\s*(?:Mo|Tu|We|Th|Fr|Sa|Su|PH)(?:-(?:Mo|Tu|We|Th|Fr|Sa|Su))?)*)?\s*(.*)$/);if(!m)return null;
+    const dagar=new Set();
+    if(m[1]){for(const p of m[1].split(/\s*,\s*/)){if(p==='PH')continue;const [a,b]=p.split('-'),i=FK_DAG.indexOf(a),j=b?FK_DAG.indexOf(b):i;if(i<0||j<0)return null;for(let k=i;;k=(k+1)%7){dagar.add(k);if(k===j)break}}if(!dagar.size)continue}
+    else for(let k=0;k<7;k++)dagar.add(k);
+    const t=m[2].trim();let iv=[];
+    if(!/^(off|closed)$/i.test(t)){for(const s of t.split(/\s*,\s*/)){const q=s.match(/^(\d{1,2}):(\d\d)\s*-\s*(\d{1,2}):(\d\d)\+?$/);if(!q)return null;const a=+q[1]*60+ +q[2];let b=+q[3]*60+ +q[4];if(b<=a)b+=1440;iv.push([a,b])}}
+    dagar.forEach(k=>V[k]=iv);ok=true}
+  return ok?V:null}
+function fkNu(){const p=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:SOL_TZ,hour:'2-digit',minute:'2-digit',hourCycle:'h23',weekday:'short'}).formatToParts(new Date()).map(x=>[x.type,x.value]));
+  return {d:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].indexOf(p.weekday),m:(+p.hour%24)*60+ +p.minute}}
+const fkKl=m=>{m%=1440;return `${String(Math.floor(m/60)).padStart(2,'0')}.${String(m%60).padStart(2,'0')}`};
+// {k:'oppen'|'stangd', t:text} eller null när öppettider saknas
+function fkStatus(f){const V=f._t===undefined?(f._t=fkTider(f.oh)):f._t;if(!V)return null;const {d,m}=fkNu();
+  const ig=V[(d+6)%7].find(([a,b])=>b>1440&&m<b-1440);if(ig)return {k:'oppen',t:`Öppet nu, till ${fkKl(ig[1])}`};
+  const nu=V[d].find(([a,b])=>m>=a&&m<b);if(nu)return {k:'oppen',t:`Öppet nu, till ${fkKl(nu[1])}`};
+  const sen=V[d].find(([a])=>a>m);if(sen)return {k:'stangd',t:`Stängt nu, öppnar ${fkKl(sen[0])}`};
+  for(let i=1;i<=7;i++){const D=V[(d+i)%7];if(D.length)return {k:'stangd',t:`Stängt nu, öppnar ${i===1?'i morgon':FK_DAGNAMN[(d+i)%7]} ${fkKl(D[0][0])}`}}
+  return {k:'stangd',t:'Stängt'}}
+const fkAvst=(f,p)=>Math.hypot(f.x-p.x,f.y-p.y)*10;
+const fkGang=m=>m<120?'nära':`ca ${Math.max(1,Math.round(m/80))} min att gå`;
+const FK_TYPNAMN={kafe:'Kafé',konditori:'Konditori eller bageri',glass:'Glass'};
+function fkSp(f){return {t:'fik',id:f.id,n:f.n,s:[FK_TYPNAMN[f.typ],f.a].filter(Boolean).join(' · ').slice(0,150),x:f.x,y:f.y,w:f.w||null}}
+function fkKort(f){const s=fkStatus(f),a=fkFran?fkAvst(f,fkFran):null;
+  return `<b>${esc(f.n)}</b><br>${esc(f.a||'')}${a!=null?` · ${esc(meter(a))}`:''}${s?`<br>${esc(s.t)}`:''}<br>${hittaLank(f.x,f.y)} · <a class="akt-lank" href="restauranger.html#v=${esc(f.id)}">Kontrollerna</a>${f.w?` · <a class="akt-lank" href="${esc(f.w)}" target="_blank" rel="noopener">Webbplats ↗</a>`:''}<br>${spKnapp(fkSp(f))}`}
+function fkUrval(){return FK.stallen.filter(f=>(!fkTyp||f.typ===fkTyp)&&(!fkOppet||(fkStatus(f)||{}).k==='oppen'))}
+function fkLista(){const L=fkUrval().map(f=>({f,a:fkFran?fkAvst(f,fkFran):null}));if(fkFran)L.sort((x,y)=>x.a-y.a);
+  const ul=$('#fk-lista');
+  $('#fk-n').textContent=`${fmt(L.length)} ${L.length===1?'ställe':'ställen'}${fkOppet?` med öppet nu, av ${fmt(FK.antal.oppettider)} där vi vet öppettiderna`:''}${fkFran?`, närmast först från ${fkFran.n}`:', i bokstavsordning'}`;
+  $('#fk-lista-h').textContent=fkFran?'Fika nära dig':'Alla fikaställen';
+  ul.innerHTML=L.slice(0,fkVisa).map(({f,a})=>{const s=fkStatus(f);
+    return `<li class="fk-rad"><span class="mi-bt"><b>${esc(f.n)}</b><span class="sub">${esc([FK_TYPNAMN[f.typ],f.a].filter(Boolean).join(' · '))}</span>${s?`<span class="fk-st fk-st-${s.k}">${esc(s.t)}</span>`:'<span class="fk-st fk-st-okand">Öppettider saknas</span>'}</span>`+
+      `${a!=null?`<span class="mi-avst">${esc(meter(a))}<span class="fk-gang">${esc(fkGang(a))}</span></span>`:''}`+
+      `<span class="mi-akt"><button type="button" class="akt-knapp" data-visa="${f.x},${f.y}" data-n="${esc(f.n)}">Visa på karta</button>${hittaLank(f.x,f.y)}<a class="akt-knapp" href="restauranger.html#v=${esc(f.id)}">Kontrollerna</a>${f.w?`<a class="akt-knapp" href="${esc(f.w)}" target="_blank" rel="noopener">Webbplats ↗<span class="sr-only"> (${esc(f.n)}, öppnas i ny flik)</span></a>`:''}${spKnapp(fkSp(f),1)}</span></li>`}).join('')
+    ||'<li class="small">Inga ställen stämmer med valet. Ta bort bocken för öppet nu eller välj en annan typ. Vi vet öppettiderna bara för en del av ställena.</li>';
+  $('#fk-fler').hidden=L.length<=fkVisa;$('#fk-fler').textContent=`Visa fler (${fmt(L.length-fkVisa)} till)`}
+function fkKarta(){const host=$('#fk-karta');if(!host||!FK||!OM)return;const vb=fkZoom==='stad'&&omBox.stad?omBox.stad:[0,0,OM.karta.w,OM.karta.h];
+  host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över fikaställena i Örebro'},host);kartZoom(host,svg);
+  const sc=kartSc(svg,vb),tp=tip(host);
+  OM.omraden.forEach(o=>el('path',{d:o.svg,class:'nm-a','fill-rule':'evenodd'},svg));
+  const ur=new Set(fkUrval().map(f=>f.id));
+  FK.stallen.filter(f=>ur.has(f.id)).forEach(f=>{const c=el('circle',{cx:f.x,cy:f.y,r:4.4*sc,class:'fk-pt fk-pt-'+f.typ},svg);
+    c.addEventListener('mousemove',e=>{if(!tipFri(tp))return;const bb=host.getBoundingClientRect();tp.hidden=false;tp.innerHTML=`<b>${esc(f.n)}</b>`;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'});
+    c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});c.addEventListener('click',e=>kortVisa(host,tp,e,fkKort(f)))});
+  if(fkFran)el('circle',{cx:fkFran.x,cy:fkFran.y,r:6.5*sc,class:'fk-pt-du'},svg);
+  fokusRita(svg,sc)}
+function fkSattFran(p,lista=true){fkFran=p;fkVisa=12;$('#fk-fran').textContent=p?`från ${p.n}`:'';fkLista();fkKarta();
+  if(p&&!iVb(fkZoom==='stad'&&omBox.stad?omBox.stad:[0,0,OM.karta.w,OM.karta.h],p.x,p.y)){fkZoom='hela';document.querySelectorAll('#fk-zoom .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.z==='hela'));fkKarta()}
+  if(lista&&matchMedia('(max-width:900px)').matches)$('#fk-lista-h').scrollIntoView({behavior:'smooth',block:'start'})}
+function initFika(){omStad();const A=FK.antal;
+  $('#fk-fakta').innerHTML=`<span><b class="num">${fmt(A.stallen)}</b> fikaställen</span><span>${fmt(A.oppettider)} med öppettider</span><span>registret hämtat ${esc(vtDag(FK.uppdaterad))}</span>`;
+  $('#fk-omr').insertAdjacentHTML('beforeend',OM.omraden.slice().sort((a,b)=>a.namn.localeCompare(b.namn,'sv')).map(o=>`<option value="${o.kod}">${esc(o.namn)}</option>`).join(''));
+  $('#fk-omr').addEventListener('change',e=>{const o=OM.omraden.find(x=>x.kod===e.target.value);fkSattFran(o?{x:o.lx,y:o.ly,n:o.namn}:null)});
+  $('#fk-typ').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;fkTyp=b.dataset.typ;document.querySelectorAll('#fk-typ .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));fkVisa=12;fkLista();fkKarta()});
+  $('#fk-oppet').addEventListener('change',e=>{fkOppet=e.target.checked;fkVisa=12;fkLista();fkKarta()});
+  $('#fk-fler').addEventListener('click',()=>{const n=fkVisa;fkVisa+=24;fkLista();$('#fk-lista').children[n]?.querySelector('button,a')?.focus()});
+  $('#fk-zoom').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;fkZoom=b.dataset.z;document.querySelectorAll('#fk-zoom .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));fkKarta()});
+  // Var är jag? Läget stannar i minnet här och används bara till avstånden
+  const hk=$('#fk-har');if(!('geolocation' in navigator))hk.hidden=true;
+  hk.addEventListener('click',()=>{const md=$('#fk-medd');md.hidden=false;md.textContent=`Ditt läge stannar i ${HAR_ENHET()}. Det sparas inte och skickas inte till oss eller någon annan.`;hk.setAttribute('aria-busy','true');
+    navigator.geolocation.getCurrentPosition(pos=>{hk.removeAttribute('aria-busy');const K=OM.karta,[N,E]=sweref(pos.coords.latitude,pos.coords.longitude),x=(E-K.x0)/10,y=(K.y0-N)/10;
+      if(!(x>=0&&y>=0&&x<=K.w&&y<=K.h)){md.textContent='Du verkar vara utanför Örebro kommun. Välj ett område i stället.';return}
+      md.textContent='Avstånden räknas från där du är. Läget sparas inte.';$('#fk-omr').value='';fkSattFran({x,y,n:'där du är'})},
+    err=>{hk.removeAttribute('aria-busy');md.textContent=err&&err.code===1?'Sidan fick inte se var du är. Välj ett område i stället.':'Det gick inte att ta reda på var du är just nu. Välj ett område i stället.'},{enableHighAccuracy:true,timeout:15000,maximumAge:60000})});
+  // utgångspunkt: plats i adressen (från t.ex. en park), annars din gata, annars ditt område
+  const h=decodeURIComponent(location.hash.slice(1)),m=/^nara=(\d+(?:\.\d+)?),(\d+(?:\.\d+)?)(?:,(.{1,60}))?$/.exec(h);
+  const g=gataHamta(),k=miHamta(),o=k&&OM.omraden.find(x=>x.kod===k);
+  if(m)fkSattFran({x:+m[1],y:+m[2],n:m[3]||'platsen du valde'},false);
+  else if(g)fkSattFran({x:g.x,y:g.y,n:g.n+' (din gata)'},false);
+  else if(o){$('#fk-omr').value=o.kod;fkSattFran({x:o.lx,y:o.ly,n:o.namn+' (ditt område)'},false)}
+  else{fkLista();fkKarta()}
+  setInterval(()=>{if(!document.hidden&&FK)fkLista()},60000)}   // Öppet nu ändras med klockan
+// närmaste fik till en punkt, för länkar från andra sidor (parker, Mitt Örebro)
+function fkNarmast(x,y,max=500){if(!FK)return null;let b=null;for(const f of FK.stallen){const a=Math.hypot(f.x-x,f.y-y)*10;if(a<=max&&(!b||a<b.a))b={f,a}}return b}
+const fkLank=(x,y,n)=>`fika.html#nara=${Math.round(x)},${Math.round(y)}${n?','+encodeURIComponent(n.slice(0,60)):''}`;
 const RITA={
+  fika:()=>FK&&OM&&fkKarta(),
   pengar:()=>{if(P){renderPengar();renderLokal()}}, befolkning:()=>BEF&&renderBef(BEF), jamfor:()=>J&&renderKpi(),
   omrade:()=>OM&&renderOmMap(), handel:()=>{if(HD){renderHdCmp();renderHdMap();renderHdBil()}},
   vader:()=>{if(VE){renderVeStripes();renderVeCharts()}},
@@ -3333,13 +3424,13 @@ let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEv
     try{[GI,OM]=await Promise.all([load('gissa'),miHamta()?load('omraden').catch(()=>null):null]);initGissa()}catch(e){console.error(e);felText('#gi-kort','Kunde inte läsa in frågorna. Ladda om sidan.')}
     break;
   case 'mitt':
-    try{[OM,MI,VAL,KT,NM,CY]=await Promise.all([load('omraden'),load('mitt'),load('val').catch(()=>null),load('kollektiv').catch(()=>null),load('narmiljo').catch(()=>null),load('cykel').catch(()=>null)]);PN=await load('planer').catch(()=>null);TF=await load('trossamfund').catch(()=>null);ktTillOm();initMitt()}catch(e){console.error(e);felText('#mi-karta','Kunde inte läsa in datan för Mitt Örebro. Ladda om sidan.')}
+    try{[OM,MI,VAL,KT,NM,CY]=await Promise.all([load('omraden'),load('mitt'),load('val').catch(()=>null),load('kollektiv').catch(()=>null),load('narmiljo').catch(()=>null),load('cykel').catch(()=>null)]);PN=await load('planer').catch(()=>null);TF=await load('trossamfund').catch(()=>null);FK=await load('fika').catch(()=>null);ktTillOm();initMitt()}catch(e){console.error(e);felText('#mi-karta','Kunde inte läsa in datan för Mitt Örebro. Ladda om sidan.')}
     break;
   case 'cykla':
     try{[OM,CY,NM]=await Promise.all([load('omraden'),load('cykel'),load('narmiljo').catch(()=>null)]);initCykla()}catch(e){console.error(e);felText('#cy-lead','Kunde inte läsa in cykeldatan.')}
     break;
   case 'narmiljo':
-    try{[OM,NM]=await Promise.all([load('omraden'),load('narmiljo')]);initNarmiljo()}catch(e){console.error(e);felText('#nm-lead','Kunde inte läsa in datan om lekplatser och återvinning.')}
+    try{[OM,NM]=await Promise.all([load('omraden'),load('narmiljo')]);load('fika').then(d=>{FK=d}).catch(()=>{});initNarmiljo()}catch(e){console.error(e);felText('#nm-lead','Kunde inte läsa in datan om lekplatser och återvinning.')}
     break;
   case 'platsen':
     try{[OM,PL,GI]=await Promise.all([load('omraden'),load('spel'),load('gissa').catch(()=>null)]);initPlatsen()}catch(e){console.error(e);felText('#pl-karta','Kunde inte läsa in spelet. Ladda om sidan.')}
@@ -3393,6 +3484,9 @@ let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEv
       const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}
       addEventListener('hashchange',()=>{const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}});
     }catch(e){console.error(e);felText('#om-lead','Kunde inte läsa in områdesdatan.')}
+    break;
+  case 'fika':
+    try{[OM,FK]=await Promise.all([load('omraden'),load('fika')]);initFika()}catch(e){console.error(e);felText('#fk-lista','Kunde inte läsa in fikaställena. Ladda om sidan.')}
     break;
   case 'foreningar':
     try{[OM,FO]=await Promise.all([load('omraden'),load('foreningar')]);initForeningar()}catch(e){console.error(e);felText('#fo-lead','Kunde inte läsa in föreningarna.')}
