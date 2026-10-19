@@ -1883,3 +1883,9 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .fk-gang{display:block;font-size:.78rem;color:var(--muted)}
 @media (max-width:900px){.fk-grid{grid-template-columns:minmax(0,1fr)}.fk-kartpanel{position:static}#fk-karta svg{max-height:none;min-height:0}}
 @media (max-height:600px){.fk-kartpanel{position:static}#fk-karta svg{max-height:none;min-height:0}}
+#fk-karta path.nm-a{cursor:pointer}
+#fk-karta path.nm-a:hover,#fk-karta path.nm-a-sel{fill:var(--accent-soft)}
+.fk-karta-tips{margin:6px 0 0}
+#fk-karta path.seloutline{fill:none;stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;pointer-events:none}
+#fk-karta text.lbl{pointer-events:none}
+#fk-karta text.lbl{font-family:var(--f-body);font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-linejoin:round}

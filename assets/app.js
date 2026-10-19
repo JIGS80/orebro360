@@ -3188,7 +3188,7 @@ const datumText=d=>{const [y,m,dd]=d.split('-');return `${+dd} ${MANAD[+m-1]} ${
 /* ===== Fika i Örebro (19 okt 2026): kaféer, konditorier och bagerier ur kommunens livsmedelsregister, öppettider ur OpenStreetMap.
    Närmast räknas från: en plats i adressen (#nara=x,y,namn, från t.ex. en park), Var är jag? (bara i minnet), din gata eller ditt område
    i Mitt Örebro, eller ett område du väljer här. Inget av det skickas någonstans. ===== */
-let FK=null,fkFran=null,fkTyp='',fkOppet=false,fkVisa=12,fkZoom='stad';
+let FK=null,fkFran=null,fkOmr='',fkTyp='',fkOppet=false,fkVisa=12,fkZoom='stad';
 const FK_DAG=['Mo','Tu','We','Th','Fr','Sa','Su'],FK_DAGNAMN=['måndag','tisdag','onsdag','torsdag','fredag','lördag','söndag'];
 // OSM opening_hours i de vanligaste formerna (dagar, dagintervall, flera tider, off, 24/7). Annat ger null = okänt, så vi gissar aldrig.
 function fkTider(oh){if(!oh)return null;oh=oh.trim();if(/^24\/7$/.test(oh))return Array.from({length:7},()=>[[0,1440]]);
@@ -3232,20 +3232,27 @@ function fkLista(){const L=fkUrval().map(f=>({f,a:fkFran?fkAvst(f,fkFran):null})
 function fkKarta(){const host=$('#fk-karta');if(!host||!FK||!OM)return;const vb=fkZoom==='stad'&&omBox.stad?omBox.stad:[0,0,OM.karta.w,OM.karta.h];
   host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över fikaställena i Örebro'},host);kartZoom(host,svg);
   const sc=kartSc(svg,vb),tp=tip(host);
-  OM.omraden.forEach(o=>el('path',{d:o.svg,class:'nm-a','fill-rule':'evenodd'},svg));
+  // tryck på en del av Örebro: avstånden räknas från områdets mitt (19 okt 2026)
+  OM.omraden.forEach(o=>{const p=el('path',{d:o.svg,class:'nm-a'+(o.kod===fkOmr?' nm-a-sel':''),'fill-rule':'evenodd'},svg);
+    p.addEventListener('mousemove',e=>{if(!tipFri(tp))return;const bb=host.getBoundingClientRect();tp.hidden=false;tp.innerHTML=`<b>${esc(o.namn)}</b><br>Tryck för fika närmast här`;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'});
+    p.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
+    p.addEventListener('click',()=>{tp.hidden=true;fkValjOmr(o.kod,false)})});
+  const so=OM.omraden.find(o=>o.kod===fkOmr);if(so)el('path',{d:so.svg,class:'seloutline','fill-rule':'evenodd'},svg);
   const ur=new Set(fkUrval().map(f=>f.id));
   FK.stallen.filter(f=>ur.has(f.id)).forEach(f=>{const c=el('circle',{cx:f.x,cy:f.y,r:4.4*sc,class:'fk-pt fk-pt-'+f.typ},svg);
     c.addEventListener('mousemove',e=>{if(!tipFri(tp))return;const bb=host.getBoundingClientRect();tp.hidden=false;tp.innerHTML=`<b>${esc(f.n)}</b>`;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'});
     c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});c.addEventListener('click',e=>kortVisa(host,tp,e,fkKort(f)))});
   if(fkFran)el('circle',{cx:fkFran.x,cy:fkFran.y,r:6.5*sc,class:'fk-pt-du'},svg);
+  if(so){const t=el('text',{x:so.lx,y:so.ly-11*sc,'text-anchor':'middle',class:'lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=so.namn}
   fokusRita(svg,sc)}
-function fkSattFran(p,lista=true){fkFran=p;fkVisa=12;$('#fk-fran').textContent=p?`från ${p.n}`:'';fkLista();fkKarta();
+function fkValjOmr(kod,lista=true){const o=OM.omraden.find(x=>x.kod===kod);$('#fk-omr').value=o?o.kod:'';fkOmr=o?o.kod:'';fkSattFran(o?{x:o.lx,y:o.ly,n:o.namn}:null,lista,true)}
+function fkSattFran(p,lista=true,omr=false){fkFran=p;if(!omr){fkOmr='';$('#fk-omr').value=''}fkVisa=12;$('#fk-fran').textContent=p?`från ${p.n}`:'';fkLista();fkKarta();
   if(p&&!iVb(fkZoom==='stad'&&omBox.stad?omBox.stad:[0,0,OM.karta.w,OM.karta.h],p.x,p.y)){fkZoom='hela';document.querySelectorAll('#fk-zoom .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.z==='hela'));fkKarta()}
   if(lista&&matchMedia('(max-width:900px)').matches)$('#fk-lista-h').scrollIntoView({behavior:'smooth',block:'start'})}
 function initFika(){omStad();const A=FK.antal;
   $('#fk-fakta').innerHTML=`<span><b class="num">${fmt(A.stallen)}</b> fikaställen</span><span>${fmt(A.oppettider)} med öppettider</span><span>registret hämtat ${esc(vtDag(FK.uppdaterad))}</span>`;
   $('#fk-omr').insertAdjacentHTML('beforeend',OM.omraden.slice().sort((a,b)=>a.namn.localeCompare(b.namn,'sv')).map(o=>`<option value="${o.kod}">${esc(o.namn)}</option>`).join(''));
-  $('#fk-omr').addEventListener('change',e=>{const o=OM.omraden.find(x=>x.kod===e.target.value);fkSattFran(o?{x:o.lx,y:o.ly,n:o.namn}:null)});
+  $('#fk-omr').addEventListener('change',e=>fkValjOmr(e.target.value));
   $('#fk-typ').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;fkTyp=b.dataset.typ;document.querySelectorAll('#fk-typ .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));fkVisa=12;fkLista();fkKarta()});
   $('#fk-oppet').addEventListener('change',e=>{fkOppet=e.target.checked;fkVisa=12;fkLista();fkKarta()});
   $('#fk-fler').addEventListener('click',()=>{const n=fkVisa;fkVisa+=24;fkLista();$('#fk-lista').children[n]?.querySelector('button,a')?.focus()});
@@ -3255,14 +3262,14 @@ function initFika(){omStad();const A=FK.antal;
   hk.addEventListener('click',()=>{const md=$('#fk-medd');md.hidden=false;md.textContent=`Ditt läge stannar i ${HAR_ENHET()}. Det sparas inte och skickas inte till oss eller någon annan.`;hk.setAttribute('aria-busy','true');
     navigator.geolocation.getCurrentPosition(pos=>{hk.removeAttribute('aria-busy');const K=OM.karta,[N,E]=sweref(pos.coords.latitude,pos.coords.longitude),x=(E-K.x0)/10,y=(K.y0-N)/10;
       if(!(x>=0&&y>=0&&x<=K.w&&y<=K.h)){md.textContent='Du verkar vara utanför Örebro kommun. Välj ett område i stället.';return}
-      md.textContent='Avstånden räknas från där du är. Läget sparas inte.';$('#fk-omr').value='';fkSattFran({x,y,n:'där du är'})},
+      md.textContent='Avstånden räknas från där du är. Läget sparas inte.';fkSattFran({x,y,n:'där du är'})},
     err=>{hk.removeAttribute('aria-busy');md.textContent=err&&err.code===1?'Sidan fick inte se var du är. Välj ett område i stället.':'Det gick inte att ta reda på var du är just nu. Välj ett område i stället.'},{enableHighAccuracy:true,timeout:15000,maximumAge:60000})});
   // utgångspunkt: plats i adressen (från t.ex. en park), annars din gata, annars ditt område
   const h=decodeURIComponent(location.hash.slice(1)),m=/^nara=(\d+(?:\.\d+)?),(\d+(?:\.\d+)?)(?:,(.{1,60}))?$/.exec(h);
   const g=gataHamta(),k=miHamta(),o=k&&OM.omraden.find(x=>x.kod===k);
   if(m)fkSattFran({x:+m[1],y:+m[2],n:m[3]||'platsen du valde'},false);
   else if(g)fkSattFran({x:g.x,y:g.y,n:g.n+' (din gata)'},false);
-  else if(o){$('#fk-omr').value=o.kod;fkSattFran({x:o.lx,y:o.ly,n:o.namn+' (ditt område)'},false)}
+  else if(o){fkOmr=o.kod;$('#fk-omr').value=o.kod;fkSattFran({x:o.lx,y:o.ly,n:o.namn+' (ditt område)'},false,true)}
   else{fkLista();fkKarta()}
   setInterval(()=>{if(!document.hidden&&FK)fkLista()},60000)}   // Öppet nu ändras med klockan
 // närmaste fik till en punkt, för länkar från andra sidor (parker, Mitt Örebro)
