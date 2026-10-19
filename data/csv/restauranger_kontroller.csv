@@ -652,6 +652,7 @@ b57d697d-d457-4db7-b705-d9b500df7728;Al-Sheikh Food;2024-09-16;Händelsestyrd ko
 92e6b3e5-0853-4678-86b5-bd3993d18aa6;Alana market;2026-06-08;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Avvikelse
 92e6b3e5-0853-4678-86b5-bd3993d18aa6;Alana market;2026-06-08;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Avvikelse
 92e6b3e5-0853-4678-86b5-bd3993d18aa6;Alana market;2026-06-08;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Avvikelse
+4c334b89-81b2-4d5e-8cb9-fa12e7aa0164;Alana Market - Nyregistrerad;2026-10-16;Planerad kontroll;;;;Handläggning pågår
 07f46a11-9a98-4e06-a5b0-27cb434fdd68;Alessandros;2026-09-02;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Åtgärdad
 07f46a11-9a98-4e06-a5b0-27cb434fdd68;Alessandros;2026-09-02;Uppföljning;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Åtgärdad
 07f46a11-9a98-4e06-a5b0-27cb434fdd68;Alessandros;2026-08-13;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
@@ -1570,7 +1571,8 @@ b38d36f1-519f-4cda-9885-0815166e91bf;Apoteket Svanen;2020-04-23;Planerad kontrol
 7a59bae7-83c9-48a1-9750-8b110e7542a0;Art Bar;2020-11-27;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 7a59bae7-83c9-48a1-9750-8b110e7542a0;Art Bar;2020-11-27;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 7a59bae7-83c9-48a1-9750-8b110e7542a0;Art Bar;2020-11-27;Uppföljning;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
-715c578c-fb6a-4ba1-9fac-08b82e0ab83c;Asian T4 restaurang;2026-09-17;Händelsestyrd kontroll;;;;Handläggning pågår
+715c578c-fb6a-4ba1-9fac-08b82e0ab83c;Asian T4 restaurang;2026-09-17;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+715c578c-fb6a-4ba1-9fac-08b82e0ab83c;Asian T4 restaurang;2026-09-17;Händelsestyrd kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
 715c578c-fb6a-4ba1-9fac-08b82e0ab83c;Asian T4 restaurang;2026-08-27;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 715c578c-fb6a-4ba1-9fac-08b82e0ab83c;Asian T4 restaurang;2026-08-27;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 715c578c-fb6a-4ba1-9fac-08b82e0ab83c;Asian T4 restaurang;2026-08-27;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
@@ -2016,13 +2018,13 @@ ebcb1b90-728d-4e42-86a9-ae02571b1d70;Baicha;2024-08-28;Planerad kontroll;oanmäl
 ebcb1b90-728d-4e42-86a9-ae02571b1d70;Baicha;2024-08-28;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 ebcb1b90-728d-4e42-86a9-ae02571b1d70;Baicha;2024-08-28;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 ebcb1b90-728d-4e42-86a9-ae02571b1d70;Baicha;2024-08-28;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Elektroskandia;2025-03-27;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Elektroskandia;2025-03-27;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
-66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Elektroskandia;2025-03-27;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
-66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Elektroskandia;2025-03-27;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Elektroskandia;2025-03-27;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
-66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Elektroskandia;2025-03-27;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Elektroskandia;2025-03-27;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Sonepar;2025-03-27;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Sonepar;2025-03-27;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
+66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Sonepar;2025-03-27;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
+66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Sonepar;2025-03-27;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Sonepar;2025-03-27;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Sonepar;2025-03-27;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Sonepar;2025-03-27;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 551b6989-846e-4340-af2d-d7e5ddb817ed;Banger bar;2026-03-05;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 551b6989-846e-4340-af2d-d7e5ddb817ed;Banger bar;2026-03-05;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Avvikelse
 551b6989-846e-4340-af2d-d7e5ddb817ed;Banger bar;2026-03-05;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
@@ -3527,7 +3529,15 @@ ce01d156-39e7-4711-ad39-590e07f38ee2;Burger King Drottninggatan;2026-01-27;Plane
 0ddc6579-3e02-4670-bd19-c230dfaa6fab;Burger King Eurostop;2026-02-12;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
 0ddc6579-3e02-4670-bd19-c230dfaa6fab;Burger King Eurostop;2026-02-12;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 0ddc6579-3e02-4670-bd19-c230dfaa6fab;Burger King Eurostop;2026-02-12;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-09-15;Planerad kontroll;;;;Handläggning pågår
+cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-09-15;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-09-15;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
+cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-09-15;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
+cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-09-15;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-09-15;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-09-15;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
+cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-09-15;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
+cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-09-15;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-09-15;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-05-29;Uppföljning;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Åtgärdad
 cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-05-29;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Åtgärdad
 cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2026-05-27;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
@@ -3556,19 +3566,8 @@ cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;2025-09-30;Planerad k
 902d684c-fedf-4056-956c-e1920a4cfc6c;Byblos Market;2025-11-28;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 902d684c-fedf-4056-956c-e1920a4cfc6c;Byblos Market;2025-11-28;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Avvikelse
 902d684c-fedf-4056-956c-e1920a4cfc6c;Byblos Market;2025-11-28;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Avvikelse
-bf623123-b842-4073-87a3-3449a403d182;Bäcks Bed & Breakfast - nyregistrerad;2026-10-09;Planerad kontroll, uppföljning;;;;Handläggning pågår
-bf623123-b842-4073-87a3-3449a403d182;Bäcks Bed & Breakfast - nyregistrerad;2026-09-07;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;B01;Allmänna krav och skyldigheter (Allmän livsmedelsinformation);Utan avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;2021-08-24;Planerad kontroll;anmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+bf623123-b842-4073-87a3-3449a403d182;Bäcks Bed & Breakfast;2026-10-09;Planerad kontroll, uppföljning;;;;Handläggning pågår
+bf623123-b842-4073-87a3-3449a403d182;Bäcks Bed & Breakfast;2026-09-07;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Avvikelse
 7cc7569e-faa9-4f5d-8928-24a6596f4bb7;Cafe la sockertoppen;2026-08-12;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 7cc7569e-faa9-4f5d-8928-24a6596f4bb7;Cafe la sockertoppen;2026-08-12;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 7cc7569e-faa9-4f5d-8928-24a6596f4bb7;Cafe la sockertoppen;2026-08-12;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
@@ -4399,7 +4398,9 @@ a6fee9fe-3d4d-42ad-8268-c2335fca69a0;Chicce Stortorget;2022-01-27;Uppföljning;o
 a6fee9fe-3d4d-42ad-8268-c2335fca69a0;Chicce Stortorget;2022-01-27;Uppföljning;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
 36b06e23-cbd4-4cf0-8563-adf00abdb61f;Choklad Buketten;2026-10-01;Planerad kontroll;;;;Handläggning pågår
 1995d90f-1535-4dc5-9b40-99de8b074466;Chopchop;2026-09-25;Uppföljning, händelsestyrd kontroll;;;;Handläggning pågår
-1995d90f-1535-4dc5-9b40-99de8b074466;Chopchop;2026-09-17;Uppföljning;;;;Handläggning pågår
+1995d90f-1535-4dc5-9b40-99de8b074466;Chopchop;2026-09-17;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Åtgärdad
+1995d90f-1535-4dc5-9b40-99de8b074466;Chopchop;2026-09-17;Uppföljning;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Åtgärdad
+1995d90f-1535-4dc5-9b40-99de8b074466;Chopchop;2026-09-17;Uppföljning;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Kvarstår
 1995d90f-1535-4dc5-9b40-99de8b074466;Chopchop;2026-03-25;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 1995d90f-1535-4dc5-9b40-99de8b074466;Chopchop;2026-03-25;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 1995d90f-1535-4dc5-9b40-99de8b074466;Chopchop;2026-03-25;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
@@ -6826,6 +6827,7 @@ a8f61fdc-adec-440d-a7ee-7e1314a067b8;Espresso House Centralstationen;2022-08-08;
 533aea9e-4a80-4832-b132-1562babdec92;Ett Bord;2026-01-12;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 533aea9e-4a80-4832-b132-1562babdec92;Ett Bord;2026-01-12;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 533aea9e-4a80-4832-b132-1562babdec92;Ett Bord;2026-01-12;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2026-10-13;Planerad kontroll;;;;Handläggning pågår
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2025-10-01;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2025-10-01;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2025-10-01;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
@@ -6859,14 +6861,14 @@ a8f61fdc-adec-440d-a7ee-7e1314a067b8;Espresso House Centralstationen;2022-08-08;
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2022-05-17;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2022-05-17;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2022-05-17;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Uppföljning;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-12-15;Uppföljning;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-08-18;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-08-18;Planerad kontroll;oanmäld;B01;Allmänna krav och skyldigheter (Allmän livsmedelsinformation);Utan avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-08-18;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
@@ -6874,12 +6876,6 @@ a8f61fdc-adec-440d-a7ee-7e1314a067b8;Espresso House Centralstationen;2022-08-08;
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-08-18;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-08-18;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Avvikelse
 478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2021-08-18;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2020-04-16;Planerad kontroll;anmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2020-04-16;Planerad kontroll;anmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2020-04-16;Planerad kontroll;anmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
-478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2020-04-16;Planerad kontroll;anmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
-478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2020-04-16;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;2020-04-16;Planerad kontroll;anmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 045debc5-f5b7-42ed-829f-56487f725200;Exacta Logistics AB;2026-10-06;Planerad kontroll;;;;Handläggning pågår
 045debc5-f5b7-42ed-829f-56487f725200;Exacta Logistics AB;2026-06-04;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 045debc5-f5b7-42ed-829f-56487f725200;Exacta Logistics AB;2026-06-04;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
@@ -8034,6 +8030,7 @@ fd30265b-7b68-49b1-aaa9-e9d3d67182e0;Förskolan Beckasinen;2020-02-20;Planerad k
 11bcc368-48ad-4f2e-b537-0866fc668f2a;Förskolan Emil;2021-03-23;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 11bcc368-48ad-4f2e-b537-0866fc668f2a;Förskolan Emil;2021-03-23;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 11bcc368-48ad-4f2e-b537-0866fc668f2a;Förskolan Emil;2021-03-23;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
+935cd4b5-0d49-4947-8678-63915fbdb404;Förskolan Fantasia;2026-10-15;Planerad kontroll;;;;Handläggning pågår
 935cd4b5-0d49-4947-8678-63915fbdb404;Förskolan Fantasia;2025-04-08;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 935cd4b5-0d49-4947-8678-63915fbdb404;Förskolan Fantasia;2025-04-08;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
 935cd4b5-0d49-4947-8678-63915fbdb404;Förskolan Fantasia;2025-04-08;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
@@ -9589,6 +9586,7 @@ b5bc2c6f-901f-479e-a877-db64339905d4;Grekiska Grill & Bar Centrum;2020-06-25;Upp
 8f06815a-71f5-4359-a024-2b566c3f2974;Grillska Gymnasiet;2020-08-28;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Avvikelse
 8f06815a-71f5-4359-a024-2b566c3f2974;Grillska Gymnasiet;2020-08-28;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 8f06815a-71f5-4359-a024-2b566c3f2974;Grillska Gymnasiet;2020-08-28;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2026-10-16;Planerad kontroll;;;;Handläggning pågår
 200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2025-02-11;Planerad kontroll, uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2025-02-11;Planerad kontroll, uppföljning;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2025-02-11;Planerad kontroll, uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Åtgärdad
@@ -9640,10 +9638,6 @@ b5bc2c6f-901f-479e-a877-db64339905d4;Grekiska Grill & Bar Centrum;2020-06-25;Upp
 200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2022-02-03;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
 200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2022-02-03;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2022-02-03;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2021-10-13;Planerad kontroll;anmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2021-10-13;Planerad kontroll;anmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
-200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2021-10-13;Planerad kontroll;anmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
-200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;2021-10-13;Planerad kontroll;anmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 380e074e-c50a-4cd7-b14b-4d43edb16744;Gruppboende Fanjunkaren;2025-11-28;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 380e074e-c50a-4cd7-b14b-4d43edb16744;Gruppboende Fanjunkaren;2025-11-28;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
 380e074e-c50a-4cd7-b14b-4d43edb16744;Gruppboende Fanjunkaren;2025-11-28;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Avvikelse
@@ -10991,6 +10985,7 @@ d071e306-f23b-4d1d-be6c-88f5225e08ac;Hemdeli Örebro;2026-01-28;Planerad kontrol
 3bddb485-b8fd-463f-8a85-b6fd1095c87a;Hemglass;2022-03-10;Planerad kontroll;anmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
 3bddb485-b8fd-463f-8a85-b6fd1095c87a;Hemglass;2022-03-10;Planerad kontroll;anmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Avvikelse
 3bddb485-b8fd-463f-8a85-b6fd1095c87a;Hemglass;2022-03-10;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Avvikelse
+15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;2026-10-12;Planerad kontroll, uppföljning;;;;Handläggning pågår
 15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;2026-04-13;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;2026-04-13;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
 15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;2026-04-13;Planerad kontroll;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
@@ -11048,8 +11043,6 @@ d071e306-f23b-4d1d-be6c-88f5225e08ac;Hemdeli Örebro;2026-01-28;Planerad kontrol
 15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;2022-10-28;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Avvikelse
 15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;2022-10-28;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;2022-10-28;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;2020-07-07;Uppföljning;oanmäld;B01;Allmänna krav och skyldigheter (Allmän livsmedelsinformation);Utan avvikelse
-15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;2020-07-07;Uppföljning;oanmäld;C11;Konsumentinformation för fiskeri- och vattenbruksprodukter (Särskild märkning och information);Utan avvikelse
 f0ceb7db-3827-42a8-8231-76e2c8082185;Hemma Hos Örebro;2025-08-19;Planerad kontroll, uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 f0ceb7db-3827-42a8-8231-76e2c8082185;Hemma Hos Örebro;2025-08-19;Planerad kontroll, uppföljning;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 f0ceb7db-3827-42a8-8231-76e2c8082185;Hemma Hos Örebro;2025-08-19;Planerad kontroll, uppföljning;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
@@ -11577,6 +11570,7 @@ c6212e88-c72b-432a-bc4c-20752c41addd;Husets Café;2021-03-17;Planerad kontroll;a
 4a67caf7-f88d-4d42-869f-95df47508da9;Häktet Örebro;2020-12-07;Planerad kontroll;anmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
 4a67caf7-f88d-4d42-869f-95df47508da9;Häktet Örebro;2020-12-07;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 4a67caf7-f88d-4d42-869f-95df47508da9;Häktet Örebro;2020-12-07;Planerad kontroll;anmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
+28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2026-10-15;Planerad kontroll, uppföljning;;;;Handläggning pågår
 28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2025-09-26;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2025-09-26;Händelsestyrd kontroll;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
 28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2025-09-26;Händelsestyrd kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
@@ -11618,14 +11612,6 @@ c6212e88-c72b-432a-bc4c-20752c41addd;Husets Café;2021-03-17;Planerad kontroll;a
 28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2023-03-02;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2023-03-02;Uppföljning;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
 28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2023-03-02;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
-28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2022-01-27;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2022-01-27;Planerad kontroll;oanmäld;B01;Allmänna krav och skyldigheter (Allmän livsmedelsinformation);Avvikelse
-28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2022-01-27;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Avvikelse
-28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2022-01-27;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
-28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2022-01-27;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
-28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2022-01-27;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
-28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2022-01-27;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;2022-01-27;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 70ff55f2-60cc-412c-821c-9f26ce6433c2;Hälsokosten;2025-10-03;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 70ff55f2-60cc-412c-821c-9f26ce6433c2;Hälsokosten;2025-10-03;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Avvikelse
 70ff55f2-60cc-412c-821c-9f26ce6433c2;Hälsokosten;2025-10-03;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
@@ -13251,7 +13237,8 @@ cf732bbb-9a9e-480c-9f97-a35fa1abea6d;Kastanjens Förskola;2020-11-23;Planerad ko
 866750a7-d070-41b1-996a-eda6c3d1f2bc;Kebab restaurang;2025-08-06;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 866750a7-d070-41b1-996a-eda6c3d1f2bc;Kebab restaurang;2025-08-06;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 866750a7-d070-41b1-996a-eda6c3d1f2bc;Kebab restaurang;2025-08-06;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-174c60f9-f20d-430b-81f8-1df6fa1ed423;Kebabcenter;2026-09-17;Uppföljning;;;;Handläggning pågår
+174c60f9-f20d-430b-81f8-1df6fa1ed423;Kebabcenter;2026-09-17;Uppföljning;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Åtgärdad
+174c60f9-f20d-430b-81f8-1df6fa1ed423;Kebabcenter;2026-09-17;Uppföljning;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Åtgärdad
 174c60f9-f20d-430b-81f8-1df6fa1ed423;Kebabcenter;2026-06-18;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 174c60f9-f20d-430b-81f8-1df6fa1ed423;Kebabcenter;2026-06-18;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 174c60f9-f20d-430b-81f8-1df6fa1ed423;Kebabcenter;2026-06-18;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
@@ -13328,25 +13315,6 @@ cf732bbb-9a9e-480c-9f97-a35fa1abea6d;Kastanjens Förskola;2020-11-23;Planerad ko
 191d7356-6e25-4746-bc98-a5ecb9ee7fb3;Kebabfabriken;2022-06-01;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 191d7356-6e25-4746-bc98-a5ecb9ee7fb3;Kebabfabriken;2022-06-01;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
 191d7356-6e25-4746-bc98-a5ecb9ee7fb3;Kebabfabriken;2022-06-01;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-04-24;Uppföljning;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Åtgärdad
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-04-24;Uppföljning;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Åtgärdad
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-04-24;Uppföljning;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Åtgärdad
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-03-04;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-03-04;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-03-04;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-03-04;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-03-04;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-03-04;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-03-04;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-03-04;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2026-03-04;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2025-05-06;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2025-05-06;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2025-05-06;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2025-05-06;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2025-05-06;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2025-05-06;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;2025-05-06;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 cc343c8a-e6e7-4c0c-976a-502f0bd81d78;Kebabhörnan;2026-06-10;Uppföljning, händelsestyrd kontroll;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Kvarstår
 cc343c8a-e6e7-4c0c-976a-502f0bd81d78;Kebabhörnan;2026-06-10;Uppföljning, händelsestyrd kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Kvarstår
 cc343c8a-e6e7-4c0c-976a-502f0bd81d78;Kebabhörnan;2026-06-10;Uppföljning, händelsestyrd kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Kvarstår
@@ -14335,6 +14303,7 @@ c9a42fb2-894e-42a3-8d54-9ab645219062;Kronans Apotek Örebro Ladugårdsängen;202
 6256f50e-f35b-4ed8-b4a7-20d1c6ef4f16;Kullen Förskola;2021-08-24;Planerad kontroll;anmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 6256f50e-f35b-4ed8-b4a7-20d1c6ef4f16;Kullen Förskola;2021-08-24;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 6256f50e-f35b-4ed8-b4a7-20d1c6ef4f16;Kullen Förskola;2021-08-24;Planerad kontroll;anmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+eeeb586d-43c2-4ff0-88a5-a05b4b2b9389;Kullens Kvarn;2026-10-14;Planerad kontroll;;;;Handläggning pågår
 eeeb586d-43c2-4ff0-88a5-a05b4b2b9389;Kullens Kvarn;2025-12-04;Planerad kontroll, uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 eeeb586d-43c2-4ff0-88a5-a05b4b2b9389;Kullens Kvarn;2025-12-04;Planerad kontroll, uppföljning;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 eeeb586d-43c2-4ff0-88a5-a05b4b2b9389;Kullens Kvarn;2025-12-04;Planerad kontroll, uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
@@ -14577,7 +14546,14 @@ ef175635-63e2-41eb-b6ff-63a405f519d3;Kårstaängens Förskola;2020-02-20;Planera
 ef175635-63e2-41eb-b6ff-63a405f519d3;Kårstaängens Förskola;2020-02-20;Planerad kontroll;anmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 ef175635-63e2-41eb-b6ff-63a405f519d3;Kårstaängens Förskola;2020-02-20;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 ef175635-63e2-41eb-b6ff-63a405f519d3;Kårstaängens Förskola;2020-02-20;Planerad kontroll;anmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Avvikelse
-c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2026-09-18;Planerad kontroll;;;;Handläggning pågår
+c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2026-09-18;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2026-09-18;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
+c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2026-09-18;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
+c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2026-09-18;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Avvikelse
+c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2026-09-18;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2026-09-18;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2026-09-18;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
+c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2026-09-18;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Avvikelse
 c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2025-09-29;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Åtgärdad
 c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2025-09-11;Planerad kontroll, uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 c56ed35f-8538-48e4-bb61-7bf757f8d8c2;Köket Restaurang & Pizzeria;2025-09-11;Planerad kontroll, uppföljning;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Åtgärdad
@@ -16857,6 +16833,7 @@ dd6c949e-e09b-4b37-8d70-77845f6ddd7a;Malins Hembageri;2021-10-21;Planerad kontro
 90844825-bf68-4456-8348-5478f21accb6;Manna;2023-12-21;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 90844825-bf68-4456-8348-5478f21accb6;Manna;2023-12-21;Planerad kontroll;anmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 90844825-bf68-4456-8348-5478f21accb6;Manna;2023-12-21;Planerad kontroll;anmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+7e4af9e1-3ab2-4f4d-8892-bb3cae300922;Margareta Festvåning;2026-10-14;Uppföljning;;;;Handläggning pågår
 7e4af9e1-3ab2-4f4d-8892-bb3cae300922;Margareta Festvåning;2025-11-05;Planerad kontroll, uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 7e4af9e1-3ab2-4f4d-8892-bb3cae300922;Margareta Festvåning;2025-11-05;Planerad kontroll, uppföljning;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
 7e4af9e1-3ab2-4f4d-8892-bb3cae300922;Margareta Festvåning;2025-11-05;Planerad kontroll, uppföljning;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Kvarstår
@@ -17380,6 +17357,7 @@ a090c75a-f7af-44d9-9c07-1adac1b9ad33;Max Hamburgerrestaurang Marieberg;2021-08-2
 a090c75a-f7af-44d9-9c07-1adac1b9ad33;Max Hamburgerrestaurang Marieberg;2021-08-24;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 a090c75a-f7af-44d9-9c07-1adac1b9ad33;Max Hamburgerrestaurang Marieberg;2021-08-24;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 a090c75a-f7af-44d9-9c07-1adac1b9ad33;Max Hamburgerrestaurang Marieberg;2021-08-24;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2026-10-12;Planerad kontroll;;;;Handläggning pågår
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2025-04-16;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2025-04-16;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2025-04-16;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
@@ -17423,12 +17401,12 @@ a090c75a-f7af-44d9-9c07-1adac1b9ad33;Max Hamburgerrestaurang Marieberg;2021-08-2
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2021-05-27;Planerad kontroll;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2021-05-27;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2021-05-27;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2020-04-07;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2020-04-07;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2020-04-07;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2020-04-07;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2020-04-07;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
 05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2020-04-07;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
+05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;2020-04-07;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 7a09023b-bcc4-41e7-8522-477fe24d30f9;Mcdonalds Marieberg;2026-08-27;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 7a09023b-bcc4-41e7-8522-477fe24d30f9;Mcdonalds Marieberg;2026-08-27;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 7a09023b-bcc4-41e7-8522-477fe24d30f9;Mcdonalds Marieberg;2026-08-27;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
@@ -17459,7 +17437,14 @@ a090c75a-f7af-44d9-9c07-1adac1b9ad33;Max Hamburgerrestaurang Marieberg;2021-08-2
 7a09023b-bcc4-41e7-8522-477fe24d30f9;Mcdonalds Marieberg;2024-11-19;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 7a09023b-bcc4-41e7-8522-477fe24d30f9;Mcdonalds Marieberg;2024-11-19;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 7a09023b-bcc4-41e7-8522-477fe24d30f9;Mcdonalds Marieberg;2024-11-19;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
-03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-09-17;Händelsestyrd kontroll;;;;Handläggning pågår
+03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-09-17;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-09-17;Händelsestyrd kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
+03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-09-17;Händelsestyrd kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
+03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-09-17;Händelsestyrd kontroll;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
+03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-09-17;Händelsestyrd kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-09-17;Händelsestyrd kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-09-17;Händelsestyrd kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
+03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-09-17;Händelsestyrd kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-05-06;Händelsestyrd kontroll, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-05-06;Händelsestyrd kontroll, planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;2026-05-06;Händelsestyrd kontroll, planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
@@ -18333,7 +18318,18 @@ df50b090-75e8-4c5b-90fd-94228c2448f0;Mosåsterminalen;2020-10-19;Planerad kontro
 7bc1a78f-ac5a-4aed-b005-c320dcfffbac;Mr Marcus AB;2022-06-21;Planerad kontroll;anmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
 7bc1a78f-ac5a-4aed-b005-c320dcfffbac;Mr Marcus AB;2022-06-21;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 7bc1a78f-ac5a-4aed-b005-c320dcfffbac;Mr Marcus AB;2022-06-21;Planerad kontroll;anmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;;;;Handläggning pågår
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
+f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-09-15;Planerad kontroll, händelsestyrd kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-08-21;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-08-21;Händelsestyrd kontroll;oanmäld;B01;Allmänna krav och skyldigheter (Allmän livsmedelsinformation);Utan avvikelse
 f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2026-08-21;Händelsestyrd kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
@@ -18350,6 +18346,7 @@ f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2025-05-28;Planerad kontroll;oanm
 f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2025-05-28;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
 f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2025-05-28;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;2025-05-28;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+f994fa72-eb27-4663-b57a-b6954cb0470b;Mr. pizza;2026-10-13;Uppföljning;;;;Handläggning pågår
 f994fa72-eb27-4663-b57a-b6954cb0470b;Mr. pizza;2026-05-21;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 f994fa72-eb27-4663-b57a-b6954cb0470b;Mr. pizza;2026-05-21;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 f994fa72-eb27-4663-b57a-b6954cb0470b;Mr. pizza;2026-05-21;Planerad kontroll;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
@@ -18476,7 +18473,14 @@ f994fa72-eb27-4663-b57a-b6954cb0470b;Mr. pizza;2021-03-03;Planerad kontroll;anm�
 1c9444c6-312d-4908-be0a-b37d339bd8b3;Murgrönan Förskola;2020-10-02;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 1c9444c6-312d-4908-be0a-b37d339bd8b3;Murgrönan Förskola;2020-10-02;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 1c9444c6-312d-4908-be0a-b37d339bd8b3;Murgrönan Förskola;2020-10-02;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-29c6d89b-cdba-4761-b53b-33b558ba5995;Must;2026-09-15;Planerad kontroll;;;;Handläggning pågår
+29c6d89b-cdba-4761-b53b-33b558ba5995;Must;2026-09-15;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+29c6d89b-cdba-4761-b53b-33b558ba5995;Must;2026-09-15;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
+29c6d89b-cdba-4761-b53b-33b558ba5995;Must;2026-09-15;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
+29c6d89b-cdba-4761-b53b-33b558ba5995;Must;2026-09-15;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+29c6d89b-cdba-4761-b53b-33b558ba5995;Must;2026-09-15;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+29c6d89b-cdba-4761-b53b-33b558ba5995;Must;2026-09-15;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
+29c6d89b-cdba-4761-b53b-33b558ba5995;Must;2026-09-15;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
+29c6d89b-cdba-4761-b53b-33b558ba5995;Must;2026-09-15;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 1d58ecc1-d1b3-4821-9e61-b77419afa0c0;Mynta Österplan;2026-05-27;Uppföljning, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Åtgärdad
 1d58ecc1-d1b3-4821-9e61-b77419afa0c0;Mynta Österplan;2026-05-27;Uppföljning, planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
 1d58ecc1-d1b3-4821-9e61-b77419afa0c0;Mynta Österplan;2026-05-27;Uppföljning, planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
@@ -18764,7 +18768,8 @@ f458cee8-ca8b-4604-b435-c0e52185f467;Navets skola;2020-05-19;Planerad kontroll;a
 f458cee8-ca8b-4604-b435-c0e52185f467;Navets skola;2020-05-19;Planerad kontroll;anmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
 f458cee8-ca8b-4604-b435-c0e52185f467;Navets skola;2020-05-19;Planerad kontroll;anmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
 f458cee8-ca8b-4604-b435-c0e52185f467;Navets skola;2020-05-19;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-ec1c83b0-26a5-48f0-aea8-e7bd34847e1c;Naya restaurang;2026-09-17;Händelsestyrd kontroll;;;;Handläggning pågår
+ec1c83b0-26a5-48f0-aea8-e7bd34847e1c;Naya restaurang;2026-09-17;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+ec1c83b0-26a5-48f0-aea8-e7bd34847e1c;Naya restaurang;2026-09-17;Händelsestyrd kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
 ec1c83b0-26a5-48f0-aea8-e7bd34847e1c;Naya restaurang;2026-08-27;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 ec1c83b0-26a5-48f0-aea8-e7bd34847e1c;Naya restaurang;2026-08-27;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Avvikelse
 ec1c83b0-26a5-48f0-aea8-e7bd34847e1c;Naya restaurang;2026-08-27;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
@@ -20376,7 +20381,12 @@ b5e8bca5-dcae-4009-b0aa-104d921ae66d;Ovolin AB;2021-07-01;Planerad kontroll;anm�
 0e223228-e2f3-4744-83ed-3259aa9e87db;Oxhagens Matcenter;2024-03-08;Uppföljning;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Kvarstår
 0e223228-e2f3-4744-83ed-3259aa9e87db;Oxhagens Matcenter;2024-03-07;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 0e223228-e2f3-4744-83ed-3259aa9e87db;Oxhagens Matcenter;2024-03-07;Uppföljning;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Avvikelse
-7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2026-09-15;Planerad kontroll;;;;Handläggning pågår
+7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2026-09-15;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2026-09-15;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2026-09-15;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2026-09-15;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2026-09-15;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
+7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2026-09-15;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2025-11-19;Planerad kontroll, händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2025-11-19;Planerad kontroll, händelsestyrd kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
 7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2025-11-19;Planerad kontroll, händelsestyrd kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
@@ -20397,7 +20407,7 @@ b5e8bca5-dcae-4009-b0aa-104d921ae66d;Ovolin AB;2021-07-01;Planerad kontroll;anm�
 7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2024-08-16;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
 7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2024-08-16;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Avvikelse
 7d1e2c5f-f642-42f5-9cf7-4f81a76c3d94;Paco's Marieberg Örebro;2024-08-16;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-57086c78-0eba-4655-a00c-c7fd8b4bdc7e;Parkteatern;2026-09-14;Uppföljning;;;;Handläggning pågår
+57086c78-0eba-4655-a00c-c7fd8b4bdc7e;Parkteatern;2026-09-14;Uppföljning;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Åtgärdad
 57086c78-0eba-4655-a00c-c7fd8b4bdc7e;Parkteatern;2026-09-11;Händelsestyrd kontroll, uppföljning;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Avvikelse
 57086c78-0eba-4655-a00c-c7fd8b4bdc7e;Parkteatern;2026-09-11;Händelsestyrd kontroll, uppföljning;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Kvarstår
 57086c78-0eba-4655-a00c-c7fd8b4bdc7e;Parkteatern;2026-06-01;Uppföljning, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
@@ -20998,6 +21008,7 @@ b9e92a38-1846-4214-81af-711caeeeec5c;Pizza Hut;2021-03-18;Planerad kontroll;oanm
 97512720-bebd-4d6f-b057-9f2fa2cb8d7a;Pizzeria Express;2022-03-18;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
 97512720-bebd-4d6f-b057-9f2fa2cb8d7a;Pizzeria Express;2022-03-18;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Avvikelse
 97512720-bebd-4d6f-b057-9f2fa2cb8d7a;Pizzeria Express;2022-03-18;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2026-10-13;Planerad kontroll, uppföljning;;;;Handläggning pågår
 525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2025-12-19;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2025-12-19;Händelsestyrd kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Avvikelse
 525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2025-08-26;Planerad kontroll, uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
@@ -21050,11 +21061,6 @@ b9e92a38-1846-4214-81af-711caeeeec5c;Pizza Hut;2021-03-18;Planerad kontroll;oanm
 525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2021-09-28;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2021-09-28;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2021-09-28;Uppföljning;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Avvikelse
-525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2020-09-08;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2020-09-08;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
-525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2020-09-08;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Avvikelse
-525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2020-09-08;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;2020-09-08;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 91f48cf9-0f00-4c4d-be8c-baec16fc6416;Pizzeria Garpen;2026-03-18;Uppföljning;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Kvarstår
 91f48cf9-0f00-4c4d-be8c-baec16fc6416;Pizzeria Garpen;2026-03-18;Uppföljning;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Åtgärdad
 91f48cf9-0f00-4c4d-be8c-baec16fc6416;Pizzeria Garpen;2026-02-17;Planerad kontroll, uppföljning;oanmäld;B01;Allmänna krav och skyldigheter (Allmän livsmedelsinformation);Åtgärdad
@@ -21181,6 +21187,7 @@ caa0a1fe-59aa-493c-8d8a-56d9a968040d;Pizzeria Loveteria;2026-01-27;Planerad kont
 57d4a82e-b9c3-4adc-8c84-11b05e6aed06;Pizzeria Mellösa;2020-07-21;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Avvikelse
 57d4a82e-b9c3-4adc-8c84-11b05e6aed06;Pizzeria Mellösa;2020-07-21;Planerad kontroll;anmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 57d4a82e-b9c3-4adc-8c84-11b05e6aed06;Pizzeria Mellösa;2020-07-21;Planerad kontroll;anmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;2026-10-06;Uppföljning;;;;Handläggning pågår
 478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;2026-03-24;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;2026-03-24;Händelsestyrd kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
 478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;2026-03-24;Händelsestyrd kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
@@ -21225,9 +21232,6 @@ caa0a1fe-59aa-493c-8d8a-56d9a968040d;Pizzeria Loveteria;2026-01-27;Planerad kont
 478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;2023-02-13;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;2023-02-13;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;2023-02-13;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;2022-06-01;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;2022-06-01;Uppföljning;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
-478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;2022-06-01;Uppföljning;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 eed66089-ac69-4fd4-bc8e-79da3a06cd54;Pizzeria Palette;2026-08-10;Uppföljning;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Åtgärdad
 eed66089-ac69-4fd4-bc8e-79da3a06cd54;Pizzeria Palette;2026-08-10;Uppföljning;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Kvarstår
 eed66089-ac69-4fd4-bc8e-79da3a06cd54;Pizzeria Palette;2026-08-05;Uppföljning, planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
@@ -21267,7 +21271,9 @@ eed66089-ac69-4fd4-bc8e-79da3a06cd54;Pizzeria Palette;2025-03-27;Planerad kontro
 eed66089-ac69-4fd4-bc8e-79da3a06cd54;Pizzeria Palette;2025-03-27;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 eed66089-ac69-4fd4-bc8e-79da3a06cd54;Pizzeria Palette;2025-03-27;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Avvikelse
 eed66089-ac69-4fd4-bc8e-79da3a06cd54;Pizzeria Palette;2025-03-27;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
-ebf2e22f-9db9-413a-8465-728294200bf3;Pizzeria Tre Kronor;2026-09-17;Uppföljning;;;;Handläggning pågår
+ebf2e22f-9db9-413a-8465-728294200bf3;Pizzeria Tre Kronor;2026-09-17;Uppföljning;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Åtgärdad
+ebf2e22f-9db9-413a-8465-728294200bf3;Pizzeria Tre Kronor;2026-09-17;Uppföljning;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Kvarstår
+ebf2e22f-9db9-413a-8465-728294200bf3;Pizzeria Tre Kronor;2026-09-17;Uppföljning;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Åtgärdad
 ebf2e22f-9db9-413a-8465-728294200bf3;Pizzeria Tre Kronor;2026-04-29;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 ebf2e22f-9db9-413a-8465-728294200bf3;Pizzeria Tre Kronor;2026-04-29;Planerad kontroll;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
 ebf2e22f-9db9-413a-8465-728294200bf3;Pizzeria Tre Kronor;2026-04-29;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
@@ -22501,7 +22507,13 @@ b233ece4-fe23-4d9e-939d-988c53881bfc;Restaurang Campus;2020-09-16;Planerad kontr
 b233ece4-fe23-4d9e-939d-988c53881bfc;Restaurang Campus;2020-09-16;Planerad kontroll;anmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 b233ece4-fe23-4d9e-939d-988c53881bfc;Restaurang Campus;2020-09-16;Planerad kontroll;anmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 b233ece4-fe23-4d9e-939d-988c53881bfc;Restaurang Campus;2020-09-16;Planerad kontroll;anmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
-3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-09-15;Uppföljning, planerad kontroll;;;;Handläggning pågår
+3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-09-15;Uppföljning, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-09-15;Uppföljning, planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Kvarstår
+3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-09-15;Uppföljning, planerad kontroll;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Kvarstår
+3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-09-15;Uppföljning, planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-09-15;Uppföljning, planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-09-15;Uppföljning, planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-09-15;Uppföljning, planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Avvikelse
 3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-06-02;Uppföljning;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Kvarstår
 3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-06-02;Uppföljning;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Åtgärdad
 3abb6cf0-a993-4278-bfc3-ae403029c248;Restaurang Chili & Wok;2026-06-02;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Åtgärdad
@@ -23568,23 +23580,6 @@ cc07ce96-a8b9-4257-9214-04028439444b;Restaurang Parken;2023-04-13;Planerad kontr
 0330cc21-cf0d-416b-b88f-0a62bc670823;Restaurang Plankton;2025-04-15;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 0330cc21-cf0d-416b-b88f-0a62bc670823;Restaurang Plankton;2025-04-15;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
 0330cc21-cf0d-416b-b88f-0a62bc670823;Restaurang Plankton;2025-04-15;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2026-02-10;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2026-02-10;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2026-02-10;Planerad kontroll;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2026-02-10;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2026-02-10;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2026-02-10;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2026-02-10;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2026-02-10;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2025-05-06;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2025-05-06;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2025-05-06;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2025-05-06;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2025-05-06;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2025-05-06;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2025-05-06;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2025-05-06;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;2025-05-06;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 100d8934-9798-4902-985e-d2c64a3a4946;Restaurang Pulsen;2025-12-05;Händelsestyrd kontroll, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 100d8934-9798-4902-985e-d2c64a3a4946;Restaurang Pulsen;2025-12-05;Händelsestyrd kontroll, planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 100d8934-9798-4902-985e-d2c64a3a4946;Restaurang Pulsen;2025-12-05;Händelsestyrd kontroll, planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
@@ -23616,7 +23611,7 @@ c1048481-1fa4-493e-9b65-380322659cbd;Restaurang Rocca;2025-01-20;Planerad kontro
 c1048481-1fa4-493e-9b65-380322659cbd;Restaurang Rocca;2025-01-20;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 c1048481-1fa4-493e-9b65-380322659cbd;Restaurang Rocca;2025-01-20;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 c1048481-1fa4-493e-9b65-380322659cbd;Restaurang Rocca;2025-01-20;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-a94c9300-d895-4d63-8bc6-868a2a81a419;Restaurang Rosta;2026-10-02;Planerad kontroll;;;;Handläggning pågår
+a94c9300-d895-4d63-8bc6-868a2a81a419;Restaurang Rosta;2026-10-02;Planerad kontroll, uppföljning;;;;Handläggning pågår
 a94c9300-d895-4d63-8bc6-868a2a81a419;Restaurang Rosta;2026-03-25;Uppföljning;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Åtgärdad
 a94c9300-d895-4d63-8bc6-868a2a81a419;Restaurang Rosta;2026-03-25;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Kvarstår
 a94c9300-d895-4d63-8bc6-868a2a81a419;Restaurang Rosta;2026-03-25;Uppföljning;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Åtgärdad
@@ -23907,6 +23902,7 @@ d064e298-b302-40b1-9e8a-3f29c18c9246;Restaurang Södra Vattentornet;2025-01-28;P
 319c6f86-8a9a-46c0-9737-471e79c12790;Restaurang Tre Syskon;2020-04-15;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 319c6f86-8a9a-46c0-9737-471e79c12790;Restaurang Tre Syskon;2020-04-15;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 319c6f86-8a9a-46c0-9737-471e79c12790;Restaurang Tre Syskon;2020-04-15;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2026-10-13;Planerad kontroll;;;;Handläggning pågår
 f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2026-05-28;Uppföljning, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2026-05-28;Uppföljning, planerad kontroll;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Åtgärdad
 f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2026-05-28;Uppföljning, planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
@@ -23953,13 +23949,14 @@ f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2023-02-02;Planerad kontr
 f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2023-02-02;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
 f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2023-02-02;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2023-02-02;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
-f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2022-03-15;Planerad kontroll;anmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2022-03-15;Planerad kontroll;anmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
-f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2022-03-15;Planerad kontroll;anmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
-f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2022-03-15;Planerad kontroll;anmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2022-03-15;Planerad kontroll;anmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
-f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;2022-03-15;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2026-09-17;Uppföljning, planerad kontroll;;;;Handläggning pågår
+fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2026-09-17;Uppföljning, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2026-09-17;Uppföljning, planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
+fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2026-09-17;Uppföljning, planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
+fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2026-09-17;Uppföljning, planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2026-09-17;Uppföljning, planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2026-09-17;Uppföljning, planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
+fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2026-09-17;Uppföljning, planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2026-09-17;Uppföljning, planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Åtgärdad
 fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2025-08-20;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2025-08-20;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;2025-08-20;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
@@ -24726,7 +24723,15 @@ c80594bd-b045-47b1-876a-854f81adcf26;Royal Arms West;2020-11-03;Planerad kontrol
 c80594bd-b045-47b1-876a-854f81adcf26;Royal Arms West;2020-11-03;Uppföljning;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Avvikelse
 c80594bd-b045-47b1-876a-854f81adcf26;Royal Arms West;2020-11-03;Uppföljning;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
 c80594bd-b045-47b1-876a-854f81adcf26;Royal Arms West;2020-11-03;Uppföljning;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2026-09-16;Planerad kontroll, uppföljning;;;;Handläggning pågår
+a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2026-09-16;Planerad kontroll, uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2026-09-16;Planerad kontroll, uppföljning;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
+a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2026-09-16;Planerad kontroll, uppföljning;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
+a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2026-09-16;Planerad kontroll, uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Åtgärdad
+a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2026-09-16;Planerad kontroll, uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
+a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2026-09-16;Planerad kontroll, uppföljning;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Avvikelse
+a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2026-09-16;Planerad kontroll, uppföljning;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
+a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2026-09-16;Planerad kontroll, uppföljning;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2026-09-16;Planerad kontroll, uppföljning;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2025-11-13;Uppföljning, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2025-11-13;Uppföljning, planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 a55fc5fe-e30e-4db0-ae61-5a8b8e9fd4c7;Royal bar & restaurang;2025-11-13;Uppföljning, planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
@@ -26653,6 +26658,7 @@ e400438c-a17a-4066-b620-f68b189bf4f9;Skutan Förskola;2020-09-08;Planerad kontro
 e400438c-a17a-4066-b620-f68b189bf4f9;Skutan Förskola;2020-09-08;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 e400438c-a17a-4066-b620-f68b189bf4f9;Skutan Förskola;2020-09-08;Planerad kontroll;oanmäld;J99;Övriga grundförutsättningar (Grundförutsättningar, hygien);Utan avvikelse
 e400438c-a17a-4066-b620-f68b189bf4f9;Skutan Förskola;2020-09-08;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
+62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2026-10-15;Uppföljning;;;;Handläggning pågår
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2026-04-10;Planerad kontroll, uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2026-04-10;Planerad kontroll, uppföljning;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2026-04-10;Planerad kontroll, uppföljning;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
@@ -26679,14 +26685,14 @@ e400438c-a17a-4066-b620-f68b189bf4f9;Skutan Förskola;2020-09-08;Planerad kontro
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2024-02-22;Planerad kontroll, uppföljning;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2024-02-22;Planerad kontroll, uppföljning;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2024-02-22;Planerad kontroll, uppföljning;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2023-04-18;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2023-04-18;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2023-04-18;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2023-04-18;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2023-04-18;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2023-04-18;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2023-04-18;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2023-04-18;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Avvikelse
+62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2023-04-18;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2023-04-18;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2022-08-30;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2022-08-30;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2022-08-30;Uppföljning;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
@@ -26704,13 +26710,6 @@ e400438c-a17a-4066-b620-f68b189bf4f9;Skutan Förskola;2020-09-08;Planerad kontro
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2021-09-14;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2021-09-14;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2021-09-14;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2020-03-31;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2020-03-31;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
-62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2020-03-31;Planerad kontroll;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
-62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2020-03-31;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
-62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2020-03-31;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2020-03-31;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
-62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;2020-03-31;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 9e301e64-254f-4231-8ada-a955e75d6ac3;Skäpplandsgården Vårdboende;2026-01-22;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 9e301e64-254f-4231-8ada-a955e75d6ac3;Skäpplandsgården Vårdboende;2026-01-22;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
 9e301e64-254f-4231-8ada-a955e75d6ac3;Skäpplandsgården Vårdboende;2026-01-22;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
@@ -27099,6 +27098,7 @@ d0d6bc02-e12f-42d0-b0ee-704d53cf68e5;Sockerkicken;2023-08-31;Planerad kontroll;o
 d0d6bc02-e12f-42d0-b0ee-704d53cf68e5;Sockerkicken;2023-08-31;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 d0d6bc02-e12f-42d0-b0ee-704d53cf68e5;Sockerkicken;2023-08-31;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 d0d6bc02-e12f-42d0-b0ee-704d53cf68e5;Sockerkicken;2023-07-03;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Avvikelse
+d2c634b2-e04d-45c8-9428-308c9028229e;Sofias Choklad;2026-10-13;Uppföljning;;;;Handläggning pågår
 d2c634b2-e04d-45c8-9428-308c9028229e;Sofias Choklad;2026-08-26;Uppföljning, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 d2c634b2-e04d-45c8-9428-308c9028229e;Sofias Choklad;2026-08-26;Uppföljning, planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Avvikelse
 d2c634b2-e04d-45c8-9428-308c9028229e;Sofias Choklad;2026-08-26;Uppföljning, planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Kvarstår
@@ -27803,7 +27803,15 @@ be8dac56-1c7b-4dc6-b31d-e7651b7ebc4a;Stora Mellösa Skola;2020-10-01;Planerad ko
 be8dac56-1c7b-4dc6-b31d-e7651b7ebc4a;Stora Mellösa Skola;2020-10-01;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 be8dac56-1c7b-4dc6-b31d-e7651b7ebc4a;Stora Mellösa Skola;2020-10-01;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 be8dac56-1c7b-4dc6-b31d-e7651b7ebc4a;Stora Mellösa Skola;2020-10-01;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-09-15;Planerad kontroll;;;;Handläggning pågår
+8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-09-15;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-09-15;Planerad kontroll;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
+8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-09-15;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
+8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-09-15;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-09-15;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-09-15;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
+8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-09-15;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
+8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-09-15;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-09-15;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-07-15;Händelsestyrd kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-07-15;Händelsestyrd kontroll;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
 8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2026-07-15;Händelsestyrd kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
@@ -27870,6 +27878,7 @@ be8dac56-1c7b-4dc6-b31d-e7651b7ebc4a;Stora Mellösa Skola;2020-10-01;Planerad ko
 8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2023-05-10;Uppföljning;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
 8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2023-05-10;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
 8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;2023-05-10;Uppföljning;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+fd12c760-488e-45a2-8547-84f26f87980f;Strike & co Örebro;2026-10-13;Planerad kontroll, uppföljning;;;;Handläggning pågår
 fd12c760-488e-45a2-8547-84f26f87980f;Strike & co Örebro;2026-04-09;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Kvarstår
 fd12c760-488e-45a2-8547-84f26f87980f;Strike & co Örebro;2026-04-09;Uppföljning;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Åtgärdad
 fd12c760-488e-45a2-8547-84f26f87980f;Strike & co Örebro;2025-11-26;Uppföljning;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Åtgärdad
@@ -28267,7 +28276,8 @@ b8c38285-050a-494f-8ee7-ed2865a8f4f5;Sushi Yama Marieberg;2022-07-05;Händelsest
 878ad1a5-bc38-41ff-9430-5feaf0974ff6;Suttarboda;2020-06-11;Planerad kontroll;anmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
 878ad1a5-bc38-41ff-9430-5feaf0974ff6;Suttarboda;2020-06-11;Planerad kontroll;anmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 878ad1a5-bc38-41ff-9430-5feaf0974ff6;Suttarboda;2020-06-11;Planerad kontroll;anmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-ae754c6b-c817-4180-9433-81e679c6b9e3;Svampens Gatukök;2026-09-17;Uppföljning;;;;Handläggning pågår
+ae754c6b-c817-4180-9433-81e679c6b9e3;Svampens Gatukök;2026-09-17;Uppföljning;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Åtgärdad
+ae754c6b-c817-4180-9433-81e679c6b9e3;Svampens Gatukök;2026-09-17;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Åtgärdad
 ae754c6b-c817-4180-9433-81e679c6b9e3;Svampens Gatukök;2026-03-18;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 ae754c6b-c817-4180-9433-81e679c6b9e3;Svampens Gatukök;2026-03-18;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
 ae754c6b-c817-4180-9433-81e679c6b9e3;Svampens Gatukök;2026-03-18;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
@@ -28509,7 +28519,16 @@ e7dd2012-b3db-49c0-847f-15531394b9ff;Syrianska Kulturcentret;2020-10-23;Planerad
 9196da05-9c30-421b-9230-038495fe4876;Så mycket mer;2024-09-26;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 9196da05-9c30-421b-9230-038495fe4876;Så mycket mer;2024-09-26;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 9196da05-9c30-421b-9230-038495fe4876;Så mycket mer;2024-09-26;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;;;;Handläggning pågår
+1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
+1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;oanmäld;J01;Allmänna krav på livsmedelssäkerhet (Grundförutsättningar, hygien);Utan avvikelse
+1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
+1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
+1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
+1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2026-09-15;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2024-12-10;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2024-12-10;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
 1eb2ebf7-bfaa-47d0-b2e8-6f7f60734bf3;Södermalms Dagvård;2024-12-10;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
@@ -29057,6 +29076,7 @@ daa47da9-5e78-45b2-9b4b-ca782e5cc6af;Tasty Bros;2024-12-12;Planerad kontroll;oan
 47a0d6cc-0d2a-4d07-935c-cfcffb725348;Tasty N go;2024-08-09;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 47a0d6cc-0d2a-4d07-935c-cfcffb725348;Tasty N go;2024-08-09;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
 47a0d6cc-0d2a-4d07-935c-cfcffb725348;Tasty N go;2024-08-09;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Avvikelse
+ef85bda0-77e8-41d3-99bb-8c1aea95ea22;TED & TOBBE;2026-10-15;Planerad kontroll;;;;Handläggning pågår
 6ac8a889-241b-4a85-a9a7-a497902b0ee8;Tegelbacken 1 & 2 elevboende;2025-11-10;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 6ac8a889-241b-4a85-a9a7-a497902b0ee8;Tegelbacken 1 & 2 elevboende;2025-11-10;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
 6ac8a889-241b-4a85-a9a7-a497902b0ee8;Tegelbacken 1 & 2 elevboende;2025-11-10;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
@@ -29252,7 +29272,15 @@ d993aa80-f34f-492d-bc17-1bf9bdcc6970;Ternicol Sweden AB;2020-12-02;Planerad kont
 d993aa80-f34f-492d-bc17-1bf9bdcc6970;Ternicol Sweden AB;2020-12-02;Planerad kontroll;anmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 d993aa80-f34f-492d-bc17-1bf9bdcc6970;Ternicol Sweden AB;2020-12-02;Planerad kontroll;anmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
 d993aa80-f34f-492d-bc17-1bf9bdcc6970;Ternicol Sweden AB;2020-12-02;Planerad kontroll;anmäld;C05;Särskild märkning av kosttillskott (Särskild märkning och information);Avvikelse
-602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2026-09-16;Planerad kontroll;;;;Handläggning pågår
+602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2026-09-16;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2026-09-16;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
+602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2026-09-16;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
+602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2026-09-16;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
+602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2026-09-16;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2026-09-16;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2026-09-16;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
+602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2026-09-16;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
+602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2026-09-16;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2025-08-19;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2025-08-19;Planerad kontroll;oanmäld;B04;Frivillig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
 602087c0-18d5-4e20-bd10-7a5b0142d2a3;Texas Longhorn;2025-08-19;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
@@ -29491,6 +29519,7 @@ adb218f8-b84d-4e56-9ce2-6d4e7ade77cd;Thessalon Imp-Exp;2021-12-22;Planerad kontr
 adb218f8-b84d-4e56-9ce2-6d4e7ade77cd;Thessalon Imp-Exp;2021-12-22;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
 adb218f8-b84d-4e56-9ce2-6d4e7ade77cd;Thessalon Imp-Exp;2021-12-22;Uppföljning;anmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 adb218f8-b84d-4e56-9ce2-6d4e7ade77cd;Thessalon Imp-Exp;2021-12-22;Uppföljning;anmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
+fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2026-10-07;Planerad kontroll;;;;Handläggning pågår
 fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2026-03-04;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2026-03-04;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
 fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2026-03-04;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
@@ -29543,15 +29572,6 @@ fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-09-14;Planerad kontroll;oa
 fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-09-14;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-09-14;Uppföljning;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-09-14;Uppföljning;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
-fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-02-07;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-02-07;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
-fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-02-07;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
-fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-02-07;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
-fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-02-07;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
-fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-02-07;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
-fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-02-07;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
-fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-02-07;Planerad kontroll;oanmäld;J09;Material i kontakt med livsmedel (FCM) (Grundförutsättningar, hygien);Utan avvikelse
-fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;2023-02-07;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
 119a29f2-9e4f-438b-937f-23c59cdcc688;Tinget matbar;2025-10-20;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 119a29f2-9e4f-438b-937f-23c59cdcc688;Tinget matbar;2025-10-20;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
 119a29f2-9e4f-438b-937f-23c59cdcc688;Tinget matbar;2025-10-20;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
@@ -30731,6 +30751,7 @@ d13876bc-f104-4744-9e88-35651a7b2bea;Usö Avdelningskök Avd. Onkologmedicinska 
 253aa025-bb0e-41ed-8c7b-83b8e1abf4bb;Usö Avdelningskök Förlossningen, B-Hus;2020-02-05;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 253aa025-bb0e-41ed-8c7b-83b8e1abf4bb;Usö Avdelningskök Förlossningen, B-Hus;2020-02-05;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
 253aa025-bb0e-41ed-8c7b-83b8e1abf4bb;Usö Avdelningskök Förlossningen, B-Hus;2020-02-05;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
+b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2026-10-15;Planerad kontroll, uppföljning;;;;Handläggning pågår
 b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2026-04-23;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2026-04-23;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Avvikelse
 b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2026-04-23;Planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Avvikelse
@@ -30783,10 +30804,6 @@ b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2023-02-28;Planerad kont
 b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2023-02-28;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
 b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2023-02-28;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
 b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2023-02-28;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2022-09-29;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
-b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2022-09-29;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
-b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2022-09-29;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
-b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;2022-09-29;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 4275faa3-499b-4ef9-8929-6d4b000ccad4;Varberga Servicebutik;2025-04-24;Uppföljning, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 4275faa3-499b-4ef9-8929-6d4b000ccad4;Varberga Servicebutik;2025-04-24;Uppföljning, planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Avvikelse
 4275faa3-499b-4ef9-8929-6d4b000ccad4;Varberga Servicebutik;2025-04-24;Uppföljning, planerad kontroll;oanmäld;E06;Ägg från höns av arten Gallus gallus (Handelsnormer);Avvikelse
@@ -31205,7 +31222,13 @@ b851df6b-688e-4a2f-ba9f-a854c80589ba;Villekulla Förskola;2020-01-23;Planerad ko
 b851df6b-688e-4a2f-ba9f-a854c80589ba;Villekulla Förskola;2020-01-23;Planerad kontroll;oanmäld;J05;Utbildning i hygien och arbetsmetoder (Grundförutsättningar, hygien);Utan avvikelse
 b851df6b-688e-4a2f-ba9f-a854c80589ba;Villekulla Förskola;2020-01-23;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 b851df6b-688e-4a2f-ba9f-a854c80589ba;Villekulla Förskola;2020-01-23;Planerad kontroll;oanmäld;K01;Faroanalys och kritiska styrpunkter (HACCP-baserade förfaranden);Utan avvikelse
-c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2026-09-15;Planerad kontroll;;;;Handläggning pågår
+c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2026-09-15;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2026-09-15;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
+c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2026-09-15;Planerad kontroll;oanmäld;J02;Utformning och underhåll av lokaler och utrustning (Grundförutsättningar, hygien);Utan avvikelse
+c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2026-09-15;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Avvikelse
+c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2026-09-15;Planerad kontroll;oanmäld;J04;Personlig hygien (Grundförutsättningar, hygien);Utan avvikelse
+c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2026-09-15;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
+c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2026-09-15;Planerad kontroll;oanmäld;J08;Upprätthållande av kylkedjan och uppfyllande av temperaturkriterier (Grundförutsättningar, hygien);Utan avvikelse
 c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2025-05-13;Uppföljning, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2025-05-13;Uppföljning, planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 c21844f0-3b67-4f8f-beac-d2a8982935a1;Vina Pho;2025-05-13;Uppföljning, planerad kontroll;oanmäld;B99;Övrig livsmedelsinformation (Allmän livsmedelsinformation);Utan avvikelse
@@ -32835,7 +32858,11 @@ de2c3e6f-b6cd-4717-9f02-b4aef94fff16;Xxl Sport & Vildmark Marieberg;2025-10-17;P
 de2c3e6f-b6cd-4717-9f02-b4aef94fff16;Xxl Sport & Vildmark Marieberg;2021-11-18;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 de2c3e6f-b6cd-4717-9f02-b4aef94fff16;Xxl Sport & Vildmark Marieberg;2021-11-18;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
 de2c3e6f-b6cd-4717-9f02-b4aef94fff16;Xxl Sport & Vildmark Marieberg;2021-11-18;Planerad kontroll;oanmäld;C05;Särskild märkning av kosttillskott (Särskild märkning och information);Avvikelse
-68672ac8-bf8a-45be-855b-a70591fba0db;Yara Grossist AB;2026-09-15;Planerad kontroll;;;;Handläggning pågår
+68672ac8-bf8a-45be-855b-a70591fba0db;Yara Grossist AB;2026-09-15;Planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
+68672ac8-bf8a-45be-855b-a70591fba0db;Yara Grossist AB;2026-09-15;Planerad kontroll;oanmäld;B02;Obligatorisk livsmedelsinformation, innehåll och presentation (Allmän livsmedelsinformation);Utan avvikelse
+68672ac8-bf8a-45be-855b-a70591fba0db;Yara Grossist AB;2026-09-15;Planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse
+68672ac8-bf8a-45be-855b-a70591fba0db;Yara Grossist AB;2026-09-15;Planerad kontroll;oanmäld;J03;Hygien före, under och efter processen (Grundförutsättningar, hygien);Utan avvikelse
+68672ac8-bf8a-45be-855b-a70591fba0db;Yara Grossist AB;2026-09-15;Planerad kontroll;oanmäld;J06;Bekämpning av skadedjur (Grundförutsättningar, hygien);Utan avvikelse
 68672ac8-bf8a-45be-855b-a70591fba0db;Yara Grossist AB;2025-10-30;Uppföljning, planerad kontroll;oanmäld;A01;Godkännande och registrering av anläggningar och verksamheter (Administrativa krav);Utan avvikelse
 68672ac8-bf8a-45be-855b-a70591fba0db;Yara Grossist AB;2025-10-30;Uppföljning, planerad kontroll;oanmäld;E08;Beskrivningar och definitioner avseende olivolja och olja av olivoljeprodukter (Handelsnormer);Utan avvikelse
 68672ac8-bf8a-45be-855b-a70591fba0db;Yara Grossist AB;2025-10-30;Uppföljning, planerad kontroll;oanmäld;H01;Allmänna bestämmelser om spårbarhet (Spårbarhet);Utan avvikelse

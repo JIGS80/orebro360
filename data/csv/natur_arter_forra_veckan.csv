@@ -1,181 +1,274 @@
 ﻿art;vetenskapligt_namn;taxon_id;grupp;antal_fynd;plats;rodlista
-ägretthäger;Ardea alba;205497;Fåglar;25;Rysjön, Kvismaren;NT
-salskrake;Mergellus albellus;100079;Fåglar;19;Rysjön, Kvismaren;
-bläsand;Mareca penelope;102931;Fåglar;18;Rysjön, Kvismaren;NT
-havsörn;Haliaeetus albicilla;100067;Fåglar;17;Rysjön, Kvismaren;
-nötkråka;Nucifraga caryocatactes;100090;Fåglar;17;Ulla Billkvists park, Örebro;NT
-blå kärrhök;Circus cyaneus;100034;Fåglar;16;Rysjön, Kvismaren;VU
-brunand;Aythya ferina;102107;Fåglar;15;Rysjön, Kvismaren;EN
-grågås;Anser anser;102928;Fåglar;15;Rysjön, Kvismaren;
-ormvråk;Buteo buteo;102942;Fåglar;15;Rysjön, Kvismaren;
-varfågel;Lanius excubitor;6332438;Fåglar;14;Rysjön, Kvismaren;
-bergand;Aythya marila;100014;Fåglar;13;Rysjön, Kvismaren;VU
-svarthakedopping;Podiceps auritus;100113;Fåglar;13;Hjälmaren, Oset;
-vigg;Aythya fuligula;102934;Fåglar;11;Rysjön, Kvismaren;
-vitögd dykand;Aythya nyroca;233140;Fåglar;11;Rysjön, Kvismaren;
-gransångare;Phylloscopus collybita;103013;Fåglar;10;Björkhaga, Örebro;
-knipa;Bucephala clangula;102937;Fåglar;10;Hedens Våtmark;
-prutgås;Branta bernicla;103059;Fåglar;10;Hammarmaden, Kvismaren;
-skogsgås;Anser fabalis;232125;Fåglar;10;Hägervad, Tysslingen;VU
-trana;Grus grus;100065;Fåglar;10;Oset;
-vitkindad gås;Branta leucopsis;100019;Fåglar;10;Hammarmaden, Kvismaren;
-bläsgås;Anser albifrons;103058;Fåglar;9;Rysjön, Kvismaren;
-gråhäger;Ardea cinerea;100012;Fåglar;9;Rysjön, Kvismaren;
-kärrsnäppa;Calidris alpina;205617;Fåglar;9;Fågeludden, Oset;
-smådopping;Tachybaptus ruficollis;102104;Fåglar;9;Rysjön, Kvismaren;
-brun kärrhök;Circus aeruginosus;100033;Fåglar;8;Rysjön, Kvismaren;
-kanadagås;Branta canadensis;102929;Fåglar;8;Hammarmaden, Kvismaren;
-röd glada;Milvus milvus;100082;Fåglar;8;området Garphyttan-Närkes Kil;
-skäggdopping;Podiceps cristatus;102925;Fåglar;8;Rysjön, Kvismaren;
-stare;Sturnus vulgaris;103037;Fåglar;8;området Tybble;VU
-stjärtand;Anas acuta;100006;Fåglar;8;Rysjön, Kvismaren;EN
-storskrake;Mergus merganser;102940;Fåglar;8;Rysjön, Kvismaren;
-ängspiplärka;Anthus pratensis;102983;Fåglar;8;Hedens Våtmark;
-björktrast;Turdus pilaris;102999;Fåglar;7;området Tybble;NT
-koltrast;Turdus merula;102998;Fåglar;7;området Tybble;
-fjällvråk;Buteo lagopus;102110;Fåglar;6;Rysjön, Kvismaren;
-forsärla;Motacilla cinerea;102986;Fåglar;6;Almbro, Gällersta;
-gärdsmyg;Troglodytes troglodytes;102989;Fåglar;6;Rysjön, Kvismaren;
-knölsvan;Cygnus olor;102927;Fåglar;6;Rysjön, Kvismaren;
-kricka;Anas crecca;102932;Fåglar;6;Rysjön, Kvismaren;NT
-rörhöna;Gallinula chloropus;102948;Fåglar;6;Hedens Våtmark;
-skrattmås;Chroicocephalus ridibundus;102963;Fåglar;6;Hjälmaren, Oset;NT
-steglits;Carduelis carduelis;103043;Fåglar;6;Hedens Våtmark;
-storskarv;Phalacrocorax carbo;100102;Fåglar;6;Rysjön, Kvismaren;
-sävsparv;Emberiza schoeniclus;103057;Fåglar;6;Rysjön, Kvismaren;
-sångsvan;Cygnus cygnus;100045;Fåglar;6;Rysjön, Kvismaren;
-aspgallsdvärgmal;Ectoedemia argyropeza;213877;Fjärilar;5;området Garphyttan-Närkes Kil;
-pilgrimsfalk;Falco peregrinus;100054;Fåglar;5;Rysjön, Kvismaren;VU
-råka;Corvus frugilegus;103034;Fåglar;5;Hammarmaden, Kvismaren;
-skäggmes;Panurus biarmicus;100097;Fåglar;5;Rysjön, Kvismaren;
-snatterand;Mareca strepera;102105;Fåglar;5;Rysjön, Kvismaren;
-sparvhök;Accipiter nisus;102941;Fåglar;5;Ökna utmarker, Kvismaren;
-större strandpipare;Charadrius hiaticula;102951;Fåglar;5;Fågeludden, Oset;
-talgoxe;Parus major;103026;Fåglar;5;Rysjön, Kvismaren;
+ägretthäger;Ardea alba;205497;Fåglar;37;Rysjön, Kvismaren;NT
+bronsibis;Plegadis falcinellus;205502;Fåglar;35;Fågelsjön, Kvismaren;
+blå kärrhök;Circus cyaneus;100034;Fåglar;34;Rysjön, Kvismaren;VU
+salskrake;Mergellus albellus;100079;Fåglar;33;Rysjön, Kvismaren;
+grågås;Anser anser;102928;Fåglar;32;Norra Svalnäs, Tysslingen;
+skogsgås;Anser fabalis;232125;Fåglar;29;området Garphyttan-Närkes Kil;VU
+blodvaxing;Hygrocybe coccinea;4377;Svampar;25;området Hovsta;
+vitkindad gås;Branta leucopsis;100019;Fåglar;24;Rysjön, Kvismaren;
+havsörn;Haliaeetus albicilla;100067;Fåglar;23;Rysjön, Kvismaren;
+vitögd dykand;Aythya nyroca;233140;Fåglar;23;Rysjön, Kvismaren;
+storskrake;Mergus merganser;102940;Fåglar;22;Rysjön, Kvismaren;
+brunand;Aythya ferina;102107;Fåglar;21;Rysjön, Kvismaren;EN
+bläsand;Mareca penelope;102931;Fåglar;20;Rysjön, Kvismaren;NT
+spetsbergsgås;Anser brachyrhynchus;232268;Fåglar;20;Rysjön, Kvismaren;
+domherre;Pyrrhula pyrrhula;103052;Fåglar;19;Öby kulle, Kvismaren;
+rödvingetrast;Turdus iliacus;103001;Fåglar;19;Öby kulle, Kvismaren;NT
+sångsvan;Cygnus cygnus;100045;Fåglar;17;Rysjön, Kvismaren;
+svarthakedopping;Podiceps auritus;100113;Fåglar;16;Rysjön, Kvismaren;
+tofsvipa;Vanellus vanellus;102952;Fåglar;16;Näsbyängen, Oset;VU
+bläsgås;Anser albifrons;103058;Fåglar;15;Rysjön, Kvismaren;
+stare;Sturnus vulgaris;103037;Fåglar;15;Rysjön, Kvismaren;VU
+ormvråk;Buteo buteo;102942;Fåglar;14;Öby kulle, Kvismaren;
+enkelbeckasin;Gallinago gallinago;102954;Fåglar;13;Näsbyängen, Oset;NT
+gröngöling;Picus viridis;102977;Fåglar;13;Öby kulle, Kvismaren;
+scharlakansvaxing;Hygrocybe punicea;805;Svampar;13;området Hovsta;NT
+skedand;Spatula clypeata;102106;Fåglar;13;Rysjön, Kvismaren;
+stjärtand;Anas acuta;100006;Fåglar;13;Rysjön, Kvismaren;EN
+varfågel;Lanius excubitor;6332438;Fåglar;13;Åslaholmen, Kvismaren;
+gulvaxing;Hygrocybe chlorophana;4374;Svampar;12;området Hovsta;
+talgoxe;Parus major;103026;Fåglar;12;området Adolfsberg;
+trana;Grus grus;100065;Fåglar;12;Rysjön, Kvismaren;
+bergand;Aythya marila;100014;Fåglar;11;Rysjön, Kvismaren;VU
+blåmes;Cyanistes caeruleus;103025;Fåglar;11;Rysjön, Kvismaren;
+gråhäger;Ardea cinerea;100012;Fåglar;11;Rysjön, Kvismaren;
+mindre hackspett;Dryobates minor;100048;Fåglar;11;Öby kulle, Kvismaren;NT
+snatterand;Mareca strepera;102105;Fåglar;11;Rysjön, Kvismaren;
+storskarv;Phalacrocorax carbo;100102;Fåglar;11;Rysjön, Kvismaren;
+björktrast;Turdus pilaris;102999;Fåglar;10;Venastugan, Rynningeviken;NT
+kaja;Coloeus monedula;103033;Fåglar;10;Rysjön, Kvismaren;
+kanadagås;Branta canadensis;102929;Fåglar;10;Rysjön, Kvismaren;
+mindre frostfjäril;Operophtera brumata;215774;Fjärilar;10;området Markbacken-Västra Mark;
+knipa;Bucephala clangula;102937;Fåglar;9;Rysjön, Kvismaren;
+spillkråka;Dryocopus martius;100049;Fåglar;9;Hättinge hage, Tysslingen;
+steglits;Carduelis carduelis;103043;Fåglar;9;Rysjön, Kvismaren;
+vigg;Aythya fuligula;102934;Fåglar;9;Rysjön, Kvismaren;
+aspgallsdvärgmal;Ectoedemia argyropeza;213877;Fjärilar;8;området Garphyttan-Närkes Kil;
+gräsand;Anas platyrhynchos;102933;Fåglar;8;Rysjön, Kvismaren;
+gråkråka;Corvus corone cornix;205976;Fåglar;8;Rysjön, Kvismaren;
+gråsiska;Acanthis flammea;103046;Fåglar;8;Kvismaren;
+gärdsmyg;Troglodytes troglodytes;102989;Fåglar;8;området Brickeberg-Norra Bro;
+pilfink;Passer montanus;103039;Fåglar;8;Rysjön, Kvismaren;
+skrattmås;Chroicocephalus ridibundus;102963;Fåglar;8;Rysjön, Kvismaren;NT
+ängsvaxing;Cuphophyllus pratensis;239218;Svampar;8;området Ervalla-Ölmbrotorp;
+koltrast;Turdus merula;102998;Fåglar;7;Signalgatan, Örebro;
+kricka;Anas crecca;102932;Fåglar;7;Rysjön, Kvismaren;NT
+nötskrika;Garrulus glandarius;103030;Fåglar;7;Ässöbron;
+rådjur;Capreolus capreolus;206045;Däggdjur;7;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+rödhake;Erithacus rubecula;102991;Fåglar;7;området Markbacken-Västra Mark;
+sidensvans;Bombycilla garrulus;102121;Fåglar;7;området Markbacken-Västra Mark;
+skäggdopping;Podiceps cristatus;102925;Fåglar;7;Hjälmaren, Oset;
+skäggmes;Panurus biarmicus;100097;Fåglar;7;Fågeludden, Oset;
+sävsparv;Emberiza schoeniclus;103057;Fåglar;7;Löten, Kvismaren;
+duvhök;Astur gentilis;100001;Fåglar;6;området Västhaga-Solhaga;NT
+entita;Poecile palustris;103020;Fåglar;6;Öby kulle, Kvismaren;NT
+fjällvråk;Buteo lagopus;102110;Fåglar;6;Kvismaren;
+gransångare;Phylloscopus collybita;103013;Fåglar;6;Öby kulle, Kvismaren;
+kungsfågel;Regulus regulus;103015;Fåglar;6;Åkerbyskogen, Tysslingen;
+kärrsnäppa;Calidris alpina;205617;Fåglar;6;Näsbyängen, Oset;
+nötväcka;Sitta europaea;103027;Fåglar;6;Fallen, Karlslund;
+råka;Corvus frugilegus;103034;Fåglar;6;Löten, Kvismaren;
+smådopping;Tachybaptus ruficollis;102104;Fåglar;6;Rysjön, Kvismaren;
+stjärtmes;Aegithalos caudatus;103019;Fåglar;6;Fallenparkeringen, Karlslund;
+turkduva;Streptopelia decaocto;102972;Fåglar;6;Norrbyås, Kvismaren;NT
+vattenrall;Rallus aquaticus;102947;Fåglar;6;Åslaholmen, Kvismaren;
+dubbeltrast;Turdus viscivorus;103002;Fåglar;5;Rävgångsskogen, Rynningeviken;
+grönfink;Chloris chloris;103042;Fåglar;5;Rysjön, Kvismaren;VU
+grönsiska;Spinus spinus;103044;Fåglar;5;Öby kulle, Kvismaren;
+knölsvan;Cygnus olor;102927;Fåglar;5;Strandpromenaden, Rynningeviken;
+nötkråka;Nucifraga caryocatactes;100090;Fåglar;5;Ulla Billkvists park, Örebro;NT
+sothöna;Fulica atra;102949;Fåglar;5;Rysjön, Kvismaren;
+spinnarmätare;Colotois pennaria;215581;Fjärilar;5;Längbro kyrkogård, Örebro;
+större strandpipare;Charadrius hiaticula;102951;Fåglar;5;Västra dammen, Boglundsängen;
+sånglärka;Alauda arvensis;102979;Fåglar;5;området Garphyttan-Närkes Kil;
 tundragås;Anser serrirostris;205924;Fåglar;5;Rysjön, Kvismaren;
-blåmes;Cyanistes caeruleus;103025;Fåglar;4;Rävgångsskogen, Rynningeviken;
-enkelbeckasin;Gallinago gallinago;102954;Fåglar;4;Fågeludden, Oset;NT
-fiskmås;Larus canus;102964;Fåglar;4;Rävgången, Rynningeviken;
-gräsand;Anas platyrhynchos;102933;Fåglar;4;Rysjön, Kvismaren;
-grönfink;Chloris chloris;103042;Fåglar;4;området Tybble;VU
-gulkämpar;Plantago maritima;221777;Växter;4;området Latorp-Täby-Vintrosa;
-havstrut;Larus marinus;102967;Fåglar;4;Hjälmaren, Oset;EN
-isländsk rödspov;Limosa limosa islandica;205934;Fåglar;4;Rävgångsmaden, Rynningeviken;
-nötväcka;Sitta europaea;103027;Fåglar;4;Rysjön, Kvismaren;
-rödspov;Limosa limosa;100076;Fåglar;4;Fågeludden, Oset;EN
-skedand;Spatula clypeata;102106;Fåglar;4;Rysjön, Kvismaren;
-sothöna;Fulica atra;102949;Fåglar;4;Rysjön, Kvismaren;
-spetsbergsgås;Anser brachyrhynchus;232268;Fåglar;4;Hägervad, Tysslingen;
-tofsvipa;Vanellus vanellus;102952;Fåglar;4;Hammars åkrar, Kvismaren;VU
-brushane;Calidris pugnax;100103;Fåglar;3;Fågeludden, Oset;VU
-domherre;Pyrrhula pyrrhula;103052;Fåglar;3;Hedens Våtmark;
-fjällgås;Anser erythropus;100008;Fåglar;3;Rysjön, Kvismaren;EN
-fjällig taggsvamp s.str.;Sarcodon imbricatus;5964;Svampar;3;området Garphyttan-Närkes Kil;NT
-gråtrut;Larus argentatus;102966;Fåglar;3;Rävgången, Rynningeviken;VU
-gröngöling;Picus viridis;102977;Fåglar;3;Hedens Våtmark;
-ringduva;Columba palumbus;102971;Fåglar;3;området Tybble;
-rödhake;Erithacus rubecula;102991;Fåglar;3;Almbro, Gällersta;
-rödvingetrast;Turdus iliacus;103001;Fåglar;3;området Tybble;NT
-sidensvans;Bombycilla garrulus;102121;Fåglar;3;Hidingsta;
-större hackspett;Dendrocopos major;102978;Fåglar;3;Rysjön, Kvismaren;
-blodvaxing;Hygrocybe coccinea;4377;Svampar;2;området Garphyttan-Närkes Kil;
-duvhök;Astur gentilis;100001;Fåglar;2;Hedens Våtmark;NT
-dyfly;Rhizedra lutosa;216118;Fjärilar;2;Löten, Kvismaren;
-enfältmätare;Thera juniperata;215743;Fjärilar;2;området Markbacken-Västra Mark;
-gråkråka;Corvus corone cornix;205976;Fåglar;2;Hedens Våtmark;
-grönvit nattviol;Platanthera chlorantha;219875;Växter;2;Ängsmark O Lockhyttan, Vstm;
-kaja;Coloeus monedula;103033;Fåglar;2;Rysjön, Kvismaren;
-kattuggla;Strix aluco;102974;Fåglar;2;Äsplunda Gård, Äsplunda;
-kungsfågel;Regulus regulus;103015;Fåglar;2;Ässkog;
-lindmätare;Erannis defoliaria;215594;Fjärilar;2;Örebro Brukshundklubb, Karlslund, Karlslundsskogen, Örebro;
-morkulla;Scolopax rusticola;102955;Fåglar;2;området Garphyttan-Närkes Kil;
-nötskrika;Garrulus glandarius;103030;Fåglar;2;Gilsåsen, Villingsbergs Skjutfält;
-pilfink;Passer montanus;103039;Fåglar;2;Hammars gård, Kvismaren;
-praktvaxing;Hygrocybe splendidissima;809;Svampar;2;området Ekeby-Almby-Hidingsta-Stora Mellösa;NT
-skata;Pica pica;103032;Fåglar;2;området Glanshammar;
-skogsduva;Columba oenas;100038;Fåglar;2;Rysjön, Kvismaren;
-smalnäbbad nötkråka;Nucifraga caryocatactes macrorhynchos;205974;Fåglar;2;Ulla Billkvists park, Örebro;
-spinnarmätare;Colotois pennaria;215581;Fjärilar;2;området Ekeby-Almby-Hidingsta-Stora Mellösa;
-stjärtmes;Aegithalos caudatus;103019;Fåglar;2;området Garphyttan-Närkes Kil;
-svinrot;Scorzonera humilis;220299;Växter;2;Ängsmark O Lockhyttan, Vstm;NT
-sädesärla;Motacilla alba;102987;Fåglar;2;området Örebro öster;NT
-vattenrall;Rallus aquaticus;102947;Fåglar;2;Hjälmarviken, Oset;
-Liancalus virens;Liancalus virens;240110;Tvåvingar;1;Krogstugan, Karlslund;
-asporangelav;Gyalolechia flavorubescens;228433;Lavar;1;området Hagaby-Ringstorp;
-aspstyltmal;Caloptilia stigmatella;214047;Fjärilar;1;Öby kulle, Kvismaren;
-besksötemal;Acrolepia autumnitella;100170;Fjärilar;1;Öby kulle, Kvismaren;
-blomkålssvamp;Sparassis crispa;6031;Svampar;1;området Garphyttan-Närkes Kil;
-blåsippa;Hepatica nobilis;222498;Växter;1;området Garphyttan-Närkes Kil;
-blåtåtel;Molinia caerulea;220825;Växter;1;området Östernärke;
-bofink;Fringilla coelebs;103040;Fåglar;1;Rysjön, Kvismaren;
-brosklav;Ramalina fraxinea;229834;Lavar;1;N. Lillåstrand V.;
-broskvaxing;Gliophorus laetus;4385;Svampar;1;Kränglan NR;
-brungrön fältmätare;Chloroclysta siterata;215730;Fjärilar;1;Egersta, Tysslingen;
-cypressfläta;Hypnum cupressiforme;2794;Mossor;1;området Glanshammar;
-dagglav;Physconia distorta;229610;Lavar;1;området Hagaby-Ringstorp;
-dubbeltrast;Turdus viscivorus;103002;Fåglar;1;Åkerby hage, Tysslingen;
-fasan;Phasianus colchicus;102946;Fåglar;1;Hjälmarbaden;
-fjällig bläcksvamp;Coprinus comatus;3442;Svampar;1;området Glanshammar;
-fältvädd;Scabiosa columbaria;221044;Växter;1;området Latorp-Täby-Vintrosa;
-gluttsnäppa;Tringa nebularia;102959;Fåglar;1;Rysjön, Kvismaren;
-gråsiska;Acanthis flammea;103046;Fåglar;1;Rysjön, Kvismaren;
-grönsiska;Spinus spinus;103044;Fåglar;1;Hedens Våtmark;
-gul lammticka;Albatrellus citrinus;232138;Svampar;1;området Ervalla-Ölmbrotorp;VU
-guldgul frostmätare;Agriopis aurantiaria;215592;Fjärilar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
-gulsparv;Emberiza citrinella;103055;Fåglar;1;Ängsholmen, Sjölandet, Oset;NT
-gulvaxing;Hygrocybe chlorophana;4374;Svampar;1;Kränglan;
-hagtornsfly;Allophyes oxyacanthae;216074;Fjärilar;1;Skolan vid Sommaro, Ladugårdskogen;
-harlekinpiga;Harmonia axyridis;211964;Skalbaggar;1;Högsäter, Dylta Bruk, Seltorp;
-honungsvaxing;Hygrocybe reidii;4394;Svampar;1;Kränglan;
-hämpling;Linaria cannabina;103045;Fåglar;1;Rysjön, Kvismaren;
-hästkastanj;Aesculus hippocastanum;223321;Växter;1;Hagenparken, Ladugårdsängen;
-kandelabersvamp;Artomyces pyxidatus;366;Svampar;1;området Garphyttan-Närkes Kil;NT
-kardborreplattmal;Agonopterix arenella;214279;Fjärilar;1;Öby kulle, Kvismaren;
-klibbkorsört;Senecio viscosus;220317;Växter;1;området Ladugårdsängen;
-korp;Corvus corax;103036;Fåglar;1;Vallen, Fågelsjön, Kvismaren;
-kragjordstjärna;Geastrum michelianum;4191;Svampar;1;området Garphyttan-Närkes Kil;
-kransmossa;Hylocomiadelphus triquetrus;2812;Mossor;1;området Glanshammar;
-kungsfiskare;Alcedo atthis;100004;Fåglar;1;Ormesta holme, Oset;NT
-kustpipare;Pluvialis squatarola;103064;Fåglar;1;Fågeludden, Oset;
-liten blåklocka;Campanula rotundifolia;220023;Växter;1;Ängsmark O Lockhyttan, Vstm;
-långfliksmossa;Nowellia curvifolia;2587;Mossor;1;området Garphyttan-Närkes Kil;
-markisspindel;Neriene montana;218804;Spindeldjur;1;Öby kulle, Kvismaren;
-mattgul lavspinnare;Eilema depressa;201252;Fjärilar;1;Karlslunds motioncentral, Karlslund;
-mindre korsnäbb;Loxia curvirostra;103049;Fåglar;1;Rynningeviken;
-mjölrödskivling;Entoloma prunuloides;606;Svampar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;NT
-motaggsvamp;Sarcodon squamosus;5966;Svampar;1;Ängsmark O Lockhyttan, Vstm;NT
-musseronvaxing;Cuphophyllus fornicatus;4381;Svampar;1;Kränglan NR;NT
-mönjevaxing;Hygrocybe miniata;4388;Svampar;1;Kränglan;
-palmmossa;Climacium dendroides;2815;Mossor;1;området Glanshammar;
-påfågelöga;Aglais io;201059;Fjärilar;1;området Mellringe-Björkhaga;
-rankstarr;Carex elongata;222308;Växter;1;området Garphyttan-Närkes Kil;
-rostvinge;Phragmatobia fuliginosa;201284;Fjärilar;1;området Brickeberg-Norra Bro;
-rådjur;Capreolus capreolus;206045;Däggdjur;1;området Garphyttan-Närkes Kil;
-rödstreckat backfly;Agrochola lota;216049;Fjärilar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
-scharlakansvaxing;Hygrocybe punicea;805;Svampar;1;området Lillån;NT
-silvermossa;Bryum argenteum;2352;Mossor;1;området Latorp-Täby-Vintrosa;
-skogssidenmossa;Plagiothecium denticulatum;2825;Mossor;1;området Glanshammar;
-slånlav;Evernia prunastri;228823;Lavar;1;N. Lillåstrand V.;
+ängsfingersvamp;Clavulinopsis corniculata;3294;Svampar;5;området Hovsta;
+bergfink;Fringilla montifringilla;103041;Fåglar;4;Rysjön, Kvismaren;
+bofink;Fringilla coelebs;103040;Fåglar;4;Gilsåsen, Villingsbergs Skjutfält;
+brushane;Calidris pugnax;100103;Fåglar;4;Näsbyängen, Oset;VU
+lindmätare;Erannis defoliaria;215594;Fjärilar;4;området Markbacken-Västra Mark;
+mandarinand;Aix galericulata;233818;Fåglar;4;Stora holmen, Örebro;
+prutgås;Branta bernicla;103059;Fåglar;4;Osvalla, Tysslingen;
+skogsduva;Columba oenas;100038;Fåglar;4;Osvalla, Tysslingen;
+större hackspett;Dendrocopos major;102978;Fåglar;4;Ässöbron;
+tornfalk;Falco tinnunculus;100056;Fåglar;4;Blackstaåns mynning, Tysslingen;
+trädkrypare;Certhia familiaris;103028;Fåglar;4;Gamla tippen, Oset;
+vitvaxing;Cuphophyllus virgineus;239228;Svampar;4;området Hovsta;
+brun kärrhök;Circus aeruginosus;100033;Fåglar;3;Rysjön, Kvismaren;
+fiskmås;Larus canus;102964;Fåglar;3;Rynningeviken;
+guldgul frostmätare;Agriopis aurantiaria;215592;Fjärilar;3;Högsäter, Dylta Bruk, Seltorp;
+kustpipare;Pluvialis squatarola;103064;Fåglar;3;Kvinnerstasjön, Kvismaren;
+maskfingersvamp;Clavaria fragilis;3279;Svampar;3;området Hovsta;
+näverlav;Platismatia glauca;229647;Lavar;3;Örebro, Sverige;
+papegojvaxing;Gliophorus psittacinus;4393;Svampar;3;området Hovsta;
+röd glada;Milvus milvus;100082;Fåglar;3;Löten, Kvismaren;
+rördrom;Botaurus stellaris;100018;Fåglar;3;Svartåns mynning, Oset;NT
+skata;Pica pica;103032;Fåglar;3;Rysjön, Kvismaren;
+sparvhök;Accipiter nisus;102941;Fåglar;3;Gamla tippen, Oset;
+stenknäck;Coccothraustes coccothraustes;100037;Fåglar;3;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+toppvaxing;Hygrocybe conica;4379;Svampar;3;området Hovsta;
+asp;Populus tremula;223265;Växter;2;området Garphyttan-Närkes Kil;
+aspticka;Phellinus tremulae;5446;Svampar;2;området Näsby-Norra Ormesta;
+besksötemal;Acrolepia autumnitella;100170;Fjärilar;2;Öby kulle, Kvismaren;
+dyfly;Rhizedra lutosa;216118;Fjärilar;2;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+fingerlav;Cladonia digitata;228620;Lavar;2;Örebro, Sverige;
+gråskimlig fladdermus;Vespertilio murinus;206000;Däggdjur;2;området Örebro öster;
+gråsparv;Passer domesticus;103038;Fåglar;2;Signalgatan, Örebro;
+gråtrut;Larus argentatus;102966;Fåglar;2;Fågeludden, Oset;VU
+gulsparv;Emberiza citrinella;103055;Fåglar;2;Rysjön, Kvismaren;NT
+havstrut;Larus marinus;102967;Fåglar;2;Strandpromenaden, Rynningeviken;EN
+hämpling;Linaria cannabina;103045;Fåglar;2;Rysjön, Kvismaren;
+korp;Corvus corax;103036;Fåglar;2;Gilsåsen, Villingsbergs Skjutfält;
+ladusvala;Hirundo rustica;102980;Fåglar;2;området Näsby-Norra Ormesta;NT
+mindre korsnäbb;Loxia curvirostra;103049;Fåglar;2;Ässöbron;
+mjölig trattlav;Cladonia coniocraea;228609;Lavar;2;Örebro, Sverige;
+mjölrödskivling;Entoloma prunuloides;606;Svampar;2;området Hovsta;NT
+musseronvaxing;Cuphophyllus fornicatus;4381;Svampar;2;området Hovsta;NT
+pilgrimsfalk;Falco peregrinus;100054;Fåglar;2;Lötens åkrar, Kvismaren;VU
+påfågelöga;Aglais io;201059;Fjärilar;2;området Mellringe-Björkhaga;
+ringduva;Columba palumbus;102971;Fåglar;2;området Näsby-Norra Ormesta;
+skrynkellav;Parmelia sulcata;229495;Lavar;2;Örebro, Sverige;
+sparvuggla;Glaucidium passerinum;102621;Fåglar;2;Björkhaga;NT
+svartmes;Periparus ater;103024;Fåglar;2;Iljansjön;
+tallticka;Porodaedalea pini;5442;Svampar;2;området Garphyttan-Närkes Kil;NT
+talltita;Poecile montanus;103021;Fåglar;2;Iljansjön;NT
+tofsmes;Lophophanes cristatus;103023;Fåglar;2;området Adolfsberg;
+trollhand;Hypocreopsis riccioidea;4524;Svampar;2;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+töcknig höstmätare;Epirrita dilutata;215771;Fjärilar;2;området Mellringe-Björkhaga;
+vinterhämpling;Linaria flavirostris;102124;Fåglar;2;Rysjön, Kvismaren;NT
+ängspiplärka;Anthus pratensis;102983;Fåglar;2;Löten, Kvismaren;
+Empicoris culiciformis;Empicoris culiciformis;226152;Halvvingar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+Mesembrina mystacea;Mesembrina mystacea;243363;Tvåvingar;1;Näsbytornet, Oset;
+Pontania proxima;Pontania proxima;261887;Steklar;1;Venamaden, Rynningeviken;
+Porcellio spinicornis;Porcellio spinicornis;230502;Kräftdjur;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+Rhyparochromus vulgaris;Rhyparochromus vulgaris;226505;Halvvingar;1;Husön, stenhuset, Kvismaren;
+alfågel;Clangula hyemalis;102108;Fåglar;1;området Östernärke;NT
+allmän spottstrit;Philaenus spumarius;234561;Halvvingar;1;området Markbacken-Västra Mark;
+almkrämskinn;Granulobasidium vellereum;861;Svampar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;NT
+berberis;Berberis vulgaris;222795;Växter;1;området Örebro norr-CV;
+bladkrabbspindel;Diaea dorsata;219181;Spindeldjur;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+blek ängsvaxing;Cuphophyllus berkeleyi;239227;Svampar;1;området Hovsta;
+blekgrön fältmätare;Chloroclysta miata;215731;Fjärilar;1;Karlslunds motioncentral, Karlslund;
+blemlav;Phlyctis argena;229592;Lavar;1;Örebro, Sverige;
+blocklav;Porpidia macrocarpa;229725;Lavar;1;Örebro, Sverige;
+blåsippa;Hepatica nobilis;222498;Växter;1;Skvalebergets naturreservat;
+blåslav;Hypogymnia physodes;228918;Lavar;1;Örebro, Sverige;
+brakved;Frangula alnus;223033;Växter;1;området Garphyttan-Närkes Kil;
+broklocke;Leiobunum gracile;226680;Spindeldjur;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+brungrön fältmätare;Chloroclysta siterata;215730;Fjärilar;1;området Mellringe-Björkhaga;
+brämlav;Tuckermannopsis chlorophylla;230225;Lavar;1;Örebro, Sverige;
+brännässla;Urtica dioica;223250;Växter;1;området Garphyttan-Närkes Kil;
+bändelkorsnäbb;Loxia leucoptera;6332441;Fåglar;1;Gilsåsen, Villingsbergs Skjutfält;
+citrongul skivlav;Psilolechia lucida;229782;Lavar;1;Brickebacken, Örebro, Sverige;
+cypressfläta;Hypnum cupressiforme;2794;Mossor;1;Brickebacken, Örebro, Sverige;
+dofttrattskivling;Clitocybe fragrans;239301;Svampar;1;området Hovsta;
+dvärgmås;Hydrocoloeus minutus;100072;Fåglar;1;Storhjälmaren;
+fagervaxing;Hygrocybe aurantiosplendens;793;Svampar;1;området Hovsta;NT
+fingermossa;Lepidozia reptans;2568;Mossor;1;Örebro, Sverige;
+fjällhöstmätare;Epirrita autumnata;215773;Fjärilar;1;Högsäter, Dylta Bruk, Seltorp;
+fjällig taggsvamp s.str.;Sarcodon imbricatus;5964;Svampar;1;Skvalebergets naturreservat;NT
+flockblomsterplattmal;Agonopterix heracliana;214251;Fjärilar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+forsärla;Motacilla cinerea;102986;Fåglar;1;Löten, Kvismaren;
+gaffeltecknat träfly;Lithophane furcifera;216068;Fjärilar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+galldunörtsbrokmal;Mompha divisella;214569;Fjärilar;1;Öby kulle, Kvismaren;
+gran;Picea abies;220850;Växter;1;området Garphyttan-Närkes Kil;
+granvitmossa;Sphagnum girgensohnii;2871;Mossor;1;Brickebacken, Örebro, Sverige;
+grävling;Meles meles;206036;Däggdjur;1;Ängstorpet;
+gråbo;Artemisia vulgaris;219976;Växter;1;området Garphyttan-Närkes Kil;
+gråskivig spröding;Psathyrella fusca;5671;Svampar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+gråspett;Picus canus;100110;Fåglar;1;Gilsåsen, Villingsbergs Skjutfält;
+gråvaxing;Gliophorus irrigatus;4384;Svampar;1;området Hovsta;
+guldskivling;Bolbitius titubans;3118;Svampar;1;Hammarkullen, Kvismaren;
+gullöra;Otidea concinna;5311;Svampar;1;området Ervalla-Ölmbrotorp;VU
+gulvit renlav;Cladonia arbuscula;228595;Lavar;1;Örebro, Sverige;
+gulärla;Motacilla flava;205761;Fåglar;1;Rysjön, Kvismaren;
+gällav;Pseudevernia furfuracea;229770;Lavar;1;Örebro, Sverige;
+hallon;Rubus idaeus;223156;Växter;1;området Garphyttan-Närkes Kil;
+hassel;Corylus avellana;222823;Växter;1;området Garphyttan-Närkes Kil;
+hundäxing;Dactylis glomerata;221193;Växter;1;området Garphyttan-Närkes Kil;
+husmossa;Hylocomium splendens;2807;Mossor;1;Brickebacken, Örebro, Sverige;
+hästhov;Tussilago farfara;220396;Växter;1;området Garphyttan-Närkes Kil;
+isabellvaxing;Cuphophyllus ochraceopallidus;239230;Svampar;1;området Latorp-Täby-Vintrosa;
+jaktfalk;Falco rusticolus;100055;Fåglar;1;Lötens åkrar, Kvismaren;EN
+jordspindling;Cortinarius umbrinolens;3754;Svampar;1;Sörön;
+jorduggla;Asio flammeus;102117;Fåglar;1;Lötens åkrar, Kvismaren;NT
+kamfingersvamp;Clavulina cristata;3292;Svampar;1;området Ervalla-Ölmbrotorp;
+kantöra;Hydnoporia tabacina;253822;Svampar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+kattuggla;Strix aluco;102974;Fåglar;1;Rosta, Örebro;
+kirskål;Aegopodium podagraria;222185;Växter;1;området Garphyttan-Närkes Kil;
+koralltaggsvamp;Hericium coralloides;2014;Svampar;1;Oset;NT
+kråka;Corvus corone;103035;Fåglar;1;Löten, Kvismaren;
+kråkvicker;Vicia cracca;221361;Växter;1;området Garphyttan-Närkes Kil;
+kungsörn;Aquila chrysaetos;100011;Fåglar;1;området Glanshammar;NT
+linnea;Linnaea borealis;220240;Växter;1;Skvalebergets naturreservat;
+ljungpipare;Pluvialis apricaria;100112;Fåglar;1;Rysjön, Kvismaren;
+lundpraktmossa;Plagiomnium cuspidatum;2377;Mossor;1;Aspanäs;
+läderbackfly;Agrochola macilenta;216050;Fjärilar;1;området Mellringe-Björkhaga;
+manlav;Bryoria fuscescens;228338;Lavar;1;Brickebacken, Örebro, Sverige;
+markisspindel;Neriene montana;218804;Spindeldjur;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+mjölgråskivling;Lyophyllum rancidum;4961;Svampar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+mjöllav;Lepraria membranacea;229222;Lavar;1;Brickebacken, Örebro, Sverige;
+motaggsvamp;Sarcodon squamosus;5966;Svampar;1;Kränglan;NT
+mörk smålocke;Oligolophus hanseni;226667;Spindeldjur;1;området Markbacken-Västra Mark;
+naggbägarlav;Cladonia fimbriata;228623;Lavar;1;området Örebro norr-CV;
+nässelfjäril;Aglais urticae;201062;Fjärilar;1;området Näsby-Norra Ormesta;
+orre;Lyrurus tetrix;102613;Fåglar;1;Iljansjön;
+ostronmussling;Pleurotus ostreatus;5555;Svampar;1;Öby kulle;
+piprör;Calamagrostis arundinacea;220450;Växter;1;Skvalebergets naturreservat;
+poppelspinnare;Poecilocampa populi;201174;Fjärilar;1;området Mellringe-Björkhaga;
+prakttagging;Steccherinum robustius;1527;Svampar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;EN
+praktvaxing;Hygrocybe splendidissima;809;Svampar;1;området Hovsta;NT
+punktbrokmal;Mompha langiella;214560;Fjärilar;1;Öby kulle, Kvismaren;
+renfana;Tanacetum vulgare;220346;Växter;1;området Garphyttan-Närkes Kil;
+rostvinge;Phragmatobia fuliginosa;201284;Fjärilar;1;Tvärvägen, Oset, Oset;
+rödbaksharkrank;Tipula rufina;102047;Tvåvingar;1;Krogstugan, Karlslund;
+rödlocke;Leiobunum rotundum;226678;Spindeldjur;1;Venastugan;
+rödräv;Vulpes vulpes;206026;Däggdjur;1;Innergård S. Lillåstrand;
+rönn;Sorbus aucuparia;223209;Växter;1;området Garphyttan-Närkes Kil;
+sadellocke;Mitopus morio;226671;Spindeldjur;1;Öby kulle, Kvismaren;
+sjöorre;Melanitta nigra;102936;Fåglar;1;Brearen, Hjälmaren Nrk;
+skinntagging;Dentipellis fragilis;517;Svampar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;NT
+skogsalm;Ulmus glabra;223246;Växter;1;området Garphyttan-Närkes Kil;EN
+skogslönn;Acer platanoides;223315;Växter;1;området Garphyttan-Närkes Kil;
+skogstry;Lonicera xylosteum;221041;Växter;1;området Garphyttan-Närkes Kil;
+skärsnäppa;Calidris maritima;102113;Fåglar;1;Brearen, Hjälmaren Nrk;
+smultron;Fragaria vesca;223030;Växter;1;Skvalebergets naturreservat;
 småskrake;Mergus serrator;102939;Fåglar;1;Hjälmaren, Oset;
-spillkråka;Dryocopus martius;100049;Fåglar;1;Gilsåsen, Villingsbergs Skjutfält;
-stenfalk;Falco columbarius;102611;Fåglar;1;Löten, Kvismaren;
-stenknäck;Coccothraustes coccothraustes;100037;Fåglar;1;Hästhagens Våtmark, Ässkog;
-stolt fjällskivling;Macrolepiota procera;4977;Svampar;1;området Almby-Ormesta;
-stor aspticka;Phellinus populicola;1205;Svampar;1;området Garphyttan-Närkes Kil;
-stor spindelgröppa;Leucogyrophana mollusca;4894;Svampar;1;området Hovsta;
-större frostfjäril;Operophtera fagata;215775;Fjärilar;1;Örebro Brukshundklubb, Karlslund, Karlslundsskogen, Örebro;
-svavelriska;Lactarius scrobiculatus;4769;Svampar;1;området Garphyttan-Närkes Kil;
-sånglärka;Alauda arvensis;102979;Fåglar;1;Rysjön, Kvismaren;
-talltita;Poecile montanus;103021;Fåglar;1;Gilsåsen, Villingsbergs Skjutfält;NT
-taltrast;Turdus philomelos;103000;Fåglar;1;Rysjön, Kvismaren;
-tibast;Daphne mezereum;222412;Växter;1;Lockhyttan, Vstm;
-tornfalk;Falco tinnunculus;100056;Fåglar;1;Banvallsdungen, Tysslingen;
-trubbhättemossa;Nyholmiella obtusifolia;2543;Mossor;1;området Östernärke;
-trädhättemossa;Lewinskya speciosa;2538;Mossor;1;Långsmala gölen Kasernvägen;
-tät fransmossa;Ptilidium pulcherrimum;2603;Mossor;1;området Glanshammar;
-vanlig rönn;Sorbus aucuparia subsp. aucuparia;225041;Växter;1;Hagenparken, Ladugårdsängen;
-vinterhämpling;Linaria flavirostris;102124;Fåglar;1;Fågeludden, Oset;NT
-vitvaxing;Cuphophyllus virgineus;239228;Svampar;1;Kränglan;
-vägglav;Xanthoria parietina;230384;Lavar;1;Norr Filarevägen;
-ängsvaxing;Cuphophyllus pratensis;239218;Svampar;1;Kränglan;
-åkertuss;Tortula truncata;2197;Mossor;1;området Latorp-Täby-Vintrosa;
+snurrkrös;Exidia recisa;4080;Svampar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+snöbär;Symphoricarpos albus;221047;Växter;1;området Garphyttan-Närkes Kil;
+snösparv;Plectrophenax nivalis;103054;Fåglar;1;Stallgården, Hjälmaren Nrk;
+sprängörtsplattmal;Depressaria daucella;214280;Fjärilar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+stinksyskefjädermott;Amblyptilia acanthadactyla;100253;Fjärilar;1;Karlslunds motioncentral, Karlslund;
+stor björnmossa;Polytrichum commune;2846;Mossor;1;Örebro, Sverige;
+stor strimhättemossa;Lewinskya affinis;6331082;Mossor;1;Örebro, Sverige;
+strömskräddare;Aquarius najas;226071;Halvvingar;1;Krogstugan, Karlslund;
+stubbhorn;Xylaria hypoxylon;6420;Svampar;1;Aspanäs;
+stubbkvastmossa;Dicranum montanum;2169;Mossor;1;Örebro, Sverige;
+större frostfjäril;Operophtera fagata;215775;Fjärilar;1;Högsäter, Dylta Bruk, Seltorp;
+svart trumpetsvamp;Craterellus cornucopioides;3772;Svampar;1;Skvalebergets naturreservat;
+svart ängstrollslända;Sympetrum danae;208317;Sländor;1;Stentornet;
+svartprickigt plattfly;Conistra rubiginosa;216057;Fjärilar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+svartsnäppa;Tringa erythropus;102957;Fåglar;1;Näsbyängen, Oset;NT
+svartvit taggsvamp;Phellodon melaleucus;5448;Svampar;1;Skvalebergets naturreservat;NT
+svartöra;Auricularia mesenterica;3086;Svampar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;NT
+svärta;Melanitta fusca;102109;Fåglar;1;Storhjälmaren;
+sädesärla;Motacilla alba;102987;Fåglar;1;Västra dammen, Boglundsängen;NT
+sälg;Salix caprea;223284;Växter;1;området Garphyttan-Närkes Kil;
+taltrast;Turdus philomelos;103000;Fåglar;1;Ässöbron;
+tjäder;Tetrao urogallus;100138;Fåglar;1;området Garphyttan-Närkes Kil;
+trattkantarell;Craterellus tubaeformis;3217;Svampar;1;Skvalebergets naturreservat;
+trädmattvävare;Lepthyphantes minutus;218752;Spindeldjur;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+tysklönn;Acer pseudoplatanus;223316;Växter;1;området Brunnsgärdet-Lindhult-Nasta;
+vattenblink;Hottonia palustris;219826;Växter;1;området Östernärke;
+vit slidskivling;Volvopluteus gloiocephalus;6397;Svampar;1;Naturens hus;
+vitbrokig rosenhöstvecklare;Acleris variegana;214889;Fjärilar;1;Öby kulle, Kvismaren;
+vitklöver;Trifolium repens;221339;Växter;1;området Garphyttan-Närkes Kil;
+väggmossa;Pleurozium schreberi;2814;Mossor;1;Brickebacken, Örebro, Sverige;
+växthusöronvivel;Otiorhynchus sulcatus;106253;Skalbaggar;1;området Ekeby-Almby-Hidingsta-Stora Mellösa;
+vårtbjörk;Betula pendula;221394;Växter;1;området Garphyttan-Närkes Kil;
+zonkamskivling;Amanita battarrae;2969;Svampar;1;Skvalebergets naturreservat;
+äkta johannesört;Hypericum perforatum;221980;Växter;1;området Garphyttan-Närkes Kil;
+åkerhumla;Bombus pascuorum;103258;Steklar;1;Tvärvägen, Oset, Oset;
+åkertistel;Cirsium arvense;220080;Växter;1;området Garphyttan-Närkes Kil;
+ögonvaxing;Cuphophyllus fuscescens;799;Svampar;1;området Hovsta;NT

@@ -6,7 +6,7 @@
 1880R005;Brickeberg-Norra Bro;7;369;19;0;0;Lindervägen;210;870;840;870;1980;2090
 1880R006;Brunnsgärdet-Lindhult-Nasta;13;675;19,3;1;1;Nastabergsparken;440;1550;760;1340;820;4880
 1880R007;Ekeby-Almby-Hidingsta-Stora Mellösa;3;927;3,2;0;3;Hidingsta;3830;10010;9880;10060;4930;8930
-1880R008;Eklunda-Sörby;9;486;18,5;2;1;Restalunden;280;510;940;3520;320;5110
+1880R008;Eklunda-Sörby;9;486;18,5;2;1;Restalunden;300;520;930;3540;300;5120
 1880R009;Ervalla-Ölmbrotorp;5;517;9,7;0;2;Baggetorpsvägen;1040;15430;12760;14590;870;9750
 1880R010;Garphyttan-Närkes Kil;3;468;6,4;0;2;Skoghallsvägen;4940;9810;9730;10100;5160;8690
 1880R011;Glanshammar;2;452;4,4;0;3;Parkvägen 1;170;10130;8900;12480;430;530
@@ -32,6 +32,6 @@
 1880R031;Örebro city;1;299;3,3;4;0;Oskarsparken;620;20;1000;3030;530;4530
 1880R032;Örebro norr-CV;3;338;8,9;0;1;Sofiaparken;110;780;740;3400;380;4420
 1880R033;Örebro söder;3;273;11;2;2;Drottningparken;320;350;840;2570;1010;4850
-1880R034;Örebro väster;2;329;6,1;1;0;Malmplan;150;310;1020;2610;380;3930
+1880R034;Örebro väster;2;329;6,1;1;0;Karl Johansparken;170;320;1010;2610;400;3950
 1880R035;Örebro öster;5;289;17,3;5;2;Stadsparken;150;170;400;3750;190;5450
 1880R036;Östernärke;6;361;16,6;0;5;Rektorsvägen 2 Odensbacken;320;18440;18400;18480;730;740

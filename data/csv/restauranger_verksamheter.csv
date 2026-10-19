@@ -24,7 +24,7 @@ c6758483-501d-4c91-895d-9f1003883454;Akademi för Ledarskap och Teologi;Café;Å
 6dc54eed-873d-4c9c-a9ef-795264b65739;Al Forno Italiano;Restaurang;Drottninggatan 41;Örebro söder;2010-09-06;10;2026-04-14
 b57d697d-d457-4db7-b705-d9b500df7728;Al-Sheikh Food;Buffert;Markörvägen 13;Hagaby-Ringstorp;2024-09-16;4;2025-09-25
 92e6b3e5-0853-4678-86b5-bd3993d18aa6;Alana market;Butik;Ekersgatan 17A;Örebro väster;2026-05-05;7;2026-08-14
-4c334b89-81b2-4d5e-8cb9-fa12e7aa0164;Alana Market - Nyregistrerad;Butik;Ekersgatan 17A;Örebro väster;2026-09-11;0;
+4c334b89-81b2-4d5e-8cb9-fa12e7aa0164;Alana Market - Nyregistrerad;Butik;Ekersgatan 17A;Örebro väster;2026-09-11;1;2026-10-16
 07f46a11-9a98-4e06-a5b0-27cb434fdd68;Alessandros;Restaurang;Mejeritorget 12B;Hagaby-Ringstorp;2018-12-03;10;2026-09-02
 15d6e77c-7068-4b2c-a5f2-caae1d869589;Alexandros Grill;Restaurang;Storbackavägen 4;Ladugårdsängen;2022-07-01;2;2024-02-29
 ec7d03fc-6dc0-4439-b33b-1e18f1216d5a;Alexo Omsorg Mosås AB;Tillagning;Mosås 103;Marieberg-Mosås;2024-12-18;1;2025-03-24
@@ -86,7 +86,7 @@ c2c3c4df-4dda-4382-b9ae-fa7dd6662afa;Backagården Vårdboende;Tillagning;Loggata
 62aeb740-1b85-4345-8344-6aefc1cfbbcf;Bagdad restaurang & pizzeria;Pizzeria;Fredsgatan 18;Örebro city;2025-04-30;2;2025-09-18
 3e1efcfa-7578-43a1-9264-aba4c9c27974;Bageri Sonja;Café;Lindbacka 402;Latorp-Täby-Vintrosa;2025-05-05;1;2025-06-19
 ebcb1b90-728d-4e42-86a9-ae02571b1d70;Baicha;Café;Drottninggatan 27;Örebro söder;2024-06-11;2;2025-03-05
-66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Elektroskandia;Restaurang;Lindvallsgatan 1;Glanshammar;2025-01-29;1;2025-03-27
+66f91cd7-01ad-4417-ac55-875e4de02b7d;Banco @ Sonepar;Restaurang;Lindvallsgatan 1;Glanshammar;2025-01-29;1;2025-03-27
 551b6989-846e-4340-af2d-d7e5ddb817ed;Banger bar;Restaurang;Järnvägsgatan 14;Örebro city;2024-09-13;2;2026-03-05
 565187ac-5aa1-4353-a512-785a39db278f;Baobab Restaurang och Pub;Restaurang;Ånstagatan 5;Rosta-Örnsro;2025-04-14;4;2026-07-28
 3e931668-1eac-489c-bde6-9f4416f3cf4b;Baptistkyrkan;Café;Parkvägen 4;Ekeby-Almby-Hidingsta-Stora Mellösa;2024-11-07;1;2025-03-19
@@ -114,6 +114,7 @@ bb3a5ecf-ed92-4827-ab73-b15569acf1cc;Berra Burra - Öster;Restaurang;Rudbecksgat
 f1c05306-9433-446d-bd4f-7353a9e76a81;Biltema i Örebro;Café;Ozongatan 3;Lundby;2013-04-08;9;2026-03-20
 edb87276-67ea-4981-912b-da24480a712b;Birdie´s;Restaurang;Hjortstorpsplan 1;Rynninge-Grenadjärstaden;2026-09-15;0;
 ad7cf7fe-85bf-43b9-990f-5caebe90968e;Birgittaskolan;Tillagning;Lagmansgatan 19;Örebro öster;2006-12-05;5;2026-03-18
+61c9242e-ea4c-4c93-be9f-7efe7df5a0fa;Bistro 49;Restaurang;Termikgatan 49A;Ladugårdsängen;2026-08-18;0;
 e5eac66a-47ff-4356-93ca-de3184b6df81;Bistro I;Café;Propellervägen 5;Örebro söder;2021-05-19;2;2023-04-18
 dbb96d7b-15a3-4229-84ec-88e642e84596;Bittinge Gårdsbutik;Butik;Bittinge 221;Ekeby-Almby-Hidingsta-Stora Mellösa;2015-04-03;4;2026-06-11
 61d9933d-f385-404b-a7d1-902b22024135;Björkhaga pizzeria;Pizzeria;Sigillgatan 2;Mellringe-Björkhaga;2026-01-09;1;2026-02-25
@@ -148,8 +149,7 @@ ce01d156-39e7-4711-ad39-590e07f38ee2;Burger King Drottninggatan;Restaurang;Drott
 0ddc6579-3e02-4670-bd19-c230dfaa6fab;Burger King Eurostop;Restaurang;Monologgatan 3;Lundby;2025-12-18;1;2026-02-12
 cd9f854b-235d-465a-bb27-d2d748a9a20e;Burger King Marieberg;Restaurang;Varuvägen 1;Marieberg-Mosås;2025-07-30;4;2026-09-15
 902d684c-fedf-4056-956c-e1920a4cfc6c;Byblos Market;Butik;Bromsgatan 3;Örebro norr-CV;2025-09-15;2;2026-03-11
-bf623123-b842-4073-87a3-3449a403d182;Bäcks Bed & Breakfast - nyregistrerad;Buffert;Bäck 517;Latorp-Täby-Vintrosa;2026-09-16;2;2026-10-09
-de3c565d-61ec-4019-a3f7-6204336fb964;Bäcks Bed And Breakfast;Buffert;;;2007-09-13;1;2021-08-24
+bf623123-b842-4073-87a3-3449a403d182;Bäcks Bed & Breakfast;Buffert;Bäck 517;Latorp-Täby-Vintrosa;2026-09-16;2;2026-10-09
 7cc7569e-faa9-4f5d-8928-24a6596f4bb7;Cafe la sockertoppen;Restaurang;Travbanevägen 10;Marieberg-Mosås;2026-06-05;1;2026-08-12
 321a9bb9-d624-47ae-a042-c0f48d4191b6;Cafe Lespresso;Café;Drottninggatan 29;Örebro söder;2007-05-29;6;2025-09-09
 142989a9-534f-4940-a08d-af25b0c084e4;Café & Restaurang Spring;Restaurang;Södra Grev Rosengatan 42A;Örebro norr-CV;2021-08-23;8;2025-05-26
@@ -271,7 +271,7 @@ a8f61fdc-adec-440d-a7ee-7e1314a067b8;Espresso House Centralstationen;Café;Östr
 7d090950-4143-40e1-ba6f-395c2f22ec9b;Espresso House Våghustorget;Café;Våghustorget 1;Örebro city;2016-07-07;5;2025-02-11
 95c74f4d-06f7-4e97-b117-b7b380bd231a;Esters bageri;Café;Rynningegatan 17;Örebro norr-CV;2024-09-26;2;2024-11-06
 533aea9e-4a80-4832-b132-1562babdec92;Ett Bord;Buffert;Älvtomtagatan 14C;Rosta-Örnsro;2025-10-22;1;2026-01-12
-478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;Pizzeria;Saxons Väg 2;Brickeberg-Norra Bro;2008-08-21;10;2025-10-01
+478a97b3-26fe-4bdd-905b-6543f48a36a8;Evelinas pizzeria;Pizzeria;Saxons Väg 2;Brickeberg-Norra Bro;2008-08-21;10;2026-10-13
 045debc5-f5b7-42ed-829f-56487f725200;Exacta Logistics AB;Buffert;Valltorpsvägen 17;Marieberg-Mosås;2026-02-19;2;2026-10-06
 af1bcaa3-be8c-4243-a772-ec1f2048bd5a;Existens Maximum Metodiken;Buffert;Skomaskinsgatan 6;Brunnsgärdet-Lindhult-Nasta;2008-03-11;5;2025-10-17
 e8a7d48f-dcf3-4402-8ec5-f243e4fd103c;Eyra café & bistro;Café;Eyragatan 1B;Eklunda-Sörby;2025-11-26;1;2026-01-21
@@ -312,7 +312,7 @@ fd30265b-7b68-49b1-aaa9-e9d3d67182e0;Förskolan Beckasinen;Tillagning;Ladviksgat
 6491048d-8a17-4a03-a94a-e08a0ccc3acc;Förskolan Brolyckan;Tillagning;Jakobsgatan 19;Örebro väster;2007-02-01;2;2023-04-26
 454752e4-c146-469d-ba61-e70ddc746be9;Förskolan Byggklossen;Tillagning;Tallrisvägen 19;Brickebacken;2007-07-23;7;2026-10-07
 11bcc368-48ad-4f2e-b537-0866fc668f2a;Förskolan Emil;Tillagning;Varbergagatan 39A;Varberga-Oxhagen;2019-03-25;2;2023-01-24
-935cd4b5-0d49-4947-8678-63915fbdb404;Förskolan Fantasia;Tillagning;Varbergagatan 39A;Varberga-Oxhagen;2013-09-24;9;2025-04-08
+935cd4b5-0d49-4947-8678-63915fbdb404;Förskolan Fantasia;Tillagning;Varbergagatan 39A;Varberga-Oxhagen;2013-09-24;10;2026-10-15
 d1339f72-15e5-4bcf-b174-40f8cf8ddeed;Förskolan Fiskgjusen;Tillagning;Notstugegatan 7;Näsby-Norra Ormesta;2019-07-29;8;2026-09-07
 5d2991e0-2fb7-4949-af6d-91a252ed5367;Förskolan framtiden;Tillagning;Vadarvägen 10A;Almby-Ormesta;2020-07-29;3;2022-12-05
 ff03a8f8-8100-4b97-bed0-a9a2550f843e;Förskolan Fruktgården;Tillagning;Per Anders Väg 10;Östernärke;2011-12-22;5;2023-04-12
@@ -358,7 +358,7 @@ b5bc2c6f-901f-479e-a877-db64339905d4;Grekiska Grill & Bar Centrum;Restaurang;Klo
 83fc9673-1888-465e-8565-6bb0defa9f77;Grenadjärens Rehab/Dagvård;Tillagning;Beväringsgatan 11;Rynninge-Grenadjärstaden;2011-05-09;3;2025-12-09
 445bcfa9-8eca-49ce-9968-8570ae11499b;Grenadjärskolan;Tillagning;Pionjärgatan 3;Rynninge-Grenadjärstaden;2008-09-29;3;2025-06-18
 8f06815a-71f5-4359-a024-2b566c3f2974;Grillska Gymnasiet;Tillagning;Bettorpsgatan 12B;Hagaby-Ringstorp;2018-10-17;5;2025-03-05
-200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;Restaurang;Kungsgatan 1;Örebro city;2010-04-12;10;2025-02-11
+200b033c-7553-4ab4-b641-8ded422a6427;Gro Stallbacken;Restaurang;Kungsgatan 1;Örebro city;2010-04-12;10;2026-10-16
 380e074e-c50a-4cd7-b14b-4d43edb16744;Gruppboende Fanjunkaren;Tillagning;Beväringsgatan 5;Rynninge-Grenadjärstaden;2022-12-15;2;2025-11-28
 e9a4047e-b069-4e4e-ba33-ef0802fa3cec;Gruppbostad Landbotorp;Tillagning;Landbotorpsallén 3A;Ladugårdsängen;2025-04-30;2;2025-05-28
 f9699d63-4a12-442e-8b90-6d29a1ae101f;Gruppbostad Näset;Tillagning;;;2008-07-21;3;2025-04-28
@@ -417,7 +417,7 @@ f8e63958-9e2d-4fc0-9992-e793220b7d1b;Hedenhös Förskola;Tillagning;Annalisa For
 06e09bbe-3f37-4f90-a239-6793a8940f2e;Hellströms Goda;Buffert;Ekudden 607;Ekeby-Almby-Hidingsta-Stora Mellösa;2023-01-09;2;2025-11-12
 d071e306-f23b-4d1d-be6c-88f5225e08ac;Hemdeli Örebro;Buffert;Linnégatan 3;Hagaby-Ringstorp;2025-11-25;1;2026-01-28
 3bddb485-b8fd-463f-8a85-b6fd1095c87a;Hemglass;Buffert;Singelvägen 14;Marieberg-Mosås;2019-01-03;3;2026-05-25
-15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;Butik;Mejerivägen 16C;Hagaby-Ringstorp;2017-04-20;10;2026-04-13
+15e3967b-73bd-4cc3-a7aa-ea3b6f90f202;Hemköp Svampen;Butik;Mejerivägen 16C;Hagaby-Ringstorp;2017-04-20;10;2026-10-12
 f0ceb7db-3827-42a8-8231-76e2c8082185;Hemma Hos Örebro;Restaurang;Köpmangatan 3;Örebro city;2023-09-21;4;2025-08-19
 af8fb4fb-c617-495b-8934-e690c7624181;Hemmakväll;Butik;Drottninggatan 19;Örebro city;2017-09-20;3;2024-10-31
 e485fa43-14c3-4ffe-9dcd-35a11f0e09b7;Henkas på Aspholmen;Restaurang;Skvadronvägen 11;Brunnsgärdet-Lindhult-Nasta;2021-02-02;10;2026-04-09
@@ -436,7 +436,7 @@ e485fa43-14c3-4ffe-9dcd-35a11f0e09b7;Henkas på Aspholmen;Restaurang;Skvadronvä
 c6212e88-c72b-432a-bc4c-20752c41addd;Husets Café;Café;Slottsgatan 13A;Örebro city;2015-07-28;5;2026-03-19
 277f709d-5ea4-4fd0-93bc-f19fcd42ea74;HYGGE;Restaurang;Pappersbruksallén 1A;Näsby-Norra Ormesta;2024-08-20;2;2025-09-29
 4a67caf7-f88d-4d42-869f-95df47508da9;Häktet Örebro;Tillagning;Järnvägsgatan 3B;Örebro city;2007-08-28;5;2026-03-26
-28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;Café;Olaigatan 17A;Örebro city;2009-07-30;10;2025-09-26
+28345c3c-0d01-4b6f-a00f-65830c5f8e4c;Hälls Konditori;Café;Olaigatan 17A;Örebro city;2009-07-30;10;2026-10-15
 70ff55f2-60cc-412c-821c-9f26ce6433c2;Hälsokosten;Butik;Säljarevägen 1;Marieberg-Mosås;2025-08-06;1;2025-10-03
 610ba82b-22e2-407b-9711-87e4ef15661c;Hälsoträdgården;Tillagning;;;2021-02-04;4;2023-09-08
 7ba646c3-ca9e-4f48-a979-4d3779d78c2a;Hästskon Förskola;Tillagning;Överstegatan 1;Hagaby-Ringstorp;2006-04-07;9;2026-05-06
@@ -502,7 +502,6 @@ cf732bbb-9a9e-480c-9f97-a35fa1abea6d;Kastanjens Förskola;Tillagning;Lundhagsvä
 866750a7-d070-41b1-996a-eda6c3d1f2bc;Kebab restaurang;Pizzeria;Järnvägsgatan 13B;Örebro city;2025-06-25;3;2026-08-31
 174c60f9-f20d-430b-81f8-1df6fa1ed423;Kebabcenter;Pizzeria;Ringgatan 21B;Örebro väster;2026-05-18;2;2026-09-17
 191d7356-6e25-4746-bc98-a5ecb9ee7fb3;Kebabfabriken;Restaurang;Adolfsbergsvägen 6;Brunnsgärdet-Lindhult-Nasta;2019-03-26;10;2026-08-13
-3d484c58-81d7-446c-8e8e-ee769a8ffeef;Kebabfabriken Arena;Restaurang;Rudbecksgatan 52B;Eklunda-Sörby;2025-03-07;3;2026-04-24
 cc343c8a-e6e7-4c0c-976a-502f0bd81d78;Kebabhörnan;Restaurang;Kungsgatan 26;Örebro söder;2024-09-05;5;2026-06-10
 983daca0-4e64-4a4c-a734-0b363ee08ead;KFC;Restaurang;Monologgatan 5;Lundby;2020-12-09;10;2026-08-17
 024ec813-291a-4824-a812-187eb7d19538;Kfum Örebro Kanotcentralen;Butik;Hästhagsvägen 5;Västhaga-Solhaga;2008-11-18;2;2023-07-05
@@ -538,7 +537,7 @@ c9a42fb2-894e-42a3-8d54-9ab645219062;Kronans Apotek Örebro Ladugårdsängen;But
 12651f3a-a528-4ffb-bd6e-84033a94e5e1;Kryddgården Förskola;Tillagning;Senapsvägen 69;Sörbyängen;2024-07-02;3;2024-10-29
 5c0bf1a1-7699-4cb4-8784-ed2f3620997d;Kubens Förskola;Tillagning;Östra Vintergatan 1;Rosta-Örnsro;2013-01-01;10;2026-08-27
 6256f50e-f35b-4ed8-b4a7-20d1c6ef4f16;Kullen Förskola;Tillagning;Lundhagsvägen 3B;Hovsta;2009-08-17;5;2026-09-04
-eeeb586d-43c2-4ff0-88a5-a05b4b2b9389;Kullens Kvarn;Buffert;Kvarnbackevägen 1;Glanshammar;2019-03-28;3;2025-12-04
+eeeb586d-43c2-4ff0-88a5-a05b4b2b9389;Kullens Kvarn;Buffert;Kvarnbackevägen 1;Glanshammar;2019-03-28;4;2026-10-14
 fa47411a-3a60-41f1-a77c-e688a5eb5131;Kulturbistron;Restaurang;Nygatan 1;Örebro city;2021-06-09;5;2025-04-02
 1468cb0b-e3c2-4b01-9461-49bf0351f894;Kunskapsskolan;Tillagning;Åstadalsvägen 4;Almby-Ormesta;2010-08-17;3;2025-09-02
 98834ebe-46b9-40a6-af49-5ccb532445f1;Kvarteret & Co;Restaurang;Engelbrektsgatan 6;Örebro city;2019-10-10;8;2025-04-03
@@ -620,7 +619,7 @@ dd6c949e-e09b-4b37-8d70-77845f6ddd7a;Malins Hembageri;Café;Engelbrektsgatan 70;
 3c058860-2c07-4bdb-8f95-eba3e5c16352;Mamma Mia pizzeria;Pizzeria;Trädgårdsgatan 3A;Örebro öster;2023-09-13;9;2026-04-08
 1cfd2d2f-c369-4d1c-a3f6-cc1ddb9d9091;Mamma Mia Pizzeria - nyregistrerad;Pizzeria;Trädgårdsgatan 3A;Örebro öster;2025-12-17;0;
 90844825-bf68-4456-8348-5478f21accb6;Manna;Restaurang;Östra via 234;Latorp-Täby-Vintrosa;2023-08-08;2;2023-12-22
-7e4af9e1-3ab2-4f4d-8892-bb3cae300922;Margareta Festvåning;Restaurang;Drottninggatan 19;Örebro city;2024-04-24;2;2025-11-05
+7e4af9e1-3ab2-4f4d-8892-bb3cae300922;Margareta Festvåning;Restaurang;Drottninggatan 19;Örebro city;2024-04-24;3;2026-10-14
 cb8efaec-475a-4299-9ce5-fe6040cfd335;Mariams Kiosk;Butik;Karlsdalsallén 40;Sörbyängen;2019-12-19;7;2025-04-09
 c25b2fd2-8867-42df-9fc2-54eb77722a7c;Mariebergs Förskola;Tillagning;Drottning Kristinas Väg 4;Marieberg-Mosås;2011-02-22;6;2026-04-08
 6411acfc-25e2-4d72-8f3a-1a50f2582e49;Mariebergsskolan;Tillagning;Drottning Kristinas Väg 4;Marieberg-Mosås;2007-11-19;7;2025-12-02
@@ -638,7 +637,7 @@ ad1dea2c-003a-44b6-adb0-4c495703553b;Maskin och Transport i Örebro AB;Buffert;B
 100df19e-427f-48ca-a62b-ae56fd166a84;Max Hamburgerrestaurang Behrn Arena;Restaurang;Rudbecksgatan 52E;Eklunda-Sörby;2006-07-13;10;2026-10-07
 4aa397f3-5816-4ab4-b9eb-825b845ccf1e;Max Hamburgerrestaurang Eurostop;Restaurang;Boglundsgatan 2;Lundby;2006-12-04;10;2026-01-15
 a090c75a-f7af-44d9-9c07-1adac1b9ad33;Max Hamburgerrestaurang Marieberg;Restaurang;Kundvägen 2;Marieberg-Mosås;2006-09-01;10;2026-08-27
-05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;Restaurang;Saluvägen 2;Lillån;2018-09-19;8;2025-04-16
+05801741-9179-40bf-a339-35a894a9c505;Max Örebro-4 Lillån;Restaurang;Saluvägen 2;Lillån;2018-09-19;9;2026-10-12
 7a09023b-bcc4-41e7-8522-477fe24d30f9;Mcdonalds Marieberg;Restaurang;Varuvägen 12;Marieberg-Mosås;2024-08-30;4;2026-08-27
 03622de9-2b78-4f31-a0be-f0920548a497;Mcdonalds Södermalmsplan;Restaurang;Södermalmsplan 1;Örebro söder;2021-03-22;10;2026-09-17
 4179cc37-c095-4cce-99ef-9d9cb18c932e;Mcdonalds Västhaga;Restaurang;Västhagagatan 3;Västhaga-Solhaga;2021-03-22;10;2025-10-31
@@ -683,10 +682,9 @@ e015e591-d988-4e7a-a15c-20dd506fa538;Mosjö Förskola;Tillagning;Prästgårdsvä
 04451658-a156-48e0-b41d-0a2a3f7247eb;Mosås gruppbostad;Tillagning;;;2023-04-05;4;2026-02-23
 48d6e42e-b27a-4077-8358-70808e1091ee;Mosås stationskafé;Café;Karlsrovägen 9;Marieberg-Mosås;2025-06-05;1;2025-08-14
 df50b090-75e8-4c5b-90fd-94228c2448f0;Mosåsterminalen;Buffert;Paketvägen 6;Marieberg-Mosås;2015-03-01;2;2025-03-21
-61c9242e-ea4c-4c93-be9f-7efe7df5a0fa;Mr Gusto;Restaurang;Termikgatan 49A;Ladugårdsängen;2026-08-18;0;
 7bc1a78f-ac5a-4aed-b005-c320dcfffbac;Mr Marcus AB;Restaurang;Bertil waldéns gata 14;Örebro öster;2022-03-31;1;2022-06-21
 f6baad4b-7b40-4ea4-be5d-f3c0bebb58b8;Mr. Fries;Buffert;Nytorpsvägen 38;Marieberg-Mosås;2024-05-02;3;2026-09-15
-f994fa72-eb27-4663-b57a-b6954cb0470b;Mr. pizza;Pizzeria;Åstadalsvägen 1H;Almby-Ormesta;2020-12-16;8;2026-05-21
+f994fa72-eb27-4663-b57a-b6954cb0470b;Mr. pizza;Pizzeria;Åstadalsvägen 1H;Almby-Ormesta;2020-12-16;9;2026-10-13
 2b228cb0-cbe4-4b9a-b4c4-6be2ceab02e0;Multigruppen;Tillagning;;;2019-11-01;8;2026-05-27
 1c9444c6-312d-4908-be0a-b37d339bd8b3;Murgrönan Förskola;Tillagning;Östra Vintergatan 3;Rosta-Örnsro;2006-11-01;4;2025-09-04
 29c6d89b-cdba-4761-b53b-33b558ba5995;Must;Buffert;Hålahult 848;Garphyttan-Närkes Kil;2026-08-10;1;2026-09-15
@@ -782,12 +780,12 @@ b9e92a38-1846-4214-81af-711caeeeec5c;Pizza Hut;Restaurang;Hagagatan 49;Västhaga
 05893a3b-da1d-4a96-b04f-c64ab0e93fda;Pizzabutik Athena;Pizzeria;Lövstagatan 31E;Holmen-Hjärsta;2014-02-10;10;2026-01-22
 75da336b-f0a0-4b27-ad5d-bb49cc0070ea;Pizzeria Ekeby Almby;Pizzeria;Gamla hjälmarvägen 48;Ekeby-Almby-Hidingsta-Stora Mellösa;2021-10-15;7;2026-10-09
 97512720-bebd-4d6f-b057-9f2fa2cb8d7a;Pizzeria Express;Pizzeria;Lövstagatan 9A;Örebro väster;2018-07-05;10;2026-05-27
-525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;Pizzeria;Skolgatan 4;Latorp-Täby-Vintrosa;2016-02-29;10;2025-12-19
+525661b7-6ba2-4f42-ad40-a47104eaf54c;Pizzeria Falken;Pizzeria;Skolgatan 4;Latorp-Täby-Vintrosa;2016-02-29;10;2026-10-13
 91f48cf9-0f00-4c4d-be8c-baec16fc6416;Pizzeria Garpen;Pizzeria;Kvarnvägen 3;Garphyttan-Närkes Kil;2023-03-09;6;2026-03-18
 e5fbf117-cc46-44d2-96f2-aea4072e3828;Pizzeria light;Pizzeria;Vasatorget 6;Örebro väster;2025-10-16;5;2026-07-15
 caa0a1fe-59aa-493c-8d8a-56d9a968040d;Pizzeria Loveteria;Pizzeria;Engelbrektsgatan 31A;Örebro öster;2025-12-19;1;2026-01-27
 57d4a82e-b9c3-4adc-8c84-11b05e6aed06;Pizzeria Mellösa;Pizzeria;Parkvägen 2B;Ekeby-Almby-Hidingsta-Stora Mellösa;2019-08-20;8;2026-05-19
-478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;Pizzeria;Engelbrektsgatan 25A;Örebro öster;2022-03-24;10;2026-03-24
+478a2f32-bb5b-45b2-a7ac-6bdcfdf25b17;Pizzeria Milano;Pizzeria;Engelbrektsgatan 25A;Örebro öster;2022-03-24;10;2026-10-06
 eed66089-ac69-4fd4-bc8e-79da3a06cd54;Pizzeria Palette;Pizzeria;Köpmangatan 6;Örebro city;2011-12-13;10;2026-08-10
 ebf2e22f-9db9-413a-8465-728294200bf3;Pizzeria Tre Kronor;Pizzeria;Folkungagatan 5B;Rosta-Örnsro;2025-02-13;3;2026-09-17
 7020cfc9-cfca-48a0-9c14-133deb1d6295;Pizzeria viking & salladsbar;Pizzeria;Oskarstorget 8B;Örebro öster;2025-02-14;3;2026-01-23
@@ -798,7 +796,7 @@ c164d231-0999-4050-8a0f-97110159a5d6;Plantagen;Butik;Monologgatan 2;Lundby;2018-
 145dc31e-89b6-4a41-9140-41f017b2b768;Porten/Crossroads;Tillagning;Köping-hultgatan 6;Örebro norr-CV;2022-05-24;1;2022-07-06
 a72839c5-6331-4366-bbe5-049d6216f6e4;Positivet;Tillagning;;;2022-12-02;2;2025-09-02
 2bac8255-ad4c-4b2b-bf82-1dccd6e8286a;Praktiska Gymnasiet;Tillagning;Hagagatan 51;Västhaga-Solhaga;2023-08-10;1;2023-10-26
-e1c2e13c-843b-4b7c-9167-019cd89e6bb5;Pranzo;Pizzeria;Vasatorget 2;;2025-07-17;2;2026-08-12
+e1c2e13c-843b-4b7c-9167-019cd89e6bb5;Pranzo;Pizzeria;Vasatorget 2;Örebro väster;2025-07-17;2;2026-08-12
 c1a4e454-67c8-4fe4-969a-0edb9efdef27;Preem Baronbackarna;Butik;Lars Wivallius Väg 2;Baronbackarna;2019-07-10;6;2026-08-21
 165bfc4f-eab0-4644-9624-eef1da89c16c;Prego Örebro;Café;Fakultetsgatan 1;Almby-Ormesta;2022-10-05;2;2024-09-16
 eefd282b-9cd1-4297-bf29-3d4e01389365;Pressbyrån 4050155 (USÖ, A-Huset);Butik;Södra Grev Rosengatan 24A;Örebro city;2014-01-29;9;2026-03-02
@@ -861,7 +859,6 @@ e3f3a4b8-2b1a-4be5-ac11-459b17216dda;Restaurang Mii Soo;Restaurang;Stortorget 16
 ccaa1634-4b22-4917-8ba2-fafb876bf3b9;Restaurang Paloma;Restaurang;Längbrogatan 1A;Örebro norr-CV;2009-03-09;10;2026-02-12
 cc07ce96-a8b9-4257-9214-04028439444b;Restaurang Parken;Restaurang;Adolf Mörners Plan 6;Brunnsgärdet-Lindhult-Nasta;2015-09-01;10;2026-02-18
 0330cc21-cf0d-416b-b88f-0a62bc670823;Restaurang Plankton;Restaurang;Trädgårdsgränd 3B;Örebro city;2025-02-07;2;2026-09-10
-ac446435-ca0a-449a-852d-4b34ed486c5f;Restaurang Ponna;Restaurang;Rudbecksgatan 52B;Eklunda-Sörby;2025-03-07;2;2026-02-10
 100d8934-9798-4902-985e-d2c64a3a4946;Restaurang Pulsen;Restaurang;Södra grev rosengatan 18B;Örebro city;2025-10-03;1;2025-12-05
 c1048481-1fa4-493e-9b65-380322659cbd;Restaurang Rocca;Restaurang;Engelbrektsgatan 45;Örebro öster;2024-11-28;4;2026-05-08
 a94c9300-d895-4d63-8bc6-868a2a81a419;Restaurang Rosta;Restaurang;Västra vintergatan 9;Rosta-Örnsro;2023-10-05;10;2026-10-02
@@ -871,7 +868,7 @@ aa1fc2d3-e780-4ad6-9dd6-d0e315847af1;Restaurang Svalan;Restaurang;Brunnsparken 3
 d064e298-b302-40b1-9e8a-3f29c18c9246;Restaurang Södra Vattentornet;Restaurang;Gustavsviksvägen 7;Örebro söder;2024-10-18;3;2026-03-27
 666d150e-a957-4710-93ec-d1ea122f0058;Restaurang Tango;Pizzeria;Kemivägen 8;Glanshammar;2009-01-19;9;2025-11-18
 319c6f86-8a9a-46c0-9737-471e79c12790;Restaurang Tre Syskon;Restaurang;Bettorpsgatan 8;Hagaby-Ringstorp;2008-04-23;7;2026-04-17
-f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;Restaurang;Drakenbergsgatan 1C;Tybble;2007-07-24;10;2026-05-28
+f1e28b1a-ee8e-4355-bd28-2bc3e001abc7;Restaurang Tybble;Restaurang;Drakenbergsgatan 1C;Tybble;2007-07-24;10;2026-10-13
 fd8a90d2-4fcb-4668-ac9f-09c26d165247;Restaurang Venus;Restaurang;Varberga Torg 3;Varberga-Oxhagen;2019-01-25;10;2026-09-17
 f526a19b-35b3-4d5a-8dc5-2ce3160052be;Restaurang Veto;Restaurang;Oskarstorget 9;Örebro öster;2024-08-27;3;2026-09-10
 3ec41f11-3024-4e15-92cc-337b88df1fd9;Restaurang X:et;Restaurang;Södra grev rosengatan 30;Örebro city;2023-02-15;3;2025-05-26
@@ -960,7 +957,7 @@ ff4d4460-d380-40e5-8c26-b3aa234651e8;Skebäcksgården Vårdboende;Tillagning;Slu
 042f05f6-3d55-41c7-9501-60c1d3d7d403;Skogsbrynet Förskola;Tillagning;Rågvägen 2;Hovsta;2007-04-04;8;2026-08-25
 420bd85c-4480-4b39-87cd-b60758df7bf1;Skolcaféet;Café;Östra nobelgatan 9;Örebro norr-CV;2026-08-12;0;
 e400438c-a17a-4066-b620-f68b189bf4f9;Skutan Förskola;Tillagning;Ronnebygatan 1A;Brunnsgärdet-Lindhult-Nasta;2006-03-13;6;2025-02-25
-62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;Restaurang;Dalbygatan 4;Hagaby-Ringstorp;2009-12-14;10;2026-04-10
+62e236eb-ec58-4629-a69b-c5e824147893;Skybar Svampen;Restaurang;Dalbygatan 4;Hagaby-Ringstorp;2009-12-14;10;2026-10-15
 9e301e64-254f-4231-8ada-a955e75d6ac3;Skäpplandsgården Vårdboende;Tillagning;Skäpplandsgatan 27;Västhaga-Solhaga;2010-10-06;6;2026-01-22
 7346285a-6181-4c30-8e63-2c85ff75d7eb;Skånesmörgåsar;Café;Ekersgatan 9;Örebro väster;2008-12-30;9;2025-03-12
 510cd73e-14b7-4e98-8964-37544de54aae;SLICE:D Järntorget;Pizzeria;Olaigatan 11B;Örebro city;2025-10-31;1;2026-02-02
@@ -977,7 +974,7 @@ ca0400d1-dbfd-4cca-9947-7426dfcfe870;Snökristallens Barnakademi;Tillagning;Boos
 3848794a-c685-48dc-9155-8d19c4cd1e66;Sobi Behrn arena;Restaurang;Orvar Bergmarks Plats 1;Eklunda-Sörby;2017-05-18;10;2026-08-25
 2f390f63-5101-4163-986b-d48d6aa2ff96;Sobi Bromsplan;Restaurang;Bromsplan 4;Örebro norr-CV;2023-02-07;7;2026-07-02
 d0d6bc02-e12f-42d0-b0ee-704d53cf68e5;Sockerkicken;Butik;Drottninggatan 39;Örebro söder;2023-07-04;7;2026-10-06
-d2c634b2-e04d-45c8-9428-308c9028229e;Sofias Choklad;Butik;Drottninggatan 38;Örebro söder;2024-06-04;3;2026-08-26
+d2c634b2-e04d-45c8-9428-308c9028229e;Sofias Choklad;Butik;Drottninggatan 38;Örebro söder;2024-06-04;4;2026-10-13
 a9f8a42e-1938-4ab5-b0de-bed1d878d6a9;Solbackens dagverksamhet;Tillagning;Smedjevägen 8;Östernärke;2025-04-03;2;2025-06-23
 4a406f8d-8cdd-4071-a259-e58d1c4071a4;Sollidens Kursgård;Restaurang;Långbyn 217;Ervalla-Ölmbrotorp;2006-09-15;3;2025-10-14
 fff19042-cb93-473e-bd7b-4cafd2a4fc51;Solskenet Förskola;Tillagning;Postgatan 8;Mellringe-Björkhaga;2007-04-30;5;2025-10-16
@@ -1001,7 +998,7 @@ f7a70f61-c03d-4b1c-afd2-4c6d020c2d7a;Stora Holmen Kiosk;Butik;Fredsgatan 39;Öre
 57249146-290b-4b96-b9a2-c1f97c2f9d03;Stora Mellösa Församlingshem;Café;Göksholmsvägen 4;Ekeby-Almby-Hidingsta-Stora Mellösa;2016-04-01;2;2023-09-26
 be8dac56-1c7b-4dc6-b31d-e7651b7ebc4a;Stora Mellösa Skola;Tillagning;Skolvägen 11;Ekeby-Almby-Hidingsta-Stora Mellösa;2007-04-19;8;2025-03-19
 8f7dbfd8-39cf-402c-ae9c-f4c24bc2c65d;Stora Örebro;Restaurang;Stortorget 4;Örebro city;2016-12-01;10;2026-09-15
-fd12c760-488e-45a2-8547-84f26f87980f;Strike & co Örebro;Restaurang;Nastagatan 11;Brunnsgärdet-Lindhult-Nasta;2021-08-10;8;2026-04-09
+fd12c760-488e-45a2-8547-84f26f87980f;Strike & co Örebro;Restaurang;Nastagatan 11;Brunnsgärdet-Lindhult-Nasta;2021-08-10;9;2026-10-13
 ff308ded-ebf3-4b8b-8801-08773233cda8;Strömparterren;Restaurang;Strömparterren 1;Örebro city;2008-12-08;3;2026-06-24
 1c1bdb68-371f-4da0-a453-d6ce17806cf1;Strömsborg;Café;Strömsborg 1;Brunnsgärdet-Lindhult-Nasta;2026-04-20;1;2026-06-02
 1d21f569-2bad-47ed-9288-3cc6ccd1a650;Sturecafét;Café;Sturegatan 2;Örebro öster;2020-11-26;5;2025-12-16
@@ -1046,7 +1043,7 @@ a6f7d4e6-5f9d-4ce7-be10-76ea21893625;Taims Donuts;Buffert;Kulvägen 5A;Hagaby-Ri
 845dc171-a22d-472f-ba6b-a6a612b96b8b;Tant Norra;Restaurang;Östra Vagngatan 8A;Latorp-Täby-Vintrosa;2018-02-20;5;2026-03-03
 daa47da9-5e78-45b2-9b4b-ca782e5cc6af;Tasty Bros;Restaurang;Stortorget 6;Örebro city;2024-10-03;2;2026-09-03
 47a0d6cc-0d2a-4d07-935c-cfcffb725348;Tasty N go;Restaurang;Köpmangatan 9;Örebro city;2024-04-04;4;2026-03-25
-ef85bda0-77e8-41d3-99bb-8c1aea95ea22;TED & TOBBE;Café;Järnvägsgatan 9;Örebro city;2026-09-07;0;
+ef85bda0-77e8-41d3-99bb-8c1aea95ea22;TED & TOBBE;Café;Järnvägsgatan 9;Örebro city;2026-09-07;1;2026-10-15
 6ac8a889-241b-4a85-a9a7-a497902b0ee8;Tegelbacken 1 & 2 elevboende;Tillagning;;;2021-09-02;2;2025-11-10
 306bee1e-2d67-4f2a-bb69-1a875a7bd917;Tegelbruket Café;Café;Lertagsgatan 2;Markbacken-Västra Mark;2015-12-14;6;2025-02-24
 6ed8db44-4056-475e-bf00-c28d6a5ef7de;Tegnérskolan;Tillagning;Ullavigatan 27B;Holmen-Hjärsta;2009-06-15;3;2025-09-11
@@ -1062,7 +1059,7 @@ d993aa80-f34f-492d-bc17-1bf9bdcc6970;Ternicol Sweden AB;Buffert;Östra vagngatan
 d9623f8c-8ea0-4557-a292-6cb8156c7ec7;The Nut House;Butik;Storgatan 19A;Örebro city;2020-12-02;6;2026-09-09
 548e97da-b271-48a6-b624-6e27b705849f;The Organic Labs;Buffert;Lövstagatan 12A;Örebro väster;2024-11-28;1;2024-12-11
 adb218f8-b84d-4e56-9ce2-6d4e7ade77cd;Thessalon Imp-Exp;Buffert;Rävgräva 304;Marieberg-Mosås;2016-02-04;4;2023-12-21
-fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;Restaurang;Rudbecksgatan 52C;Eklunda-Sörby;2007-02-21;10;2026-03-04
+fce3dc5c-7667-4578-b79b-2fc939bec43d;Tillsammans;Restaurang;Rudbecksgatan 52C;Eklunda-Sörby;2007-02-21;10;2026-10-07
 119a29f2-9e4f-438b-937f-23c59cdcc688;Tinget matbar;Restaurang;Klostergatan 29B;Örebro city;2025-09-29;1;2025-10-20
 4141445d-98cc-4f5a-a5ed-3333f5fa7a08;Tobak City;Butik;Drottninggatan 6;Örebro city;2019-02-15;3;2025-10-17
 b1f1121d-eb3b-4958-a9a4-13479f263dfd;Tomp Beer Wine & Spirits AB;Buffert;Drottninggatan 11;Örebro city;2017-09-04;3;2026-02-24
@@ -1116,13 +1113,14 @@ ae4a7281-8edd-4d7b-bf57-06f244f36012;Usö Avdelningskök Avd. 96, M-Hus;Tillagni
 d13876bc-f104-4744-9e88-35651a7b2bea;Usö Avdelningskök Avd. Onkologmedicinska behandlingsmottagningen, M-Hus;Tillagning;Södra Grev Rosengatan 18B;Örebro city;2007-12-19;2;2023-10-05
 2018888e-e76c-4e48-b0f4-a04447d80460;Usö Avdelningskök Dialysen, M-Hus;Tillagning;Södra Grev Rosengatan 18B;Örebro city;2007-12-21;2;2022-09-27
 253aa025-bb0e-41ed-8c7b-83b8e1abf4bb;Usö Avdelningskök Förlossningen, B-Hus;Tillagning;Södra Grev Rosengatan 26A;Örebro city;2007-12-19;2;2022-09-28
-b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;Tillagning;Södra grev rosengatan 18A;Örebro city;2006-11-22;10;2026-04-23
+b3942d32-4b8f-417b-8a94-1702dad33f6b;Usö Centralköket;Tillagning;Södra grev rosengatan 18A;Örebro city;2006-11-22;10;2026-10-15
 4275faa3-499b-4ef9-8929-6d4b000ccad4;Varberga Servicebutik;Butik;Varberga Torg 7;Varberga-Oxhagen;2014-01-24;5;2025-04-24
 f19ee80c-494c-4a3c-baa3-6a289f599473;Varu Källa;Buffert;Varbergagatan 30;Varberga-Oxhagen;2025-05-09;3;2026-08-13
 75dcd93f-7d14-40c6-b202-4fb06838b20f;Vasa Konditori Marieberg;Café;Varuvägen 10;Marieberg-Mosås;2008-03-11;7;2025-09-30
 848b65a8-9cda-4249-bf95-a509565e3115;Vasa Konditori Stortorget;Café;Stortorget 15;Örebro city;2024-12-17;1;2025-02-26
 7131ebe9-84e8-4f3a-b99e-fb236f52f35c;Vasakonditoriet;Café;Vasagatan 15;Örebro city;2007-03-09;10;2026-07-01
 4bf9c774-0130-461a-803b-4f8a8200f5c7;Vedlunds Livs;Butik;Vallbyvägen 15;Garphyttan-Närkes Kil;2023-05-11;3;2026-04-07
+ba93ef01-9c16-43de-ab8a-ee4b0e7ff99b;Vedugns huset;Restaurang;Örebrovägen 2;;2026-10-13;0;
 a6bd799c-d2ff-4b1b-b909-bbfb624d4ad8;Vegohuset pizzeria;Pizzeria;Kristinagatan 10;Örebro öster;2024-10-14;3;2026-07-22
 25779794-6700-4b81-b1e0-defdfbe29620;Velta´s;Restaurang;Nastagatan 11;Brunnsgärdet-Lindhult-Nasta;2025-08-27;3;2026-09-11
 f7f4668a-da7b-4571-abe7-1d65afd5c954;Vesslans kök och restaurang;Tillagning;Engelbrektsgatan 23;Örebro öster;2021-02-09;7;2026-08-06
