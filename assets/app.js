@@ -1664,7 +1664,7 @@ document.addEventListener('click',e=>{
     else if(SIDA==='buss'){if(!iVb(omBox.stad,x,y))buSattZoom('hela');buKarta();host=$('#bu-karta')}
     else if(SIDA==='narmiljo'){if(!iVb(omBox.stad,x,y))nmSattZoom('hela');nmKarta();host=$('#nm-karta')}
     else if(SIDA==='cykla'){if(!iVb(omBox.stad,x,y))cySattZoom('hela');cyKarta();host=$('#cy-karta')}
-    else if(SIDA==='skyddsrum'){if(!iVb(omBox.stad,x,y)){srZoom='hela';document.querySelectorAll('#sr-zoom .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.z==='hela'))}srKarta();host=$('#sr-karta')}
+    else if(SIDA==='skyddsrum'){if(!iVb(srVb(),x,y))srSattZoom(iVb(omBox.stad,x,y)?'stad':'hela');srKarta();host=$('#sr-karta')}
     else if(SIDA==='fika'){if(!iVb(omBox.stad,x,y)){fkZoom='hela';document.querySelectorAll('#fk-zoom .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.z==='hela'))}fkKarta();host=$('#fk-karta')}
     else if(SIDA==='trossamfund'){if(!iVb(omBox.stad,x,y))tfSattZoom('hela');tfKarta();host=$('#tf-karta')}
     if(host)host.scrollIntoView({behavior:'smooth',block:'center'});return}
@@ -3288,6 +3288,12 @@ const fkLank=(x,y,n)=>`fika.html#nara=${Math.round(x)},${Math.round(y)}${n?','+e
    hänvisning till MCF:s egen karta. Utgångspunkt som på Fika i Örebro; inget sparas eller skickas. ===== */
 let SR=null,srFran=null,srOmr='',srVisa=12,srZoom='stad';
 const SR_MCF='https://www.mcf.se/sv/verktyg--tjanster/skyddsrumskarta/';
+// Kartans utsnitt (20 okt 2026): "Nära" visar bara närheten runt utgångspunkten, med de fem närmaste numrerade som i listan,
+// så att prickarna går att träffa med fingret. Staden och Hela kommunen visar alla 903.
+function srNara(){if(!srFran)return [];return SR.skyddsrum.map(s=>({s,a:Math.hypot(s.x-srFran.x,s.y-srFran.y)})).sort((a,b)=>a.a-b.a)}
+function srVb(){if(srZoom==='nara'&&srFran){const N=srNara(),r=Math.min(400,Math.max(70,(N[4]?N[4].a:100)*1.35));return [srFran.x-r,srFran.y-r,2*r,2*r]}
+  return srZoom==='stad'&&omBox.stad?omBox.stad:[0,0,OM.karta.w,OM.karta.h]}
+function srSattZoom(z){srZoom=z;const nk=$('#sr-zoom [data-z=nara]');if(nk)nk.hidden=!srFran;document.querySelectorAll('#sr-zoom .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.z===z))}
 const srNamn=s=>s.fb||('Skyddsrum '+s.nr);
 const srSub=s=>[s.g?'nära '+s.g:'',`${fmt(s.pl)} platser`,'nr '+s.nr].filter(Boolean).join(' · ');
 const srBeg=()=>`Tillfällig begränsning enligt MCF ${vtDag(SR.mcf_datum||SR.uppdaterad)}`;
@@ -3297,11 +3303,11 @@ function srLista(){const L=SR.skyddsrum.map(s=>({s,a:srFran?Math.hypot(s.x-srFra
   if(srFran)L.sort((x,y)=>x.a-y.a);else L.sort((x,y)=>srNamn(x.s).localeCompare(srNamn(y.s),'sv'));
   $('#sr-lista-h').textContent=srFran?'Skyddsrum nära dig':'Alla skyddsrum';
   $('#sr-n').textContent=srFran?`${fmt(L.length)} skyddsrum, närmast först från ${srFran.n}`:`${fmt(L.length)} skyddsrum. Välj var du är för att se de närmaste först.`;
-  $('#sr-lista').innerHTML=L.slice(0,srVisa).map(({s,a})=>`<li class="fk-rad"><span class="mi-bt"><b>${esc(srNamn(s))}</b><span class="sub">${esc(srSub(s))}</span>${s.b?`<span class="fk-st sr-st-b">${esc(srBeg())}</span>`:''}</span>`+
+  $('#sr-lista').innerHTML=L.slice(0,srVisa).map(({s,a},i)=>`<li class="fk-rad"><span class="mi-bt"><b>${srFran&&i<5?`<span class="sr-nr-l" aria-hidden="true">${i+1}</span>`:''}${esc(srNamn(s))}</b><span class="sub">${esc(srSub(s))}</span>${s.b?`<span class="fk-st sr-st-b">${esc(srBeg())}</span>`:''}</span>`+
     `${a!=null?`<span class="mi-avst">${esc(meter(a))}<span class="fk-gang">${esc(fkGang(a))}</span></span>`:''}`+
     `<span class="mi-akt"><button type="button" class="akt-knapp" data-visa="${s.x},${s.y}" data-n="${esc(srNamn(s))}">Visa på karta</button>${hittaLank(s.x,s.y)}</span></li>`).join('');
   $('#sr-fler').hidden=L.length<=srVisa;$('#sr-fler').textContent=`Visa fler (${fmt(L.length-srVisa)} till)`}
-function srKarta(){const host=$('#sr-karta');if(!host||!SR||!OM)return;const vb=srZoom==='stad'&&omBox.stad?omBox.stad:[0,0,OM.karta.w,OM.karta.h];
+function srKarta(){const host=$('#sr-karta');if(!host||!SR||!OM)return;const vb=srVb(),nara=srZoom==='nara'&&srFran;
   host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över skyddsrummen i Örebro kommun'},host);kartZoom(host,svg);
   const sc=kartSc(svg,vb),tp=tip(host);
   OM.omraden.forEach(o=>{const p=el('path',{d:o.svg,class:'nm-a'+(o.kod===srOmr?' nm-a-sel':''),'fill-rule':'evenodd'},svg),v=SR.omraden[o.kod];
@@ -3309,11 +3315,14 @@ function srKarta(){const host=$('#sr-karta');if(!host||!SR||!OM)return;const vb=
     p.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
     p.addEventListener('click',()=>{tp.hidden=true;srValjOmr(o.kod,false)})});
   const so=OM.omraden.find(o=>o.kod===srOmr);if(so)el('path',{d:so.svg,class:'seloutline','fill-rule':'evenodd'},svg);
-  SR.skyddsrum.slice().sort((a,b)=>(a.b||0)-(b.b||0)||b.pl-a.pl).forEach(s=>{const c=el('circle',{cx:s.x,cy:s.y,r:(1.8+Math.sqrt(s.pl)/9)*sc,class:'sr-pt'+(s.b?' sr-pt-b':'')},svg);
+  const topp=nara?srNara().slice(0,5).map(q=>q.s):[],nr=new Map(topp.map((s,i)=>[s,i+1]));
+  SR.skyddsrum.filter(s=>!nara||iVb(vb,s.x,s.y)).sort((a,b)=>(nr.has(a)?1:0)-(nr.has(b)?1:0)||(nr.get(b)||0)-(nr.get(a)||0)||(a.b||0)-(b.b||0)||b.pl-a.pl).forEach(s=>{const i=nr.get(s);
+    const c=el('circle',{cx:s.x,cy:s.y,r:(i?9:nara?(3+Math.sqrt(s.pl)/7):(1.8+Math.sqrt(s.pl)/9))*sc,class:'sr-pt'+(s.b?' sr-pt-b':'')+(i?' sr-pt-nr':'')},svg);
+    if(i){const t=el('text',{x:s.x,y:s.y,'text-anchor':'middle','dominant-baseline':'central',class:'sr-nr',style:`font-size:${11*sc}px`},svg);t.textContent=i}
     c.addEventListener('mousemove',e=>{if(!tipFri(tp))return;const bb=host.getBoundingClientRect();tp.hidden=false;tp.innerHTML=`<b>${esc(srNamn(s))}</b><br>${fmt(s.pl)} platser`;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'});
     c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});c.addEventListener('click',e=>kortVisa(host,tp,e,srKort(s)))});
   if(srFran)el('circle',{cx:srFran.x,cy:srFran.y,r:6.5*sc,class:'fk-pt-du'},svg);
-  if(so){const t=el('text',{x:so.lx,y:so.ly-11*sc,'text-anchor':'middle',class:'lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=so.namn}
+  if(so&&!nara){const t=el('text',{x:so.lx,y:so.ly-11*sc,'text-anchor':'middle',class:'lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=so.namn}
   fokusRita(svg,sc)}
 function srTabell(){const K=SR.kommun,R=OM.omraden.map(o=>({o,v:SR.omraden[o.kod]})).sort((a,b)=>(b.v.per100??-1)-(a.v.per100??-1));
   const utan=R.filter(r=>!r.v.n).map(r=>r.o.namn);
@@ -3321,7 +3330,7 @@ function srTabell(){const K=SR.kommun,R=OM.omraden.map(o=>({o,v:SR.omraden[o.kod
   $('#sr-tab tbody').innerHTML=R.map(({o,v})=>`<tr${o.kod===srOmr?' class="sr-vald"':''}><td><button type="button" class="lank-knapp" data-sr-omr="${o.kod}">${esc(o.namn)}</button></td><td class="num">${fmt(v.n)}</td><td class="num">${fmt(v.pl)}</td><td class="num">${v.bef!=null?fmt(v.bef):'–'}</td><td class="num">${v.per100!=null?fmt(v.per100,0):'–'}</td></tr>`).join('')}
 function srValjOmr(kod,lista=true){const o=OM.omraden.find(x=>x.kod===kod);$('#sr-omr').value=o?o.kod:'';srOmr=o?o.kod:'';srSattFran(o?{x:o.lx,y:o.ly,n:o.namn}:null,lista,true)}
 function srSattFran(p,lista=true,omr=false){srFran=p;if(!omr){srOmr='';$('#sr-omr').value=''}srVisa=12;$('#sr-fran').textContent=p?`från ${p.n}`:'';srLista();srTabell();
-  if(p&&!iVb(srZoom==='stad'&&omBox.stad?omBox.stad:[0,0,OM.karta.w,OM.karta.h],p.x,p.y)){srZoom='hela';document.querySelectorAll('#sr-zoom .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.z==='hela'))}
+  srSattZoom(p?'nara':(srZoom==='nara'?'stad':srZoom));
   srKarta();if(lista&&matchMedia('(max-width:900px)').matches)$('#sr-lista-h').scrollIntoView({behavior:'smooth',block:'start'})}
 function initSkyddsrum(){omStad();const K=SR.kommun;
   $('#sr-fakta').innerHTML=`<span><b class="num">${fmt(K.n)}</b> skyddsrum</span><span>${fmt(K.pl)} platser</span><span>${K.beg?`${fmt(K.beg)} med tillfällig begränsning`:'ingen med tillfällig begränsning'} enligt MCF ${esc(vtDag(SR.mcf_datum||SR.uppdaterad))}</span>`;
@@ -3329,7 +3338,7 @@ function initSkyddsrum(){omStad();const K=SR.kommun;
   $('#sr-omr').addEventListener('change',e=>srValjOmr(e.target.value));
   $('#sr-tab').addEventListener('click',e=>{const b=e.target.closest('[data-sr-omr]');if(b)srValjOmr(b.dataset.srOmr)});
   $('#sr-fler').addEventListener('click',()=>{const n=srVisa;srVisa+=24;srLista();$('#sr-lista').children[n]?.querySelector('button,a')?.focus()});
-  $('#sr-zoom').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;srZoom=b.dataset.z;document.querySelectorAll('#sr-zoom .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));srKarta()});
+  $('#sr-zoom').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;srSattZoom(b.dataset.z);srKarta()});
   const hk=$('#sr-har');if(!('geolocation' in navigator))hk.hidden=true;
   hk.addEventListener('click',()=>{const md=$('#sr-medd');md.hidden=false;md.textContent=`Ditt läge stannar i ${HAR_ENHET()}. Det sparas inte och skickas inte till oss eller någon annan.`;hk.setAttribute('aria-busy','true');
     navigator.geolocation.getCurrentPosition(pos=>{hk.removeAttribute('aria-busy');const Kt=OM.karta,[N,E]=sweref(pos.coords.latitude,pos.coords.longitude),x=(E-Kt.x0)/10,y=(Kt.y0-N)/10;
