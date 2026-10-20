@@ -1401,6 +1401,12 @@ function miKarta(){
   {const f=miFran(o.kod);[['toa','offentlig toalett'],['pump','cykelpump']].forEach(([t,l])=>{const q=NM&&f?miNarmast(NM.platser.filter(p=>p[0]===t),f,1,p=>[p[4],p[5]])[0]:null;
     const vis=!!(q&&q.m<=2000);$('#mi-leg-'+t).hidden=!vis;
     if(vis)pt(q.p[4],q.p[5],t,5,`<b>${esc(nmPNamn(q.p))}</b><br>${l}, ${esc(meter(q.m))}${t==='toa'&&q.p[2]?'<br>'+esc(q.p[2].toLowerCase()):''}`)})}
+  // de tre närmaste skyddsrummen, från din gata eller områdets centrum, inom 5 km (20 okt 2026)
+  {const f=miFran(o.kod),L=SR&&f?miNarmast(SR.skyddsrum,f,3,q=>[q.x,q.y]).filter(q=>q.m<=5000):[];$('#mi-leg-skr').hidden=!L.length;
+    const lank=f?`skyddsrum.html#nara=${Math.round(f.x)},${Math.round(f.y)},${encodeURIComponent((f.gata||o.namn).slice(0,60))}`:'skyddsrum.html';
+    L.forEach(q=>{const r=q.p,t=`<b>${esc(srNamn(r))}</b><br>skyddsrum, ${esc(fmt(r.pl))} platser, ${esc(meter(q.m))}${r.g?'<br>nära '+esc(r.g):''}${r.b?'<br>'+esc(srBeg()):''}`;
+      const c=el('circle',{cx:r.x,cy:r.y,r:5*sc,class:'mi-pt-skr'},svg);c.addEventListener('mousemove',e=>show(e,t));c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
+      c.addEventListener('click',e=>kortVisa(host,tp,e,`${t}<br>${hittaLank(r.x,r.y)} · <a class="akt-lank" href="${lank}">Fler skyddsrum nära</a> · <a class="akt-lank" href="${SR_MCF}" target="_blank" rel="noopener">MCF:s karta ↗</a>`))})}
   const t=el('text',{x:o.lx,y:o.ly,'text-anchor':'middle',class:'mi-lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=o.namn;
   fokusRita(svg,sc);
 }
