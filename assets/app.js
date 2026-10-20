@@ -1404,7 +1404,7 @@ function miKarta(){
   // de tre närmaste skyddsrummen, från din gata eller områdets centrum, inom 5 km (20 okt 2026)
   {const f=miFran(o.kod),L=SR&&f?miNarmast(SR.skyddsrum,f,3,q=>[q.x,q.y]).filter(q=>q.m<=5000):[];$('#mi-leg-skr').hidden=!L.length;
     const lank=f?`skyddsrum.html#nara=${Math.round(f.x)},${Math.round(f.y)},${encodeURIComponent((f.gata||o.namn).slice(0,60))}`:'skyddsrum.html';
-    L.forEach(q=>{const r=q.p,t=`<b>${esc(srNamn(r))}</b><br>skyddsrum, ${esc(fmt(r.pl))} platser, ${esc(meter(q.m))}${r.g?'<br>nära '+esc(r.g):''}${r.b?'<br>'+esc(srBeg()):''}`;
+    L.forEach(q=>{const r=q.p,t=`<b>${esc(srNamn(r))}</b><br>skyddsrum, ${esc(fmt(r.pl))} platser, ${esc(meter(q.m))} fågelvägen${r.g?'<br>nära '+esc(r.g):''}${r.b?'<br>'+esc(srBeg()):''}`;
       const c=el('circle',{cx:r.x,cy:r.y,r:5*sc,class:'mi-pt-skr'},svg);c.addEventListener('mousemove',e=>show(e,t));c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
       c.addEventListener('click',e=>kortVisa(host,tp,e,`${t}<br>${hittaLank(r.x,r.y)} · <a class="akt-lank" href="${lank}">Fler skyddsrum nära</a> · <a class="akt-lank" href="${SR_MCF}" target="_blank" rel="noopener">MCF:s karta ↗</a>`))})}
   const t=el('text',{x:o.lx,y:o.ly,'text-anchor':'middle',class:'mi-lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=o.namn;
@@ -1634,8 +1634,14 @@ function kartLL(x,y){const K=OM&&OM.karta;if(!K||K.x0==null)return null;const E=
   const ps=Math.asin(S(xp)/CH(ep)),dl=Math.atan(SH(ep)/C(xp)),s2=S(ps)**2;
   const phi=ps+S(ps)*C(ps)*(As+Bs*s2+Cs*s2*s2+Ds*s2**3);
   return [phi*180/Math.PI,lon0+dl*180/Math.PI]}
-const hittaUrl=(x,y)=>{const ll=x!=null&&y!=null&&kartLL(x,y);return ll?`https://www.google.com/maps/dir/?api=1&destination=${ll[0].toFixed(5)},${ll[1].toFixed(5)}`:null};
-const hittaLank=(x,y)=>{const u=hittaUrl(x,y);return u?`<a class="akt-lank" href="${u}" target="_blank" rel="noopener">Hitta hit ↗</a>`:''};
+// områdets centrum, samma punkt som Mitt Örebro räknar från (cx, cy); lx, ly är bara var namnet står
+const omC=o=>({x:o.cx??o.lx,y:o.cy??o.ly});
+// Vägbeskrivning (20 okt 2026): till fots som standard ("Visa gångväg"), med bil bara till återvinningscentralerna.
+// Bara målet skickas; kartappen räknar från där telefonen är, aldrig från gatan eller området du valt här.
+const hittaBil=(x,y)=>!!(typeof NM!=='undefined'&&NM&&NM.platser&&NM.platser.some(p=>p[0]==='avc'&&p[4]===x&&p[5]===y));
+const hittaUrl=(x,y)=>{const ll=x!=null&&y!=null&&kartLL(x,y);return ll?`https://www.google.com/maps/dir/?api=1&destination=${ll[0].toFixed(5)},${ll[1].toFixed(5)}${hittaBil(x,y)?'':'&travelmode=walking'}`:null};
+const hittaText=(x,y)=>hittaBil(x,y)?'Hitta hit ↗':'Visa gångväg ↗';
+const hittaLank=(x,y)=>{const u=hittaUrl(x,y);return u?`<a class="akt-lank" href="${u}" target="_blank" rel="noopener">${hittaText(x,y)}</a>`:''};
 function platsAkt(x,y,n){const u=hittaUrl(x,y);if(!u)return '';
   return `<span class="mi-akt"><button type="button" class="akt-knapp" data-visa="${x},${y}" data-n="${esc(n||'')}">Visa på karta</button>${hittaLank(x,y)}</span>`}
 let FOKUS=null;   // platsen som "Visa på karta" pekar ut: {x,y,n}
@@ -2410,7 +2416,7 @@ async function miRemsa(S){
   try{const [O2,K2,N2]=await Promise.all([OM?OM:load('omraden'),load('kollektiv').catch(()=>null),load('narmiljo').catch(()=>null)]);OM=OM||O2;
     if(miHamta()!==k)return;
     const b=K2&&K2.omraden[k],n=N2&&N2.omraden[k],vc=m.vc[0],R=[];
-    const rad=(typ,namn,avst,x,y,sid)=>{if(!namn)return;const u=hittaUrl(x,y);R.push(`<li><span class="nara-typ">${esc(typ)}</span><a class="nara-namn" href="${sid}">${esc(namn)}</a><span class="nara-m">${esc(typeof avst==='number'?meter(avst):avst)}</span>${u?`<a class="akt-lank" href="${u}" target="_blank" rel="noopener">Hitta hit ↗</a>`:''}</li>`)};
+    const rad=(typ,namn,avst,x,y,sid)=>{if(!namn)return;const u=hittaUrl(x,y);R.push(`<li><span class="nara-typ">${esc(typ)}</span><a class="nara-namn" href="${sid}">${esc(namn)}</a><span class="nara-m">${esc(typeof avst==='number'?meter(avst):avst)}</span>${hittaLank(x,y)}</li>`)};
     // med sparad gata i området räknas "Nära dig" från gatan (allt i webbläsaren)
     const g=gataHamta();let f=null;
     if(g&&g.k===k&&N2){try{await miGataData();NM=NM||N2;f={x:g.x,y:g.y,gata:g.n}}catch(e){f=null}}
@@ -3222,11 +3228,11 @@ function fkStatus(f){const V=f._t===undefined?(f._t=fkTider(f.oh)):f._t;if(!V)re
   for(let i=1;i<=7;i++){const D=V[(d+i)%7];if(D.length)return {k:'stangd',t:`Stängt nu, öppnar ${i===1?'i morgon':FK_DAGNAMN[(d+i)%7]} ${fkKl(D[0][0])}`}}
   return {k:'stangd',t:'Stängt'}}
 const fkAvst=(f,p)=>Math.hypot(f.x-p.x,f.y-p.y)*10;
-const fkGang=m=>m<120?'nära':`ca ${Math.max(1,Math.round(m/80))} min att gå`;
+const fkGang=()=>'fågelvägen';
 const FK_TYPNAMN={kafe:'Kafé',konditori:'Konditori eller bageri',glass:'Glass'};
 function fkSp(f){return {t:'fik',id:f.id,n:f.n,s:[FK_TYPNAMN[f.typ],f.a].filter(Boolean).join(' · ').slice(0,150),x:f.x,y:f.y,w:f.w||null}}
 function fkKort(f){const s=fkStatus(f),a=fkFran?fkAvst(f,fkFran):null;
-  return `<b>${esc(f.n)}</b><br>${esc(f.a||'')}${a!=null?` · ${esc(meter(a))}`:''}${s?`<br>${esc(s.t)}`:''}<br>${hittaLank(f.x,f.y)} · <a class="akt-lank" href="restauranger.html#v=${esc(f.id)}">Kontrollerna</a>${f.w?` · <a class="akt-lank" href="${esc(f.w)}" target="_blank" rel="noopener">Webbplats ↗</a>`:''}<br>${spKnapp(fkSp(f))}`}
+  return `<b>${esc(f.n)}</b><br>${esc(f.a||'')}${a!=null?` · ${esc(meter(a))} fågelvägen`:''}${s?`<br>${esc(s.t)}`:''}<br>${hittaLank(f.x,f.y)} · <a class="akt-lank" href="restauranger.html#v=${esc(f.id)}">Kontrollerna</a>${f.w?` · <a class="akt-lank" href="${esc(f.w)}" target="_blank" rel="noopener">Webbplats ↗</a>`:''}<br>${spKnapp(fkSp(f))}`}
 function fkUrval(){return FK.stallen.filter(f=>(!fkTyp||f.typ===fkTyp)&&(!fkOppet||(fkStatus(f)||{}).k==='oppen'))}
 function fkLista(){const L=fkUrval().map(f=>({f,a:fkFran?fkAvst(f,fkFran):null}));if(fkFran)L.sort((x,y)=>x.a-y.a);
   const ul=$('#fk-lista');
@@ -3254,7 +3260,7 @@ function fkKarta(){const host=$('#fk-karta');if(!host||!FK||!OM)return;const vb=
   if(fkFran)el('circle',{cx:fkFran.x,cy:fkFran.y,r:6.5*sc,class:'fk-pt-du'},svg);
   if(so){const t=el('text',{x:so.lx,y:so.ly-11*sc,'text-anchor':'middle',class:'lbl',style:`font-size:${14*sc}px;stroke-width:${4*sc}px`},svg);t.textContent=so.namn}
   fokusRita(svg,sc)}
-function fkValjOmr(kod,lista=true){const o=OM.omraden.find(x=>x.kod===kod);$('#fk-omr').value=o?o.kod:'';fkOmr=o?o.kod:'';fkSattFran(o?{x:o.lx,y:o.ly,n:o.namn}:null,lista,true)}
+function fkValjOmr(kod,lista=true){const o=OM.omraden.find(x=>x.kod===kod);$('#fk-omr').value=o?o.kod:'';fkOmr=o?o.kod:'';fkSattFran(o?{...omC(o),n:o.namn+' (områdets centrum)'}:null,lista,true)}
 function fkSattFran(p,lista=true,omr=false){fkFran=p;if(!omr){fkOmr='';$('#fk-omr').value=''}fkVisa=12;$('#fk-fran').textContent=p?`från ${p.n}`:'';fkLista();fkKarta();
   if(p&&!iVb(fkZoom==='stad'&&omBox.stad?omBox.stad:[0,0,OM.karta.w,OM.karta.h],p.x,p.y)){fkZoom='hela';document.querySelectorAll('#fk-zoom .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.z==='hela'));fkKarta()}
   if(lista&&matchMedia('(max-width:900px)').matches)$('#fk-lista-h').scrollIntoView({behavior:'smooth',block:'start'})}
@@ -3278,7 +3284,7 @@ function initFika(){omStad();const A=FK.antal;
   const g=gataHamta(),k=miHamta(),o=k&&OM.omraden.find(x=>x.kod===k);
   if(m)fkSattFran({x:+m[1],y:+m[2],n:m[3]||'platsen du valde'},false);
   else if(g)fkSattFran({x:g.x,y:g.y,n:g.n+' (din gata)'},false);
-  else if(o){fkOmr=o.kod;$('#fk-omr').value=o.kod;fkSattFran({x:o.lx,y:o.ly,n:o.namn+' (ditt område)'},false,true)}
+  else if(o){fkOmr=o.kod;$('#fk-omr').value=o.kod;fkSattFran({...omC(o),n:o.namn+' (ditt områdes centrum)'},false,true)}
   else{fkLista();fkKarta()}
   setInterval(()=>{if(!document.hidden&&FK)fkLista()},60000)}   // Öppet nu ändras med klockan
 // närmaste fik till en punkt, för länkar från andra sidor (parker, Mitt Örebro)
@@ -3298,7 +3304,7 @@ const srNamn=s=>s.fb||('Skyddsrum '+s.nr);
 const srSub=s=>[s.g?'nära '+s.g:'',`${fmt(s.pl)} platser`,'nr '+s.nr].filter(Boolean).join(' · ');
 const srBeg=()=>`Tillfällig begränsning enligt MCF ${vtDag(SR.mcf_datum||SR.uppdaterad)}`;
 function srKort(s){const a=srFran?Math.hypot(s.x-srFran.x,s.y-srFran.y)*10:null;
-  return `<b>${esc(srNamn(s))}</b><br>${esc(srSub(s))}${a!=null?` · ${esc(meter(a))}`:''}${s.b?`<br>${esc(srBeg())}`:''}<br>${hittaLank(s.x,s.y)} · <a class="akt-lank" href="${SR_MCF}" target="_blank" rel="noopener">MCF:s karta ↗</a>`}
+  return `<b>${esc(srNamn(s))}</b><br>${esc(srSub(s))}${a!=null?` · ${esc(meter(a))} fågelvägen`:''}${s.b?`<br>${esc(srBeg())}`:''}<br>${hittaLank(s.x,s.y)} · <a class="akt-lank" href="${SR_MCF}" target="_blank" rel="noopener">MCF:s karta ↗</a>`}
 function srLista(){const L=SR.skyddsrum.map(s=>({s,a:srFran?Math.hypot(s.x-srFran.x,s.y-srFran.y)*10:null}));
   if(srFran)L.sort((x,y)=>x.a-y.a);else L.sort((x,y)=>srNamn(x.s).localeCompare(srNamn(y.s),'sv'));
   $('#sr-lista-h').textContent=srFran?'Skyddsrum nära dig':'Alla skyddsrum';
@@ -3328,7 +3334,7 @@ function srTabell(){const K=SR.kommun,R=OM.omraden.map(o=>({o,v:SR.omraden[o.kod
   const utan=R.filter(r=>!r.v.n).map(r=>r.o.namn);
   $('#sr-omr-sum').textContent=`I hela kommunen finns ${fmt(K.pl)} platser, ungefär ${fmt(K.per100,0)} per 100 invånare.${utan.length?` ${utan.length===1?'Ett område saknar':fmt(utan.length)+' områden saknar'} skyddsrum: ${utan.join(', ')}.`:''}`;
   $('#sr-tab tbody').innerHTML=R.map(({o,v})=>`<tr${o.kod===srOmr?' class="sr-vald"':''}><td><button type="button" class="lank-knapp" data-sr-omr="${o.kod}">${esc(o.namn)}</button></td><td class="num">${fmt(v.n)}</td><td class="num">${fmt(v.pl)}</td><td class="num">${v.bef!=null?fmt(v.bef):'–'}</td><td class="num">${v.per100!=null?fmt(v.per100,0):'–'}</td></tr>`).join('')}
-function srValjOmr(kod,lista=true){const o=OM.omraden.find(x=>x.kod===kod);$('#sr-omr').value=o?o.kod:'';srOmr=o?o.kod:'';srSattFran(o?{x:o.lx,y:o.ly,n:o.namn}:null,lista,true)}
+function srValjOmr(kod,lista=true){const o=OM.omraden.find(x=>x.kod===kod);$('#sr-omr').value=o?o.kod:'';srOmr=o?o.kod:'';srSattFran(o?{...omC(o),n:o.namn+' (områdets centrum)'}:null,lista,true)}
 function srSattFran(p,lista=true,omr=false){srFran=p;if(!omr){srOmr='';$('#sr-omr').value=''}srVisa=12;$('#sr-fran').textContent=p?`från ${p.n}`:'';srLista();srTabell();
   srSattZoom(p?'nara':(srZoom==='nara'?'stad':srZoom));
   srKarta();if(lista&&matchMedia('(max-width:900px)').matches)$('#sr-lista-h').scrollIntoView({behavior:'smooth',block:'start'})}
@@ -3349,7 +3355,7 @@ function initSkyddsrum(){omStad();const K=SR.kommun;
   const g=gataHamta(),k=miHamta(),o=k&&OM.omraden.find(x=>x.kod===k);
   if(m)srSattFran({x:+m[1],y:+m[2],n:m[3]||'platsen du valde'},false);
   else if(g)srSattFran({x:g.x,y:g.y,n:g.n+' (din gata)'},false);
-  else if(o){srOmr=o.kod;$('#sr-omr').value=o.kod;srSattFran({x:o.lx,y:o.ly,n:o.namn+' (ditt område)'},false,true)}
+  else if(o){srOmr=o.kod;$('#sr-omr').value=o.kod;srSattFran({...omC(o),n:o.namn+' (ditt områdes centrum)'},false,true)}
   else{srLista();srTabell();srKarta()}}
 // närmaste skyddsrum till en punkt (Mitt Örebro)
 function srNarmast(x,y){if(!SR)return null;let b=null;for(const s of SR.skyddsrum){const a=Math.hypot(s.x-x,s.y-y)*10;if(!b||a<b.a)b={s,a}}return b}
