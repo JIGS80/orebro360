@@ -1988,3 +1988,7 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 /* Tips på klickbara prickar (21 okt 2026) */
 .tip.pt:not(.fast)::after{content:attr(data-hint);display:block;margin-top:3px;padding-top:3px;border-top:1px solid color-mix(in srgb,var(--bg) 25%,transparent);font-size:.76rem;font-weight:600;opacity:.85}
 .mi-karta-tips{margin:6px 0 0}
+/* Stor karta (21 okt 2026): kartrutor som står kvar vid skroll (position:sticky) blev en egen stapelordning, så sidhuvudet
+   hamnade över den stora kartan och täckte Stäng. När en karta är stor släpps det för alla rutor runt den. */
+html.kz-las :has(.kz-full){position:static !important;transform:none !important;z-index:auto !important}
+html.kz-las header.site{visibility:hidden}
