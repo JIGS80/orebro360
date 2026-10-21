@@ -1917,3 +1917,9 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 /* Mitt Örebro: Fika nära (21 okt 2026) */
 .mi-fk-lankar{display:flex;flex-wrap:wrap;gap:6px 20px;margin:10px 0 4px;font-weight:600}
 .mi-fk .mi-bt{display:grid;gap:2px;min-width:0}
+/* Hemskärmen och offline (21 okt 2026) */
+.mi-app-rad{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.mi-app-rad img{border-radius:10px;flex:none}
+.mi-app-rad h3{margin:0 0 2px}
+.mi-app-ios{margin-top:10px}
+.mi-offline{margin:0 0 12px;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--surface);font-weight:600}
