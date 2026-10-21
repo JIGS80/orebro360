@@ -1701,7 +1701,7 @@ function kartZoomLyss(host){   // händelserna läggs bara på en gång per kart
       const m=s.svg.getScreenCTM(),f=m?1/m.a:1;s.satt_([drag.vb[0]-dx*f,drag.vb[1]-dy*f,drag.vb[2],drag.vb[3]]);drog=true}});
   const slut=e=>{pek.delete(e.pointerId);if(pek.size===0){drag=null;host.classList.remove('kz-drar');setTimeout(()=>{drog=false},0)}
     else if(pek.size===1&&drag&&drag.pinch){const [a]=[...pek.values()];drag={x:a.x,y:a.y,vb:S().vb.slice(),flytt:99}}};
-  host.addEventListener('pointerup',slut);host.addEventListener('pointercancel',slut);host.addEventListener('lostpointercapture',slut);
+  host.addEventListener('pointerup',slut);host.addEventListener('pointercancel',slut);
   host.addEventListener('touchend',e=>{if(!e.touches.length&&pek.size){pek.clear();drag=null;host.classList.remove('kz-drar');setTimeout(()=>{drog=false},0)}},{passive:true});
   host.addEventListener('wheel',e=>{if(!e.ctrlKey)return;e.preventDefault();const s=S();s.synk();s.zooma(e.deltaY>0?1.15:1/1.15,s.punkt(e.clientX,e.clientY))},{passive:false});
   host.addEventListener('gesturestart',e=>e.preventDefault());   // Safari: nyp ska zooma kartan, inte hela sidan
