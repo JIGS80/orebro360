@@ -1454,7 +1454,7 @@ function miKarta(){
   if(o&&FOKUS&&!iVb(vb,FOKUS.x,FOKUS.y)){const pad=Math.max(vb[2],vb[3])*.08;let x0=Math.min(vb[0],FOKUS.x-pad),y0=Math.min(vb[1],FOKUS.y-pad),x1=Math.max(vb[0]+vb[2],FOKUS.x+pad),y1=Math.max(vb[1]+vb[3],FOKUS.y+pad),W=x1-x0,H=y1-y0;
     if(W/H<1.25){const nw=H*1.25;x0-=(nw-W)/2;W=nw}else{const nh=W/1.25;y0-=(nh-H)/2;H=nh}vb=[x0,y0,W,H]}
   const svg=el('svg',{viewBox:vb.map(Math.round).join(' '),role:'img','aria-label':o?'Karta över '+o.namn+' med skolor, vårdcentraler och kontrollerade restauranger':'Karta över Örebros områden. Klicka på ditt område.'},host);kartZoom(host,svg);
-  const sc=kartSc(svg,vb);
+  const sc=kartSc(svg,vb);if(o)kzVidga(host,[0,0,OM.karta.w,OM.karta.h]);else host._kzVid=false;
   const show=(e,t)=>{const bb=host.getBoundingClientRect();if(!tipFri(tp))return;tp.hidden=false;tp.innerHTML=t;tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'};
   OM.omraden.forEach(a=>{const p=el('path',{d:a.svg,class:'mi-a'+(o&&a.kod===o.kod?' mi-a-sel':''),'fill-rule':'evenodd'},svg);
     p.addEventListener('mousemove',e=>show(e,`<b>${esc(a.namn)}</b>${o&&a.kod===o.kod?'':'<br>Klicka för att välja'}`));p.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
@@ -1609,7 +1609,7 @@ function kartZoom(host,svg){
   const tal=v=>(v||'').split(/[\s,]+/).map(Number);
   const S={host,svg,bas:tal(svg.getAttribute('viewBox')),satt:svg.getAttribute('viewBox')};S.vb=S.bas.slice();
   S.synk=()=>{const nu=svg.getAttribute('viewBox');if(nu!==S.satt){S.bas=tal(nu);S.bas0=null;S.vb=S.bas.slice();S.satt=nu;host._kz=null;S.skala()}};   // kartan har själv bytt utsnitt
-  S.inne=()=>S.vb[2]<S.bas[2]*.999||!!S.bas0;S.minW=()=>{const B=S.bas0||S.bas;return Math.min(B[2],Math.max(B[2]/30,30))};S.kanIn=()=>S.vb[2]>S.minW()*1.01;
+  S.inne=()=>host._kzVid&&S.bas0?S.vb[2]<S.bas0[2]*.999:(S.vb[2]<S.bas[2]*.999||!!S.bas0);S.kanFlytta=()=>S.inne()||(!!host._kzVid&&!!S.bas0&&host.classList.contains('kz-full'));S.minW=()=>{const B=S.bas0||S.bas;return Math.min(B[2],Math.max(B[2]/30,30))};S.kanIn=()=>S.vb[2]>S.minW()*1.01;
   S.skala=()=>{const k=S.vb[2]/(S.bas0||S.bas)[2];
     const kr=Math.pow(k,.92)*KZ_PEK;svg.querySelectorAll('circle:not(.kx)').forEach(c=>{if(c.dataset.kzr==null)c.dataset.kzr=c.getAttribute('r')||'';if(c.dataset.kzr)c.setAttribute('r',(+c.dataset.kzr*kr).toFixed(3))});
     svg.querySelectorAll('text:not(.kx)').forEach(t=>{if(t.dataset.kzs==null)t.dataset.kzs=t.getAttribute('style')||'';const st=t.dataset.kzs;if(st)t.setAttribute('style',st.replace(/([\d.]+)px/g,(_,v)=>(+v*k).toFixed(3)+'px'));
@@ -1618,7 +1618,7 @@ function kartZoom(host,svg){
   S.satt_=n=>{const B=S.bas;let [x,y,w,h]=n;const minW=S.minW();if(w<minW){const f=minW/w;x-=(w*f-w)/2;y-=(h*f-h)/2;w*=f;h*=f}
     if(w>=B[2]){x=B[0];y=B[1];w=B[2];h=B[3]}
     x=Math.min(Math.max(x,B[0]),B[0]+B[2]-w);y=Math.min(Math.max(y,B[1]),B[1]+B[3]-h);
-    S.vb=[x,y,w,h];S.satt=S.vb.map(v=>+v.toFixed(2)).join(' ');svg.setAttribute('viewBox',S.satt);host._kz=S.inne()?{bas:(S.bas0||B).join(' '),ut:S.bas0?B.slice():null,vb:S.vb.slice()}:null;S.skala()};
+    S.vb=[x,y,w,h];S.satt=S.vb.map(v=>+v.toFixed(2)).join(' ');svg.setAttribute('viewBox',S.satt);host._kz=(S.inne()||(host._kzVid&&S.bas0&&S.vb.join()!==S.bas0.join()))?{bas:(S.bas0||B).join(' '),ut:S.bas0?B.slice():null,vb:S.vb.slice()}:null;S.skala()};
   S.punkt=(cx,cy)=>{const m=svg.getScreenCTM();if(!m)return {x:S.vb[0]+S.vb[2]/2,y:S.vb[1]+S.vb[3]/2};const p=svg.createSVGPoint();p.x=cx;p.y=cy;return p.matrixTransform(m.inverse())};
   S.zooma=(f,p,fran=S.vb)=>{p=p||{x:fran[0]+fran[2]/2,y:fran[1]+fran[3]/2};S.satt_([p.x-(p.x-fran[0])*f,p.y-(p.y-fran[1])*f,fran[2]*f,fran[3]*f])};
   const k=document.createElement('div');k.className='kz-knappar';k.setAttribute('role','group');k.setAttribute('aria-label','Zooma kartan');
@@ -1665,12 +1665,15 @@ let kzBakat=false,kzEfter=null;
 const kzKorEfter=()=>{const f=kzEfter;kzEfter=null;if(f)setTimeout(f,0)};
 addEventListener('popstate',()=>{if(kzBakat){kzBakat=false;kzKorEfter();return}if(kzOppen)kzStor(kzOppen,false,true)});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&kzOppen)kzStor(kzOppen,false)});
+// Kartor som visar ett utsnitt (Mitt Örebro: ditt område och omgivningen) går att flytta och zooma ut över hela kartan
+// (21 okt 2026). Utsnittet räknas som en inzoomning av hela kartan; ⤢ går tillbaka till utsnittet.
+function kzVidga(host,hel){const S=host&&host._kzS;if(!S)return;host._kzVid=true;if(S.bas0)return;S.bas0=S.bas.slice();S.bas=hel.slice();S.skala()}
 function kartZoomLyss(host){   // händelserna läggs bara på en gång per karta; de använder den senast ritade kartan (host._kzS)
   const pek=new Map();let drag=null,drog=false;const S=()=>host._kzS;
   host.addEventListener('click',e=>{const b=e.target.closest('[data-kz]');if(b){e.stopPropagation();const s=S();s.synk();const t=b.dataset.kz;
       if(t==='stor'){kzStor(host,!host.classList.contains('kz-full'));return}
       if(t==='har'){harHamta(host,b);return}
-      if(t==='in')s.zooma(.6);else if(t==='ut')s.zooma(1/.6);else{if(s.bas0){s.bas=s.bas0;s.bas0=null}s.satt_(s.bas.slice())}return}
+      if(t==='in')s.zooma(.6);else if(t==='ut')s.zooma(1/.6);else if(host._kzVid&&s.bas0)s.satt_(s.bas0.slice());else{if(s.bas0){s.bas=s.bas0;s.bas0=null}s.satt_(s.bas.slice())}return}
     if(drog){e.stopPropagation();e.preventDefault();return}
     // knappen i ett kort (Läs mer, Visa kontrollerna ...): stäng den stora kartan först, så att sidan sedan kan visa det man valde
     // (bakåt-steget återställer annars sidans läge och avbryter skrollningen, så knappens klick görs om när det är klart)
@@ -1690,6 +1693,7 @@ function kartZoomLyss(host){   // händelserna läggs bara på en gång per kart
   // trycket på Stäng gick förlorat på iPhone (21 okt 2026). Första fingret i en ny beröring rensar gamla fingrar som aldrig
   // fick något pointerup (händer på iPhone), annars togs nästa tryck för en nypning och kartan gick inte att zooma.
   host.addEventListener('pointerdown',e=>{if(e.target.closest('.kz-knappar,.tip,.kz-stor,.kz-val,.kz-tips,.kz-medd,button,a'))return;const s=S();s.synk();
+    if(e.pointerType==='touch')return;   // fingrar sköts av touch-händelserna nedan (säkrare på iPhone)
     if(e.isPrimary){pek.clear();drag=null}pek.set(e.pointerId,{x:e.clientX,y:e.clientY});
     if(pek.size===1)drag={x:e.clientX,y:e.clientY,vb:s.vb.slice(),flytt:0};
     else if(pek.size===2){const [a,b]=[...pek.values()];drag={pinch:true,d0:Math.hypot(a.x-b.x,a.y-b.y)||1,vb:s.vb.slice(),p:s.punkt((a.x+b.x)/2,(a.y+b.y)/2)};drog=true}});
@@ -1697,12 +1701,24 @@ function kartZoomLyss(host){   // händelserna läggs bara på en gång per kart
     if(drag.pinch&&pek.size>=2){const [a,b]=[...pek.values()];const d=Math.hypot(a.x-b.x,a.y-b.y)||1;s.zooma(drag.d0/d,drag.p,drag.vb);e.preventDefault();return}
     if(drag.pinch)return;
     const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.flytt=Math.max(drag.flytt,Math.hypot(dx,dy));
-    if(drag.flytt>6&&s.inne()){if(!drag.fangad){try{host.setPointerCapture(e.pointerId)}catch(_){}drag.fangad=true;host.classList.add('kz-drar')}
+    if(drag.flytt>6&&s.kanFlytta()){if(!drag.fangad){try{host.setPointerCapture(e.pointerId)}catch(_){}drag.fangad=true;host.classList.add('kz-drar')}
       const m=s.svg.getScreenCTM(),f=m?1/m.a:1;s.satt_([drag.vb[0]-dx*f,drag.vb[1]-dy*f,drag.vb[2],drag.vb[3]]);drog=true}});
   const slut=e=>{pek.delete(e.pointerId);if(pek.size===0){drag=null;host.classList.remove('kz-drar');setTimeout(()=>{drog=false},0)}
     else if(pek.size===1&&drag&&drag.pinch){const [a]=[...pek.values()];drag={x:a.x,y:a.y,vb:S().vb.slice(),flytt:99}}};
   host.addEventListener('pointerup',slut);host.addEventListener('pointercancel',slut);
-  host.addEventListener('touchend',e=>{if(!e.touches.length&&pek.size){pek.clear();drag=null;host.classList.remove('kz-drar');setTimeout(()=>{drog=false},0)}},{passive:true});
+  // Fingrar (21 okt 2026): flytta och nyp med touch-händelser, som fungerar likadant i Safari på iPhone, i appen och i Android.
+  // (Pekarhändelserna avbröts på iPhone när Safari själv ville skrolla, så kartan gick inte att flytta.)
+  let td=null;const tp2=t=>[...t].slice(0,2).map(x=>({x:x.clientX,y:x.clientY}));
+  const tdNyp=e=>{const s=S(),[a,b]=tp2(e.touches);td={pinch:true,d0:Math.hypot(a.x-b.x,a.y-b.y)||1,vb:s.vb.slice(),p:s.punkt((a.x+b.x)/2,(a.y+b.y)/2)};drog=true};
+  host.addEventListener('touchstart',e=>{if(e.target.closest('.kz-knappar,.tip,.kz-stor,.kz-val,.kz-tips,.kz-medd,button,a')){td=null;return}const s=S();s.synk();
+    if(e.touches.length===1){const t=e.touches[0];td={x:t.clientX,y:t.clientY,vb:s.vb.slice(),flytt:0}}else if(e.touches.length>=2)tdNyp(e)},{passive:true});
+  host.addEventListener('touchmove',e=>{if(!td)return;const s=S();
+    if(e.touches.length>=2){if(!td.pinch)tdNyp(e);const [a,b]=tp2(e.touches);s.zooma(td.d0/(Math.hypot(a.x-b.x,a.y-b.y)||1),td.p,td.vb);if(e.cancelable)e.preventDefault();return}
+    if(td.pinch)return;const t=e.touches[0],dx=t.clientX-td.x,dy=t.clientY-td.y;td.flytt=Math.max(td.flytt,Math.hypot(dx,dy));
+    if(td.flytt>6&&s.kanFlytta()){if(e.cancelable)e.preventDefault();host.classList.add('kz-drar');const m=s.svg.getScreenCTM(),f=m?1/m.a:1;s.satt_([td.vb[0]-dx*f,td.vb[1]-dy*f,td.vb[2],td.vb[3]]);drog=true}},{passive:false});
+  const tdSlut=e=>{if(!td)return;if(e.touches.length===0){td=null;host.classList.remove('kz-drar');setTimeout(()=>{drog=false},0)}
+    else if(e.touches.length===1&&td.pinch){const t=e.touches[0];td={x:t.clientX,y:t.clientY,vb:S().vb.slice(),flytt:99}}};
+  host.addEventListener('touchend',tdSlut,{passive:true});host.addEventListener('touchcancel',tdSlut,{passive:true});
   host.addEventListener('wheel',e=>{if(!e.ctrlKey)return;e.preventDefault();const s=S();s.synk();s.zooma(e.deltaY>0?1.15:1/1.15,s.punkt(e.clientX,e.clientY))},{passive:false});
   host.addEventListener('gesturestart',e=>e.preventDefault());   // Safari: nyp ska zooma kartan, inte hela sidan
 }
