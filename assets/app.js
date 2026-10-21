@@ -1312,7 +1312,7 @@ const APP_NEJ='orebro360.app_nej',APP_FORST='orebro360.forsta';
 const lsLas=k=>{try{return localStorage.getItem(k)}catch(e){return null}},lsSkriv=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
 // Raden i Mitt Örebro visas först vid ett senare besök (en annan dag än första gången området valdes) och aldrig efter "Inte nu".
 // Datumet och valet sparas bara i webbläsaren och tas bort med "Glöm mitt val".
-function appVisa(){document.querySelectorAll('.aa-app').forEach(l=>l.hidden=!appKan());
+function appVisa(){document.querySelectorAll('.aa-app,.mi-app-h').forEach(l=>l.hidden=!appKan());
   const b=$('#mi-app');if(b){const i=miIdag(),f=lsLas(APP_FORST);if(miVisad&&miVisad===miHamta()&&!f)lsSkriv(APP_FORST,i);
     b.hidden=!(appKan()&&miVisad&&miVisad===miHamta()&&f&&f<i&&lsLas(APP_NEJ)!=='1')}
   const v=$('#mi-app-valk');if(appKor()&&SIDA==='mitt'&&!miHamta()&&!v)$('#mi-form')?.insertAdjacentHTML('afterbegin','<p class="mi-app-valk" id="mi-app-valk">Välkommen! Välj ditt område en gång, så kommer appen ihåg det.</p>');

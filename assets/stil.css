@@ -1939,3 +1939,12 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .app-dela{width:1.25em;height:1.25em;vertical-align:-.25em;margin:0 .25em 0 .1em;color:var(--accent-text)}
 .app-ruta-in .knapp,.app-ruta-in .knapp-l{width:100%;margin-top:6px}
 .mi-offline{margin:0 0 12px;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--surface);font-weight:600}
+/* Hemskärmen: överst i menyn och en liten grön knapp under rubriken i Mitt Örebro (21 okt 2026) */
+.aa-app{grid-column:1/-1;padding-bottom:10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.aa-app[hidden]{display:none}
+.aa-app .aa-app-k{width:calc(100% + 20px)}
+.aa-app .aa-app-k b{color:var(--accent-text)}
+.mi-app-h{display:inline-flex;width:fit-content;justify-self:start;align-self:flex-start;align-items:center;gap:6px;margin:2px 0 12px;padding:7px 14px 7px 11px;min-height:36px;border:0;border-radius:999px;background:var(--accent-strong,var(--accent));color:#fff;font:600 .9rem var(--f-body);cursor:pointer}
+.mi-app-h[hidden]{display:none}
+.mi-app-h svg{width:15px;height:15px}
+.mi-app-h:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
