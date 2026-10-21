@@ -1307,12 +1307,30 @@ if('serviceWorker' in navigator&&/^(orebro360\.se|localhost|127\.0\.0\.1)$/.test
 let appPrompt=null;
 const appKor=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
 const appIos=()=>/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-function appVisa(){const b=$('#mi-app');if(!b)return;b.hidden=!miVisad||appKor()||!(appPrompt||appIos())}
+const appKan=()=>!appKor()&&!!(appPrompt||appIos());
+const APP_NEJ='orebro360.app_nej',APP_FORST='orebro360.forsta';
+const lsLas=k=>{try{return localStorage.getItem(k)}catch(e){return null}},lsSkriv=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
+// Raden i Mitt Örebro visas först vid ett senare besök (en annan dag än första gången området valdes) och aldrig efter "Inte nu".
+// Datumet och valet sparas bara i webbläsaren och tas bort med "Glöm mitt val".
+function appVisa(){document.querySelectorAll('.aa-app').forEach(l=>l.hidden=!appKan());
+  const b=$('#mi-app');if(b){const i=miIdag(),f=lsLas(APP_FORST);if(miVisad&&miVisad===miHamta()&&!f)lsSkriv(APP_FORST,i);
+    b.hidden=!(appKan()&&miVisad&&miVisad===miHamta()&&f&&f<i&&lsLas(APP_NEJ)!=='1')}
+  const v=$('#mi-app-valk');if(appKor()&&SIDA==='mitt'&&!miHamta()&&!v)$('#mi-form')?.insertAdjacentHTML('afterbegin','<p class="mi-app-valk" id="mi-app-valk">Välkommen! Välj ditt område en gång, så kommer appen ihåg det.</p>');
+  else if(v&&miHamta())v.remove()}
+function appRuta(){let d=$('#app-ruta');if(!d){d=document.createElement('dialog');d.id='app-ruta';d.className='app-ruta';d.setAttribute('aria-labelledby','app-ruta-h');document.body.append(d);
+    d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-app-stang]'))d.close()})}
+  const dela='<svg class="app-dela" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 12.5V2.8M6.6 6.2 10 2.8l3.4 3.4M5.5 9H4.2v8.2h11.6V9h-1.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  d.innerHTML=`<div class="app-ruta-in"><img src="assets/ikon-192.png" alt="" width="52" height="52"><h2 id="app-ruta-h">Ha Örebro360 på hemskärmen</h2><p>Öppnas direkt i ditt område.</p>`+
+    (appPrompt?`<button type="button" class="knapp" id="app-installera">Installera</button>`:
+     `<ol class="app-steg"><li><span class="app-nr" aria-hidden="true">1</span><span>Tryck på ${dela}<b>Dela</b> i Safari</span></li><li><span class="app-nr" aria-hidden="true">2</span><span>Välj <b>Lägg till på hemskärmen</b></span></li></ol><p class="small">Ser du inte Dela? Tryck först på <b>•••</b> bredvid adressen.</p>`)+
+    `<button type="button" class="knapp-l" data-app-stang>Stäng</button></div>`;
+  d.showModal();
+  $('#app-installera')?.addEventListener('click',async()=>{const p=appPrompt;appPrompt=null;if(p){p.prompt();try{await p.userChoice}catch(x){}}d.close();appVisa()})}
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();appPrompt=e;appVisa()});
 addEventListener('appinstalled',()=>{appPrompt=null;appVisa()});
-document.addEventListener('click',async e=>{if(!e.target.closest('#mi-app-knapp'))return;
-  if(appPrompt){const p=appPrompt;appPrompt=null;p.prompt();try{await p.userChoice}catch(x){}appVisa()}
-  else{const t=$('#mi-app-ios');t.hidden=false;t.focus?.()}});
+document.addEventListener('click',e=>{if(e.target.closest('[data-app-ruta]')){const p=document.getElementById('alla-amnen');if(p&&!p.hidden)document.querySelector('.aa-knapp')?.click();appRuta();return}
+  if(e.target.closest('#mi-app-nej')){lsSkriv(APP_NEJ,'1');appVisa()}});
+addEventListener('DOMContentLoaded',appVisa);
 function appNat(){const o=$('#mi-offline');if(o)o.hidden=navigator.onLine!==false}
 addEventListener('online',appNat);addEventListener('offline',appNat);
 
@@ -2442,7 +2460,7 @@ function initMitt(){miVikStart();
   $('#mi-sp').addEventListener('click',e=>{const b=e.target.closest('[data-sp-bort]');if(!b)return;const [t,...r]=b.dataset.spBort.split('|'),id=r.join('|');
     spSpara(spHamta().filter(o=>!(o.t===t&&o.id===id)));miMina();$('#mi-mina').querySelector('h3')?.setAttribute('tabindex','-1');$('#mi-mina h3').focus({preventScroll:true})});
   $('#mi-mina').addEventListener('click',e=>{const b=e.target.closest('[data-mina-bort]');if(!b)return;minaSpara(minaHamta().filter(x=>x[0]!==b.dataset.minaBort));renderMitt()});
-  $('#mi-glom').addEventListener('click',()=>{miGlom();gataGlom();nyttGlom();minaGlom();spGlom();miVisad=null;try{history.replaceState(null,'',location.pathname)}catch(e){}renderMitt()});
+  $('#mi-glom').addEventListener('click',()=>{miGlom();gataGlom();nyttGlom();minaGlom();spGlom();lsSkriv(APP_NEJ,null);lsSkriv(APP_FORST,null);miVisad=null;try{history.replaceState(null,'',location.pathname)}catch(e){}renderMitt()});
   addEventListener('hashchange',()=>{const h=hashKod();if(miGiltig(h)){miVisad=h;renderMitt()}});
   initGata();miNyttBesok();renderMitt();
 }

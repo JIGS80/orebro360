@@ -1918,8 +1918,24 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .mi-fk-lankar{display:flex;flex-wrap:wrap;gap:6px 20px;margin:10px 0 4px;font-weight:600}
 .mi-fk .mi-bt{display:grid;gap:2px;min-width:0}
 /* Hemskärmen och offline (21 okt 2026) */
-.mi-app-rad{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
-.mi-app-rad img{border-radius:10px;flex:none}
-.mi-app-rad h3{margin:0 0 2px}
-.mi-app-ios{margin-top:10px}
+/* Hemskärmen: rad i menyn, liten rad i Mitt Örebro och en ruta med två steg (21 okt 2026) */
+.aa-app-k{display:grid;gap:1px;width:calc(100% + 20px);padding:7px 10px;margin-inline:-10px;border:0;border-radius:8px;background:none;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.aa-app-k b{font-weight:650}
+.aa-app-k span{font-size:.84rem;color:var(--ink2)}
+.aa-app-k:hover{background:var(--accent-soft)}
+.aa-app-k:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.mi-app{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:14px 0 0;font-weight:600}
+.mi-app .akt-knapp{font-weight:500}
+.mi-app-valk{margin:0 0 10px;padding:10px 14px;border-radius:10px;background:var(--accent-soft);font-weight:600}
+.app-ruta{border:0;border-radius:18px;padding:0;max-width:min(380px,calc(100vw - 32px));width:100%;background:var(--surface);color:var(--ink);box-shadow:0 18px 50px rgba(0,0,0,.28)}
+.app-ruta::backdrop{background:rgba(10,20,18,.45)}
+.app-ruta-in{display:grid;justify-items:center;text-align:center;gap:8px;padding:24px 22px 20px}
+.app-ruta-in img{border-radius:12px}
+.app-ruta-in h2{margin:4px 0 0;font-size:1.25rem}
+.app-ruta-in>p{margin:0;color:var(--ink2)}
+.app-steg{list-style:none;margin:8px 0 4px;padding:0;display:grid;gap:10px;width:100%;text-align:left}
+.app-steg li{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:1.02rem}
+.app-nr{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent-strong,var(--accent));color:#fff;font-weight:700}
+.app-dela{width:1.25em;height:1.25em;vertical-align:-.25em;margin:0 .25em 0 .1em;color:var(--accent-text)}
+.app-ruta-in .knapp,.app-ruta-in .knapp-l{width:100%;margin-top:6px}
 .mi-offline{margin:0 0 12px;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--surface);font-weight:600}
