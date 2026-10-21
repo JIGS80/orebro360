@@ -1686,7 +1686,11 @@ function kartZoomLyss(host){   // händelserna läggs bara på en gång per kart
     kzNara(host,e)},true);
   // två fingrar ska alltid zooma kartan (inte sidan), och i stor karta flyttar ett finger kartan
   host.addEventListener('touchmove',e=>{if(e.target.closest('.kz-knappar,.kz-stor'))return;if(e.touches.length>1||host.classList.contains('kz-full')||host.classList.contains('kz-in'))e.preventDefault()},{passive:false});
-  host.addEventListener('pointerdown',e=>{if(e.target.closest('.kz-knappar,.tip'))return;const s=S();s.synk();pek.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  // knappar och kort i kartan (Stäng, zoom, val, länkar) ska aldrig starta en dragning: då fångades fingret av kartan och
+  // trycket på Stäng gick förlorat på iPhone (21 okt 2026). Första fingret i en ny beröring rensar gamla fingrar som aldrig
+  // fick något pointerup (händer på iPhone), annars togs nästa tryck för en nypning och kartan gick inte att zooma.
+  host.addEventListener('pointerdown',e=>{if(e.target.closest('.kz-knappar,.tip,.kz-stor,.kz-val,.kz-tips,.kz-medd,button,a'))return;const s=S();s.synk();
+    if(e.isPrimary){pek.clear();drag=null}pek.set(e.pointerId,{x:e.clientX,y:e.clientY});
     if(pek.size===1)drag={x:e.clientX,y:e.clientY,vb:s.vb.slice(),flytt:0};
     else if(pek.size===2){const [a,b]=[...pek.values()];drag={pinch:true,d0:Math.hypot(a.x-b.x,a.y-b.y)||1,vb:s.vb.slice(),p:s.punkt((a.x+b.x)/2,(a.y+b.y)/2)};drog=true}});
   host.addEventListener('pointermove',e=>{const q=pek.get(e.pointerId);if(!q||!drag)return;q.x=e.clientX;q.y=e.clientY;const s=S();
@@ -1697,7 +1701,8 @@ function kartZoomLyss(host){   // händelserna läggs bara på en gång per kart
       const m=s.svg.getScreenCTM(),f=m?1/m.a:1;s.satt_([drag.vb[0]-dx*f,drag.vb[1]-dy*f,drag.vb[2],drag.vb[3]]);drog=true}});
   const slut=e=>{pek.delete(e.pointerId);if(pek.size===0){drag=null;host.classList.remove('kz-drar');setTimeout(()=>{drog=false},0)}
     else if(pek.size===1&&drag&&drag.pinch){const [a]=[...pek.values()];drag={x:a.x,y:a.y,vb:S().vb.slice(),flytt:99}}};
-  host.addEventListener('pointerup',slut);host.addEventListener('pointercancel',slut);
+  host.addEventListener('pointerup',slut);host.addEventListener('pointercancel',slut);host.addEventListener('lostpointercapture',slut);
+  host.addEventListener('touchend',e=>{if(!e.touches.length&&pek.size){pek.clear();drag=null;host.classList.remove('kz-drar');setTimeout(()=>{drog=false},0)}},{passive:true});
   host.addEventListener('wheel',e=>{if(!e.ctrlKey)return;e.preventDefault();const s=S();s.synk();s.zooma(e.deltaY>0?1.15:1/1.15,s.punkt(e.clientX,e.clientY))},{passive:false});
   host.addEventListener('gesturestart',e=>e.preventDefault());   // Safari: nyp ska zooma kartan, inte hela sidan
 }
