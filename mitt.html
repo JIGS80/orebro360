@@ -21,7 +21,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/ikon-180.png">
 <meta name="apple-mobile-web-app-title" content="Örebro360">
-<link rel="stylesheet" href="assets/stil.css?v=d98c31ff">
+<link rel="stylesheet" href="assets/stil.css?v=a7c66c58">
 </head>
 <body data-sida="mitt">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
@@ -98,11 +98,13 @@
           <ul class="mi-lista" id="mi-nytt-l"></ul>
           <p class="src mi-nytt-fot"><span id="mi-nytt-uppd">Vi hämtar ny data varje måndag.</span> <button type="button" class="akt-knapp" id="mi-nytt-av">Sluta visa förändringar</button></p>
         </div>
-        <div class="panel mi-erbj" id="mi-erbj" hidden>
-          <h3 id="mi-erbj-h">Vill du se vad som förändras i ditt område?</h3>
-          <p>Nästa gång du kommer hit börjar sidan med det som är nytt sedan sist: livsmedelskontroller, planer, badprov och busstidtabeller, med datum och länk. Har inget hänt säger vi det.</p>
-          <button type="button" class="knapp" id="mi-nytt-ja">Ja, visa förändringarna</button>
-          <p class="src">Webbläsaren minns bara vilken dag du senast tittade. Det sparas här och skickas aldrig till oss.</p>
+        <div class="mi-erbj" id="mi-erbj" hidden>
+          <p class="mi-erbj-rad"><span id="mi-erbj-h">Visa vad som är nytt här när du kommer tillbaka?</span> <button type="button" class="knapp liten" id="mi-nytt-ja">Ja tack</button></p>
+          <details class="mi-erbj-mer"><summary>Så funkar det</summary><p class="src">Nästa gång börjar sidan med det som har hänt sedan sist nära dig: livsmedelskontroller, planer, badprov, bussturer vid din hållplats, skyddsrum och det du har sparat. Har inget hänt säger vi det. Webbläsaren minns vilken dag du senast tittade och hur det såg ut då. Det sparas här och skickas aldrig till oss.</p></details>
+        </div>
+        <div class="mi-plats" id="mi-plats" hidden>
+          <span class="mi-plats-t"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 18s5.5-5.2 5.5-9.6A5.5 5.5 0 0 0 4.5 8.4C4.5 12.8 10 18 10 18z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="10" cy="8.4" r="2" fill="currentColor"/></svg><span id="mi-plats-t"></span></span>
+          <button type="button" class="akt-knapp" id="mi-plats-k" aria-expanded="false" aria-controls="mi-form">Ändra plats</button>
         </div>
         <form class="hitta mi-val" id="mi-form">
           <label for="mi-sel">Ditt område</label>
@@ -261,7 +263,7 @@
     <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
   </div>
 </footer>
-<script src="assets/app.js?v=37f6bd2c"></script>
+<script src="assets/app.js?v=07162ea6"></script>
 <script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>

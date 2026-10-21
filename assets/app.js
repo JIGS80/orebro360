@@ -1142,10 +1142,10 @@ function initRk(){
   const grp=['Restaurang och café','Butik','Skola, vård och omsorg','Producenter, distributörer och övrigt','Alla'];
   $('#rk-grp').innerHTML=grp.map(g=>`<button class="chip" data-g="${g}" aria-pressed="${g===rkGrp}">${esc(g)}</button>`).join('');
   $('#rk-grp').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;rkGrp=b.dataset.g;document.querySelectorAll('#rk-grp .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderRkList();rkTyp()});
-  const mk=rkOmr||miHamta();
-  if(mk&&RK.omraden[mk]){const c=$('#rk-omr');c.hidden=false;
-    c.innerHTML=`<button class="chip" data-o="" aria-pressed="${!rkOmr}">Hela kommunen</button><button class="chip" data-o="${mk}" aria-pressed="${rkOmr===mk}">${mk===miHamta()?'Mitt område: ':''}${esc(RK.omraden[mk])}</button>`;
-    c.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;rkOmr=b.dataset.o||null;c.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderRkList()})}
+  // områdesfilter bredvid sökfältet (21 okt 2026): alla 36 områden, ditt eget först
+  {const sel=$('#rk-omr-sel'),mk=miHamta(),O=Object.entries(RK.omraden).sort((a,b)=>a[1].localeCompare(b[1],'sv'));
+    sel.insertAdjacentHTML('beforeend',(mk&&RK.omraden[mk]?`<option value="${mk}">Mitt område: ${esc(RK.omraden[mk])}</option>`:'')+O.filter(([k])=>k!==mk).map(([k,n])=>`<option value="${k}">${esc(n)}</option>`).join(''));
+    sel.value=rkOmr||'';sel.addEventListener('change',()=>{rkOmr=sel.value||null;renderRkList();rkTyp()})}
   let tmo;$('#rk-q').addEventListener('input',e=>{clearTimeout(tmo);tmo=setTimeout(()=>{rkQ=e.target.value;renderRkList()},120)});
   $('#rk-list').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)rkVal(b.dataset.id,true)});
   $('#rk-mina').addEventListener('click',e=>{if(!e.target.closest('[data-mina]'))return;rkMina=!rkMina;renderRkList()});
@@ -1331,6 +1331,18 @@ addEventListener('appinstalled',()=>{appPrompt=null;appVisa()});
 document.addEventListener('click',e=>{if(e.target.closest('[data-app-ruta]')){const p=document.getElementById('alla-amnen');if(p&&!p.hidden)document.querySelector('.aa-knapp')?.click();appRuta();return}
   if(e.target.closest('#mi-app-nej')){lsSkriv(APP_NEJ,'1');appVisa()}});
 addEventListener('DOMContentLoaded',appVisa);
+// "Ändra plats" (21 okt 2026): när ditt sparade område visas fälls valet av område och gata ihop till en rad.
+// Första gången, för ett område som inte är sparat, och medan man ändrar, visas fälten som vanligt.
+let miPlatsOppen=false;
+function miPlats(o){const rad=$('#mi-plats'),form=$('#mi-form');if(!rad||!form)return;
+  const ihop=!!(o&&o.kod===miHamta())&&!miPlatsOppen;rad.hidden=!(o&&o.kod===miHamta());form.hidden=ihop;
+  $('#mi-plats-k').setAttribute('aria-expanded',String(!ihop));$('#mi-plats-k').textContent=ihop?'Ändra plats':'Klar';
+  if(o){const g=gataHamta();$('#mi-plats-t').textContent=o.namn+(g&&g.k===o.kod?' · '+g.n:'')}}
+document.addEventListener('click',e=>{if(!e.target.closest('#mi-plats-k'))return;miPlatsOppen=!miPlatsOppen;const o=OM&&OM.omraden.find(x=>x.kod===miVisad);miPlats(o);
+  if(miPlatsOppen)$('#mi-sel')?.focus();else $('#mi-plats-k').focus()});
+['change','input'].forEach(t=>document.addEventListener(t,e=>{if(e.target.closest&&e.target.closest('#mi-form'))miPlatsOppen=true},true));
+// Sparat i avsnittsmenyn bara när något är sparat, med antal
+function miSparatGenvag(n){document.querySelectorAll('.genvagar a[href="#mi-mina"]').forEach(a=>{a.hidden=!n;a.textContent=n?`Sparat (${n})`:'Sparat'})}
 function appNat(){const o=$('#mi-offline');if(o)o.hidden=navigator.onLine!==false}
 addEventListener('online',appNat);addEventListener('offline',appNat);
 
@@ -2310,7 +2322,7 @@ function miFotoRader(k,F0,F){const R=[];if(!F0||F0.k!==k||F0.g!==F.g)return R;  
 // Förändringarna står först på sidan (före valet, kartan och grundinformationen). Har besökaren inte slagit på det
 // visas i stället ett tydligt erbjudande på samma plats, men bara för det sparade området (15 okt 2026).
 function miNytt(k){const box=$('#mi-nytt'),d=nyttHamta(),m=MI.omraden[k],eget=k===miHamta(),erbj=$('#mi-erbj');
-  erbj.hidden=!eget||!!d;if(eget&&!d)$('#mi-erbj-h').textContent=`Vill du se vad som förändras i ${m.namn}?`;
+  erbj.hidden=!eget||!!d;if(eget&&!d)$("#mi-erbj-h").textContent=`Visa vad som är nytt i ${m.namn} när du kommer tillbaka?`;
   if(!d||!eget){box.hidden=true;return}box.hidden=false;
   $('#mi-nytt-uppd').textContent=`Datan hämtades senast ${vtDag(MI.uppdaterad)}. Vi hämtar ny data varje måndag.`;
   const f=d.forra,dag=iso=>{const [y,mm,dd]=iso.split('-').map(Number);return `${dd} ${MANAD[mm-1]}`},R=[];
@@ -2334,7 +2346,7 @@ function miNytt(k){const box=$('#mi-nytt'),d=nyttHamta(),m=MI.omraden[k],eget=k=
   $('#mi-nytt-l').innerHTML=R.length?R.join(''):`<li class="small">Inget nytt ${esc(dar)} sedan ${dag(f)}: inga nya livsmedelskontroller, planer, badprov eller busstidtabeller, och inget har ändrats för det du har sparat. Nästa uppdatering är ${esc(nasta)}.</li>`;
   miKorta($('#mi-nytt-l'),5)}
 // Mina restauranger: de sparade med kommunens senaste kontroll (data ur gata.json)
-function miMina(){const box=$('#mi-mina');if(!box)return;{const fs=$('#mi-fk-sp'),n=spHamta().filter(x=>x.t==='fik').length;if(fs){fs.hidden=!n;fs.textContent=`Dina sparade fikaställen (${n}) →`}}const a=minaHamta(),sp=spHamta(),N=a.length+sp.length;box.hidden=!N;if(!N)return;
+function miMina(){const box=$('#mi-mina');if(!box)return;miSparatGenvag(minaHamta().length+spHamta().length);{const fs=$('#mi-fk-sp'),n=spHamta().filter(x=>x.t==='fik').length;if(fs){fs.hidden=!n;fs.textContent=`Dina sparade fikaställen (${n}) →`}}const a=minaHamta(),sp=spHamta(),N=a.length+sp.length;box.hidden=!N;if(!N)return;
   $('#mi-mina-s').textContent=`${N} ${N===1?'sparad':'sparade'}`;
   // föreningar, lek och park och bad: grupperade, med Visa på karta och Hitta hit eller föreningens webbplats
   $('#mi-sp').innerHTML=Object.keys(SP_TYP).map(t=>{const L=sp.filter(o=>o.t===t);if(!L.length)return '';
@@ -2391,7 +2403,7 @@ function renderMitt(){
     sparad?'Ditt val sparas bara i den här webbläsaren. Vi får aldrig veta vilket område du har valt.':'Valet sparas bara i den här webbläsaren. Vi får aldrig veta vilket område du har valt.';
   miKarta();miMina();
   if(minaHamta().length&&!GATA)miRkData().then(()=>renderMitt()).catch(e=>console.error(e));
-  appVisa();appNat();  $('#mi-kpis').hidden=!o;$('#mi-innehall').hidden=!o;$('#mi-kort-p').hidden=!o;if(!o)$('#mi-nytt').hidden=true;
+  appVisa();appNat();miPlats(o);  $('#mi-kpis').hidden=!o;$('#mi-innehall').hidden=!o;$('#mi-kort-p').hidden=!o;if(!o)$('#mi-nytt').hidden=true;
   if(!o){{const gv=document.querySelector('main .genvagar');if(gv)gv.hidden=true}$('#mi-h').textContent='Ditt Örebro, samlat på ett ställe';
     $('#mi-lead').textContent='Välj området där du bor, så samlar vi det viktigaste nära dig: närmaste hållplats, lekplats, återvinningsstation, skola och vårdcentral med vägbeskrivning dit, och hur området ser ut. Resten av sidan ser ut som vanligt.';return}
   $('#mi-h').innerHTML=`${esc(o.namn)} ${delaLankKnapp('dela/o/'+o.kod+'.html',o.namn+' i siffror','Dela')}`;

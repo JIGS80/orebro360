@@ -21,7 +21,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/ikon-180.png">
 <meta name="apple-mobile-web-app-title" content="Örebro360">
-<link rel="stylesheet" href="assets/stil.css?v=d98c31ff">
+<link rel="stylesheet" href="assets/stil.css?v=a7c66c58">
 </head>
 <body data-sida="restauranger">
 <a class="hoppa" href="#innehall">Hoppa till innehållet</a>
@@ -89,22 +89,27 @@
       <h1 class="sida-h">När kontrollerades restaurangen senast?</h1>
       <p class="lead" id="rk-lead">&nbsp;</p>
     </div>
-    <div class="stats" id="rk-kpis"><span class="loading">Laddar data …</span></div>
-
-    <div class="grid2">
-      <div class="panel">
-        <div class="panel-head"><h3>Sök verksamhet</h3><span class="small" id="rk-count"></span></div>
-        <div class="search">
-          <label for="rk-q" class="small">Namn eller gatuadress</label>
-          <input id="rk-q" type="search" placeholder="t.ex. pizzeria, Storgatan, Krämaren" autocomplete="off">
+    <!-- sökningen först (21 okt 2026): de flesta kommer med ett namn i huvudet -->
+    <div class="rk-sok" role="search">
+      <div class="rk-sok-rad">
+        <div class="sok-ruta rk-sok-ruta">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 13l4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <label for="rk-q" class="sr-only">Sök på namn eller gatuadress</label>
+          <input id="rk-q" type="search" placeholder="Sök restaurang, kafé, butik eller gata" autocomplete="off" spellcheck="false">
         </div>
-        <div class="chips" role="group" aria-label="Typ av verksamhet" id="rk-grp"></div>
-        <div class="chips" role="group" aria-label="Mina restauranger" id="rk-mina" hidden></div>
-        <div class="chips" role="group" aria-label="Var" id="rk-omr" hidden></div>
+        <label class="rk-omr-val"><span class="sr-only">Område</span><select id="rk-omr-sel"><option value="">Hela kommunen</option></select></label>
+      </div>
+      <div class="chips" role="group" aria-label="Typ av verksamhet" id="rk-grp"></div>
+      <div class="chips" role="group" aria-label="Mina restauranger" id="rk-mina" hidden></div>
+    </div>
+
+    <div class="grid2 rk-grid">
+      <div class="panel">
+        <div class="panel-head"><h2 class="fo-h2">Träffar</h2><span class="small" id="rk-count" aria-live="polite"></span></div>
         <ul class="rk-list" id="rk-list" aria-label="Sökresultat"></ul>
       </div>
       <div class="panel">
-        <div class="panel-head"><h3>Var de ligger</h3>
+        <div class="panel-head"><h2 class="fo-h2">Var de ligger</h2>
           <div class="chips" role="group" aria-label="Kartans utsnitt" id="rk-zoom"><button class="chip" data-z="stad" aria-pressed="true">Staden</button><button class="chip" data-z="hela" aria-pressed="false">Hela kommunen</button></div></div>
         <div class="chart" id="rk-map"></div>
         <p class="src">Kartan visar de verksamheter som matchar sökningen. Den visar var de ligger, inte hur kontrollerna gick. Klicka på en punkt för att se kontrollerna.</p>
@@ -114,6 +119,8 @@
     <div class="panel rk-det" id="rk-det" aria-live="polite">
       <p class="small">Välj en verksamhet i listan eller på kartan så visas kontrollerna här.</p>
     </div>
+
+    <div class="stats rk-kpis" id="rk-kpis"><span class="loading">Laddar data …</span></div>
 
     <div class="grid2">
       <div class="panel">
@@ -189,7 +196,7 @@
     <p class="small"><a href="om.html">Om sidan, källor och kontakt</a> · <a href="data.html">Ladda ner datan</a></p>
   </div>
 </footer>
-<script src="assets/app.js?v=37f6bd2c"></script>
+<script src="assets/app.js?v=07162ea6"></script>
 <script>/* Besöksräknare utan kakor (GoatCounter), bara på den riktiga adressen */if(location.hostname==='orebro360.se'){var g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.setAttribute('data-goatcounter','https://orebro360.goatcounter.com/count');document.body.appendChild(g)}</script>
 </body>
 </html>

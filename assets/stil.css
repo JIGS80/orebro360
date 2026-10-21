@@ -1948,3 +1948,27 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .mi-app-h[hidden]{display:none}
 .mi-app-h svg{width:15px;height:15px}
 .mi-app-h:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+/* Restaurangkollen: sökningen först (21 okt 2026) */
+.rk-sok{display:grid;gap:10px;margin:18px 0 16px}
+.rk-sok-rad{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,260px);gap:10px}
+.rk-sok-ruta input{font-size:1.1rem;padding:14px 16px 14px 44px;min-height:52px}
+.rk-omr-val select{width:100%;min-height:52px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit}
+.rk-sok .chips{margin:0}
+.rk-grid{margin-top:0}
+.rk-grid .rk-list{max-height:min(560px,70vh);overflow:auto}
+.rk-kpis{margin-top:16px}
+@media (max-width:640px){.rk-sok-rad{grid-template-columns:minmax(0,1fr)}.rk-grid .rk-list{max-height:none}}
+/* Mitt Örebro efter första besöket (21 okt 2026): Ändra plats och kortare erbjudande */
+.mi-plats{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 14px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.mi-plats[hidden]{display:none}
+.mi-plats-t{display:inline-flex;align-items:center;gap:8px;font-weight:650;min-width:0}
+.mi-plats-t svg{width:18px;height:18px;flex:none;color:var(--accent-text)}
+.mi-erbj{display:grid;gap:4px;padding:12px 14px;border-radius:12px;background:var(--accent-soft)}
+.mi-erbj[hidden]{display:none}
+.mi-erbj-rad{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;margin:0;font-weight:600}
+.mi-erbj .knapp.liten{min-height:38px;padding:6px 16px}
+.mi-erbj-mer summary{cursor:pointer;font-size:.88rem;color:var(--accent-text);width:fit-content}
+.mi-erbj-mer .src{margin:6px 0 0}
+.mi-intro .mi-erbj{margin:0}
+.genvagar a[hidden]{display:none}
+.mi-erbj .mi-erbj-rad{margin:0}.mi-erbj .mi-erbj-mer .src{margin:6px 0 0}
