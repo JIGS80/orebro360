@@ -1773,7 +1773,7 @@ function initCykla(){OM.omraden.forEach(o=>o._box=pathBox(o.svg));omStad();
 function miNarmiljo(k){const box=$('#mi-nm');const nm=NM&&NM.omraden[k];box.hidden=!nm;if(!nm)return;
   const a=nm.antal,f=miFran(k),g=f&&f.gata?miNmGata(k,f):null,r=g||nmRader(nm,'i ditt område'),l5=g?g.lek500:nm.lek500;
   $('#mi-lek-sum').textContent=`I området finns ${nmAntal(a.lek,'kommunal lekplats','kommunala lekplatser')} och ${nmAntal(a.park,'av kommunens stadsdelsparker','av kommunens stadsdelsparker')}. ${l5===0?'Ingen lekplats ligger':l5===1?'En lekplats ligger':fmt(l5)+' lekplatser ligger'} inom 500 meter från ${g?esc(f.gata):'områdets centrum'}.`;
-  $('#mi-lek').innerHTML=r.lek+(f?miFik(f,g?f.gata:nmOnamn(k)):'');
+  $('#mi-lek').innerHTML=r.lek;
   $('#mi-lek-src').innerHTML=`Örebro kommuns ${fmt(NM.kommun.lek)} lekplatser (${fmt(NM.kommun.lek_t)} tillgänglighetsanpassade), ${fmt(NM.kommun.park)} stadsdelsparker och ${fmt(NM.kommun.utegym)} utegym enligt kommunens webbkarta, hämtad ${nmDag(NM.uppdaterad)}. Lekplatser på skol- och bostadsgårdar finns inte med. <a href="narmiljo.html#omr=${k}">Alla lekplatser och parker på sidan Lek, park och återvinning</a>.`;
   $('#mi-atv-sum').textContent=`I området finns ${nmAntal(a.avs,'återvinningsstation','återvinningsstationer')}${a.avc?` och ${nmAntal(a.avc,'återvinningscentral','återvinningscentraler')}`:''}.`;
   $('#mi-atv').innerHTML=r.atv;
@@ -2203,9 +2203,15 @@ function miGataData(){if(GATA&&HPL)return Promise.resolve();
 function miRkData(){if(GATA)return Promise.resolve();if(!miRkLaddar)miRkLaddar=load('gata').then(g=>{GATA=GATA||g}).catch(e=>{miRkLaddar=null;throw e});return miRkLaddar}
 const miRkMap=()=>GATA._rk||(GATA._rk=new Map(GATA.rk.map(v=>[v[0],v])));
 // varifrån avstånden räknas: din gata om den ligger i området som visas (och datan har laddats), annars områdets centrum
-// närmaste fikat i Mitt Örebro, högst 3 km bort; namnet leder till Fika i Örebro räknat från samma punkt
-function miFik(f,fran){const q=fkNarmast(f.x,f.y,3000);if(!q)return '';const c=q.f;
-  return miRad(c.n,esc(['närmaste fikat',FK_TYPNAMN[c.typ].toLowerCase(),c.a].filter(Boolean).join(' · ')),q.a,c.x,c.y,fkLank(f.x,f.y,fran||''))}
+// Fika i Mitt Örebro (21 okt 2026): eget kort med de tre närmaste, och en rad i "i korthet". Öppet nu bara som upplysning.
+function miFika(k){const box=$('#mi-fk-p'),f=miFran(k),o=OM.omraden.find(x=>x.kod===k);
+  const L=FK&&f?FK.stallen.map(c=>({c,a:Math.hypot(c.x-f.x,c.y-f.y)*10})).sort((a,b)=>a.a-b.a).slice(0,3).filter(q=>q.a<=5000):[];
+  box.hidden=!L.length;if(!L.length)return;const fran=f.gata||o.namn;
+  $('#mi-fk-h').textContent=`Fika nära ${fran}`;
+  $('#mi-fk').innerHTML=L.map(({c,a})=>{const st=fkStatus(c);
+    return `<li><span class="mi-bt"><b>${esc(c.n)}</b><span class="sub">${esc([FK_TYPNAMN[c.typ],c.a].filter(Boolean).join(' · '))}</span>${st?`<span class="fk-st fk-st-${st.k}">${esc(st.t)}</span>`:''}</span><span class="mi-avst">${esc(meter(a))}</span>${platsAkt(c.x,c.y,c.n).replace(/<\/span>$/,spKnapp(fkSp(c),1)+'</span>')}</li>`}).join('');
+  $('#mi-fk-alla').href=fkLank(f.x,f.y,fran);
+  const n=spHamta().filter(x=>x.t==='fik').length,sp=$('#mi-fk-sp');sp.hidden=!n;sp.textContent=`Dina sparade fikaställen (${n}) →`}
 function miFran(k){const g=gataHamta(),m=MI&&MI.omraden[k];if(g&&g.k===k&&GATA&&HPL)return {x:g.x,y:g.y,gata:g.n};return m?{x:m.cx,y:m.cy,gata:null}:null}
 const miM=(f,x,y)=>Math.round(Math.hypot(x-f.x,y-f.y))*10;   // kartans enhet är 10 m
 const miFranText=f=>f&&f.gata?`fågelvägen från ${f.gata}`:'fågelvägen från områdets centrum';
@@ -2242,6 +2248,7 @@ function miKortRader(k,f){const m=MI.omraden[k],R=[],b=KT&&KT.omraden[k],n=NM&&N
     if(n&&n.lek)rad('Lekplats',nmNamn('lek',n.lek),n.lek.m,'','mi-lek-p');
     if(n&&n.avs){const a=(n.avs.a||'').replace(/\s*\(endast[^)]*\)/i,'').trim();rad('Återvinning',a?(/^(vid|nära) /.test(a)?'Station '+a:a):'Återvinningsstation',n.avs.m,'','mi-atv-p')}}
   // närmaste skyddsrum (20 okt 2026); länken går till sidan Skyddsrum räknat från samma punkt
+  if(FK&&f){const q=fkNarmast(f.x,f.y,5000);if(q){const st=fkStatus(q.f);rad('Fika',q.f.n,q.a,[FK_TYPNAMN[q.f.typ],st&&st.k==='oppen'?st.t.toLowerCase():''].filter(Boolean).join(' · '),'mi-fk-p')}}
   if(SR&&f){const q=srNarmast(f.x,f.y);if(q&&q.a<=5000)rad('Skyddsrum',srNamn(q.s),q.a,[q.s.g?'nära '+q.s.g:'',fmt(q.s.pl)+' platser',q.s.b?'tillfällig begränsning':''].filter(Boolean).join(' · '),`skyddsrum.html#nara=${Math.round(f.x)},${Math.round(f.y)},${encodeURIComponent((f.gata||nmOnamn(k)).slice(0,60))}`)}
   if(GATA){const a=minaHamta();if(a.length){const M=miRkMap(),g=new Date(Date.now()-30*864e5).toISOString().slice(0,10),n=a.filter(([id])=>{const v=M.get(id);return v&&v[6]&&v[6]>=g}).length;
     if(n)rad('Mina restauranger',`${n} av ${a.length} ${a.length===1?'sparad':'sparade'} kontrollerade`,'','de senaste 30 dagarna','mi-mina')}}
@@ -2272,7 +2279,7 @@ function miNytt(k){const box=$('#mi-nytt'),d=nyttHamta(),m=MI.omraden[k],eget=k=
   $('#mi-nytt-l').innerHTML=R.length?R.join(''):`<li class="small">Inget nytt i ${esc(m.namn)} sedan ${dag(f)} bland livsmedelskontroller, planer, badprov och busstidtabeller.</li>`;
   miKorta($('#mi-nytt-l'),5)}
 // Mina restauranger: de sparade med kommunens senaste kontroll (data ur gata.json)
-function miMina(){const box=$('#mi-mina');if(!box)return;const a=minaHamta(),sp=spHamta(),N=a.length+sp.length;box.hidden=!N;if(!N)return;
+function miMina(){const box=$('#mi-mina');if(!box)return;{const fs=$('#mi-fk-sp'),n=spHamta().filter(x=>x.t==='fik').length;if(fs){fs.hidden=!n;fs.textContent=`Dina sparade fikaställen (${n}) →`}}const a=minaHamta(),sp=spHamta(),N=a.length+sp.length;box.hidden=!N;if(!N)return;
   $('#mi-mina-s').textContent=`${N} ${N===1?'sparad':'sparade'}`;
   // föreningar, lek och park och bad: grupperade, med Visa på karta och Hitta hit eller föreningens webbplats
   $('#mi-sp').innerHTML=Object.keys(SP_TYP).map(t=>{const L=sp.filter(o=>o.t===t);if(!L.length)return '';
@@ -2372,7 +2379,7 @@ function renderMitt(){
     $('#mi-val').innerHTML=`<div class="pbar small" style="color:var(--muted)"><span></span><span></span><span class="v">Område</span><span class="v d">Kommun</span></div>`+rows.map(r=>`<div class="pbar" title="${esc(r.n)}: ${fmt(r.v,1)} % i området, ${r.kk!=null?fmt(r.kk,1):'–'} % i hela kommunen"><span><span class="lng">${esc(r.n)}</span><span class="krt">${esc(r.k)}</span></span><span class="tr"><span class="f" style="width:${r.v/mx*100}%;background:${r.f}"></span>${r.kk!=null?`<span class="k" style="left:${r.kk/mx*100}%"></span>`:''}</span><span class="v">${fmt(r.v,1)}</span><span class="v d">${r.kk!=null?fmt(r.kk,1):'–'}</span></div>`).join('');
   }else{$('#mi-val-sum').textContent='Inget valdistrikt ligger huvudsakligen i det här området, så vi kan inte visa hur det röstade.';$('#mi-val').innerHTML=''}
   // badplatser
-  miBuss(o.kod);miPlaner(o.kod);miNarmiljo(o.kod);miCykel(o.kod);miTro(o.kod);
+  miBuss(o.kod);miPlaner(o.kod);miNarmiljo(o.kod);miFika(o.kod);miCykel(o.kod);miTro(o.kod);
   const bad=G?miNarmast(GATA.bad,f,2,b=>[b[2],b[3]]).map(({p:b,m:mm})=>({id:b[0],n:b[1],x:b[2],y:b[3],prov:b[4],klass:b[5],varning:b[6],_m:mm})):(m.bad||[]);$('#mi-bad-p').hidden=!bad.length;
   $('#mi-bad').innerHTML=bad.map(b=>{const [c,t]=vtBed(b.prov?.[1]);return `<li><a href="vatten.html#bad=${esc(b.id)}"><b>${esc(b.n)}</b><span class="sub">${b.prov?`Senaste prov ${vtDag(b.prov[0])}: ${esc(t.toLowerCase())}`:'Inga prov'}${b.klass?` · ${esc(b.klass[1].toLowerCase())} ${b.klass[0]}`:''}${b.varning?' · varning för algblomning':''}</span></a><span class="mi-avst">${esc(b._m!=null?meter(b._m):miAvst(b))}</span>${platsAkt(b.x,b.y,b.n)}</li>`}).join('');
   // varifrån avstånden räknas, i korthet, nytt sedan sist och kortare listor
