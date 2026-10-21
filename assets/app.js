@@ -1476,6 +1476,12 @@ function miKarta(){
   {const f=miFran(o.kod);[['toa','offentlig toalett'],['pump','cykelpump']].forEach(([t,l])=>{const q=NM&&f?miNarmast(NM.platser.filter(p=>p[0]===t),f,1,p=>[p[4],p[5]])[0]:null;
     const vis=!!(q&&q.m<=2000);$('#mi-leg-'+t).hidden=!vis;
     if(vis)pt(q.p[4],q.p[5],t,5,`<b>${esc(nmPNamn(q.p))}</b><br>${l}, ${esc(meter(q.m))}${t==='toa'&&q.p[2]?'<br>'+esc(q.p[2].toLowerCase()):''}`)})}
+  // de tre närmaste fikaställena, samma som i kortet "Fika nära …", inom 5 km (21 okt 2026)
+  {const f=miFran(o.kod),L=FK&&f?miNarmast(FK.stallen,f,3,q=>[q.x,q.y]).filter(q=>q.m<=5000):[];$('#mi-leg-fik').hidden=!L.length;
+    const lank=f?fkLank(f.x,f.y,f.gata||o.namn):'fika.html';
+    L.forEach(q=>{const c=q.p,st=fkStatus(c),t=`<b>${esc(c.n)}</b><br>${esc(FK_TYPNAMN[c.typ].toLowerCase())}, ${esc(meter(Math.hypot(c.x-f.x,c.y-f.y)*10))} fågelvägen${c.a?'<br>'+esc(c.a):''}${st?'<br>'+esc(st.t):''}`;
+      const k=el('circle',{cx:c.x,cy:c.y,r:5*sc,class:'mi-pt-fik'},svg);k.addEventListener('mousemove',e=>show(e,t));k.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
+      k.addEventListener('click',e=>kortVisa(host,tp,e,`${t}<br>${hittaLank(c.x,c.y)} · <a class="akt-lank" href="${lank}">Fler fikaställen nära</a>`))})}
   // de tre närmaste skyddsrummen, från din gata eller områdets centrum, inom 5 km (20 okt 2026)
   {const f=miFran(o.kod),L=SR&&f?miNarmast(SR.skyddsrum,f,3,q=>[q.x,q.y]).filter(q=>q.m<=5000):[];$('#mi-leg-skr').hidden=!L.length;
     const lank=f?`skyddsrum.html#nara=${Math.round(f.x)},${Math.round(f.y)},${encodeURIComponent((f.gata||o.namn).slice(0,60))}`:'skyddsrum.html';

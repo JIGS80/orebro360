@@ -1994,3 +1994,9 @@ html.kz-las :has(.kz-full){position:static !important;transform:none !important;
 html.kz-las header.site{visibility:hidden}
 /* Pekskärm: hovringstips visas aldrig (bara korten efter ett tryck), så att Safari på iPhone inte tolkar trycket som hovring (21 okt 2026) */
 @media (hover:none){.kz-host .tip:not(.fast){display:none !important}}
+/* Mitt Örebro: de tre närmaste fikaställena på kartan (21 okt 2026) */
+:root{--fik:#6F4A2E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fik:#C9946A}}
+:root[data-theme="dark"]{--fik:#C9946A}
+.mi-karta circle.mi-pt-fik{fill:var(--fik);stroke:var(--surface);stroke-width:1.5;vector-effect:non-scaling-stroke;cursor:pointer}
+.legend .mi-pt-fik{background:var(--fik)}
