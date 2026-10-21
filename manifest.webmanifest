@@ -4,7 +4,7 @@
  "description": "Mer av Örebro: ditt område, nära dig, uppdaterat varje vecka.",
  "lang": "sv",
  "id": "./mitt.html",
- "start_url": "./mitt.html",
+ "start_url": "./index.html",
  "scope": "./",
  "display": "standalone",
  "background_color": "#F2F5F4",

@@ -1333,7 +1333,7 @@ function appVisa(){document.querySelectorAll('.aa-app,.mi-app-h').forEach(l=>l.h
 function appRuta(){let d=$('#app-ruta');if(!d){d=document.createElement('dialog');d.id='app-ruta';d.className='app-ruta';d.setAttribute('aria-labelledby','app-ruta-h');document.body.append(d);
     d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-app-stang]'))d.close()})}
   const dela='<svg class="app-dela" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 12.5V2.8M6.6 6.2 10 2.8l3.4 3.4M5.5 9H4.2v8.2h11.6V9h-1.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  d.innerHTML=`<div class="app-ruta-in"><img src="assets/ikon-192.png" alt="" width="52" height="52"><h2 id="app-ruta-h">Ha Örebro360 på hemskärmen</h2><p>Öppnas direkt i ditt område.</p>`+
+  d.innerHTML=`<div class="app-ruta-in"><img src="assets/ikon-192.png" alt="" width="52" height="52"><h2 id="app-ruta-h">Ha Örebro360 på hemskärmen</h2><p>Som en app, ett tryck bort. Den öppnas på förstasidan.</p>`+
     (appPrompt?`<button type="button" class="knapp" id="app-installera">Installera</button>`:
      `<ol class="app-steg"><li><span class="app-nr" aria-hidden="true">1</span><span>Tryck på ${dela}<b>Dela</b> i Safari</span></li><li><span class="app-nr" aria-hidden="true">2</span><span>Välj <b>Lägg till på hemskärmen</b></span></li></ol><p class="small">Ser du inte Dela? Tryck först på <b>•••</b> bredvid adressen.</p>`)+
     `<button type="button" class="knapp-l" data-app-stang>Stäng</button></div>`;
@@ -1356,6 +1356,16 @@ document.addEventListener('click',e=>{if(!e.target.closest('#mi-plats-k'))return
 ['change','input'].forEach(t=>document.addEventListener(t,e=>{if(e.target.closest&&e.target.closest('#mi-form'))miPlatsOppen=true},true));
 // Sparat i avsnittsmenyn bara när något är sparat, med antal
 function miSparatGenvag(n){document.querySelectorAll('.genvagar a[href="#mi-mina"]').forEach(a=>{a.hidden=!n;a.textContent=n?`Sparat (${n})`:'Sparat'})}
+// Appen börjar om på förstasidan (21 okt 2026, ägarens val): öppnas den från hemskärmen, eller kommer man tillbaka efter
+// minst en minut borta, visas förstasidans topp. En kort avstickare (Visa gångväg, ett sms) behåller platsen.
+// Gäller bara när sidan körs som app. Appar som lades till när den startade i Mitt Örebro styrs också hit vid start.
+(function(){if(!appKor())return;const hem=/(^|\/)(index\.html)?$/.test(location.pathname);let borta=0;
+  const tillStart=()=>{if(hem&&!location.hash){document.querySelectorAll('dialog[open]').forEach(d=>d.close());if(kzOppen)kzStor(kzOppen,false,true);
+      const p=document.getElementById('alla-amnen');if(p&&!p.hidden)document.querySelector('.aa-knapp')?.click();scrollTo({top:0,behavior:'auto'})}
+    else location.replace('index.html')};
+  try{if(!sessionStorage.getItem('o360-app')){sessionStorage.setItem('o360-app','1');if(!hem){location.replace('index.html');return}}}catch(e){}
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)borta=Date.now();else if(borta&&Date.now()-borta>=60000){borta=0;tillStart()}});
+  addEventListener('pageshow',e=>{if(e.persisted&&borta&&Date.now()-borta>=60000){borta=0;tillStart()}})})();
 function appNat(){const o=$('#mi-offline');if(o)o.hidden=navigator.onLine!==false}
 addEventListener('online',appNat);addEventListener('offline',appNat);
 
