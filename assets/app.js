@@ -1307,7 +1307,8 @@ if('serviceWorker' in navigator&&/^(orebro360\.se|localhost|127\.0\.0\.1)$/.test
 let appPrompt=null;
 const appKor=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
 const appIos=()=>/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-const appKan=()=>!appKor()&&!!(appPrompt||appIos());
+// bara på telefoner och surfplattor (pekskärm): Chrome och Edge på datorn erbjuder också installation, men där visar vi den inte (21 okt 2026)
+const appKan=()=>!appKor()&&matchMedia('(pointer:coarse)').matches&&!!(appPrompt||appIos());
 const APP_NEJ='orebro360.app_nej',APP_FORST='orebro360.forsta';
 const lsLas=k=>{try{return localStorage.getItem(k)}catch(e){return null}},lsSkriv=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
 // Raden i Mitt Örebro visas först vid ett senare besök (en annan dag än första gången området valdes) och aldrig efter "Inte nu".
