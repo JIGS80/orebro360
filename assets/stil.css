@@ -1972,3 +1972,16 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .mi-intro .mi-erbj{margin:0}
 .genvagar a[hidden]{display:none}
 .mi-erbj .mi-erbj-rad{margin:0}.mi-erbj .mi-erbj-mer .src{margin:6px 0 0}
+/* Hoppa till som utfällbar lista (21 okt 2026) */
+.genvagar{position:relative;display:block;overflow:visible;margin:2px 0 16px;padding:0}
+@media (max-width:760px){.genvagar{margin-inline:0;padding-inline:0}}
+.gv-knapp{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:600 .9rem var(--f-body);cursor:pointer}
+.gv-knapp svg{width:12px;height:12px;transition:transform .15s}
+.gv-knapp[aria-expanded="true"] svg{transform:rotate(180deg)}
+.gv-knapp:hover{background:var(--accent-soft)}
+.gv-knapp:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.gv-lista{position:absolute;z-index:30;top:calc(100% + 6px);left:0;min-width:220px;max-width:min(320px,calc(100vw - 32px));max-height:min(60vh,420px);overflow:auto;list-style:none;margin:0;padding:6px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:0 12px 32px rgba(0,0,0,.16)}
+.gv-lista[hidden]{display:none}
+.gv-lista li:has(>a[hidden]){display:none}
+.gv-lista a{display:block;padding:10px 12px;border:0;border-radius:9px;background:none;color:var(--ink);font-size:.95rem;font-weight:600;text-decoration:none}
+.gv-lista a:hover,.gv-lista a:focus-visible{background:var(--accent-soft);color:var(--accent-text);outline:none}

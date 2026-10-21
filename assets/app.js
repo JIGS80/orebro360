@@ -1352,9 +1352,15 @@ function initGenvagar(){
   const mal=[...document.querySelectorAll('main [data-genvag]')];if(mal.length<2)return;
   const lankar=mal.map(m=>[m.id,m.dataset.genvag]);const ld=$('#ladda');if(ld)lankar.push(['ladda','Ladda ner']);
   const nav=document.createElement('nav');nav.className='genvagar';nav.setAttribute('aria-label','Hoppa till avsnitt');
-  nav.innerHTML='<span>Hoppa till</span>'+lankar.map(([id,n])=>`<a href="#${id}">${esc(n)}</a>`).join('');
+  // utfällbar lista (21 okt 2026), som Meny i sidhuvudet, i stället för en rad knappar som inte får plats
+  nav.innerHTML=`<button type="button" class="gv-knapp" aria-expanded="false" aria-controls="gv-lista">Hoppa till<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`+
+    `<ul class="gv-lista" id="gv-lista" hidden>${lankar.map(([id,n])=>`<li><a href="#${id}">${esc(n)}</a></li>`).join('')}</ul>`;
   (document.querySelector('main form.snabb')||document.querySelector('main .sec-head')).after(nav);
-  nav.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();const t=document.getElementById(a.getAttribute('href').slice(1));
+  const gk=nav.querySelector('.gv-knapp'),gl=nav.querySelector('.gv-lista'),gs=o=>{gl.hidden=!o;gk.setAttribute('aria-expanded',String(o))};
+  gk.addEventListener('click',()=>{gs(gl.hidden);if(!gl.hidden)gl.querySelector('li:not([hidden]) a:not([hidden])')?.focus()});
+  document.addEventListener('click',e=>{if(!gl.hidden&&!nav.contains(e.target))gs(false)});
+  nav.addEventListener('keydown',e=>{if(e.key==='Escape'&&!gl.hidden){gs(false);gk.focus()}});
+  nav.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();gs(false);const t=document.getElementById(a.getAttribute('href').slice(1));
     if(t){if(t.classList.contains('mi-ihop'))miVik(t,true);t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}});
 }
 /* Kortare ingress på mobilen (15 okt 2026): ämnessidornas ingress visas med högst tre rader och knappen "Läs mer".
