@@ -13,6 +13,12 @@ const TIP_VAG=new Set(['mi-karta','nm-karta','fk-karta','sr-karta','cy-karta','t
 document.addEventListener('mousemove',e=>{const t=e.target;if(!t||!t.closest)return;const host=t.closest('.chart');if(!host)return;const tp=host.querySelector(':scope > .tip');if(!tp||tp.classList.contains('fast'))return;
   const c=t.closest('svg circle'),ok=!!c&&(TIP_VAG.has(host.id)||TIP_MER.has(host.id))&&getComputedStyle(c).cursor==='pointer';
   tp.classList.toggle('pt',ok);if(ok)tp.dataset.hint=TIP_VAG.has(host.id)?'Klicka för vägbeskrivning och mer':'Klicka för mer'},true);
+// Pekskärm (21 okt 2026): iPhone skickar musrörelser efter ett tryck. Visar sidan då ett hovringstips räknar Safari trycket som
+// "hovring" och skickar inget klick, så man fick bara tipset (t.ex. "Klicka för att välja") och inget hände. Musrörelser som
+// kommer direkt efter en beröring stoppas därför här, innan kartornas hovringstips hinner visas; klicket går då igenom som vanligt.
+let pekSenast=0;
+addEventListener('touchstart',()=>{pekSenast=Date.now()},{capture:true,passive:true});
+['mousemove','mouseover','mouseenter'].forEach(t=>document.addEventListener(t,e=>{if(Date.now()-pekSenast<1000&&e.target&&e.target.closest&&e.target.closest('.kz-host'))e.stopPropagation()},true));   // bara i kartorna; diagrammens tips ska visas vid tryck
 function tip(host){let t=host.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';t.hidden=true;host.appendChild(t)}return t}
 function diagramNamn(host,typ){const p=host&&host.closest('.panel,.chart-box,section');const h=p&&p.querySelector('h3,h2');return (h&&h.textContent.trim()?h.textContent.trim():typ)}
 function niceTicks(max,n=4){const raw=max/n,p=Math.pow(10,Math.floor(Math.log10(raw)));const s=[1,2,2.5,5,10].map(x=>x*p).find(x=>x>=raw);const out=[];for(let v=0;v<=max+1e-9;v+=s)out.push(v);if(out[out.length-1]<max)out.push(out[out.length-1]+s);return out}

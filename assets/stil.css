@@ -1992,3 +1992,5 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
    hamnade över den stora kartan och täckte Stäng. När en karta är stor släpps det för alla rutor runt den. */
 html.kz-las :has(.kz-full){position:static !important;transform:none !important;z-index:auto !important}
 html.kz-las header.site{visibility:hidden}
+/* Pekskärm: hovringstips visas aldrig (bara korten efter ett tryck), så att Safari på iPhone inte tolkar trycket som hovring (21 okt 2026) */
+@media (hover:none){.kz-host .tip:not(.fast){display:none !important}}
