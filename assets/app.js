@@ -7,6 +7,12 @@ const MON=['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','de
 const ymLabel=ym=>{const [y,m]=ym.split(/-|M/);return MON[+m-1]+' '+y};
 const NS='http://www.w3.org/2000/svg';
 function el(tag,attrs={},parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+// Tips på prickar (21 okt 2026): när muspekaren står på en prick som går att klicka på står det i tipset vad ett klick ger,
+// så att man förstår att kortet med vägbeskrivning finns. På pekskärm öppnar ett tryck kortet direkt, så där behövs inget tips.
+const TIP_VAG=new Set(['mi-karta','nm-karta','fk-karta','sr-karta','cy-karta','tf-karta','bu-karta','vt-karta']),TIP_MER=new Set(['rk-map','pn-karta']);
+document.addEventListener('mousemove',e=>{const t=e.target;if(!t||!t.closest)return;const host=t.closest('.chart');if(!host)return;const tp=host.querySelector(':scope > .tip');if(!tp||tp.classList.contains('fast'))return;
+  const c=t.closest('svg circle'),ok=!!c&&(TIP_VAG.has(host.id)||TIP_MER.has(host.id))&&getComputedStyle(c).cursor==='pointer';
+  tp.classList.toggle('pt',ok);if(ok)tp.dataset.hint=TIP_VAG.has(host.id)?'Klicka för vägbeskrivning och mer':'Klicka för mer'},true);
 function tip(host){let t=host.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';t.hidden=true;host.appendChild(t)}return t}
 function diagramNamn(host,typ){const p=host&&host.closest('.panel,.chart-box,section');const h=p&&p.querySelector('h3,h2');return (h&&h.textContent.trim()?h.textContent.trim():typ)}
 function niceTicks(max,n=4){const raw=max/n,p=Math.pow(10,Math.floor(Math.log10(raw)));const s=[1,2,2.5,5,10].map(x=>x*p).find(x=>x>=raw);const out=[];for(let v=0;v<=max+1e-9;v+=s)out.push(v);if(out[out.length-1]<max)out.push(out[out.length-1]+s);return out}
@@ -1437,8 +1443,8 @@ function miKarta(){
   OM.omraden.forEach(a=>{const p=el('path',{d:a.svg,class:'mi-a'+(o&&a.kod===o.kod?' mi-a-sel':''),'fill-rule':'evenodd'},svg);
     p.addEventListener('mousemove',e=>show(e,`<b>${esc(a.namn)}</b>${o&&a.kod===o.kod?'':'<br>Klicka för att välja'}`));p.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
     p.addEventListener('click',()=>{tp.hidden=true;miValj(a.kod)})});
-  if(!o){$('#mi-legend').hidden=true;$('#mi-karta-h').textContent='Klicka på ditt område';$('#mi-karta-s').textContent='eller välj det i listan';return}
-  $('#mi-legend').hidden=false;$('#mi-karta-h').textContent=o.namn;$('#mi-karta-s').textContent='och närmaste omgivning';
+  if(!o){$('#mi-legend').hidden=true;$('#mi-karta-tips').hidden=true;$('#mi-karta-h').textContent='Klicka på ditt område';$('#mi-karta-s').textContent='eller välj det i listan';return}
+  $('#mi-legend').hidden=false;$('#mi-karta-tips').hidden=false;$('#mi-karta-h').textContent=o.namn;$('#mi-karta-s').textContent='och närmaste omgivning';
   const pt=(x,y,cls,r,t)=>{const c=el('circle',{cx:x,cy:y,r:r*sc,class:'mi-pt-'+cls},svg);
     c.addEventListener('mousemove',e=>show(e,t));c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
     c.addEventListener('click',e=>kortVisa(host,tp,e,t+'<br>'+hittaLank(x,y)))};

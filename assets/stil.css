@@ -1985,3 +1985,6 @@ tr.detail .pn-syfte{-webkit-line-clamp:unset;display:block}
 .gv-lista li:has(>a[hidden]){display:none}
 .gv-lista a{display:block;padding:10px 12px;border:0;border-radius:9px;background:none;color:var(--ink);font-size:.95rem;font-weight:600;text-decoration:none}
 .gv-lista a:hover,.gv-lista a:focus-visible{background:var(--accent-soft);color:var(--accent-text);outline:none}
+/* Tips på klickbara prickar (21 okt 2026) */
+.tip.pt:not(.fast)::after{content:attr(data-hint);display:block;margin-top:3px;padding-top:3px;border-top:1px solid color-mix(in srgb,var(--bg) 25%,transparent);font-size:.76rem;font-weight:600;opacity:.85}
+.mi-karta-tips{margin:6px 0 0}
