@@ -1772,6 +1772,7 @@ document.addEventListener('click',e=>{
     else if(SIDA==='buss'){if(!iVb(omBox.stad,x,y))buSattZoom('hela');buKarta();host=$('#bu-karta')}
     else if(SIDA==='narmiljo'){if(!iVb(omBox.stad,x,y))nmSattZoom('hela');nmKarta();host=$('#nm-karta')}
     else if(SIDA==='cykla'){if(!iVb(omBox.stad,x,y))cySattZoom('hela');cyKarta();host=$('#cy-karta')}
+    else if(SIDA==='stod'){stKarta();host=$('#st-karta')}
     else if(SIDA==='skyddsrum'){if(!iVb(srVb(),x,y))srSattZoom(iVb(omBox.stad,x,y)?'stad':'hela');srKarta();host=$('#sr-karta')}
     else if(SIDA==='fika'){if(!iVb(omBox.stad,x,y)){fkZoom='hela';document.querySelectorAll('#fk-zoom .chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.z==='hela'))}fkKarta();host=$('#fk-karta')}
     else if(SIDA==='trossamfund'){if(!iVb(omBox.stad,x,y))tfSattZoom('hela');tfKarta();host=$('#tf-karta')}
@@ -3362,14 +3363,14 @@ const fkGang=()=>'fågelvägen';
 const FK_TYPNAMN={kafe:'Kafé',konditori:'Konditori eller bageri',glass:'Glass'};
 function fkSp(f){return {t:'fik',id:f.id,n:f.n,s:[FK_TYPNAMN[f.typ],f.a].filter(Boolean).join(' · ').slice(0,150),x:f.x,y:f.y,w:f.w||null}}
 function fkKort(f){const s=fkStatus(f),a=fkFran?fkAvst(f,fkFran):null;
-  return `<b>${esc(f.n)}</b><br>${esc(f.a||'')}${a!=null?` · ${esc(meter(a))} fågelvägen`:''}${s?`<br>${esc(s.t)}`:''}<br>${hittaLank(f.x,f.y)} · <a class="akt-lank" href="restauranger.html#v=${esc(f.id)}">Kontrollerna</a>${f.w?` · <a class="akt-lank" href="${esc(f.w)}" target="_blank" rel="noopener">Webbplats ↗</a>`:''}<br>${spKnapp(fkSp(f))}`}
+  return `<b>${esc(f.n)}</b><br>${esc(f.a||'')}${a!=null?` · ${esc(meter(a))} fågelvägen`:''}${f.for?`<br>Mötesplats för ${esc(f.for.replace(/^Unga /,'unga '))} · <a class="akt-lank" href="stod.html#${esc(f.stod)}">Om verksamheten</a>`:s?`<br>${esc(s.t)}`:''}<br>${hittaLank(f.x,f.y)} · <a class="akt-lank" href="restauranger.html#v=${esc(f.id)}">Kontrollerna</a>${f.w?` · <a class="akt-lank" href="${esc(f.w)}" target="_blank" rel="noopener">Webbplats ↗</a>`:''}<br>${spKnapp(fkSp(f))}`}
 function fkUrval(){return FK.stallen.filter(f=>(!fkTyp||f.typ===fkTyp)&&(!fkOppet||(fkStatus(f)||{}).k==='oppen'))}
 function fkLista(){const L=fkUrval().map(f=>({f,a:fkFran?fkAvst(f,fkFran):null}));if(fkFran)L.sort((x,y)=>x.a-y.a);
   const ul=$('#fk-lista');
   $('#fk-n').textContent=`${fmt(L.length)} ${L.length===1?'ställe':'ställen'}${fkOppet?` med öppet nu, av ${fmt(FK.antal.oppettider)} där vi vet öppettiderna`:''}${fkFran?`, närmast först från ${fkFran.n}`:', i bokstavsordning'}`;
   $('#fk-lista-h').textContent=fkFran?'Fika nära dig':'Alla fikaställen';
   ul.innerHTML=L.slice(0,fkVisa).map(({f,a})=>{const s=fkStatus(f);
-    return `<li class="fk-rad"><span class="mi-bt"><b>${esc(f.n)}</b><span class="sub">${esc([FK_TYPNAMN[f.typ],f.a].filter(Boolean).join(' · '))}</span>${s?`<span class="fk-st fk-st-${s.k}">${esc(s.t)}</span>`:'<span class="fk-st fk-st-okand">Öppettider saknas</span>'}</span>`+
+    return `<li class="fk-rad"><span class="mi-bt"><b>${esc(f.n)}</b><span class="sub">${esc([FK_TYPNAMN[f.typ],f.a].filter(Boolean).join(' · '))}</span>${f.for?`<span class="fk-st fk-for">Mötesplats för ${esc(f.for.replace(/^Unga /,'unga '))} · <a href="stod.html#${esc(f.stod)}">Om verksamheten</a></span>`:s?`<span class="fk-st fk-st-${s.k}">${esc(s.t)}</span>`:'<span class="fk-st fk-st-okand">Öppettider saknas</span>'}</span>`+
       `${a!=null?`<span class="mi-avst">${esc(meter(a))}<span class="fk-gang">${esc(fkGang(a))}</span></span>`:''}`+
       `<span class="mi-akt"><button type="button" class="akt-knapp" data-visa="${f.x},${f.y}" data-n="${esc(f.n)}">Visa på karta</button>${hittaLank(f.x,f.y)}<a class="akt-knapp" href="restauranger.html#v=${esc(f.id)}">Kontrollerna</a>${f.w?`<a class="akt-knapp" href="${esc(f.w)}" target="_blank" rel="noopener">Webbplats ↗<span class="sr-only"> (${esc(f.n)}, öppnas i ny flik)</span></a>`:''}${spKnapp(fkSp(f),1)}</span></li>`}).join('')
     ||'<li class="small">Inga ställen stämmer med valet. Ta bort bocken för öppet nu eller välj en annan typ. Vi vet öppettiderna bara för en del av ställena.</li>';
@@ -3489,7 +3490,41 @@ function initSkyddsrum(){omStad();const K=SR.kommun;
   else{srLista();srTabell();srKarta()}}
 // närmaste skyddsrum till en punkt (Mitt Örebro)
 function srNarmast(x,y){if(!SR)return null;let b=null;for(const s of SR.skyddsrum){const a=Math.hypot(s.x-x,s.y-y)*10;if(!b||a<b.a)b={s,a}}return b}
+/* ===== Stöd och gemenskap (22 okt 2026): handplockade verksamheter, kontrollerade mot organisationernas egna sidor.
+   Tre val: Hitta stöd, Hitta gemenskap, Hjälpa till. Listan först, kartan bara för platser man kan gå till direkt.
+   Inget sparas, inte ens i webbläsaren (ingen Spara, inget i Mitt Örebro). ===== */
+let ST=null,stG='';
+const ST_G={stod:'Hitta stöd',gemenskap:'Hitta gemenskap',hjalpa:'Hjälpa till'};
+function stKort(v){const plats=v.x!=null;
+  return `<article class="panel st-kort" id="v-${esc(v.id)}"><h3>${esc(v.namn)}</h3><p class="st-av">${esc(v.av)}</p>
+    <dl class="st-dl"><dt>Vad</dt><dd>${esc(v.vad)}</dd><dt>För vem</dt><dd>${esc(v.vem)}</dd><dt>Kan jag komma direkt?</dt><dd>${esc(v.direkt)}</dd><dt>Nästa steg</dt><dd>${esc(v.steg)}</dd></dl>
+    <p class="st-akt"><a class="knapp liten" href="${esc(v.lank)}" target="_blank" rel="noopener">${esc(v.lanktext||'Till '+v.av)} ↗<span class="sr-only"> (öppnas i ny flik)</span></a>${plats?`<button type="button" class="akt-knapp" data-visa="${v.x},${v.y}" data-n="${esc(v.namn)}">Visa på karta</button>${hittaLank(v.x,v.y)}`:''}${v.id==='deed'?`<a class="akt-lank" href="fika.html#nara=${v.x},${v.y},Deed">Finns också på Fika i Örebro</a>`:''}</p>
+    <p class="src">Kontrollerad ${esc(vtDag(v.kontrollerad))} mot verksamhetens egen sida.</p></article>`}
+function stLista(){const L=ST.verksamheter.filter(v=>!stG||v.grupper.includes(stG));
+  $('#st-n').textContent=stG?`${L.length} ${L.length===1?'verksamhet':'verksamheter'} under ${ST_G[stG]}. Tryck igen för att visa alla.`:`${ST.verksamheter.length} verksamheter. Välj vad du söker.`;
+  const del=g=>{const M=L.filter(v=>v.grupper[0]===g||(stG&&v.grupper.includes(g)&&g===stG));return M.length?`<h2 class="st-h">${ST_G[g]}</h2><div class="st-grid">${M.map(stKort).join('')}</div>`:''};
+  $('#st-lista').innerHTML=stG?del(stG):['stod','gemenskap','hjalpa'].map(del).join('')}
+function stKarta(){const host=$('#st-karta');if(!host||!ST||!OM)return;const vb=omBox.stad||[0,0,OM.karta.w,OM.karta.h];
+  host.innerHTML='';const svg=el('svg',{viewBox:vb.join(' '),role:'img','aria-label':'Karta över platser för stöd och gemenskap som man kan gå till direkt'},host);kartZoom(host,svg);
+  const sc=kartSc(svg,vb),tp=tip(host);
+  OM.omraden.forEach(o=>el('path',{d:o.svg,class:'nm-a','fill-rule':'evenodd'},svg));
+  const P={};ST.verksamheter.filter(v=>v.x!=null&&(!stG||v.grupper.includes(stG))).forEach(v=>{(P[v.x+','+v.y]=P[v.x+','+v.y]||[]).push(v)});
+  Object.values(P).forEach(L=>{const v=L[0],t=L.map(q=>`<b>${esc(q.namn)}</b><br>${esc(q.av)} · ${esc(q.direkt)}`).join('<br><br>');
+    const c=el('circle',{cx:v.x,cy:v.y,r:6*sc,class:'st-pt'+(L.some(q=>q.grupper.includes('gemenskap'))?' st-pt-g':'')},svg);
+    c.addEventListener('mousemove',e=>{if(!tipFri(tp))return;const bb=host.getBoundingClientRect();tp.hidden=false;tp.innerHTML=L.map(q=>`<b>${esc(q.namn)}</b>`).join(', ');tp.style.left=(e.clientX-bb.left)+'px';tp.style.top=(e.clientY-bb.top-8)+'px'});
+    c.addEventListener('mouseleave',()=>{if(tipFri(tp))tp.hidden=true});
+    c.addEventListener('click',e=>kortVisa(host,tp,e,`${t}<br>${esc(v.adress||'')}<br>${hittaLank(v.x,v.y)} · <a class="akt-lank" href="#v-${esc(v.id)}">Till kortet</a>`))});
+  $('#st-karta-s').textContent=`${Object.keys(P).length} ${Object.keys(P).length===1?'plats':'platser'}`;
+  fokusRita(svg,sc)}
+function stValj(g){stG=g;document.querySelectorAll('#st-val .st-v').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.g===g)));stLista();stKarta()}
+function initStod(){omStad();
+  $('#st-val').addEventListener('click',e=>{const b=e.target.closest('.st-v');if(!b)return;stValj(stG===b.dataset.g?'':b.dataset.g)});
+  document.addEventListener('click',e=>{const a=e.target.closest('#st-karta a[href^="#v-"]');if(!a)return;e.preventDefault();const t=document.getElementById(a.getAttribute('href').slice(1));if(t){t.scrollIntoView({behavior:'smooth',block:'start'});t.classList.add('st-mark');setTimeout(()=>t.classList.remove('st-mark'),2200)}});
+  const h=decodeURIComponent(location.hash.slice(1));if(['stod','gemenskap','hjalpa'].includes(h))stG=h;
+  stValj(stG);
+  const v=h&&!ST_G[h]&&document.getElementById('v-'+h);if(v)setTimeout(()=>{v.scrollIntoView({block:'start'});v.classList.add('st-mark');setTimeout(()=>v.classList.remove('st-mark'),2500)},100)}
 const RITA={
+  stod:()=>ST&&OM&&stKarta(),
   skyddsrum:()=>SR&&OM&&srKarta(),
   fika:()=>FK&&OM&&fkKarta(),
   pengar:()=>{if(P){renderPengar();renderLokal()}}, befolkning:()=>BEF&&renderBef(BEF), jamfor:()=>J&&renderKpi(),
@@ -3706,6 +3741,9 @@ let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEv
       const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}
       addEventListener('hashchange',()=>{const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}});
     }catch(e){console.error(e);felText('#om-lead','Kunde inte läsa in områdesdatan.')}
+    break;
+  case 'stod':
+    try{[OM,ST]=await Promise.all([load('omraden'),load('stod')]);initStod()}catch(e){console.error(e);felText('#st-lista','Kunde inte läsa in verksamheterna. Ladda om sidan.')}
     break;
   case 'skyddsrum':
     try{[OM,SR]=await Promise.all([load('omraden'),load('skyddsrum')]);initSkyddsrum()}catch(e){console.error(e);felText('#sr-lista','Kunde inte läsa in skyddsrummen. Ladda om sidan.')}

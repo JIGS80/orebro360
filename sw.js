@@ -1,7 +1,7 @@
 /* Örebro360 service worker (21 okt 2026). Sidor och data: nätet först, sparad kopia bara utan nät.
    Fasta filer (css, js med version, typsnitt, ikoner): sparad kopia först. Bara egna adresser, aldrig andra webbplatser. */
-const V='o360-356d02ec-697697a6';
-const FORST=['mitt.html','assets/stil.css?v=697697a6','assets/app.js?v=356d02ec','assets/ikon.svg','manifest.webmanifest'];
+const V='o360-cb9025de-ad705057';
+const FORST=['mitt.html','assets/stil.css?v=ad705057','assets/app.js?v=cb9025de','assets/ikon.svg','manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(FORST)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(n=>n!==V).map(n=>caches.delete(n)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const r=e.request,u=new URL(r.url);
