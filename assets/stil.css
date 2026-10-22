@@ -2031,3 +2031,6 @@ html.kz-las header.site{visibility:hidden}
 .idag-fr:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 @media (prefers-reduced-motion:no-preference){.idag-fr.idag-in{animation:idagIn .45s ease both}}
 @media (max-width:640px){.idag-fr{font-size:.98rem}}
+
+/* Rubriken på datorn (22 okt 2026): kompassen blev högre med frågan, så texten centrerad mot den hamnade för långt ner. Texten börjar nu uppe, i höjd med kompassen. */
+@media (min-width:821px){.hero-grid{align-items:start}.hero-text{padding-top:28px}}
