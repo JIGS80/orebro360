@@ -2098,7 +2098,7 @@ function miPlaner(k){const box=$('#mi-pn');if(!box)return;if(!PN){box.hidden=tru
     :`<li class="small">Kommunen har inga pågående detaljplaner som vi kan koppla till området just nu.</li>`;
   $('#mi-pn-src').innerHTML=`${pl.length>5?`${pl.length} planer i området. `:''}<a href="planer.html#omr=${k}">Alla planer i området och kartan</a> · Örebro kommuns pågående planarbeten, hämtade ${vtDag(PN.hamtad)}. Synpunkter lämnas till kommunen.`}
 
-/* ===== Sidan Trossamfund: Tro och gemenskap i Örebro (handkontrollerad förteckning) ===== */
+/* ===== Sidan Trossamfund: Tro och gemenskap i Örebro (förteckning från församlingarnas egna webbplatser) ===== */
 let TF=null,tfZoom='hela',tfOppen=null;
 const TF_F={q:'',omr:'',trad:'',sam:''};
 const TF_KL=['tf-t0','tf-t1','tf-t2','tf-t3','tf-t4','tf-t5'];
@@ -2145,7 +2145,7 @@ function tfKort(p){const op=p.id===tfOppen,nOrg=p.org.length;
       ${nOrg?`<h4>${nOrg===1?'Församling':'Församlingar som använder platsen'}</h4><ul class="tf-org">${p.org.map(orgRad).join('')}</ul>`:''}
       ${p.lankar.length?`<h4>Verksamhet och mer</h4><ul class="tf-lankar">${p.lankar.map(l=>`<li>${lank(l)}</li>`).join('')}</ul>`:''}
       <h4>Källor</h4><ul class="tf-lankar">${p.kallor.map(l=>`<li>${lank(l)}</li>`).join('')}</ul>
-      <p class="small">Senast kontrollerad ${vtDag(p.kontrollerad)}${p.o?` · läge: ${esc(p.lage)}`:''}</p>
+      <p class="small">Uppgifterna hämtade ${vtDag(p.kontrollerad)}${p.o?` · läge: ${esc(p.lage)}`:''}</p>
     </div></li>`}
 function tfLista(){const L=tfAlla().filter(tfMatch).sort((a,b)=>a.namn.localeCompare(b.namn,'sv'));
   $('#tf-lista').innerHTML=L.map(tfKort).join('');
@@ -2165,7 +2165,7 @@ function tfVisa(id,rulla){const p=tfHitta(id);if(!p)return;if(!tfMatch(p)){Objec
 function initTrossamfund(){OM.omraden.forEach(o=>o._box=pathBox(o.svg));omStad();
   const A=TF.antal,tile=(l,v,s)=>`<div class="stat"><span class="label"><span class="lt">${esc(l)}</span></span><span class="v num">${v}</span><span class="s">${esc(s)}</span></div>`;
   $('#tf-kpis').innerHTML=[tile('Platser',fmt(A.platser),`kyrkor, moskéer och andra lokaler, i ${A.omraden} av 36 områden`),tile('Församlingar och samfund',fmt(A.organisationer),'lokala församlingar och organisationer'),
-    tile('Traditioner',fmt(TF.traditioner.length),TF.traditioner.map(t=>t.replace('Kristen: ','')).join(', ')),tile('Senast kontrollerad',vtDag(TF.uppdaterad),'uppgifterna kontrolleras för hand')].join('');
+    tile('Traditioner',fmt(TF.traditioner.length),TF.traditioner.map(t=>t.replace('Kristen: ','')).join(', ')),tile('Senast uppdaterad',vtDag(TF.uppdaterad),'från församlingarnas egna webbplatser')].join('');
   const opt=(s,l)=>{$(s).insertAdjacentHTML('beforeend',l.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join(''))};
   opt('#tf-omr',OM.omraden.slice().sort((a,b)=>a.namn.localeCompare(b.namn,'sv')).map(o=>[o.kod,o.namn]));
   opt('#tf-trad',TF.traditioner.map(t=>[t,t]));opt('#tf-sam',TF.samfund.map(s=>[s,s]));
@@ -3490,7 +3490,7 @@ function initSkyddsrum(){omStad();const K=SR.kommun;
   else{srLista();srTabell();srKarta()}}
 // närmaste skyddsrum till en punkt (Mitt Örebro)
 function srNarmast(x,y){if(!SR)return null;let b=null;for(const s of SR.skyddsrum){const a=Math.hypot(s.x-x,s.y-y)*10;if(!b||a<b.a)b={s,a}}return b}
-/* ===== Stöd och gemenskap (22 okt 2026): handplockade verksamheter, kontrollerade mot organisationernas egna sidor.
+/* ===== Stöd och gemenskap (22 okt 2026): utvalda verksamheter, uppgifter från organisationernas egna sidor.
    Tre val: Hitta stöd, Hitta gemenskap, Hjälpa till. Listan först, kartan bara för platser man kan gå till direkt.
    Inget sparas, inte ens i webbläsaren (ingen Spara, inget i Mitt Örebro). ===== */
 let ST=null,stG='';
@@ -3499,7 +3499,7 @@ function stKort(v){const plats=v.x!=null;
   return `<article class="panel st-kort" id="v-${esc(v.id)}"><h3>${esc(v.namn)}</h3><p class="st-av">${esc(v.av)}</p>
     <dl class="st-dl"><dt>Vad</dt><dd>${esc(v.vad)}</dd><dt>För vem</dt><dd>${esc(v.vem)}</dd><dt>Kan jag komma direkt?</dt><dd>${esc(v.direkt)}</dd><dt>Nästa steg</dt><dd>${esc(v.steg)}</dd></dl>
     <p class="st-akt"><a class="knapp liten" href="${esc(v.lank)}" target="_blank" rel="noopener">${esc(v.lanktext||'Till '+v.av)} ↗<span class="sr-only"> (öppnas i ny flik)</span></a>${plats?`<button type="button" class="akt-knapp" data-visa="${v.x},${v.y}" data-n="${esc(v.namn)}">Visa på karta</button>${hittaLank(v.x,v.y)}`:''}${v.id==='deed'?`<a class="akt-lank" href="fika.html#nara=${v.x},${v.y},Deed">Finns också på Fika i Örebro</a>`:''}</p>
-    <p class="src">Kontrollerad ${esc(vtDag(v.kontrollerad))} mot verksamhetens egen sida.</p></article>`}
+    <p class="src">Från verksamhetens egen sida, hämtat ${esc(vtDag(v.kontrollerad))}.</p></article>`}
 function stLista(){const L=ST.verksamheter.filter(v=>!stG||v.grupper.includes(stG));
   $('#st-n').textContent=stG?`${L.length} ${L.length===1?'verksamhet':'verksamheter'} under ${ST_G[stG]}. Tryck igen för att visa alla.`:`${ST.verksamheter.length} verksamheter. Välj vad du söker.`;
   const del=g=>{const M=L.filter(v=>v.grupper[0]===g||(stG&&v.grupper.includes(g)&&g===stG));return M.length?`<h2 class="st-h">${ST_G[g]}</h2><div class="st-grid">${M.map(stKort).join('')}</div>`:''};
@@ -3587,7 +3587,7 @@ function idagLista(I,n){const vardag=n.dag==='vardag',L=[];
   if(I.natur&&n.t>=7*3600){const d=I.natur.vecka/7;L.push({id:'natur',l:'natur.html',enh:'',t:'fynd av djur och växter har rapporterats, ungefär',s:`till Artportalen, i samma takt som vecka ${I.natur.nr}`,rund:1,v:n=>d*idagAndel(n,6,22)})}
   // fasta antal (22 okt 2026): räknar inte under dagen, rubriken blir då "Örebro just nu"
   if(I.skr)L.push({id:'skr',l:'skyddsrum.html',enh:'',fast:1,t:`platser i ${fmt(I.skr.n)} skyddsrum`,s:`Myndigheten för civilt försvar${I.skr.d?', '+rkDatum(I.skr.d):''}`,not:`Från Myndigheten för civilt försvar${I.skr.d?', '+rkDatum(I.skr.d):''}.`,v:()=>I.skr.pl});
-  if(I.stod)L.push({id:'stod',l:'stod.html',enh:'',fast:1,t:'ställen för stöd, gemenskap och att hjälpa till',s:'hos kommunen och ideella organisationer, kontrollerade för hand',not:'Hos kommunen och ideella organisationer, kontrollerade för hand.',v:()=>I.stod.n});
+  if(I.stod)L.push({id:'stod',l:'stod.html',enh:'',fast:1,t:'ställen för stöd, gemenskap och att hjälpa till',s:'hos kommunen och ideella organisationer',not:'Hos kommunen och ideella organisationer, från deras egna sidor.',v:()=>I.stod.n});
   L.forEach(r=>{const q=IDAG_FR[r.id];if(q){r.fr=q[0];r.fl=q[1]}});
   // B-versioner (22 okt 2026, ägarens val): varje siffra har en andra text och fråga som visas vartannat varv
   const [y_,m_,d_]=stockholmIdag(),doy=(Date.UTC(y_,m_-1,d_)-Date.UTC(y_,0,1))/864e5,AR='Örebro i år, hittills',ARN='Räknat från 1 januari. Genomsnitt, inte realtid.',B={};
