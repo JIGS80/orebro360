@@ -2052,3 +2052,5 @@ html.kz-las header.site{visibility:hidden}
 .idag-paus{width:auto;padding:0 10px 0 8px;gap:5px;display:inline-flex;align-items:center;font-size:.8rem;font-weight:600;color:var(--ink2)}
 @media (max-width:820px){.idag-t{font-size:.95rem}.idag-mitt.lang .idag-v{font-size:1.55rem}.idag-mitt.xlang .idag-v{font-size:1.3rem}.idag-ca{font-size:.9rem}}
 @media (max-width:600px){.idag-prick{width:17px}.idag-pil{width:32px;height:32px}.idag-paus{padding:0 6px}}
+/* Luft under kompassen på mobilen (22 okt 2026): frågan, knapparna och förklaringen stod för tätt */
+@media (max-width:820px){.idag{gap:14px}.idag-fr{margin-top:8px}.idag-fot{gap:6px}.idag-not{margin-top:2px;line-height:1.5}}
