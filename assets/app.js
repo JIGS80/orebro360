@@ -3575,60 +3575,65 @@ function idagNu(){const p=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{ti
 const IDAG_DAG={vardag:'en vanlig vardag',lordag:'en vanlig lördag',sondag:'en vanlig söndag'};
 const idagAndel=(n,fran,till)=>Math.min(1,Math.max(0,(n.t-fran*3600)/((till-fran)*3600)));
 // alla räknare: [id, sida, enhet, text, undertext, värde(n), visas(n), avrunda]
-/* Kompassens frågor (22 okt 2026, ersätter frågeraden i heron): en fråga per siffra, byter tillsammans med siffran */
-const IDAG_FR={kr:['Vad köper kommunen, och av vem?','pengar.html'],liter:['Hur mår Svartån just nu?','vatten.html#svartan'],rt:['Hur ofta rycker räddningstjänsten ut?','raddning.html'],skola:['Vart går min skatt?','skatt.html'],rk:['När kontrollerades restaurangen?','restauranger.html'],natur:['Vilka fåglar har setts i veckan?','natur.html'],skr:['Var är mitt närmaste skyddsrum?','skyddsrum.html'],stod:['Var kan jag få stöd eller hitta gemenskap?','stod.html']};
+/* Kompassen (22 okt 2026, lugnare): en version per ämne, byte var nionde sekund, avrundade tal ("cirka 11,0 miljoner kr"),
+   ämnet överst i ringen, en egen förklaring under och en fråga som hör ihop med siffran. Fasta antal står under "Örebro just nu". */
 function idagLista(I,n){const vardag=n.dag==='vardag',L=[];
-  if(I.kr)L.push({id:'kr',l:'pengar.html',enh:'kr',t:'har kommunen betalat ut till leverantörer',s:'i snitt per dag de senaste 12 månaderna',v:n=>I.kr.ar/365.25/86400*n.t});
-  if(I.svartan){const sv=I.svartan;L.push({id:'liter',l:'vatten.html#svartan',enh:'liter',t:'vatten har runnit genom Svartån',s:`${fmt(sv.m3s,1)} m³ i sekunden vid Karlslund ${rkDatum(sv.d)}${sv.prel?', preliminärt':''}`,v:n=>sv.m3s*1000*n.t})}
-  if(I.rt){const T=I.rt.timme,tot=T.reduce((a,b)=>a+b,0);L.push({id:'rt',l:'raddning.html',enh:'',t:'gånger har räddningstjänsten ryckt ut, ungefär',t1:'gång har räddningstjänsten ryckt ut, ungefär',s:`i snitt ${fmt(I.rt.antal/365.25,1)} om dagen ${I.rt.ar}`,rund:1,
-    v:n=>{let w=0;for(let i=0;i<n.h;i++)w+=T[i];w+=T[n.h]*(n.m*60+n.s)/3600;return I.rt.antal/365.25*w/tot}})}
-  if(I.skola)L.push({id:'skola',l:'skatt.html',enh:'kr',t:`har ${I.skola.n.toLowerCase()}n kostat`,s:`${I.skola.b}, i snitt per dag ${I.skola.kostnad_ar}`,v:n=>I.skola.ar/365.25/86400*n.t});
-  if(I.rk&&vardag&&n.t>=8.5*3600){const d=I.rk.ar/250;L.push({id:'rk',l:'restauranger.html',enh:'',t:'livsmedelskontroller har kommunen gjort, ungefär',t1:'livsmedelskontroll har kommunen gjort, ungefär',s:`i snitt ${fmt(d,1)} per vardag det senaste året`,rund:1,v:n=>d*idagAndel(n,8,17)})}
-  if(I.natur&&n.t>=7*3600){const d=I.natur.vecka/7;L.push({id:'natur',l:'natur.html',enh:'',t:'fynd av djur och växter har rapporterats, ungefär',s:`till Artportalen, i samma takt som vecka ${I.natur.nr}`,rund:1,v:n=>d*idagAndel(n,6,22)})}
-  // fasta antal (22 okt 2026): räknar inte under dagen, rubriken blir då "Örebro just nu"
-  if(I.skr)L.push({id:'skr',l:'skyddsrum.html',enh:'',fast:1,t:`platser i ${fmt(I.skr.n)} skyddsrum`,s:`Myndigheten för civilt försvar${I.skr.d?', '+rkDatum(I.skr.d):''}`,not:`Från Myndigheten för civilt försvar${I.skr.d?', '+rkDatum(I.skr.d):''}.`,v:()=>I.skr.pl});
-  if(I.stod)L.push({id:'stod',l:'stod.html',enh:'',fast:1,t:'ställen för stöd, gemenskap och att hjälpa till',s:'hos kommunen och ideella organisationer',not:'Hos kommunen och ideella organisationer, från deras egna sidor.',v:()=>I.stod.n});
-  L.forEach(r=>{const q=IDAG_FR[r.id];if(q){r.fr=q[0];r.fl=q[1]}});
-  // B-versioner (22 okt 2026, ägarens val): varje siffra har en andra text och fråga som visas vartannat varv
-  const [y_,m_,d_]=stockholmIdag(),doy=(Date.UTC(y_,m_-1,d_)-Date.UTC(y_,0,1))/864e5,AR='Örebro i år, hittills',ARN='Räknat från 1 januari. Genomsnitt, inte realtid.',B={};
-  if(I.kr&&I.kr.inv)B.kr={enh:'kr',t:'per örebroare har kommunen betalat ut till leverantörer',s:`${fmt(I.kr.inv)} invånare, i snitt per dag de senaste 12 månaderna`,v:n=>I.kr.ar/I.kr.inv/365.25/86400*n.t,fr:'Vilka företag får mest av kommunens pengar?',fl:'pengar.html'};
-  if(I.svartan)B.liter={enh:'badkar',t:'vatten har runnit genom Svartån',s:`ett badkar räknat som 150 liter, ${fmt(I.svartan.m3s,1)} m³ i sekunden vid Karlslund`,v:n=>I.svartan.m3s*1000*n.t/150,fr:'Hur hårt är dricksvattnet där jag bor?',fl:'vatten.html'};
-  if(I.rt)B.rt={rub:AR,not:ARN,t:'gånger har räddningstjänsten ryckt ut, ungefär',s:`i samma takt som ${I.rt.ar}, då det blev ${fmt(I.rt.antal)} utryckningar`,v:n=>L.find(r=>r.id==='rt').v(n)+I.rt.antal/365.25*doy,fr:'Hur många bränder och trafikolyckor var det i fjol?',fl:'raddning.html'};
-  if(I.skola)B.skola={rub:AR,not:ARN,t:`har ${I.skola.n.toLowerCase()}n kostat`,s:`${I.skola.b}, i samma takt som ${I.skola.kostnad_ar}`,v:n=>I.skola.ar/365.25*(doy+n.t/86400),fr:'Hur går det för eleverna i min skola?',fl:'skolor.html'};
-  if(I.rk)B.rk={rub:AR,not:ARN,t:'livsmedelskontroller har kommunen gjort, ungefär',s:`i samma takt som det senaste året, ${fmt(I.rk.ar)} kontroller`,v:n=>I.rk.ar/365.25*(doy+n.t/86400),fr:'Hur gick kontrollen på mitt favoritställe?',fl:'restauranger.html'};
-  if(I.natur&&I.natur.arter)B.natur={fast:1,rund:0,t:`arter rapporterades till Artportalen vecka ${I.natur.nr}`,s:'SLU Artdatabanken',not:'Från SLU Artdatabanken (Artportalen).',v:()=>I.natur.arter,fr:'Vilka sällsynta arter har setts nära mig?',fl:'natur.html'};
-  if(I.skr&&I.skr.per100)B.skr={fast:1,rund:1,t:'skyddsrumsplatser per 100 invånare, ungefär',v:()=>I.skr.per100,fr:'Hur många skyddsrumsplatser finns där jag bor?',fl:'skyddsrum.html'};
-  if(I.stod&&I.stod.hjalpa)B.stod={fast:1,t:'sätt att hjälpa till som volontär eller med en gåva',v:()=>I.stod.hjalpa,fr:'Hur kan jag hjälpa till?',fl:'stod.html#hjalpa'};
-  L.forEach(r=>{if(B[r.id])r.b={t1:null,...B[r.id]}});
+  if(I.kr)L.push({id:'kr',amne:'Kommunens inköp',l:'pengar.html',enh:'kr',ca:1,t:'har kommunen betalat ut',s:'i snitt per dag de senaste 12 månaderna',
+    not:'Uppskattat utifrån snittet per dag de senaste 12 månaderna.',fr:'Vad köper kommunen, och av vem?',fl:'pengar.html',v:n=>I.kr.ar/365.25/86400*n.t});
+  if(I.svartan){const sv=I.svartan;L.push({id:'liter',amne:'Svartån',l:'vatten.html#svartan',enh:'liter',ca:1,t:'vatten har runnit förbi Karlslund',s:`${fmt(sv.m3s,1)} m³ i sekunden vid Karlslund ${rkDatum(sv.d)}${sv.prel?', preliminärt':''}`,
+    not:`Räknat på senaste mätningen: ${fmt(sv.m3s,1)} m³ i sekunden, ${rkDatum(sv.d)}${sv.prel?', preliminärt':''}.`,fr:'Hur mår Svartån just nu?',fl:'vatten.html#svartan',v:n=>sv.m3s*1000*n.t})}
+  if(I.rt){const T=I.rt.timme,tot=T.reduce((a,b)=>a+b,0),d=I.rt.antal/365.25;L.push({id:'rt',amne:'Räddningstjänsten',l:'raddning.html',enh:'',ca:1,t:'utryckningar',t1:'utryckning',s:`i snitt ${fmt(d,1)} om dagen ${I.rt.ar}`,rund:1,
+    not:`Uppskattat utifrån snittet ${I.rt.ar}, ${fmt(d,1)} utryckningar om dagen.`,fr:'Hur ofta rycker räddningstjänsten ut?',fl:'raddning.html',
+    v:n=>{let w=0;for(let i=0;i<n.h;i++)w+=T[i];w+=T[n.h]*(n.m*60+n.s)/3600;return d*w/tot}})}
+  if(I.skola)L.push({id:'skola',amne:'Grundskolan',l:'skatt.html',enh:'kr',ca:1,t:`har ${I.skola.n.toLowerCase()}n kostat`,s:`${I.skola.b}, i snitt per dag ${I.skola.kostnad_ar}`,
+    not:`Uppskattat utifrån kostnaden per dag ${I.skola.kostnad_ar}, ${I.skola.b}.`,fr:'Vart går min skatt?',fl:'skatt.html',v:n=>I.skola.ar/365.25/86400*n.t});
+  if(I.rk&&vardag&&n.t>=8.5*3600){const d=I.rk.ar/250;L.push({id:'rk',amne:'Livsmedelskontroller',l:'restauranger.html',enh:'',ca:1,t:'kontroller hos restauranger',t1:'kontroll hos restauranger',s:`i snitt ${fmt(d,1)} per vardag det senaste året`,rund:1,
+    not:`Uppskattat utifrån snittet det senaste året, ${fmt(d,1)} kontroller per vardag.`,fr:'När kontrollerades restaurangen?',fl:'restauranger.html',v:n=>d*idagAndel(n,8,17)})}
+  // fasta antal: räknar inte under dagen, rubriken blir "Örebro just nu"
+  if(I.natur&&I.natur.arter)L.push({id:'natur',amne:'Djur och natur',l:'natur.html',enh:'',fast:1,t:`arter rapporterades vecka ${I.natur.nr}`,s:'till Artportalen',
+    not:'Från SLU Artdatabanken (Artportalen).',fr:'Vilka fåglar har setts i veckan?',fl:'natur.html',v:()=>I.natur.arter});
+  if(I.skr)L.push({id:'skr',amne:'Skyddsrum',l:'skyddsrum.html',enh:'',fast:1,t:`platser i ${fmt(I.skr.n)} skyddsrum`,s:`Myndigheten för civilt försvar${I.skr.d?', '+rkDatum(I.skr.d):''}`,
+    not:`Från Myndigheten för civilt försvar${I.skr.d?', '+rkDatum(I.skr.d):''}.`,fr:'Var är mitt närmaste skyddsrum?',fl:'skyddsrum.html',v:()=>I.skr.pl});
+  if(I.stod)L.push({id:'stod',amne:'Stöd och gemenskap',l:'stod.html',enh:'',fast:1,t:'ställen att få stöd eller hjälpa till',s:'hos kommunen och ideella organisationer',
+    not:'Hos kommunen och ideella organisationer, från deras egna sidor.',fr:'Var kan jag få stöd eller hitta gemenskap?',fl:'stod.html',v:()=>I.stod.n});
   return L}
-const idagTal=(r,x)=>fmt(r.rund?Math.round(x):Math.floor(x));
+// tal och enhet som visas: stora tal i miljoner med en decimal, kronor och liter över 10 000 avrundade till tusental
+function idagVisa(r,x){const e=r.enh||'';
+  if(x>=1e8)return [fmt(Math.floor(x/1e6)),('miljoner '+e).trim()];
+  if(x>=1e6)return [fmt(Math.floor(x/1e5)/10,1),('miljoner '+e).trim()];
+  if(x>=1e4&&e)return [fmt(Math.floor(x/1e3)*1e3),e];
+  return [fmt(r.rund?Math.round(x):Math.floor(x)),e]}
+const idagTal=(r,x)=>idagVisa(r,x)[0];
 const idagText=(r,x)=>r.t1&&idagTal(r,x)==='1'?r.t1:r.t;
+const idagHel=(r,x)=>{const [v,e]=idagVisa(r,x);return `${r.ca?'cirka ':''}${v}${e?' '+e:''}`};
 function idagStart(I){const box=$('#idag');if(!box||!I)return;
   // Svartån bara om mätningen är högst en vecka gammal
   if(I.svartan){const [y,m,d]=stockholmIdag(),i=Date.UTC(y,m-1,d),[sy,sm,sd]=I.svartan.d.split('-').map(Number);if((i-Date.UTC(sy,sm-1,sd))/864e5>7)I={...I,svartan:null}}
   const n0=idagNu(),L=idagLista(I,n0);if(L.length<2)return;
-  const lugn=matchMedia('(prefers-reduced-motion: reduce)').matches,start={tid:Date.now(),n:n0,v:Object.fromEntries(L.map(r=>[r.id,r.v(n0)]))};
-  let akt=Math.floor(Math.random()*L.length),byt=null,hovra=false,varv=Math.random()<.5?0:1;
-  // vartannat varv visas B-versionen (egen text och fråga); ett varv är när visningen går runt
-  const cur=()=>{const r=L[akt];return varv%2&&r.b?{...r,...r.b}:r};
-  const mitt=$('#idag-mitt');
-  $('#idag-prickar').innerHTML=L.map((r,i)=>`<button type="button" class="idag-prick" data-i="${i}" aria-label="Visa ${esc(r.t.replace(/, (ungefär|beräknat)$/,''))}"></button>`).join('');
-  const fr=$('#idag-fr'),hh=$('#idag-h'),not=$('#idag-not'),not0=not?not.textContent:'';
-  const visa=i=>{if(i>=L.length||i<0)varv++;akt=(i+L.length)%L.length;const r=cur();mitt.href=r.l;if(fr){fr.hidden=!r.fr;if(r.fr){fr.textContent=r.fr+' →';fr.href=r.fl}}hh.textContent=r.rub||(r.fast?'Örebro just nu':'Örebro i dag, hittills');if(not)not.textContent=r.not||not0;$('#idag-enh').textContent=r.enh?' '+r.enh:'';mitt.title=r.s;
+  const lugn=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let akt=Math.floor(Math.random()*L.length),byt=null,hovra=false;
+  const mitt=$('#idag-mitt'),fr=$('#idag-fr'),hh=$('#idag-h'),not=$('#idag-not'),am=$('#idag-amne'),ca=$('#idag-ca');
+  $('#idag-prickar').innerHTML=L.map((r,i)=>`<button type="button" class="idag-prick" data-i="${i}" aria-label="Visa ${esc(r.amne.toLowerCase())}"></button>`).join('');
+  const visa=i=>{akt=(i+L.length)%L.length;const r=L[akt];mitt.href=r.l;mitt.title=r.s;
+    if(am)am.textContent=r.amne;if(ca)ca.hidden=!r.ca;
+    if(fr){fr.hidden=!r.fr;if(r.fr){fr.textContent=r.fr+' →';fr.href=r.fl}}
+    hh.textContent=r.fast?'Örebro just nu':'Örebro i dag, hittills';if(not)not.textContent=r.not;
     box.querySelectorAll('.idag-prick').forEach((b,j)=>b.setAttribute('aria-pressed',j===akt));tal();
     if(!lugn)[mitt,fr].forEach(e=>{if(!e)return;e.classList.remove('idag-in');void e.offsetWidth;e.classList.add('idag-in')})};
-  const tal=()=>{const n=idagNu(),r=cur(),t=idagTal(r,r.v(n));const e=$('#idag-v');e.textContent=t;$('#idag-t').textContent=idagText(r,r.v(n));mitt.classList.toggle('lang',t.length>9);mitt.classList.toggle('xlang',t.length>11)};
+  const tal=()=>{const n=idagNu(),r=L[akt],x=r.v(n),[t,e]=idagVisa(r,x);$('#idag-v').textContent=t;$('#idag-enh').textContent=e?' '+e:'';$('#idag-t').textContent=idagText(r,x);
+    mitt.classList.toggle('lang',(t+e).length>12);mitt.classList.toggle('xlang',(t+e).length>16)};
   const rita=()=>{const n=idagNu();tal();
     $('#idag-bage').style.strokeDasharray=`${(n.t/86400*1000).toFixed(1)} 1000`;
     if(!lugn)$('#idag-sek').style.transform=`rotate(${n.t*6}deg)`;   // n.t ökar hela dygnet, så visaren aldrig snurrar baklänges vid hel minut
-    $('#idag-l').innerHTML=L.flatMap(r=>r.b?[r,{...r,...r.b}]:[r]).map(r=>`<li><a href="${r.l}">${idagTal(r,r.v(n))}${r.enh?' '+r.enh:''} ${esc(idagText(r,r.v(n)))}</a> (${esc(r.s)})</li>`).join('');
-    };
+    $('#idag-l').innerHTML=L.map(r=>`<li><a href="${r.l}">${esc(r.amne)}: ${esc(idagHel(r,r.v(n)))} ${esc(idagText(r,r.v(n)))}</a> (${esc(r.s)})</li>`).join('')};
   let tick=null;const kor=()=>{clearInterval(tick);clearInterval(byt);tick=byt=null;if(idagPaus||document.hidden)return;
-    tick=setInterval(rita,lugn?10000:1000);if(!lugn)byt=setInterval(()=>{if(!hovra)visa(akt+1)},6000)};
+    tick=setInterval(rita,lugn?10000:1000);if(!lugn)byt=setInterval(()=>{if(!hovra)visa(akt+1)},9000)};
   box.hidden=false;const gd=box.parentElement.querySelector('.hero-dial');if(gd)gd.hidden=true;
   visa(akt);rita();kor();
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)rita();kor()});
-  // byt själv: prickarna, piltangenterna och svep i sidled; rotationen vilar medan man pekar på eller fokuserar rutan
+  // byt själv: pilarna, prickarna, piltangenterna och svep i sidled; rotationen vilar medan man pekar på eller fokuserar rutan
+  const fore=$('#idag-fore'),nasta=$('#idag-nasta');
+  if(fore)fore.addEventListener('click',()=>{visa(akt-1);kor()});if(nasta)nasta.addEventListener('click',()=>{visa(akt+1);kor()});
   $('#idag-prickar').addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(!b)return;visa(+b.dataset.i);kor()});
   $('#idag-prickar').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();visa(akt+(e.key==='ArrowRight'?1:-1));box.querySelectorAll('.idag-prick')[akt].focus();kor()});
   box.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hovra=true});box.addEventListener('pointerleave',()=>{hovra=false});
@@ -3636,9 +3641,9 @@ function idagStart(I){const box=$('#idag');if(!box||!I)return;
   let sx=null,sy=null;const k=$('#idag-kompass');
   k.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
   k.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;sx=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.5){visa(akt+(dx<0?1:-1));kor()}},{passive:true});
-  const pk=$('#idag-paus');pk.addEventListener('click',()=>{idagPaus=!idagPaus;pk.setAttribute('aria-pressed',idagPaus);pk.classList.toggle('stoppad',idagPaus);pk.setAttribute('aria-label',idagPaus?'Starta räknarna':'Pausa räknarna');if(!idagPaus)rita();kor()});
-  $('#idag-dela').addEventListener('click',()=>{const n=idagNu(),r=cur(),kl=`${String(n.h).padStart(2,'0')}.${String(n.m).padStart(2,'0')}`;
-    delaOppna({etikett:r.rub?`${r.rub.replace(', hittills','')}, ${kl}`:r.fast?'Örebro just nu':`Örebro i dag, kl. ${kl}`,varde:`${idagTal(r,r.v(n))}${r.enh?' '+r.enh:''}`,text:`${idagText(r,r.v(n))}${r.fast||r.rub?'':' hittills i dag'} (${r.s}).`,kalla:'',lank:''})})}
+  const pk=$('#idag-paus'),pt=$('#idag-paus-t');pk.addEventListener('click',()=>{idagPaus=!idagPaus;pk.classList.toggle('stoppad',idagPaus);if(pt)pt.textContent=idagPaus?'Starta':'Pausa';if(!idagPaus)rita();kor()});
+  $('#idag-dela').addEventListener('click',()=>{const n=idagNu(),r=L[akt],kl=`${String(n.h).padStart(2,'0')}.${String(n.m).padStart(2,'0')}`;
+    delaOppna({etikett:r.fast?`${r.amne}, just nu`:`${r.amne}, i dag kl. ${kl}`,varde:idagHel(r,r.v(n)),text:`${idagText(r,r.v(n))}${r.fast?'':' hittills i dag'}. ${r.not}`,kalla:'',lank:''})})}
 /* Förstasidans frågerad togs bort 22 okt 2026: frågorna står nu under kompassen (IDAG_FR) */
 // Nytt sedan förra veckan (19 okt 2026, ersätter Veckans Örebro): korten byggs varje måndag (start.json); döljs om de är äldre än tio dagar.
 // På datorn finns också en rad i toppen som pekar hit.
