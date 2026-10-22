@@ -2034,3 +2034,6 @@ html.kz-las header.site{visibility:hidden}
 
 /* Rubriken på datorn (22 okt 2026): kompassen blev högre med frågan, så texten centrerad mot den hamnade för långt ner. Texten börjar nu uppe, i höjd med kompassen. */
 @media (min-width:821px){.hero-grid{align-items:start}.hero-text{padding-top:28px}}
+/* Riktigt långa tal i kompassen (22 okt 2026), till exempel grundskolans kostnad i år */
+.idag-mitt.xlang .idag-v{font-size:1.4rem}
+@media (max-width:820px){.idag-mitt.xlang .idag-v{font-size:1.25rem}}
