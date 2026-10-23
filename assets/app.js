@@ -3490,6 +3490,48 @@ function initSkyddsrum(){omStad();const K=SR.kommun;
   else{srLista();srTabell();srKarta()}}
 // närmaste skyddsrum till en punkt (Mitt Örebro)
 function srNarmast(x,y){if(!SR)return null;let b=null;for(const s of SR.skyddsrum){const a=Math.hypot(s.x-x,s.y-y)*10;if(!b||a<b.a)b={s,a}}return b}
+/* ===== Örebro slott genom tiden (23 okt 2026): sex nedslag, en klickbar plan från 1785 och fria bilder ===== */
+let SL=null,slAkt=0;
+const slKredit=b=>`${b.upphov?esc(b.upphov)+'. ':''}${esc(b.licens)}. <a href="${esc(b.post)}" rel="noopener" target="_blank">Originalet<span class="sr-only"> (öppnas i ny flik)</span> ↗</a>`;
+function slFig(b,stor){return `<figure class="sl-fig${stor?' sl-stor':''}"><button type="button" class="sl-bildknapp" data-sl-bild="${esc(b.id)}" aria-label="Visa större: ${esc(b.titel)}">
+  <img src="${esc(stor?b.fil:b.liten)}" alt="${esc(b.titel)}" width="${b.w}" height="${b.h}" loading="lazy" decoding="async"></button>
+  <figcaption><b>${esc(b.ar)}.</b> ${esc(b.titel)} <span class="sl-kredit">${slKredit(b)}</span></figcaption></figure>`}
+function slPlan(n){const pb=n.planbild,V={1:'Bottenvåningen',2:'Andra våningen'},seen=new Set(),lista={1:[],2:[]};
+  n.rum.forEach(r=>{const k=r.v+r.b;if(seen.has(k))return;seen.add(k);lista[r.v].push(r)});[1,2].forEach(v=>lista[v].sort((p,q)=>p.b.localeCompare(q.b,'sv')));
+  const knapp=r=>`<button type="button" class="sl-rum" data-rum="${r.v}${esc(r.b)}" aria-pressed="false"><b>${esc(r.b)}</b> ${esc(r.namn)}</button>`;
+  return `<div class="sl-plan panel" data-genvag="Planen 1785"><div class="panel-head"><h3 class="fo-h2">Rummen 1785</h3><span class="small">Tryck på en bokstav</span></div><p class="small sl-dra">Dra planen åt sidan för att se båda våningarna.</p>
+  <div class="sl-plan-rull"><div class="sl-plan-bild"><img src="${esc(pb.fil)}" alt="Planritningar över andra våningen (till vänster) och bottenvåningen (till höger) av Örebro slott 1785" width="${pb.w}" height="${pb.h}">
+  ${n.rum.map(r=>`<button type="button" class="sl-pkt" style="left:${r.x}%;top:${r.y}%" data-rum="${r.v}${esc(r.b)}" aria-label="${V[r.v]}, ${esc(r.b)}: ${esc(r.namn)}">${esc(r.b)}</button>`).join('')}</div></div>
+  <p class="sl-valt" id="sl-valt" aria-live="polite">Välj ett rum på planen eller i listan.</p>
+  <div class="sl-rumlistor">${[2,1].map(v=>`<div><h4>${V[v]}</h4><div class="sl-rumlista">${lista[v].map(knapp).join('')}</div></div>`).join('')}</div>
+  <p class="small sl-kredit">${esc(pb.titel)} ${slKredit(pb)}</p></div>`}
+function slVisa(i,fokus){slAkt=(i+SL.nedslag.length)%SL.nedslag.length;const n=SL.nedslag[slAkt],box=$('#sl-nedslag');
+  document.querySelectorAll('.sl-t').forEach((b,j)=>b.setAttribute('aria-pressed',j===slAkt));
+  const [forst,...rest]=n.bilder;
+  box.innerHTML=`<article class="sl-n" id="n-${esc(n.id)}"><div class="sl-n-grid"><div class="sl-n-text"><p class="sl-ar">${esc(n.ar)}</p><h2 class="sl-h">${esc(n.rubrik)}</h2>
+    ${n.text.map(t=>`<p>${esc(t)}</p>`).join('')}
+    <p class="small sl-kallor">Källor: ${n.kallor.map(k=>`<a href="${esc(SL.kalllankar[k])}" rel="noopener" target="_blank">${esc(k)}</a>`).join(' · ')}</p>
+    <div class="sl-nav"><button type="button" class="knapp-l" data-sl-steg="-1"${slAkt?'':' disabled'}>← ${slAkt?esc(SL.nedslag[slAkt-1].ar):''}</button><button type="button" class="knapp-l" data-sl-steg="1"${slAkt<SL.nedslag.length-1?'':' disabled'}>${slAkt<SL.nedslag.length-1?esc(SL.nedslag[slAkt+1].ar):''} →</button></div></div>
+    ${slFig(forst,true)}</div>
+    ${n.plan?slPlan(n):''}
+    ${rest.length?`<div class="sl-galleri">${rest.map(b=>slFig(b,false)).join('')}</div>`:''}</article>`;
+  if(history.replaceState)history.replaceState(null,'','#'+n.id);
+  if(fokus){const h=box.querySelector('.sl-h');h.setAttribute('tabindex','-1');h.focus({preventScroll:true});$('#sl-tid').scrollIntoView({block:'start',behavior:'smooth'})}}
+function initSlottet(){const tid=$('#sl-tid');
+  tid.innerHTML=SL.nedslag.map((n,i)=>`<button type="button" class="sl-t" data-i="${i}" aria-pressed="false"><b>${esc(n.ar)}</b><span>${esc(n.rubrik)}</span></button>`).join('');
+  const h=decodeURIComponent(location.hash.slice(1)),k=SL.nedslag.findIndex(n=>n.id===h);slVisa(k<0?0:k);
+  tid.addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(b)slVisa(+b.dataset.i,true)});
+  tid.addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();slVisa(slAkt+(e.key==='ArrowRight'?1:-1));tid.querySelectorAll('.sl-t')[slAkt].focus()});
+  const dlg=$('#sl-dialog'),alla=()=>SL.nedslag.flatMap(n=>n.bilder);
+  $('#sl-nedslag').addEventListener('click',e=>{
+    const st=e.target.closest('[data-sl-steg]');if(st){slVisa(slAkt+ +st.dataset.slSteg,true);return}
+    const r=e.target.closest('[data-rum]');if(r){const id=r.dataset.rum,n=SL.nedslag[slAkt],x=n.rum.find(q=>q.v+q.b===id);
+      document.querySelectorAll('[data-rum]').forEach(b=>{const p=b.dataset.rum===id;b.classList.toggle('vald',p);if(b.classList.contains('sl-rum'))b.setAttribute('aria-pressed',p)});
+      $('#sl-valt').innerHTML=`<b>${esc(x.b)}</b> · ${esc(x.namn)} <span class="small">(${x.v===1?'bottenvåningen':'andra våningen'})</span>`;return}
+    const bb=e.target.closest('[data-sl-bild]');if(bb&&dlg&&dlg.showModal){const b=alla().find(q=>q.id===bb.dataset.slBild);
+      $('#sl-dialog-img').src=b.fil;$('#sl-dialog-img').alt=b.titel;$('#sl-dialog-text').innerHTML=`<b>${esc(b.ar)}.</b> ${esc(b.titel)} <span class="sl-kredit">${slKredit(b)}</span>`;dlg.showModal()}});
+  if(dlg)dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+  addEventListener('hashchange',()=>{const i=SL.nedslag.findIndex(n=>n.id===decodeURIComponent(location.hash.slice(1)));if(i>=0&&i!==slAkt)slVisa(i)})}
 /* ===== Stöd och gemenskap (22 okt 2026): utvalda verksamheter, uppgifter från organisationernas egna sidor.
    Tre val: Hitta stöd, Hitta gemenskap, Hjälpa till. Listan först, kartan bara för platser man kan gå till direkt.
    Inget sparas, inte ens i webbläsaren (ingen Spara, inget i Mitt Örebro). ===== */
@@ -3758,6 +3800,9 @@ let hashRorts=false;['wheel','touchmove','keydown','mousedown'].forEach(t=>addEv
       const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}
       addEventListener('hashchange',()=>{const k=hashKod();if(OM.omraden.some(o=>o.kod===k)){omSel=k;renderOm()}});
     }catch(e){console.error(e);felText('#om-lead','Kunde inte läsa in områdesdatan.')}
+    break;
+  case 'slottet':
+    try{SL=await load('slottet');initSlottet()}catch(e){console.error(e);felText('#sl-nedslag','Kunde inte läsa in slottets historia. Ladda om sidan.')}
     break;
   case 'stod':
     try{[OM,ST]=await Promise.all([load('omraden'),load('stod')]);initStod()}catch(e){console.error(e);felText('#st-lista','Kunde inte läsa in verksamheterna. Ladda om sidan.')}
