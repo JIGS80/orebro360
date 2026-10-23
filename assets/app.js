@@ -3650,7 +3650,9 @@ function idagStart(I){const box=$('#idag');if(!box||!I)return;
 // Nytt sedan förra veckan (19 okt 2026, ersätter Veckans Örebro): korten byggs varje måndag (start.json); döljs om de är äldre än tio dagar.
 // På datorn finns också en rad i toppen som pekar hit.
 function veckanVisa(V){const box=$('#veckan');if(!box)return;const [y,m,d]=stockholmIdag(),i=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-  if(!V||!V.tips||V.tips.length<2||i>V.giltig){box.hidden=true;return}
+  // pilen längst ner i heron (23 okt 2026) pekar på Nytt sedan förra veckan, eller på I vardagen när den rutan är dold
+  const hm=$('#hero-mer');
+  if(!V||!V.tips||V.tips.length<2||i>V.giltig){box.hidden=true;if(hm){hm.href='#vardag-rubrik';hm.firstChild.textContent='I vardagen '}return}
   $('#veckan-v').textContent=V.datum?`uppdaterat ${plDatumText(V.datum).replace(/ \d{4}$/,'')}`:`vecka ${V.vecka}`;
   // raden Nytt sedan förra veckan överst på startsidan togs bort 19 okt 2026 (korten längre ner finns kvar)
   $('#veckan-l').innerHTML=V.tips.map(t=>`<a class="veckan-k veckan-${esc(t.typ)}" href="${esc(t.lank)}"><span class="veckan-typ">${esc(t.rubrik)}</span><b>${esc(t.titel)}</b><span class="veckan-t">${esc(t.text)}</span></a>`).join('');
