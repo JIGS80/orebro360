@@ -2054,3 +2054,26 @@ html.kz-las header.site{visibility:hidden}
 @media (max-width:600px){.idag-prick{width:17px}.idag-pil{width:32px;height:32px}.idag-paus{padding:0 6px}}
 /* Luft under kompassen på mobilen (22 okt 2026): frågan, knapparna och förklaringen stod för tätt */
 @media (max-width:820px){.idag{gap:14px}.idag-fr{margin-top:8px}.idag-fot{gap:6px}.idag-not{margin-top:2px;line-height:1.5}}
+
+/* Startsidans hero på datorn (23 okt 2026): genvägar under sökrutan, en svag karta över Örebros områden bakom kompassen och större tal i ringen */
+.hero-gv{display:none}
+@media (min-width:821px){
+  .hero{overflow-x:clip}
+  .hero-gv{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .hero-gv a{display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--card,var(--bg));color:var(--ink);font-weight:600;font-size:.88rem;text-decoration:none;transition:border-color .15s,background .15s}
+  .hero-gv a:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .hero-gv a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .idag-kompass>svg.kompass,.idag-mitt{position:relative;z-index:1}
+  .idag-mitt{position:absolute}
+  .hero-karta{position:absolute;inset:0;width:100%;height:100%;color:var(--accent);opacity:.32;pointer-events:none;z-index:0;-webkit-mask-image:radial-gradient(circle closest-side,transparent 30%,rgba(0,0,0,.5) 42%,#000 58%,#000 70%,transparent 74%);mask-image:radial-gradient(circle closest-side,transparent 30%,rgba(0,0,0,.5) 42%,#000 58%,#000 70%,transparent 74%)}
+  .idag-v{font-size:2.8rem}
+  .idag-mitt.lang .idag-v{font-size:2.2rem}
+  .idag-mitt.xlang .idag-v{font-size:1.8rem}
+  .idag-amne{font-size:.76rem}
+  .idag-t{font-size:1.06rem;max-width:15em}
+  .idag{width:min(100%,470px)}
+  .idag-kompass{width:min(100%,440px)}
+  .idag-mitt{inset:23%}
+}
+@media (max-width:820px){.hero-karta{display:none}}
+@media (min-width:821px){.hero-karta path{vector-effect:non-scaling-stroke}}
